@@ -1,14 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import SliderBg from "../public/mountain-village-iran-wallpaper.jpg"
-import styles from "../styles/Slider.module.css"
+import SliderStyles from "../styles/Slider.module.css"
 import SelectSlider from "./SelectSlider";
 import Chip from "./Chip";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const Slider = () => {
   return (
-    <div className={styles.sliderWrapper}>
+    <div className={SliderStyles.sliderWrapper}>
       <Image src={SliderBg} fill alt="slider-1" />
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-2/5 min-h-min grid grid-flow-row text-center gap-5">
