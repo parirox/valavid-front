@@ -1,9 +1,18 @@
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/20/solid";
 import Head from "next/head";
 import Image from "next/image";
-import Navbar from "../components/Navbar";
-import Select from "../components/Select";
-import Slider from "../components/Slider";
+import Link from "next/link";
+import InfoItems from "@/components/home/InfoItems";
+import Navbar from "@/components/Navbar";
+import Select from "@/components/Select";
+import Slider from "@/components/Slider";
+import Collections from "@/components/home/Collections";
+import MostPopular from "@/components/home/MostPopular";
+import Blog from "@/components/home/Blog";
+import SubscribeBanner from "@/components/home/SubscribeBanner";
+import TopSellers from "@/components/home/TopSellers";
+import BecomeASeller from "@/components/home/BecomeASeller";
+import Footer from "Layouts/main/Footer";
 export default function Home() {
   return (
     <div className="relative">
@@ -35,6 +44,33 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <main className="flex flex-col">
+        <section className="basis-full w-full">
+            <InfoItems></InfoItems>
+        </section>
+        <section className="basis-full w-full">
+          <Collections></Collections>
+        </section>
+        <section className="basis-full w-full">
+          <MostPopular></MostPopular>
+        </section>
+        <section className="basis-full w-full">
+          <Blog></Blog>
+        </section>
+        <section className="basis-full w-full">
+          <SubscribeBanner></SubscribeBanner>
+        </section>
+        <section className="basis-full w-full">
+          <TopSellers></TopSellers>
+        </section>
+        <section className="basis-full w-full">
+          <BecomeASeller></BecomeASeller>
+        </section>
+        <section className="basis-full w-full">
+          <Footer></Footer>
+        </section>
+      </main>
     </div>
   );
 }

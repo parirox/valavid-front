@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/20/solid";
 import React, { Fragment, useState } from "react";
 
-const people = [
+export const people = [
   {
     id: 1,
     name: "ویدئو",
