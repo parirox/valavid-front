@@ -1,10 +1,9 @@
-import React from "react";
-import Image from "next/image";
-import SliderBg from "../public/mountain-village-iran-wallpaper.jpg"
-import SliderStyles from "../styles/Slider.module.css"
-import SelectSlider from "./SelectSlider";
-import Chip from "./Chip";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
+import SliderBg from "../public/mountain-village-iran-wallpaper.jpg";
+import SliderStyles from "../styles/Slider.module.css";
+import Chip from "./Chip";
+import SelectSlider from "./SelectSlider";
 
 const Slider = () => {
   return (

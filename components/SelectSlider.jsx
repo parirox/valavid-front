@@ -1,14 +1,11 @@
 import { Listbox, Transition } from "@headlessui/react";
 import {
   CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-  DocumentArrowDownIcon,
-  MagnifyingGlassIcon,
+  ChevronDownIcon, MagnifyingGlassIcon,
   PhotoIcon,
-  VideoCameraIcon,
+  VideoCameraIcon
 } from "@heroicons/react/20/solid";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 
 const people = [
   {
