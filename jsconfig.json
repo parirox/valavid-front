@@ -1,10 +1,10 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/components/*" : ["components/*"],
-            "@/layouts/*" : ["layouts/*"],
-            "@/icons/*" : ["public/icons/*"]
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/layouts/*": ["layouts/*"],
+      "@/public/*": ["public/*"]
     }
+  }
 }

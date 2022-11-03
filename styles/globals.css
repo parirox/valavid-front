@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
     font-family: 'IRANSans';
-    src: url('../public/IRANSans.ttf');
+    src: url('../public/fonts/IRANSansWeb.ttf');
     font-weight: 400;
     font-style: normal;
 }
