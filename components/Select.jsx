@@ -1,35 +1,24 @@
 import { Listbox, Transition } from "@headlessui/react";
-import {
-  CheckIcon,
-  ChevronDownIcon
-} from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
-import {
-  AiOutlineFileImage,
-  AiOutlineSearch, AiOutlineVideoCamera
-} from "react-icons/ai";
+import { AiOutlineFileImage } from "react-icons/ai";
+import FillCaretDown from "@/icons/FillCaretDown.svg";
+import FillShoppingCart from "@/icons/FillShoppingCart.svg";
+import FillUser from "@/icons/FillUser.svg";
+import OutlineSearch from "@/icons/OutlineSearch.svg";
+import OutlineVideo from "@/icons/OutlineVideo.svg";
 
 export const people = [
   {
     id: 1,
     name: "ویدئو",
-    icon: (
-      <AiOutlineVideoCamera
-        className="h-5 w-5 text-gray-400"
-        aria-hidden="true"
-      />
-    ),
+    icon: <OutlineVideo className="text-gray-400" aria-hidden="true" />,
     unavailable: false,
   },
   {
     id: 2,
     name: "تصویر",
-    icon: (
-      <AiOutlineFileImage
-        className="h-5 w-5 text-gray-400"
-        aria-hidden="true"
-      />
-    ),
+    icon: <AiOutlineFileImage className="text-gray-400" aria-hidden="true" />,
     unavailable: false,
   },
 ];
@@ -50,7 +39,7 @@ export default function Select() {
                 <span className="block truncate text-white">
                   {selected.name}
                 </span>
-                <ChevronDownIcon className="h-6" />
+                <FillCaretDown />
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -107,7 +96,7 @@ export default function Select() {
           />
         </div>
         <button className="basis-1/12 text-white p-4">
-          <AiOutlineSearch className="h-full" />
+          <OutlineSearch />
         </button>
       </div>
     </div>

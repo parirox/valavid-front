@@ -1,8 +1,7 @@
 import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
-import Slider from "@/components/Slider";
-import { ShoppingCartIcon, UserIcon } from "@heroicons/react/20/solid";
+import { FaUserAlt,FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
   return (
@@ -22,17 +21,16 @@ const Header = () => {
                 className={"h-full"}
                 type="primary"
                 link={"/auth"}
-                icon={<UserIcon className="h-7" />}
-              >
+                icon={<FaUserAlt className="h-7" />}>
                 عضویت / ورود
               </Button>
             </div>
             <div className="basis-1/12">
               <button className="rounded-full bg-tertiary h-full w-[46px]">
-                <ShoppingCartIcon className="text-white p-5" />
+                <FaShoppingCart className="text-white p-5" />
               </button>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
     </header>
