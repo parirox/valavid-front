@@ -3,6 +3,7 @@ import Image from "next/image";
 import SliderBg from "../public/mountain-village-iran-wallpaper.jpg";
 import Chip from "./Chip";
 import SelectSlider from "./SelectSlider";
+import OutlineSearch from "@/public/icons/OutlineSearch.svg";
 
 const Slider = () => {
   return (
@@ -16,11 +17,11 @@ const Slider = () => {
             <SelectSlider/>
           </div>
           <div className="flex justify-center">
-            <Chip content={"مشهد"} icon={<MagnifyingGlassIcon/>}/>
-            <Chip content={"میلاد"} icon={<MagnifyingGlassIcon/>}/>
-            <Chip content={"امام رضا"} icon={<MagnifyingGlassIcon/>}/>
-            <Chip content={"برج میلاد"} icon={<MagnifyingGlassIcon/>}/>
-            <Chip content={"شب های قدر"} icon={<MagnifyingGlassIcon/>}/>
+            <Chip content={"مشهد"} icon={<OutlineSearch/>}/>
+            <Chip content={"میلاد"} icon={<OutlineSearch/>}/>
+            <Chip content={"امام رضا"} icon={<OutlineSearch/>}/>
+            <Chip content={"برج میلاد"} icon={<OutlineSearch/>}/>
+            <Chip content={"شب های قدر"} icon={<OutlineSearch/>}/>
           </div>
         </div>
       </div>

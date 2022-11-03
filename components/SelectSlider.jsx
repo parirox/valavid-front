@@ -1,25 +1,22 @@
+import FillCaretDown from "@/public/icons/FillCaretDown.svg";
+import OutlineSearch from "@/public/icons/OutlineSearch.svg";
+import OutlineVideo from "@/public/icons/OutlineVideo.svg";
 import { Listbox, Transition } from "@headlessui/react";
-import {
-  CheckIcon,
-  ChevronDownIcon, MagnifyingGlassIcon,
-  PhotoIcon,
-  VideoCameraIcon
-} from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
+import { AiOutlineFileImage } from "react-icons/ai";
 
-const people = [
+export const people = [
   {
     id: 1,
     name: "ویدئو",
-    icon: (
-      <VideoCameraIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-    ),
+    icon: <OutlineVideo className="text-gray-400" aria-hidden="true" />,
     unavailable: false,
   },
   {
     id: 2,
     name: "تصویر",
-    icon: <PhotoIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />,
+    icon: <AiOutlineFileImage className="text-gray-400" aria-hidden="true" />,
     unavailable: false,
   },
 ];
@@ -32,15 +29,15 @@ export default function SelectSlider() {
       <div className="flex flex-row gap-3 h-full">
         <div className="basis-2/12 py-1 h-full">
           <Listbox value={selected} onChange={setSelected}>
-            <div className="border-l-2 border-gray-600 relative px-2 h-full">
+            <div className="border-l-[1px] border-gray-600 relative px-2 h-full">
               <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                 <span className="pointer-events-none flex items-center pr-2">
                   {selected.icon}
                 </span>
-                <span className="block truncate text-gray-800">
+                <span className="block truncate text-white">
                   {selected.name}
                 </span>
-                <ChevronDownIcon className="h-6" />
+                <FillCaretDown />
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -98,7 +95,7 @@ export default function SelectSlider() {
         </div>
         <div className="basis-1/12 p-4 ">
           <button className=" text-white flex bg-gradient-to-r px-4 py-2 bg-blue-500">
-            <MagnifyingGlassIcon className="h-full" />
+            <OutlineSearch className="h-full" />
             <span>جستجو</span>
           </button>
         </div>

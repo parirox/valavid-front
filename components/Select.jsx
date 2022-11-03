@@ -2,11 +2,9 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
 import { AiOutlineFileImage } from "react-icons/ai";
-import FillCaretDown from "@/icons/FillCaretDown.svg";
-import FillShoppingCart from "@/icons/FillShoppingCart.svg";
-import FillUser from "@/icons/FillUser.svg";
-import OutlineSearch from "@/icons/OutlineSearch.svg";
-import OutlineVideo from "@/icons/OutlineVideo.svg";
+import FillCaretDown from "@/public/icons/FillCaretDown.svg";
+import OutlineSearch from "@/public/icons/OutlineSearch.svg";
+import OutlineVideo from "@/public/icons/OutlineVideo.svg";
 
 export const people = [
   {
