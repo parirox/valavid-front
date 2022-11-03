@@ -1,13 +1,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import SliderBg from "../public/mountain-village-iran-wallpaper.jpg";
-import SliderStyles from "../styles/Slider.module.css";
 import Chip from "./Chip";
 import SelectSlider from "./SelectSlider";
 
 const Slider = () => {
   return (
-    <div className={SliderStyles.sliderWrapper}>
+    <div className={'relative h-[800px] z-0'}>
       <Image src={SliderBg} fill alt="slider-1" />
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-2/5 min-h-min grid grid-flow-row text-center gap-5">
