@@ -10,11 +10,6 @@
     font-style: normal;
 }
 
-:root,
-[data-theme] {
-    color: #fff
-}
-
 .navbarItem {
     color: #CDD2D6;
 }
