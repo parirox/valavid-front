@@ -9,12 +9,12 @@ export const InfoItemData = [
     {
         title: 'تصویر',
         value: 1354,
-        icon: <PicturIcon className="scale-[0.7] video-icon" />
+        icon: <PicturIcon className="scale-[0.7]" />
     },
     {
         title: 'ویدئو',
         value: 1354,
-        icon: <VideoIcon className="scale-[0.7] video-icon" />
+        icon: <VideoIcon className="scale-[0.7]" />
     },
     {
         title: 'صوت',
@@ -30,7 +30,7 @@ export const InfoItemData = [
 
 const InfoItems = () => {
     return (
-        <div className="flex gap-16 max-w-[1120px] w-full m-auto">
+        <div className="flex gap-16 max-w-[1120px] h-[20rem] items-center w-full m-auto">
             <ReverseEffectInfoItem data={InfoItemData[0]} className="basis-1/4"></ReverseEffectInfoItem>
             <OctagonalDivider></OctagonalDivider>
             <ReverseEffectInfoItem data={InfoItemData[1]} className="basis-1/4"></ReverseEffectInfoItem>
