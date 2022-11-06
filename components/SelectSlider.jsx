@@ -2,7 +2,7 @@ import {
   FillCaretDown,
   FillImage,
   OutlineSearch,
-  OutlineVideo
+  OutlineVideo,
 } from "@/components/Icons";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";

@@ -2,10 +2,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
 import {
-  IoVideocamOutline,
-  IoImageOutline,
-  IoCaretDown,
-  IoSearchOutline
+  IoCaretDown, IoImageOutline, IoSearchOutline, IoVideocamOutline
 } from "react-icons/io5";
 
 export const people = [
