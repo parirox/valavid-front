@@ -1,10 +1,11 @@
+import FillCaretDown from "@/components/icons/FillCaretDown";
+import OutlineSearch from "@/components/icons/OutlineSearch";
+import OutlineVideo from "@/components/icons/OutlineVideo";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
 import { AiOutlineFileImage } from "react-icons/ai";
-import FillCaretDown from "@/public/icons/FillCaretDown.svg";
-import OutlineSearch from "@/public/icons/OutlineSearch.svg";
-import OutlineVideo from "@/public/icons/OutlineVideo.svg";
+import PictureIconActive from "./Icons/picture_icon-active";
 
 export const people = [
   {
@@ -37,7 +38,8 @@ export default function Select() {
                 <span className="block truncate text-white">
                   {selected.name}
                 </span>
-                <FillCaretDown />
+                {/* <Image src={FillCaretDown} width={30} height={30} alt="a" /> */}
+                <FillCaretDown color="red" scale={1} />
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -94,7 +96,8 @@ export default function Select() {
           />
         </div>
         <button className="basis-1/12 text-white p-4">
-          <OutlineSearch />
+          {/* <OutlineSearch /> */}
+          <PictureIconActive color="red" changeMode={true}/>
         </button>
       </div>
     </div>
