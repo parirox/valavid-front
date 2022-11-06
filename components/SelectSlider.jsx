@@ -1,6 +1,6 @@
-import FillCaretDown from "@/public/icons/FillCaretDown.svg";
-import OutlineSearch from "@/public/icons/OutlineSearch.svg";
-import OutlineVideo from "@/public/icons/OutlineVideo.svg";
+import FillCaretDown from "@/components/icons/FillCaretDown";
+import OutlineSearch from "@/components/icons/OutlineSearch";
+import OutlineVideo from "@/components/icons/OutlineVideo";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";

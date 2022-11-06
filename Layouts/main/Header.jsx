@@ -2,8 +2,8 @@ import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
 
-import FillShoppingCart from "@/public/icons/FillShoppingCart.svg";
-import FillUser from "@/public/icons/FillUser.svg";
+import FillShoppingCart from "@/components/icons/FillShoppingCart";
+import FillUser from "@/components/icons/FillUser";
 
 const Header = () => {
   return (
