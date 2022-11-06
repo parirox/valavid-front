@@ -1,13 +1,11 @@
-import svgStyles from "@/styles/Svg.module.css";
-const OutlineSearch = ({ scale = 1, color = "#fff" }) => {
+const OutlineSearch = ({ scale = 1, className = "text-white" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={14 * scale}
       height={13.3 * scale}
       viewBox="0 0 14 13.3"
-      color={color}
-      className={svgStyles.svg}
+      className={className}
     >
       <g transform="translate(0 0)">
         <rect

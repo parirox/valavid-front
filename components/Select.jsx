@@ -1,28 +1,29 @@
-import FillCaretDown from "@/components/icons/FillCaretDown";
-import OutlineSearch from "@/components/icons/OutlineSearch";
-import OutlineVideo from "@/components/icons/OutlineVideo";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
-import { AiOutlineFileImage } from "react-icons/ai";
-import PictureIconActive from "./Icons/picture_icon-active";
+import {
+  IoVideocamOutline,
+  IoImageOutline,
+  IoCaretDown,
+  IoSearchOutline
+} from "react-icons/io5";
 
 export const people = [
   {
     id: 1,
     name: "ویدئو",
-    icon: <OutlineVideo className="text-gray-400" aria-hidden="true" />,
+    icon: <IoVideocamOutline className="text-[15px]" />,
     unavailable: false,
   },
   {
     id: 2,
     name: "تصویر",
-    icon: <AiOutlineFileImage className="text-gray-400" aria-hidden="true" />,
+    icon: <IoImageOutline className="text-[15px]" />,
     unavailable: false,
   },
 ];
-
 export default function Select() {
+  const [pictureState, setPictureState] = useState(0);
   const [selected, setSelected] = useState(people[0]);
 
   return (
@@ -38,8 +39,7 @@ export default function Select() {
                 <span className="block truncate text-white">
                   {selected.name}
                 </span>
-                {/* <Image src={FillCaretDown} width={30} height={30} alt="a" /> */}
-                <FillCaretDown color="red" scale={1} />
+                <IoCaretDown />
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -96,8 +96,7 @@ export default function Select() {
           />
         </div>
         <button className="basis-1/12 text-white p-4">
-          {/* <OutlineSearch /> */}
-          <PictureIconActive color="red" changeMode={true}/>
+          <IoSearchOutline className="text-[15px]" />
         </button>
       </div>
     </div>

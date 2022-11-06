@@ -1,13 +1,11 @@
-import svgStyles from "@/styles/Svg.module.css";
-const FillShoppingCart = ({ scale = 1, color = "#fff" }) => {
+const FillShoppingCart = ({ scale = 1, className = "text-white" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={18 * scale}
       height={18 * scale}
       viewBox="0 0 18 18"
-      color={color}
-      className={svgStyles.svg}
+      className={className}
     >
       <path
         fill="currentColor"

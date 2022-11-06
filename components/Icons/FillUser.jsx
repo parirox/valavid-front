@@ -1,13 +1,11 @@
-import svgStyles from "@/styles/Svg.module.css";
-const FillUser = ({ scale = 1, color = "#fff" }) => {
+const FillUser = ({ scale = 1, className = "text-white" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={17 * scale}
       height={17 * scale}
       viewBox="0 0 17 17"
-      color={color}
-      className={svgStyles.svg}
+      className={className}
     >
       <path
         fill="currentColor"

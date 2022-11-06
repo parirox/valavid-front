@@ -1,13 +1,11 @@
-import svgStyles from "@/styles/Svg.module.css";
-const OutlineVideo = ({ scale = 1, color = "#fff" }) => {
+const OutlineVideo = ({ scale = 1, className = "text-white" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={18.25 * scale}
       height={12.1 * scale}
       viewBox="0 0 18.25 12.1"
-      color={color}
-      className={svgStyles.svg}
+      className={className}
     >
       <g transform="translate(-0.75 -6.75)">
         <path
