@@ -12,7 +12,7 @@ const Button = ({
     <button
       className={`btn ${
         type ? "btn-" + type : "btn-primary"
-      } rounded-full ${className}`}
+      } ${className}`}
       onClick={onClickHandler}
     >
       {icon && <span className="ml-2">{icon}</span>}
