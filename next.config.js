@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,  
   images: {
-    domains: ['i.picsum.photos'],
+    domains: ['i.picsum.photos', 'mestergraph.com', 'images.kojaro.com'],
   },
   webpack(config) {
     config.module.rules.push({
