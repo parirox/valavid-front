@@ -26,7 +26,7 @@ module.exports = {
     require("daisyui"),
     plugin(function ({ addBase, theme }) {
       addBase({
-        html: { fontSize: "11px" },
+        html: { fontSize: "12px" },
         h2: { fontSize: "40px" },
         h5: { fontSize: "20px" },
       });
@@ -47,7 +47,6 @@ module.exports = {
           success: "#6CB288",
           warning: "#DAAD58",
           error: "#AB3D30",
-          "--bc": "204 64% 255%",
         },
       },
     ],
