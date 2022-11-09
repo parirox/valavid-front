@@ -1,6 +1,7 @@
 import React from 'react';
 import BlogCard from '@/components/BlogCard';
 import SectionTitleDivider from '../SectionTitleDivider';
+import Button from '@/components/Button';
 export const blogCardData = [
     {
         title: 'اصفهان را بهتر بشناسیم',
@@ -35,7 +36,7 @@ export const blogCardData = [
 ]
 const Blog = () => {
     return (
-        <>
+        <div className="pb-44">
             <SectionTitleDivider title="بلاگ"></SectionTitleDivider>
             <div className="flex gap-11 container">
                 <div className="flex flex-wrap basis-1/3 gap-11">
@@ -50,7 +51,14 @@ const Blog = () => {
                     </div>
                 </div>
             </div>
-        </>
+            <Button
+                className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light"}
+                type="ghost"
+                link={"/auth"}
+              >
+                بیشتر
+              </Button>
+        </div>
     );
 }
 

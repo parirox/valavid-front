@@ -12,7 +12,7 @@ export default function BlogCard({ className, data }) {
           {data.title}
         </div>
         <div className="divider w-32"></div>
-        <div className="text-xl opacity-60">
+        <div className="text-xl font-light opacity-60">
           {data.description}
         </div>
       </div>
