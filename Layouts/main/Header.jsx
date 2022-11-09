@@ -28,7 +28,7 @@ const Header = () => {
             </div>
             <div className="basis-1/12">
               <button className="rounded-full bg-accent h-full w-[46px]">
-                <IoCartSharp className="w-full h-full text-white p-5"/>
+                <IoCartSharp className="w-full h-full text-white p-3"/>
               </button>
             </div>
           </div>
