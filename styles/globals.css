@@ -5,6 +5,17 @@
         @apply text-white;
     }
 }
+@layer components {
+    .btn-primary {
+        @apply text-white hover:bg-[#6059EC];
+    }
+    .btn-accent {
+        @apply text-white hover:bg-[#54626D];
+    }
+    .btn-ghost {
+        @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
+    }
+}
 
 @tailwind components;
 @tailwind utilities;

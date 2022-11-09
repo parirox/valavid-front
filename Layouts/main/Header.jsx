@@ -18,7 +18,7 @@ const Header = () => {
             </div>
             <div className="basis-2/12">
               <Button
-                className={"h-full w-full"}
+                className={"h-full w-full btn-circle"}
                 type="primary"
                 link={"/auth"}
                 icon={<IoPerson />}

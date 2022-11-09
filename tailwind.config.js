@@ -8,6 +8,13 @@ module.exports = {
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1.25rem',
+        sm: '0.75rem'
+      }
+    },
     fontFamily: {
       sans: ["IRANSans", "vazir", "sans-serif"],
     },
