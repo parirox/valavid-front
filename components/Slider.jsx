@@ -1,9 +1,9 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import SliderBg from "../public/mountain-village-iran-wallpaper.jpg";
+import SliderBg from "@/public/mountain-village-iran-wallpaper.jpg";
 import Chip from "./Chip";
 import SelectSlider from "./SelectSlider";
-import OutlineSearch from "@/public/icons/OutlineSearch.svg";
+import OutlineSearch from "@/components/icons/OutlineSearch";
 
 const Slider = () => {
   return (

@@ -10,10 +10,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
         </Head>
-        <body
-          dir="rtl"
-          className="font-sans font-normal leading-relaxed text-white font-base"
-        >
+        <body dir="rtl">
           <Main />
           <NextScript />
         </body>

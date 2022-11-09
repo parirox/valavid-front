@@ -2,9 +2,7 @@ import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
 
-import FillShoppingCart from "@/public/icons/FillShoppingCart.svg";
-import FillUser from "@/public/icons/FillUser.svg";
-
+import { IoCartSharp, IoPerson } from "react-icons/io5";
 const Header = () => {
   return (
     <header className="absolute top-[45px] inset-x-0 z-[1] bg-[#00000044]">
@@ -23,14 +21,14 @@ const Header = () => {
                 className={"h-full"}
                 type="primary"
                 link={"/auth"}
-                icon={<FillUser />}
+                icon={<IoPerson />}
               >
                 عضویت / ورود
               </Button>
             </div>
             <div className="basis-1/12">
-              <button className="rounded-full bg-tertiary h-full w-[46px]">
-                <FillShoppingCart className="text-white p-5" />
+              <button className="rounded-full bg-accent h-full w-[46px]">
+                <IoCartSharp className="w-full h-full text-white p-5"/>
               </button>
             </div>
           </div>

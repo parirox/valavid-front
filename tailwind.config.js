@@ -47,7 +47,7 @@ module.exports = {
           success: "#6CB288",
           warning: "#DAAD58",
           error: "#AB3D30",
-          "--bc":"204 64% 255%"
+          "--bc": "204 64% 255%",
         },
       },
     ],

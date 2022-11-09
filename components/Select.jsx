@@ -1,27 +1,26 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
-import { AiOutlineFileImage } from "react-icons/ai";
-import FillCaretDown from "@/public/icons/FillCaretDown.svg";
-import OutlineSearch from "@/public/icons/OutlineSearch.svg";
-import OutlineVideo from "@/public/icons/OutlineVideo.svg";
+import {
+  IoCaretDown, IoImageOutline, IoSearchOutline, IoVideocamOutline
+} from "react-icons/io5";
 
 export const people = [
   {
     id: 1,
     name: "ویدئو",
-    icon: <OutlineVideo className="text-gray-400" aria-hidden="true" />,
+    icon: <IoVideocamOutline className="text-[15px]" />,
     unavailable: false,
   },
   {
     id: 2,
     name: "تصویر",
-    icon: <AiOutlineFileImage className="text-gray-400" aria-hidden="true" />,
+    icon: <IoImageOutline className="text-[15px]" />,
     unavailable: false,
   },
 ];
-
 export default function Select() {
+  const [pictureState, setPictureState] = useState(0);
   const [selected, setSelected] = useState(people[0]);
 
   return (
@@ -37,7 +36,7 @@ export default function Select() {
                 <span className="block truncate text-white">
                   {selected.name}
                 </span>
-                <FillCaretDown />
+                <IoCaretDown />
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -94,7 +93,7 @@ export default function Select() {
           />
         </div>
         <button className="basis-1/12 text-white p-4">
-          <OutlineSearch />
+          <IoSearchOutline className="text-[15px]" />
         </button>
       </div>
     </div>
