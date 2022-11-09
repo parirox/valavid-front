@@ -1,18 +1,50 @@
 @tailwind base;
+
+@layer base {
+    body {
+        @apply text-white;
+    }
+}
+@layer components {
+    .btn-primary {
+        @apply text-white hover:bg-[#6059EC];
+    }
+    .btn-accent {
+        @apply text-white hover:bg-[#54626D];
+    }
+    .btn-ghost {
+        @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
+    }
+}
+
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
     font-family: 'IRANSans';
-    src: url('../public/IRANSans.ttf');
+    src: url('../public/fonts/IRANSansWeb.ttf');
     font-weight: 400;
     font-style: normal;
 }
 
-:root,
-[data-theme] {
-    color: #fff
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+    outline: 0px !important;
+    outline-offset: 0px !important;
+    box-shadow: none !important;
 }
 
 .navbarItem {

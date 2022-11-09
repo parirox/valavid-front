@@ -5,36 +5,35 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1.25rem',
+        sm: '0.75rem'
+      }
+    },
     fontFamily: {
       sans: ["IRANSans", "vazir", "sans-serif"],
     },
     extend: {
-      colors: {
-        // primary: {
-        //   light: "#67e8f9",
-        //   DEFAULT: "#534CDA",
-        //   dark: "#0e7490",
-        // },
-        // secondary: {
-        //   light: "#67e8f9",
-        //   DEFAULT: "#081823",
-        //   dark: "#0e7490",
-        // },
-        // tertiary: {
-        //   light: "#67e8f9",
-        //   DEFAULT: "#303D47",
-        //   dark: "#0e7490",
-        // },
-      },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            color: theme("colors.gray.700"),
+          },
+        },
+      }),
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require("daisyui"),
-    plugin(function ({ addBase }) {
+    plugin(function ({ addBase, theme }) {
       addBase({
-        html: { fontSize: "11px"},
+        html: { fontSize: "12px" },
         h2: { fontSize: "40px" },
         h5: { fontSize: "20px" },
       });
@@ -46,6 +45,7 @@ module.exports = {
       {
         dark: {
           primary: "#534CDA",
+          "primary-focus": "#534CDA",
           secondary: "#081823",
           accent: "#303D47",
           neutral: "#23282F",
@@ -54,8 +54,6 @@ module.exports = {
           success: "#6CB288",
           warning: "#DAAD58",
           error: "#AB3D30",
-          primary: "blue",
-          "primary-focus": "mediumblue",
         },
       },
     ],

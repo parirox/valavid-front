@@ -1,14 +1,10 @@
-import React from 'react';
-
-const styles = {backgroundColor:"#ffffff44"}
-
-const Chip = ({icon,content}) => {
-    return (
-        <div className='rounded-full flex items-center gap-3 px-4 py-2' style={styles}>
-            <span className='w-4'>{icon}</span>
-            <p>{ content}</p>
-        </div>
-    );
-}
+const Chip = ({ icon, className, content }) => {
+  return (
+    <button className={"btn min-h-0 border-none rounded-full flex items-center gap-3 px-4 py-2 "+ className}>
+      {icon}
+      <p>{content}</p>
+    </button>
+  );
+};
 
 export default Chip;

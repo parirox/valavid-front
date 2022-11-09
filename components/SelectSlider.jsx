@@ -1,28 +1,25 @@
 import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/20/solid";
+import { Fragment, useState } from "react";
 import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-  DocumentArrowDownIcon,
-  MagnifyingGlassIcon,
-  PhotoIcon,
-  VideoCameraIcon,
-} from "@heroicons/react/20/solid";
-import React, { Fragment, useState } from "react";
+  IoCaretDown,
+  IoImageOutline,
+  IoSearchOutline,
+  IoVideocamOutline,
+  IoCheckmark
+} from "react-icons/io5";
 
-const people = [
+export const people = [
   {
     id: 1,
     name: "ویدئو",
-    icon: (
-      <VideoCameraIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-    ),
+    icon: <IoVideocamOutline className="text-[#001727] text-2xl" />,
     unavailable: false,
   },
   {
     id: 2,
     name: "تصویر",
-    icon: <PhotoIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />,
+    icon: <IoImageOutline className="text-[#001727] text-2xl" />,
     unavailable: false,
   },
 ];
@@ -33,17 +30,17 @@ export default function SelectSlider() {
   return (
     <div className="rounded-full h-full w-full bg-white text-gray-800">
       <div className="flex flex-row gap-3 h-full">
-        <div className="basis-2/12 py-1 h-full">
+        <div className="basis-2/12 py-3 h-full">
           <Listbox value={selected} onChange={setSelected}>
-            <div className="border-l-2 border-gray-600 relative px-2 h-full">
-              <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                <span className="pointer-events-none flex items-center pr-2">
+            <div className="border-l-[1px] border-[#D6DADC] relative px-2 h-full">
+              <Listbox.Button className="flex gap-2 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <span className="basis-1/4 pointer-events-none flex items-center pr-2">
                   {selected.icon}
                 </span>
-                <span className="block truncate text-gray-800">
+                <span className="basis-2/4 block truncate text-[#001727] text-center">
                   {selected.name}
                 </span>
-                <ChevronDownIcon className="h-6" />
+                <IoCaretDown/>
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -75,10 +72,7 @@ export default function SelectSlider() {
                           </span>
                           {selected ? (
                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                              <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
+                              <IoCheckmark/>
                             </span>
                           ) : null}
                         </>
@@ -92,17 +86,17 @@ export default function SelectSlider() {
         </div>
         <div className="basis-9/12">
           <input
-            className="border-none focus:ring-transparent text-white bg-transparent w-full h-full"
+            className="border-none focus:ring-transparent text-black bg-transparent w-full h-full"
             placeholder="جستجوی عبارت ..."
             type="text"
             name="seach"
             id="search-header"
           />
         </div>
-        <div className="basis-1/12 p-4 ">
-          <button className=" text-white flex bg-gradient-to-r px-4 py-2 bg-blue-500">
-            <MagnifyingGlassIcon className="h-full" />
-            <span>جستجو</span>
+        <div className="basis-1/12 px-4 py-3">
+          <button className=" text-white focus:outline-none focus:scale-[0.97] flex rounded-3xl px-6 py-4 bg-gradient-to-br from-primary to-[#2DC2BD] hover:from-primary hover:to-primary">
+            <IoSearchOutline className="text-[15px]" />
+            <span className="mr-2">جستجو</span>
           </button>
         </div>
       </div>
