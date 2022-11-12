@@ -3,7 +3,7 @@ import { IoCalendarClearOutline } from "react-icons/io5";
 
 export default function BlogCard({ className, data }) {
   return (
-    <div className={`rounded-[3.875rem] relative before:content-[''] before:h-1/2 before:w-full before:absolute before:bottom-0 before:right-0 before:bg-gradient-to-b before:from-[#ffffff00] before:to-secondary before:opacity-70 ${className}`}>
+    <div className={`rounded-[3.875rem] group relative before:content-[''] overflow-hidden before:h-1/2 before:w-full before:absolute before:bottom-0 before:right-0 before:bg-gradient-to-b before:from-[#ffffff00] before:to-secondary before:opacity-70 ${className}`}>
       <div className=" flex gap-1 absolute top-8 left-14">
         <IoCalendarClearOutline /> {data.date}
       </div>
@@ -16,7 +16,7 @@ export default function BlogCard({ className, data }) {
           {data.description}
         </div>
       </div>
-      <Image fill src={data.backgroundImage} className="z-[-1] rounded-[3.875rem]" />
+      <Image fill src={data.backgroundImage} className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem]" />
     </div>
   )
 }
