@@ -10,9 +10,7 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`btn ${
-        type ? "btn-" + type : "btn-primary"
-      } ${className}`}
+      className={`btn ${className}`}
       onClick={onClickHandler}
     >
       {icon && <span className="ml-2">{icon}</span>}
