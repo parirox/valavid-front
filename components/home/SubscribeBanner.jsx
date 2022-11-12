@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import MapOfIran from '@/public/images/mapOfIranInBaner.svg'
 import React from 'react';
 import { MdDone } from 'react-icons/md'
