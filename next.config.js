@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,  
+  swcMinify: true,
   images: {
-    domains: ['i.picsum.photos', 'mestergraph.com', 'images.kojaro.com'],
+    domains: [
+      "i.picsum.photos",
+      "mestergraph.com",
+      "images.kojaro.com",
+      "placeimg.com",
+    ],
   },
   webpack(config) {
     config.module.rules.push({
