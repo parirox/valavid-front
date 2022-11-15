@@ -1,7 +1,8 @@
-import PopularCardCollection from '../PopularCardCollection';
-import PopularCardImage from '../PopularCardImage';
-import PopularCardVideo from '../PopularCardVideo';
-import SectionTitleDivider from '../SectionTitleDivider';
+import Button from '@/components/Button';
+import PopularCardCollection from '@/components/PopularCardCollection';
+import PopularCardImage from '@/components/PopularCardImage';
+import PopularCardVideo from '@/components/PopularCardVideo';
+import SectionTitleDivider from '@/components/SectionTitleDivider';
 
 const data = [
     {
@@ -139,7 +140,7 @@ const MostPopular = () => {
     }
 
     return (
-        <div className='my-24'>
+        <div className='my-40'>
             <SectionTitleDivider title="محبوب ها‍" ></SectionTitleDivider>
             <div className='container grid grid-cols-3 gap-2'>
                 {data.map((item, key) => {
@@ -153,6 +154,13 @@ const MostPopular = () => {
                     }
                 })}
             </div>
+            
+            <Button
+                className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
+                link={"/auth"}
+              >
+                بیشتر
+              </Button>
         </div>
     );
 }

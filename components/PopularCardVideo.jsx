@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import { BsFillDiamondFill } from 'react-icons/bs';
 import { IoCartOutline, IoFolderOpenOutline, IoHeartOutline, IoImagesOutline, IoPlayBackCircleSharp, IoPlayOutline, IoPlaySharp } from 'react-icons/io5';
-import Badge from './Badge';
+import Badge from '@/components/Badge';
 import {FaPlay} from 'react-icons/fa'
 const PopularCardVideo = ({ data }) => {
     const ref = useRef()
@@ -57,7 +57,7 @@ const PopularCardVideo = ({ data }) => {
                                 <FaPlay className='h-full w-full' />
                             </div>
                         </div>
-                        <video ref={ref} autoPlay={false} preload={false} muted loop className="absolute inset-0 h-full w-full transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30 hover:autoPlay">
+                        <video ref={ref} autoPlay={false} muted loop className="absolute inset-0 h-full w-full transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30 hover:autoPlay">
                             <source src={data.media.src} type="video/mp4" />
                         </video>
                     </div>

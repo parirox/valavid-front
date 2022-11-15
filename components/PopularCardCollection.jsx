@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { BsFillDiamondFill } from 'react-icons/bs';
 import { IoFolderSharp } from 'react-icons/io5';
-import Badge from './Badge';
+import Badge from '@/components/Badge';
 
 const PopularCardCollection = ({ data }) => {
     return (

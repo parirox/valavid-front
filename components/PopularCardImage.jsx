@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { BsFillDiamondFill } from 'react-icons/bs';
 import { IoCartOutline, IoFolderOpenOutline, IoHeartOutline, IoImagesOutline } from 'react-icons/io5';
-import Badge from './Badge';
+import Badge from '@/components/Badge';
 
 const PopularCardImage = ({ data }) => {
     return (
