@@ -15,6 +15,11 @@
     .btn-ghost {
         @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
     }
+    /* animations */
+    .transition-400-linear {
+        @apply transition-all duration-[400ms] ease-in-out;
+    }
+    /* badge */
 }
 
 @tailwind components;
