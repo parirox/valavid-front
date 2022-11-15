@@ -1,9 +1,158 @@
-import React from 'react';
+import PopularCardCollection from '../PopularCardCollection';
+import PopularCardImage from '../PopularCardImage';
+import PopularCardVideo from '../PopularCardVideo';
+import SectionTitleDivider from '../SectionTitleDivider';
+
+const data = [
+    {
+        id: 1,
+        type: "video",
+        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
+        author: {
+            name: "حمید باقری",
+            profile_image: "https://placeimg.com/192/192/people",
+        },
+        price: "2,500 T",
+        stats: {
+            liked: false,
+            cart_added: false,
+            added_in_collection: false,
+        },
+        media: {
+            alt: "natural",
+            src: "/videos/sample1.mp4"
+        }
+    },
+    {
+        id: 2,
+        type: "image",
+        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
+        author: {
+            name: "حمید باقری",
+            profile_image: "https://placeimg.com/192/192/people",
+        },
+        price: "2,500 T",
+        stats: {
+            liked: false,
+            cart_added: false,
+            added_in_collection: false,
+        },
+        media: {
+            alt: "natural",
+            src: "https://placeimg.com/640/480/nature"
+        }
+    }, 
+    {
+        id: 3,
+        type: "collection",
+        label: "مقبره بزرگ زیبای شب در شهر اصفهان",
+        media: [
+            {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/466/800/600.jpg?hmac=WV-cGmI8qrm_odvJ_4-Ytcl-c8E4WeZj9CPqxOrgpYA"
+            },
+            {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/204/800/600.jpg?hmac=mI8BSeKI2n7dCfBgsWHk8yY0FUyS--DCsSrTP2xBX84"
+            }, {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/492/800/600.jpg?hmac=aolz_CKCnAf54UuNY7lvPbI6wMzb2t81dvRkt2WJdJE"
+            }, {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/648/800/600.jpg?hmac=m76icL0QjVYJF9TNKGTd67CQ4-zDLe6fVmrSygdfBfo"
+            }
+        ]
+    }, 
+    {
+        id: 6,
+        type: "image",
+        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
+        author: {
+            name: "حمید باقری",
+            profile_image: "https://placeimg.com/192/192/people",
+        },
+        price: "2,500 T",
+        stats: {
+            liked: false,
+            cart_added: false,
+            added_in_collection: false,
+        },
+        media: {
+            alt: "natural",
+            src: "https://placeimg.com/640/480/nature"
+        }
+    },
+    {
+        id: 5,
+        type: "collection",
+        label: "مقبره بزرگ زیبای شب در شهر اصفهان",
+        media: [
+            {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/466/800/600.jpg?hmac=WV-cGmI8qrm_odvJ_4-Ytcl-c8E4WeZj9CPqxOrgpYA"
+            },
+            {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/204/800/600.jpg?hmac=mI8BSeKI2n7dCfBgsWHk8yY0FUyS--DCsSrTP2xBX84"
+            }, {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/492/800/600.jpg?hmac=aolz_CKCnAf54UuNY7lvPbI6wMzb2t81dvRkt2WJdJE"
+            }, {
+                alt: "natural",
+                src: "https://i.picsum.photos/id/648/800/600.jpg?hmac=m76icL0QjVYJF9TNKGTd67CQ4-zDLe6fVmrSygdfBfo"
+            }
+        ]
+    },
+    {
+        id: 4,
+        type: "video",
+        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
+        author: {
+            name: "حمید باقری",
+            profile_image: "https://placeimg.com/192/192/people",
+        },
+        price: "2,500 T",
+        stats: {
+            liked: false,
+            cart_added: false,
+            added_in_collection: false,
+        }, 
+        media: {
+            alt: "natural",
+            src: "/videos/sample2.mp4"
+        }
+    }
+]
 
 const MostPopular = () => {
+
+    const likeItem = (v) => {
+        // to do
+    }
+
+    const addToCart = (v) => {
+        // to do
+    }
+
+    const addToCollection = (v) => {
+        // to do
+    }
+
     return (
-        <div>
-            
+        <div className='my-24'>
+            <SectionTitleDivider title="محبوب ها‍" ></SectionTitleDivider>
+            <div className='container grid grid-cols-3 gap-2'>
+                {data.map((item, key) => {
+                    switch (item.type) {
+                        case 'image':
+                            return <PopularCardImage key={key} data={item} />
+                        case 'video':
+                            return <PopularCardVideo key={key} data={item} />
+                        case 'collection':
+                            return <PopularCardCollection key={key} data={item} />
+                    }
+                })}
+            </div>
         </div>
     );
 }
