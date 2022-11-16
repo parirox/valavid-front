@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BsFillDiamondFill } from 'react-icons/bs';
 import Button from '../Button';
 import OctagonalDivider from '../OctagonalDivider';
@@ -46,7 +46,7 @@ const TopSellers = () => {
             <div className="flex items-center gap-x-2 h-[27rem]">
                 {
                     data.map((item, i) => (
-                        <>
+                        <Fragment key={i}>
                             <div className="flex-1 group/topSellerCard h-full rounded-2xl  bg-gradient-to-t hover:from-[#173358] hover:to-[#0D213B44] p-7 cursor-pointer">
                                 <div className="flex flex-col w-full items-center justify-end h-full">
                                     <div className="flex-grow">
@@ -70,7 +70,7 @@ const TopSellers = () => {
                                 </div>
                             </div>
                             {i + 1 !== data.length && <BsFillDiamondFill className="flex-none text-white"></BsFillDiamondFill>}
-                        </>
+                        </Fragment>
                     ))
                 }
             </div>
