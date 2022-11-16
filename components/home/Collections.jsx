@@ -8,17 +8,17 @@ const data = [
     media: [
       {
         alt: "natural",
-        src: "https://i.picsum.photos/id/229/800/600.jpg?hmac=XBz4BdHCdXDT8GerLNU_gH41Hv6gKY0beR0wprsUesQ"
+        src: "https://placeimg.com/640/480/nature/1"
       },
       {
         alt: "natural",
-        src: "https://i.picsum.photos/id/301/400/300.jpg?hmac=L0K7Re58MztPUju15VCl3Jowll_8W-rYtzAP5mKXrjQ"
+        src: "https://placeimg.com/640/480/nature/2"
       }, {
         alt: "natural",
-        src: "https://i.picsum.photos/id/92/400/300.jpg?hmac=GjBNpDKuVBGQOlGDMvnHFgLH26rrGnr0xaNvb8z-Izw"
+        src: "https://placeimg.com/640/480/nature/3"
       }, {
         alt: "natural",
-        src: "https://placeimg.com/640/480/nature.jpg"
+        src: "https://placeimg.com/640/480/nature/4"
       }
     ]
   },
@@ -27,17 +27,17 @@ const data = [
     media: [
       {
         alt: "natural",
-        src: "https://i.picsum.photos/id/229/800/600.jpg?hmac=XBz4BdHCdXDT8GerLNU_gH41Hv6gKY0beR0wprsUesQ"
+        src: "https://placeimg.com/640/480/nature/5"
       },
       {
         alt: "natural",
-        src: "https://i.picsum.photos/id/301/400/300.jpg?hmac=L0K7Re58MztPUju15VCl3Jowll_8W-rYtzAP5mKXrjQ"
+        src: "https://placeimg.com/640/480/nature/6"
       }, {
         alt: "natural",
-        src: "https://i.picsum.photos/id/92/400/300.jpg?hmac=GjBNpDKuVBGQOlGDMvnHFgLH26rrGnr0xaNvb8z-Izw"
+        src: "https://placeimg.com/640/480/nature/7"
       }, {
         alt: "natural",
-        src: "https://placeimg.com/640/480/nature.jpg"
+        src: "https://placeimg.com/640/480/nature/8"
       }
     ]
   },
@@ -46,17 +46,17 @@ const data = [
     media: [
       {
         alt: "natural",
-        src: "https://i.picsum.photos/id/229/800/600.jpg?hmac=XBz4BdHCdXDT8GerLNU_gH41Hv6gKY0beR0wprsUesQ"
+        src: "https://placeimg.com/640/480/nature/9"
       },
-      {
+      { 
         alt: "natural",
-        src: "https://i.picsum.photos/id/301/400/300.jpg?hmac=L0K7Re58MztPUju15VCl3Jowll_8W-rYtzAP5mKXrjQ"
+        src: "https://placeimg.com/640/480/nature/10"
       }, {
         alt: "natural",
-        src: "https://i.picsum.photos/id/92/400/300.jpg?hmac=GjBNpDKuVBGQOlGDMvnHFgLH26rrGnr0xaNvb8z-Izw"
+        src: "https://placeimg.com/640/480/nature/11"
       }, {
         alt: "natural",
-        src: "https://placeimg.com/640/480/nature.jpg"
+        src: "https://placeimg.com/640/480/nature/12"
       }
     ]
   },
@@ -66,7 +66,7 @@ const data = [
 const Collections = () => {
 
   return (
-    <div className="container mx-auto px-56">
+    <div className="container">
       <div className="grid grid-cols-3 gap-x-14">
         {data.map((collection, k) => (
           <div className="min-h-6" key={k}>

@@ -10,6 +10,13 @@ module.exports = {
   theme: {
     container: {
       center: true,
+      screens: {
+        sm: '540px',
+        md: '720px',
+        lg: '960px',
+        xl: '1140px',
+        '2xl': '1320px'
+      }, 
       padding: {
         DEFAULT: '1.25rem',
         sm: '0.75rem'
@@ -25,8 +32,8 @@ module.exports = {
             color: theme("colors.gray.700"),
           },
         },
-      }),
-    },
+      })
+    }
   },
   plugins: [
     require("@tailwindcss/typography"),

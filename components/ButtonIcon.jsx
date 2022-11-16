@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Button = ({
+const ButtonIcon = ({
   type,
   className,
   link,
@@ -21,4 +21,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default ButtonIcon;

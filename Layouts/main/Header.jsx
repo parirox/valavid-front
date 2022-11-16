@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import Button from "@/components/ButtonIcon";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
 
@@ -20,14 +20,14 @@ const Header = () => {
               <Button
                 className={"h-full w-full btn-circle btn-primary"}
                 link={"/auth"}
-                icon={<IoPerson />}
+                icon={<IoPerson className="text-lg" />}
               >
                 عضویت / ورود
               </Button>
             </div>
             <div className="basis-1/12">
-              <button className="rounded-full bg-accent h-full w-[46px]">
-                <IoCartSharp className="w-full h-full text-white p-3"/>
+              <button className="rounded-full bg-accent h-full w-[4rem]">
+                <IoCartSharp className="text-white text-3xl m-auto"/>
               </button>
             </div>
           </div>

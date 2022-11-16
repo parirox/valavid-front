@@ -94,8 +94,8 @@ export default function SelectSlider() {
           />
         </div>
         <div className="basis-1/12 px-4 py-3">
-          <button className=" text-white focus:outline-none focus:scale-[0.97] flex rounded-3xl px-6 py-4 bg-gradient-to-br from-primary to-[#2DC2BD] hover:from-primary hover:to-primary">
-            <IoSearchOutline className="text-[15px]" />
+          <button className="rounded-3xl btn-primary-gradient">
+            <IoSearchOutline className="text-[1.3rem]" />
             <span className="mr-2">جستجو</span>
           </button>
         </div>

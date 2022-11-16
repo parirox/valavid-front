@@ -14,7 +14,7 @@ const PopularCardVideo = ({ data }) => {
                 </div>
                 <div className="w-full h-full p-3">
                     <div className="relative w-full h-full rounded-[2.6rem] overflow-hidden">
-                        <div className="absolute inset-0 z-40 transition-400-linear opacity-0 group-hover/popularCard:opacity-100 py-12 px-10 flex flex-col justify-between">
+                        <div className="absolute inset-0 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100 py-12 px-10 flex flex-col justify-between">
                             <div className="basis-auto">
                                 <div className="flex p-1 gap-3 justify-between">
                                     <div className="basis-auto">
@@ -53,11 +53,11 @@ const PopularCardVideo = ({ data }) => {
                             </div>
                         </div>
                         <div className="absolute inset-0 z-40 flex justify-center items-center">
-                            <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-white opacity-50 text-3xl text-secondary text-center">
+                            <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-white opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-secondary text-center">
                                 <FaPlay className='h-full w-full' />
                             </div>
                         </div>
-                        <video ref={ref} autoPlay={false} muted loop className="absolute inset-0 h-full w-full transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30 hover:autoPlay">
+                        <video ref={ref} autoPlay={false} muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30 hover:autoPlay">
                             <source src={data.media.src} type="video/mp4" />
                         </video>
                     </div>

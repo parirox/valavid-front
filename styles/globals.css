@@ -5,13 +5,16 @@
         @apply text-white;
     }
 }
-@layer components {
+@layer components { 
     .btn-primary {
         @apply text-white hover:bg-[#6059EC];
     }
+    .btn-primary-gradient { 
+        @apply text-white rounded-2xl focus:outline-none focus:scale-[0.97] flex px-6 py-3 bg-gradient-to-r from-primary to-[#4183cc] hover:from-primary hover:to-primary;
+    }
     .btn-accent {
         @apply text-white hover:bg-[#54626D];
-    }
+    } 
     .btn-ghost {
         @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
     }
