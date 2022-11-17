@@ -6,6 +6,9 @@
     }
 }
 @layer components { 
+    .card {
+        @apply absolute;
+    }
     .btn-primary {
         @apply text-white hover:bg-[#6059EC];
     }
