@@ -16,7 +16,7 @@ module.exports = {
         lg: '960px',
         xl: '1140px',
         '2xl': '1320px'
-      }, 
+      },
       padding: {
         DEFAULT: '1.25rem',
         sm: '0.75rem'
@@ -32,8 +32,41 @@ module.exports = {
             color: theme("colors.gray.700"),
           },
         },
-      })
-    }
+      }),
+      colors: {
+        primary: "#534CDA",
+        "primary-focus": "#534CDA",
+        secondary: "#081823",
+        accent: "#303D47",
+        neutral: "#23282F",
+        "base-100": "#081823",
+        info: "#0092D6",
+        success: "#6CB288",
+        warning: "#DAAD58",
+        error: "#AB3D30",
+        success: 
+        {
+          DEFAULT: "#2DC269",
+          100: "#2DC2BD"
+        },
+        danger: {
+          DEFAULT : "#CE4040",
+          100: "#F97274" // text color
+        },
+        color1: "#90999F",
+        color2: "#00101C", // text color
+        color3: "#BFC4C8", // text color
+        color4: "#8998A2",
+        color5: "#F2F4F4",
+        color6: "#ECECEC",
+        color7: "#1E303E", // shadow modal
+        color8: "#D6DADC", // text color
+        color9: "#0D1C28",
+        color10: "#A9A4FD",
+        color11: "#AEAAFF",
+        color12: "#13222D",
+      }
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),
@@ -47,32 +80,11 @@ module.exports = {
         h4: { fontSize: "2rem" },
         h5: { fontSize: "1.5rem" },
         h6: { fontSize: "1.2rem" },
+        p: {
+          fontSize: "1rem",
+          color: "#D6DADC",
+        },
       });
     }),
   ],
-  daisyui: {
-    styled: true,
-    themes: [
-      {
-        dark: {
-          primary: "#534CDA",
-          "primary-focus": "#534CDA",
-          secondary: "#081823",
-          accent: "#303D47",
-          neutral: "#23282F",
-          "base-100": "#081823",
-          info: "#0092D6",
-          success: "#6CB288",
-          warning: "#DAAD58",
-          error: "#AB3D30",
-        },
-      },
-    ],
-    base: true,
-    utils: true,
-    logs: true,
-    rtl: true,
-    prefix: "",
-    darkTheme: "",
-  },
 };
