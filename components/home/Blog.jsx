@@ -38,16 +38,16 @@ const Blog = () => {
     return (
         <div className="pb-44">
             <SectionTitleDivider title="بلاگ"></SectionTitleDivider>
-            <div className="flex gap-11 container">
-                <div className="flex flex-wrap basis-1/3 gap-11">
-                    <BlogCard className="h-[30rem] w-full" data={blogCardData[4]}></BlogCard>
-                    <BlogCard className="h-[40rem] w-full" data={blogCardData[2]}></BlogCard>
+            <div className="flex gap-8 container">
+                <div className="flex flex-wrap basis-1/3 gap-8">
+                    <BlogCard className="h-[24rem] w-full" data={blogCardData[4]}></BlogCard>
+                    <BlogCard className="h-[28rem] w-full" data={blogCardData[2]}></BlogCard>
                 </div>
-                <div className="flex flex-wrap basis-2/3 gap-11">
-                    <BlogCard className="h-[40rem] w-full" data={blogCardData[0]}></BlogCard>
+                <div className="flex flex-wrap basis-2/3 gap-8">
+                    <BlogCard className="h-[28rem] w-full" data={blogCardData[0]}></BlogCard>
                     <div className="flex gap-11 w-full">
-                        <BlogCard className="h-[30rem] basis-1/2" data={blogCardData[1]}></BlogCard>
-                        <BlogCard className="h-[30rem] basis-1/2" data={blogCardData[3]}></BlogCard>
+                        <BlogCard className="h-[24rem] basis-1/2" data={blogCardData[1]}></BlogCard>
+                        <BlogCard className="h-[24rem] basis-1/2" data={blogCardData[3]}></BlogCard>
                     </div>
                 </div>
             </div>
