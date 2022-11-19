@@ -70,10 +70,10 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/typography"),
-    require("daisyui"),
+    // require("daisyui"),
     plugin(function ({ addBase, theme }) {
-      addBase({
-        html: { fontSize: "12px" },
+      addBase({  
+        html: { fontSize: "12px",backgroundColor: theme('colors.secondary')},
         h1: { fontSize: "3.5rem" },
         h2: { fontSize: "3rem" },
         h3: { fontSize: "2.5rem" },
@@ -81,9 +81,9 @@ module.exports = {
         h5: { fontSize: "1.5rem" },
         h6: { fontSize: "1.2rem" },
         p: {
-          fontSize: "1rem",
-          color: "#D6DADC",
-        },
+          fontSize: "1rem", 
+          color: theme('colors.color8'),  
+        }, 
       });
     }),
   ],

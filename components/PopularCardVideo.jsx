@@ -36,10 +36,7 @@ const PopularCardVideo = ({ data }) => {
                                 <div className="flex gap-3 justify-end items-center mb-3">
                                     <div className="flex items-center basis rounded-3xl bg-white py-2 px-3">
                                         <span className='ml-2 text-sm opacity-80'>{data.author.name}</span>
-                                        <div className="avatar">
-                                            <div className="w-8 rounded-full">
                                                 <Image src={data.author.profile_image} alt={data.author.name} width={16} height={16} />
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
