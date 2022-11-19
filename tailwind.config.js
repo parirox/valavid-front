@@ -36,7 +36,11 @@ module.exports = {
       colors: {
         primary: "#534CDA",
         "primary-focus": "#534CDA",
-        secondary: "#081823",
+        secondary: {
+          DEFAULT: "#081823",
+          light: "#0D1C28",
+          100: "#455661"
+        } ,
         accent: "#303D47",
         neutral: "#23282F",
         "base-100": "#081823",
@@ -61,7 +65,7 @@ module.exports = {
         color6: "#ECECEC",
         color7: "#1E303E", // shadow modal
         color8: "#D6DADC", // text color
-        color9: "#0D1C28",
+        
         color10: "#A9A4FD",
         color11: "#AEAAFF",
         color12: "#13222D",
@@ -73,7 +77,7 @@ module.exports = {
     // require("daisyui"),
     plugin(function ({ addBase, theme }) {
       addBase({  
-        html: { fontSize: "12px",backgroundColor: theme('colors.secondary')},
+        html: { fontSize: "12px",backgroundColor: theme('colors.secondary.DEFAULT')},
         h1: { fontSize: "3.5rem" },
         h2: { fontSize: "3rem" },
         h3: { fontSize: "2.5rem" },
