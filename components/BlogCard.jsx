@@ -8,15 +8,15 @@ export default function BlogCard({ className, data }) {
         <IoCalendarClearOutline /> {data.date}
       </div>
       <div className="w-full absolute bottom-0 right-0 px-20 pb-8">
-        <div className="text-3xl">
+        <div className="text-2xl">
           {data.title}
         </div>
-        <div className="divider w-32"></div>
-        <div className="text-xl font-light opacity-60">
+        <div className="w-32"></div>
+        <div className="text-md font-light opacity-60">
           {data.description}
         </div>
       </div>
-      <Image fill src={data.backgroundImage} className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem]" />
+      <Image fill sizes="" src={data.backgroundImage} className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem]" />
     </div>
   )
 }
