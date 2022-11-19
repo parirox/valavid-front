@@ -50,11 +50,7 @@ const TopSellers = () => {
                             <div className="flex-1 group/topSellerCard h-full rounded-2xl  bg-gradient-to-t hover:from-[#173358] hover:to-[#0D213B44] p-7 cursor-pointer">
                                 <div className="flex flex-col w-full items-center justify-end h-full">
                                     <div className="flex-grow">
-                                        <div className="avatar">
-                                            <div className="w-36 rounded-full relative">
-                                                <Image src={item.profile_image} alt={item.name} fill />
-                                            </div>
-                                        </div>
+                                        <Image src={item.profile_image} alt={item.name} width="110" height="110" className='rounded-full' />
                                     </div>
                                     <div className="flex-1 text-xl">
                                         <span>{item.name}</span>
