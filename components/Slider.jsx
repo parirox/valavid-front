@@ -16,11 +16,11 @@ const Slider = () => {
             <SelectSlider />
           </div>
           <div className="flex justify-center gap-3">
-            <Chip className={"glass font-bold h-[24px]"} content={"مشهد"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"میلاد"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"امام رضا"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"برج میلاد"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"شب های قدر"} icon={<IoSearchOutline />} />
+            <Chip className={"btn-glass font-bold h-[24px]"} content={"مشهد"} icon={<IoSearchOutline />} />
+            <Chip className={"btn-glass font-bold h-[24px]"} content={"میلاد"} icon={<IoSearchOutline />} />
+            <Chip className={"btn-glass font-bold h-[24px]"} content={"امام رضا"} icon={<IoSearchOutline />} />
+            <Chip className={"btn-glass font-bold h-[24px]"} content={"برج میلاد"} icon={<IoSearchOutline />} />
+            <Chip className={"btn-glass font-bold h-[24px]"} content={"شب های قدر"} icon={<IoSearchOutline />} />
           </div>
         </div>
       </div>

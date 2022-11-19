@@ -31,10 +31,10 @@ const Footer = () => {
                         <Link href={'#'} className="text-[#90999F] text-lg">قوانین و مقررات</Link>
                     </div>
                 </div>
-                <div className="col-span-3 flex flex-col items-end text-right">
+                <div className="col-span-3 flex flex-col gap-3 items-end text-right">
                     <span className="text-2xl block w-full">اشتراک خبرنامه</span>
                     <div className="form-control w-full">
-                        <label className="label mb-7">
+                        <label className="block label mb-7">
                             <span className="text-[#90999F] text-lg">عضو خبرنامه ما شوید و از تازه ترین خبرها به روز رسانی‌ها و تخفیف های ویژه سایت با خبر شوید</span>
                         </label>
                         <div className="p-1 border border-[#303D47] rounded-xl">
@@ -42,8 +42,8 @@ const Footer = () => {
                                 <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center px-3">
                                     <IoMailOutline className="text-2xl text-[#90999F]" />
                                 </div>
-                                <input type="text" placeholder="ایمیل شما" className="input w-full pr-16" />
-                                <button className="btn btn-primary absolute left-0 h-full rounded-xl px-10">عضویت</button>
+                                <input type="text" placeholder="ایمیل شما" className="input w-full pr-16 py-3" />
+                                <button className="btn btn-primary absolute left-0 top-0 h-full rounded-xl px-10">عضویت</button>
                             </div>
                         </div>
                     </div>

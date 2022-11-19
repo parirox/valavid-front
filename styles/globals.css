@@ -1,6 +1,6 @@
 @tailwind base;
 
-@layer base {
+@layer base { 
     body {
         @apply text-white;
     }
@@ -9,23 +9,36 @@
     .card {
         @apply absolute;
     }
+    .btn{
+        @apply flex items-center justify-center;
+    }
     .btn-primary {
-        @apply text-white hover:bg-[#6059EC];
+        @apply text-white bg-primary hover:bg-[#6059EC];
     }
     .btn-primary-gradient { 
         @apply text-white rounded-2xl focus:outline-none focus:scale-[0.97] flex px-6 py-3 bg-gradient-to-r from-primary to-[#4183cc] hover:from-primary hover:to-primary;
     }
     .btn-accent {
-        @apply text-white hover:bg-[#54626D];
+        @apply text-white bg-accent hover:bg-[#54626D];
     } 
     .btn-ghost {
         @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
+    }
+    .btn-glass {
+        @apply backdrop-blur border border-[#707070] text-[#cbcbcb] bg-[#aaaaaa63]
+    }
+    .glass {
+        @apply backdrop-blur bg-[#ededed63]
     }
     /* animations */
     .transition-400-linear {
         @apply transition-all duration-[400ms] ease-in-out;
     }
     /* badge */
+    /* form */
+    .input{
+        @apply bg-transparent py-3
+    }
 }
 
 @tailwind components;
