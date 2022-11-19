@@ -35,8 +35,8 @@ export default function SortTabs() {
         مرتب سازی :
       </div>
       <div className="flex gap-9 basis-full">
-        {sortTabsInformation.map((sortTab) => (
-          <button className="p-2">{sortTab.title}</button>
+        {sortTabsInformation.map((sortTab, key) => (
+          <button className="p-2" key={key}>{sortTab.title}</button>
         ))}
       </div>
       <div className="flex gap-2 min-w-[4rem]">
