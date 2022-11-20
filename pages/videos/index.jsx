@@ -209,8 +209,8 @@ export default function index() {
                 <ImPriceTag className="text-2xl" />
                 قیمت
                 </div>
-                <button>
-                  <IoIosArrowDown className={`text-2xl text-secondary-200 mr-auto transition-all duration-500 ${isOpenPriceFilter ? 'rotate-180' : 'rotate-0'}`} onClick={()=> setIsOpenPriceFilter(!isOpenPriceFilter)} />
+                <button onClick={()=> setIsOpenPriceFilter(!isOpenPriceFilter)}>
+                  <IoIosArrowDown className={`text-2xl text-secondary-200 mr-auto transition-all duration-500 ${isOpenPriceFilter ? 'rotate-180' : 'rotate-0'}`} />
                 </button>
               </div>
             </div>
