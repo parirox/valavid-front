@@ -3,10 +3,11 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
+    <Layout styleMode={Component?.styleMode}>
       <Component {...pageProps} />
     </Layout>
   );
 }
+
 
 export default MyApp;

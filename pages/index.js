@@ -7,7 +7,8 @@ import SubscribeBanner from "@/components/home/SubscribeBanner";
 import TopSellers from "@/components/home/TopSellers";
 import Slider from "@/components/Slider";
 import Head from "next/head";
-export default function Home() {
+
+function Home() {
   return (
     <>
       <Head>
@@ -25,3 +26,7 @@ export default function Home() {
     </>
   );
 }
+
+Home.styleMode = "main"
+
+export default Home;

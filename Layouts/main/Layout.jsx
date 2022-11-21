@@ -1,14 +1,15 @@
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, styleMode = 2 }) => {
   return (
     <>
-      <Header />
+      <Header styleMode={styleMode} />
       <main>{children}</main>
-      <Footer />
+      <Footer styleMode={styleMode} />
     </>
   );
-};
+}
+
 
 export default Layout;
