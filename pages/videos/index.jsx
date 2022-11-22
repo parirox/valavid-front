@@ -185,7 +185,7 @@ const data = [
   },
 ]
 
-export default function index() {
+export default function Videos() {
   const [isOpenPriceFilter, setIsOpenPriceFilter] = useState(false)
   return (
     <>
