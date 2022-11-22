@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts
 RUN apk update && \
   apk add --no-cache libstdc++ libgcc ca-certificates && \
   rm -rf /var/cache/apk/*
@@ -16,7 +16,7 @@ RUN npm i -g next
 # Copying source files
 COPY . /usr/src/app
 
-RUN npm run build
+RUN next build
 
 # Building app
 #RUN npm run build
