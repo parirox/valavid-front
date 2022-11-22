@@ -1,7 +1,6 @@
 FROM node:lts
-RUN apk update && \
-  apk add --no-cache libstdc++ libgcc ca-certificates && \
-  rm -rf /var/cache/apk/*
+
+RUN apt update
 
 ENV PORT 3000
 
