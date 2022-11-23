@@ -1,17 +1,17 @@
 import Link from "next/link";
 
-const Button = ({
-  type,
-  className,
-  link,
-  icon,
-  children,
-  onClickHandler = () => {},
-}) => {
+const Button = (props) => {
+  const {
+    type,
+    link,
+    icon,
+    children,...rest
+  } = props;
+  rest.className += ' btn'
+  
   return (
     <button
-      className={`btn ${className}`}
-      onClick={onClickHandler}
+      {...rest}
     >
       {icon && <span className="ml-2">{icon}</span>}
       {link ? <Link href={link}>{children}</Link> : <span>{children}</span>}
