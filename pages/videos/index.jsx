@@ -3,7 +3,7 @@ import SortTabs from "@/components/SortTabs";
 import Head from "next/head";
 import VideoIcon from '@/public/icons/FillVideoPrimary.svg';
 import PopularCardVideo from "@/components/PopularCardVideo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 // Filter Drawern sidebar
 import { TiFilter } from "react-icons/ti"
@@ -188,6 +188,17 @@ const data = [
 
 export default function Videos() {
   const [isOpenPriceFilter, setIsOpenPriceFilter] = useState(false)
+  const [formData , setFormData] = useState({
+    price: 0,
+  })
+
+  const setFormDataHandler = (field) => (value)=> {
+    setFormData((prevState)=>({...prevState,[field]:value}))
+  }
+useEffect(() => {
+  console.log(formData);
+}, [formData])
+
   return (
     <>
       <Head>
@@ -204,7 +215,7 @@ export default function Videos() {
             فیلترها
           </Button>
           <div className="flex flex-col gap-14 pt-14">
-            <div className="">
+            <div className="border-b border-secondary-400 pr-2">
               <div className="flex items-center justify-between gap-4 text-lg mr-3">
                 <div className="flex items-center gap-4">
                   <ImPriceTag className="text-2xl" />
@@ -214,8 +225,8 @@ export default function Videos() {
                   <IoIosArrowDown className={`text-2xl text-secondary-200 mr-auto transition-all duration-500 ${isOpenPriceFilter ? 'rotate-180' : 'rotate-0'}`} />
                 </button>
               </div>
-              <div className="w-full h-96 relative pt-20 px-3">
-                <RangeInput minRange={0} maxRange={10000990}></RangeInput>
+              <div className="w-full h-44 relative pt-20 px-3">
+                <RangeInput min={0} max={1000000} step={1000} state={formData.price} setState={setFormDataHandler('price')}></RangeInput>
               </div>
             </div>
           </div>
