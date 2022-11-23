@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import { TiFilter } from "react-icons/ti"
 import { ImPriceTag } from "react-icons/im"
 import { IoIosArrowDown } from "react-icons/io"
+import RangeInput from "@/components/RangeInput";
 
 
 const data = [
@@ -206,12 +207,15 @@ export default function Videos() {
             <div className="">
               <div className="flex items-center justify-between gap-4 text-lg mr-3">
                 <div className="flex items-center gap-4">
-                <ImPriceTag className="text-2xl" />
-                قیمت
+                  <ImPriceTag className="text-2xl" />
+                  قیمت
                 </div>
-                <button onClick={()=> setIsOpenPriceFilter(!isOpenPriceFilter)}>
+                <button onClick={() => setIsOpenPriceFilter(!isOpenPriceFilter)}>
                   <IoIosArrowDown className={`text-2xl text-secondary-200 mr-auto transition-all duration-500 ${isOpenPriceFilter ? 'rotate-180' : 'rotate-0'}`} />
                 </button>
+              </div>
+              <div className="w-full h-96 relative pt-20 px-3">
+                <RangeInput minRange={0} maxRange={10000990}></RangeInput>
               </div>
             </div>
           </div>
