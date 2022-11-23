@@ -4,10 +4,10 @@ import { BsFillDiamondFill } from 'react-icons/bs';
 import { IoCartOutline, IoFolderOpenOutline, IoHeartOutline, IoImagesOutline, IoPlayBackCircleSharp, IoPlayOutline, IoPlaySharp } from 'react-icons/io5';
 import Badge from '@/components/Badge';
 import {FaPlay} from 'react-icons/fa'
-const PopularCardVideo = ({ data }) => {
+const PopularCardVideo = ({ data, className }) => {
     const ref = useRef()
     return (
-        <div>
+        <div className={className}>
             <div className='h-[300px] group/popularCard relative' onMouseEnter={()=>ref.current.play()} onMouseLeave={()=>ref.current.pause()}>
                 <div className="hidden group-hover/popularCard:block border-[1px] rounded-[3.35rem] w-full h-full z-30 absolute border-white">
                     <BsFillDiamondFill className="w-9 absolute -left-[0.5px] top-2/4 -translate-y-2/4 -translate-x-2/4"></BsFillDiamondFill>

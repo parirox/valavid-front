@@ -16,7 +16,7 @@ export default function BlogCard({ className, data }) {
           {data.description}
         </div>
       </div>
-      <Image fill sizes="" src={data.backgroundImage} className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem]" />
+      <Image fill sizes="" src={data.backgroundImage} alt="" className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem]" />
     </div>
   )
 }

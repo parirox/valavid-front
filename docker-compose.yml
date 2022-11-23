@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  web:
+    container_name: valavidfront
+    ports:
+      - 9011:3000
+    build: .
+    restart: always
