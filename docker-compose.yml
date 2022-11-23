@@ -1,15 +1,8 @@
-version: "3.1"
-
+version: "3.7"
 services:
-  nextjs:
+  web:
     container_name: valavidfront
-    command: next start
     ports:
       - 9011:3000
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - /app/node_modules
-      - /app/.next
+    build: .
     restart: always
