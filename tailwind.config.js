@@ -40,7 +40,9 @@ module.exports = {
           DEFAULT: "#081823",
           light: "#0D1C28",
           100: "#455661",
-          200: "#54626C"
+          200: "#54626C",
+          300: "#90999F",
+          400: "#23303B"
         } ,
         accent: "#303D47",
         neutral: "#23282F",
@@ -58,7 +60,6 @@ module.exports = {
           DEFAULT : "#CE4040",
           100: "#F97274" // text color
         },
-        color1: "#90999F",
         color2: "#00101C", // text color
         color3: "#BFC4C8", // text color
         color4: "#8998A2",

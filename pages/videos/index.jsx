@@ -3,12 +3,13 @@ import SortTabs from "@/components/SortTabs";
 import Head from "next/head";
 import VideoIcon from '@/public/icons/FillVideoPrimary.svg';
 import PopularCardVideo from "@/components/PopularCardVideo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 // Filter Drawern sidebar
 import { TiFilter } from "react-icons/ti"
 import { ImPriceTag } from "react-icons/im"
 import { IoIosArrowDown } from "react-icons/io"
+import RangeInput from "@/components/RangeInput";
 
 
 const data = [
@@ -187,6 +188,17 @@ const data = [
 
 export default function Videos() {
   const [isOpenPriceFilter, setIsOpenPriceFilter] = useState(false)
+  const [formData , setFormData] = useState({
+    price: 0,
+  })
+
+  const setFormDataHandler = (field) => (value)=> {
+    setFormData((prevState)=>({...prevState,[field]:value}))
+  }
+useEffect(() => {
+  console.log(formData);
+}, [formData])
+
   return (
     <>
       <Head>
@@ -203,15 +215,18 @@ export default function Videos() {
             فیلترها
           </Button>
           <div className="flex flex-col gap-14 pt-14">
-            <div className="">
+            <div className="border-b border-secondary-400 pr-2">
               <div className="flex items-center justify-between gap-4 text-lg mr-3">
                 <div className="flex items-center gap-4">
-                <ImPriceTag className="text-2xl" />
-                قیمت
+                  <ImPriceTag className="text-2xl" />
+                  قیمت
                 </div>
-                <button onClick={()=> setIsOpenPriceFilter(!isOpenPriceFilter)}>
+                <button onClick={() => setIsOpenPriceFilter(!isOpenPriceFilter)}>
                   <IoIosArrowDown className={`text-2xl text-secondary-200 mr-auto transition-all duration-500 ${isOpenPriceFilter ? 'rotate-180' : 'rotate-0'}`} />
                 </button>
+              </div>
+              <div className="w-full h-44 relative pt-20 px-3">
+                <RangeInput min={0} max={1000000} step={1000} state={formData.price} setState={setFormDataHandler('price')}></RangeInput>
               </div>
             </div>
           </div>
