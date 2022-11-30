@@ -146,11 +146,11 @@ const MostPopular = () => {
                 {data.map((item, key) => {
                     switch (item.type) {
                         case 'image':
-                            return <PopularCardImage key={key} data={item} />
+                            return <PopularCardImage key={key} data={item} link={`/footage/${item.id}`} />
                         case 'video':
-                            return <PopularCardVideo key={key} data={item} />
+                            return <PopularCardVideo key={key} data={item} link={`/footage/${item.id}`} />
                         case 'collection':
-                            return <PopularCardCollection key={key} data={item} />
+                            return <PopularCardCollection key={key} data={item} link={`/footage/${item.id}`} />
                     }
                 })}
             </div>
