@@ -1,7 +1,7 @@
 pipeline {
     environment {
         develop_server = '5.9.198.231'
-        production_server = "49.12.34.83"
+        production_server = "5.9.198.231"
         project_name = "valavid-front"
         version = "master"
 		gitBranch = "origin/master"
