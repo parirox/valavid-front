@@ -1,7 +1,8 @@
 import Button from "@/components/ButtonIcon";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
-import {IoCartSharp, IoPerson} from "react-icons/io5";
+import {IoPerson} from "react-icons/io5";
+import {BsCart2} from "react-icons/bs";
 
 const Header = ({ data, styleMode }) => {
   return (
@@ -27,7 +28,7 @@ const Header = ({ data, styleMode }) => {
             </div>
             <div className="basis-1/12">
               <button className="rounded-full bg-accent h-full w-[4rem]">
-                <IoCartSharp className="text-white text-3xl m-auto" />
+                <BsCart2 className="text-white text-2xl m-auto" />
               </button>
             </div>
           </div>
