@@ -4,6 +4,9 @@
     body {
         @apply text-white;
     }
+    .full{
+        @apply w-full h-full;
+    }
 }
 @layer components { 
     .card {
