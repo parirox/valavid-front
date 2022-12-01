@@ -4,7 +4,7 @@ FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN npm install -g npm@latest
-RUN npm set registry http://registry.npmmirror.com
+RUN npm set registry https://registry.npmmirror.com
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
