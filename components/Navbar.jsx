@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-const Navbar = () => {
+const Navbar = () => { 
   return (
     <nav className="w-full flex gap-12 navbarItem text-base">
         <Link href="/" className="active">خانه</Link>

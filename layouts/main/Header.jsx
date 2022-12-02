@@ -1,11 +1,12 @@
 import Button from "@/components/ButtonIcon";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
+import {IoPerson} from "react-icons/io5";
+import {BsCart2} from "react-icons/bs";
 
-import { IoCartSharp, IoPerson } from "react-icons/io5";
-const Header = () => {
+const Header = ({ data, styleMode }) => {
   return (
-    <header className="absolute top-[45px] inset-x-0 z-[1] bg-[#00000044]">
+    <header className={styleMode === "main" ? "absolute top-[45px] inset-x-0 z-[1] bg-[#00000044]" : "py-7 bg-color12"}>
       <div className="flex items-center gap-4 px-24 h-[45px]">
         <div className="basis-1/12 text-white">Valavid</div>
         <div className="basis-5/12">
@@ -27,7 +28,7 @@ const Header = () => {
             </div>
             <div className="basis-1/12">
               <button className="rounded-full bg-accent h-full w-[4rem]">
-                <IoCartSharp className="text-white text-3xl m-auto"/>
+                <BsCart2 className="text-white text-2xl m-auto" />
               </button>
             </div>
           </div>
@@ -36,5 +37,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;

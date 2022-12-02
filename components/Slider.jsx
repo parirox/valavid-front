@@ -1,8 +1,33 @@
 import SliderBg from "@/public/mountain-village-iran-wallpaper.jpg";
 import Image from "next/image";
-import { IoSearchOutline } from "react-icons/io5";
+import {IoSearchOutline} from "react-icons/io5";
 import Chip from "./Chip";
 import SelectSlider from "./SelectSlider";
+
+const data = {
+  tags: [
+    {
+      id: 1,
+      label: "مشهد"
+    },
+    {
+      id: 2,
+      label: "میلاد"
+    },
+    {
+      id: 3,
+      label: "برج میلاد"
+    },
+    {
+      id: 4,
+      label: "شب های قدر"
+    },
+    {
+      id: 5,
+      label: "امام رضا"
+    }
+  ]
+}
 
 const Slider = () => {
   return (
@@ -16,11 +41,9 @@ const Slider = () => {
             <SelectSlider />
           </div>
           <div className="flex justify-center gap-3">
-            <Chip className={"btn-glass font-bold h-[24px]"} content={"مشهد"} icon={<IoSearchOutline />} />
-            <Chip className={"btn-glass font-bold h-[24px]"} content={"میلاد"} icon={<IoSearchOutline />} />
-            <Chip className={"btn-glass font-bold h-[24px]"} content={"امام رضا"} icon={<IoSearchOutline />} />
-            <Chip className={"btn-glass font-bold h-[24px]"} content={"برج میلاد"} icon={<IoSearchOutline />} />
-            <Chip className={"btn-glass font-bold h-[24px]"} content={"شب های قدر"} icon={<IoSearchOutline />} />
+            {data.tags.map((v, i) => (
+              <Chip key={i} className={"btn-glass font-bold h-[24px]"} content={v.label} icon={<IoSearchOutline />} />
+            ))}
           </div>
         </div>
       </div>

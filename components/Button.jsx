@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const Button = (props) => {
   const {
-    type,
     link,
     icon,
     children,...rest

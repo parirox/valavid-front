@@ -2,8 +2,9 @@ import Image from 'next/image';
 import { BsFillDiamondFill } from 'react-icons/bs';
 import { IoFolderSharp } from 'react-icons/io5';
 import Badge from '@/components/Badge';
+import Link from 'next/link';
 
-const PopularCardCollection = ({ data }) => {
+const PopularCardCollection = ({ data, link = '#'}) => {
     return (
         <div>
             <div className='h-[300px] group/popularCard relative'>
@@ -17,7 +18,9 @@ const PopularCardCollection = ({ data }) => {
                                 <div className="flex p-1 gap-3 justify-between">
                                     <div className="basis-auto">
                                         <div className="flex gap-3 text-xl">
-                                            <span className="bg-primary rounded-2xl py-2 px-3">{data.label}</span>
+                                            <Link href={link}>
+                                                <span>{data.label}</span>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div className="basis-auto">

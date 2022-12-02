@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import { BsFillDiamondFill } from 'react-icons/bs';
-import { IoCartOutline, IoFolderOpenOutline, IoHeartOutline, IoImagesOutline, IoPlayBackCircleSharp, IoPlayOutline, IoPlaySharp } from 'react-icons/io5';
+import { IoCartOutline, IoFolderOpenOutline, IoHeartOutline, IoVideocamOutline } from 'react-icons/io5';
 import Badge from '@/components/Badge';
 import {FaPlay} from 'react-icons/fa'
-const PopularCardVideo = ({ data, className }) => {
+import Link from 'next/link';
+
+const PopularCardVideo = ({ data, className, link = '#' }) => {
     const ref = useRef()
     return (
         <div className={className}>
@@ -27,7 +29,7 @@ const PopularCardVideo = ({ data, className }) => {
                                     <div className="basis-auto">
                                         <div className="flex gap-3 justify-center items-center">
                                             <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data.price}</span></Badge>
-                                            <Badge className='bg-primary rounded-2xl  text-2xl'><IoImagesOutline /></Badge>
+                                            <Badge className='bg-primary rounded-2xl  text-2xl'><IoVideocamOutline /></Badge>
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +44,9 @@ const PopularCardVideo = ({ data, className }) => {
                                 <div className="flex gap-3 justify-end">
                                     <div className="flex-none rounded-3xl bg-white py-2 px-3">
                                         <div className="flex items-center justify-center">
-                                            <span>{data.title}</span>
+                                            <Link href={link}>
+                                                <span>{data.title}</span>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

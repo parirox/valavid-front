@@ -7,12 +7,12 @@ import SubscribeBanner from "@/components/home/SubscribeBanner";
 import TopSellers from "@/components/home/TopSellers";
 import Slider from "@/components/Slider";
 import Head from "next/head";
-export default function Home() {
+
+function Home() {
   return (
     <>
       <Head>
         <title>Valavid</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Slider />
       <InfoItems />
@@ -25,3 +25,7 @@ export default function Home() {
     </>
   );
 }
+
+Home.styleMode = "main"
+
+export default Home;
