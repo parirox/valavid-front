@@ -2,6 +2,7 @@ import CoverPage from "@/components/CoverPage";
 import SortTabs from "@/components/SortTabs";
 import Head from "next/head";
 import VideoIcon from '@/public/icons/FillVideoPrimary.svg';
+import PicMountain from '@/public/images/astara_mountain.jpg';
 import PopularCardVideo from "@/components/PopularCardVideo";
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
@@ -222,7 +223,9 @@ export default function Videos() {
         <title>Valavid | Videos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <CoverPage className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]" value="مجموعه فیلم ویدئویی با کیفیت باورنکردنی" icon={<VideoIcon />} />
+      <CoverPage className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]" backgroundImage={PicMountain} icon={<VideoIcon />}>
+      مجموعه فیلم ویدئویی با کیفیت باورنکردنی
+      </CoverPage>
       <div className="flex w-full">
         <div className="basis-1/4 bg-secondary-light pt-8 px-7">
           <Button
