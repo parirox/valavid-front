@@ -5,7 +5,10 @@ import Image from "next/image";
 export default function index() {
   return (
     <>
-
+      <Head>
+        <title>Valavid | Become a seller</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <div className="relative min-h-[100vh] pt-24 bg-gradient-to-b from-[#08182355] to-transparent">
         <Image src={"/images/becomeASellerBackground.png"} className="z-[-2]" fill sizes="" alt="background"></Image>
         <div className="container justify-center">
