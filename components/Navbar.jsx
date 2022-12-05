@@ -7,7 +7,7 @@ const Navbar = () => {
         <Link href="/videos">ویدئو</Link>
         <Link href="#">تصویر</Link>
         <Link href="#">وبلاگ</Link>
-        <Link href="#">درباره ما</Link>
+        <Link href="/aboutUs">درباره ما</Link>
     </nav>
   );
 };
