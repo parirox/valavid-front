@@ -86,7 +86,7 @@ module.exports = {
         h2: { fontSize: "2.5rem" },
         h3: { fontSize: "2rem" },
         h4: { fontSize: "1.7rem" },
-        h5: { fontSize: "1.3rem" },
+        h5: { fontSize: "1.4rem" },
         h6: { fontSize: "1rem" },
         p: {
           fontSize: "1rem", 

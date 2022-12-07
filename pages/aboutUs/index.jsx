@@ -16,6 +16,7 @@ import PhonePic from "@/public/images/phonInContactus.png";
 import LocationMap from "@/public/images/locationValavidMap.png"
 import Image from "next/image";
 import ContactUsBox from "@/components/ContactUsBox";
+import Link from "next/link";
 
 export const InfoItemData = [
   {
@@ -105,7 +106,9 @@ export default function index() {
                 ))
               }
             </div>
-            <Image src={PhonePic} className="h-[16rem] w-[25rem]"></Image>
+           <Link href={'/faq'}>
+           <Image src={PhonePic} className="h-[16rem] w-[25rem]"></Image>
+           </Link>
           </div>
           <div className="pt-10 pb-44">
             <Image src={LocationMap} className="h-[220px] w-full object-cover rounded-[2rem]"></Image>
