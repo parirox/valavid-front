@@ -8,6 +8,7 @@ import checkoutSlice from '@/datasources/checkout/local/CheckoutSlice';
 import checkoutSliceApi, {checkoutSliceApiTag} from '@/datasources/checkout/remote/CheckoutSliceApi';
 //-->> product slices
 import productSlice from '@/datasources/product/local/ProductSlice';
+import configSlice from '@/datasources/config/local/ConfigSlice';
 import productSliceApi, {productSliceApiTag} from '@/datasources/product/remote/ProductSliceApi';
 import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {loadingBarReducer} from 'react-redux-loading-bar'
