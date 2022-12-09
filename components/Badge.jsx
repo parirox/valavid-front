@@ -1,5 +1,6 @@
-const Badge = ({ className = "bg-primary rounded-xl", children }) => {
-  return <span className={"p-3 text-center " + className}>{children}</span>;
+const Badge = (props) => {
+    const {className = "bg-primary rounded-xl", children, ...rest} = props
+    return <span className={"p-3 text-center " + className} {...rest}>{children}</span>;
 };
 
 export default Badge;
