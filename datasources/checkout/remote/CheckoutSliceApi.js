@@ -5,12 +5,12 @@ import {HYDRATE} from 'next-redux-wrapper';
 export const checkoutSliceApiTag = 'checkout_api';
 
 const checkout_api = createApi({
-    extractRehydrationInfo(action, { reducerPath }) {
-        if (action.type === HYDRATE) {
-            console.log('HYDRATE', action, reducerPath);
-            return action.payload[reducerPath];
-        }
-    },
+    // extractRehydrationInfo(action, { reducerPath }) {
+    //     if (action.type === HYDRATE) {
+    //         console.log('HYDRATE', action, reducerPath);
+    //         return action.payload[reducerPath];
+    //     }
+    // },
     reducerPath: checkoutSliceApiTag,
     baseQuery,
     tagTypes: [checkoutSliceApiTag],

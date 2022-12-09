@@ -7,7 +7,7 @@ export const productSliceApiTag = 'product_api';
 const product_api = createApi({
     extractRehydrationInfo(action, { reducerPath }) {
         if (action.type === HYDRATE) {
-            console.log('HYDRATE', action, reducerPath);
+            // console.log('HYDRATE', action, reducerPath);
             return action.payload[reducerPath];
         }
     },

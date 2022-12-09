@@ -53,7 +53,7 @@ export const checkoutSlice = createSlice({
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
-            console.log("from extraReducers in checkout slice",action);
+            // console.log("from extraReducers in checkout slice",action);
             // return {
             //     ...state,
             //     ...action.payload
