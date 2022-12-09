@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "mock": "nodemon --watch mock --exec json-server -p 3333 ./mock/_db.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
