@@ -13,6 +13,12 @@
       ],
       "@/styles/*": [
         "styles/*"
+      ],
+      "@/datasources/*": [
+        "datasources/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
       ]
     }
   }
