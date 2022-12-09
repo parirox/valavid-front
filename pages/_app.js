@@ -1,17 +1,35 @@
 import Layout from "@/layouts/main/Layout";
 import Head from "next/head";
 import "../styles/globals.css";
+import {wrapper} from '@/datasources/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import {Toaster} from 'react-hot-toast';
+import {Provider} from 'react-redux';
+import {persistStore} from "redux-persist";
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <Layout styleMode={Component?.styleMode}>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      </Head>
-      <Component {...pageProps} />
-    </Layout>
-  );
+
+function App({Component, ...rest}) {
+    const {store, props: {pageProps, router}} = wrapper.useWrappedStore(rest);
+    const persistor = persistStore(store, {}, function () {
+        persistor.persist()
+    })
+
+    return (
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                {() => (
+                    <Layout styleMode={Component?.styleMode}>
+                        <Head>
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                        </Head>
+                        <Toaster/>
+                        <Component {...pageProps} />
+                    </Layout>
+                )}
+            </PersistGate>
+        </Provider>
+    );
 }
 
-
-export default MyApp;
+export default App
+// export default wrapper.withRedux(App);
