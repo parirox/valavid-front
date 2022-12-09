@@ -1,12 +1,17 @@
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
-import { BsFillDiamondFill } from 'react-icons/bs';
-import { IoCartOutline, IoFolderOpenOutline, IoHeartOutline, IoVideocamOutline } from 'react-icons/io5';
+import React, {useRef} from 'react';
+import {BsFillDiamondFill} from 'react-icons/bs';
+import {IoFolderOpenOutline, IoHeartOutline, IoVideocamOutline} from 'react-icons/io5';
 import Badge from '@/components/Badge';
-import {FaPlay} from 'react-icons/fa'
+import {FaCartPlus, FaPlay} from 'react-icons/fa'
 import Link from 'next/link';
+import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/local/CheckoutSlice";
+import {MdRemoveShoppingCart} from "react-icons/md";
+import {useDispatch, useSelector} from "react-redux";
 
 const PopularCardVideo = ({ data, className, link = '#' }) => {
+    const _cartItems = useSelector(cartItems);
+    const dispatch = useDispatch();
     const ref = useRef()
     return (
         <div className={className}>
@@ -23,7 +28,10 @@ const PopularCardVideo = ({ data, className, link = '#' }) => {
                                         <div className="flex gap-3 text-2xl">
                                             <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'><IoHeartOutline /></Badge>
                                             <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'><IoFolderOpenOutline /></Badge>
-                                            <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'><IoCartOutline /></Badge>
+                                            <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                                                   onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price}))}>
+                                                {checkInCart(_cartItems, data.id) ? <MdRemoveShoppingCart/> : <FaCartPlus/>}
+                                            </Badge>
                                         </div>
                                     </div>
                                     <div className="basis-auto">
