@@ -61,7 +61,7 @@ const PopularCardVideo = ({ data, className, link = '#' }) => {
                             </div>
                         </div>
                         <div className="absolute inset-0 z-40 flex justify-center items-center">
-                            <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-white opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-secondary text-center">
+                            <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
                                 <FaPlay className='h-full w-full' />
                             </div>
                         </div>
