@@ -4,5 +4,8 @@ services:
     container_name: valavid_front
     ports:
       - 9011:3000
-    build: .
+#      - 9012:9012
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
