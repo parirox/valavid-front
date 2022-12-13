@@ -39,6 +39,9 @@ const PopularCardCollection = ({ data, link = '#'}) => {
                                         src={img.src}
                                         className="object-cover"
                                         fill
+                                        sizes="(max-width: 768px) 100vw,
+                                        (max-width: 1200px) 50vw,
+                                        33vw"
                                         alt={img.alt}
                                     />
                                 </div>

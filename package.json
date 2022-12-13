@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "mock": "nodemon --watch mock jsonserver.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -15,10 +16,14 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@svgr/webpack": "^6.5.1",
     "next": "13.0.0",
+    "next-redux-wrapper": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
     "react-redux": "^8.0.5",
+    "react-redux-loading-bar": "^5.0.4",
+    "redux-persist": "^6.0.0",
     "sharp": "^0.31.2"
   },
   "devDependencies": {
@@ -27,6 +32,8 @@
     "autoprefixer": "^10.4.13",
     "eslint": "8.22.0",
     "eslint-config-next": "13.0.0",
+    "json-server": "^0.17.1",
+    "nodemon": "^2.0.20",
     "postcss": "^8.4.18",
     "tailwindcss": "^3.2.1"
   }
