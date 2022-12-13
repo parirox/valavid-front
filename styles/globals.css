@@ -18,6 +18,9 @@
     .btn-primary {
         @apply text-white bg-primary hover:bg-[#6059EC];
     }
+    .btn-outline-primary {
+        @apply border-2 border-primary text-primary  hover:bg-[#f3f3ff];
+    }
     .btn-primary-gradient { 
         @apply text-white rounded-2xl focus:outline-none focus:scale-[0.97] flex px-6 py-3 bg-gradient-to-r from-primary to-[#4183cc] hover:from-primary hover:to-primary;
     }

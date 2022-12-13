@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage'
+// import storage from 'redux-persist/lib/storage'
 import {persistCombineReducers} from 'redux-persist'
 import {createWrapper} from 'next-redux-wrapper';
 
@@ -8,17 +8,23 @@ import checkoutSlice from '@/datasources/checkout/local/CheckoutSlice';
 import checkoutSliceApi, {checkoutSliceApiTag} from '@/datasources/checkout/remote/CheckoutSliceApi';
 //-->> product slices
 import productSlice from '@/datasources/product/local/ProductSlice';
-import configSlice from '@/datasources/config/local/ConfigSlice';
 import productSliceApi, {productSliceApiTag} from '@/datasources/product/remote/ProductSliceApi';
-import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
+//-->> config slices
+import configSlice from '@/datasources/config/local/ConfigSlice';
+//-->> user slices
+import userSlice from '@/datasources/user/local/UserSlice';
+//-->> loading slices
 import {loadingBarReducer} from 'react-redux-loading-bar'
+//-->> middlewares
+import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
+import storage from '@/datasources/storage';
 
 const persistConfig = {
     key: 'VALAVID',
     timeout: 1000,
     storage,
-    whitelist: ['checkout'],
+    whitelist: ['checkout', 'user'],
 };
 
 let reducer = {
@@ -30,6 +36,8 @@ let reducer = {
     [productSliceApiTag]: productSliceApi.reducer,
     //->> config
     config: configSlice,
+    //->> user
+    user: userSlice,
     //->> loadingBar
     loadingBar: loadingBarReducer,
 }

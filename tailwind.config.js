@@ -78,6 +78,7 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/typography"),
+    require('tailwind-scrollbar'),
     // require("daisyui"),
     plugin(function ({ addBase, theme }) {
       addBase({  

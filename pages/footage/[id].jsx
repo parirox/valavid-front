@@ -1,8 +1,8 @@
 import Chip from "@/components/Chip";
 import ButtonIcon from "@/components/ButtonIcon";
-import {IoHeart, IoInformationCircleOutline, IoShareSocialOutline} from "react-icons/io5";
+import {IoAdd, IoClose, IoHeart, IoInformationCircleOutline, IoShareSocialOutline} from "react-icons/io5";
 import Image from "next/image";
-import {FaCartPlus, FaRegHeart} from "react-icons/fa";
+import {FaCartPlus, FaHeart, FaRegHeart} from "react-icons/fa";
 import {BsShieldFillCheck} from "react-icons/bs";
 import Button from "@/components/Button";
 import {CgFolderAdd} from "react-icons/cg";
@@ -16,24 +16,37 @@ import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/
 import {wrapper} from "@/datasources/store";
 import product_api, {ProductDetails, useProductDetailsQuery} from "@/datasources/product/remote/ProductSliceApi";
 import {useRouter} from "next/router";
-import {useMemo} from "react";
+import {useMemo, useState} from "react";
 import {MdRemoveShoppingCart} from "react-icons/md";
 import Error from "next/error";
-
+import {addToFavorite, checkInFavorite, favoriteItems} from "@/datasources/user/local/UserSlice";
+import CollectionModel from "@/components/CollectionModal";
 
 function FootageDetails() {
     const dispatch = useDispatch();
-    const _cartItems = useSelector(cartItems);
     const router = useRouter();
-    const {data, isSuccess, isLoading,isError} = useProductDetailsQuery(router.query);
+
+    const [isOpen, setIsOpen] = useState(false)
+
+    const {data, isSuccess, isLoading, isError} = useProductDetailsQuery(router.query);
+
+    const _cartItems = useSelector(cartItems);
     const is_in_cart = useMemo(() => {
         return checkInCart(_cartItems, data?.id)
     }, [data, _cartItems])
 
-    if (isError) return <Error statusCode={404} />
+    const _favoriteItems = useSelector(favoriteItems);
+    const is_in_favorite = useMemo(() => {
+        return checkInFavorite(_favoriteItems, data?.id)
+    }, [data, _favoriteItems])
+
+
+    if (isError) return <Error statusCode={404}/>
+
     if (isSuccess) {
         return (
             <div className="container mt-20">
+                <CollectionModel isOpen={isOpen} setIsOpen={setIsOpen} data={data} />
                 <div className="flex gap-24 flex-col md:flex-row md:items-stretch">
                     <div className="basis-full md:basis-7/12">
                         <div className="relative full">
@@ -182,10 +195,15 @@ function FootageDetails() {
                                                 <FaCartPlus
                                                     className="text-3xl"/>}>{is_in_cart ? 'حذف از' : 'اضافه به'} سبد
                                         خرید</Button>
-                                    <button className="btn text-gray w-20 rounded-xl btn-accent"><FaRegHeart
-                                        className="text-3xl"/></button>
-                                    <button className="btn text-gray w-20 rounded-xl btn-accent"><CgFolderAdd
-                                        className="text-3xl"/></button>
+                                    <button className="btn text-gray w-20 rounded-xl btn-accent"
+                                            onClick={() => dispatch(addToFavorite({id: data.id}))}>
+                                        {is_in_favorite ? <FaHeart className="text-3xl text-danger"/> :
+                                            <FaRegHeart className="text-3xl"/>}
+                                    </button>
+                                    <button className="btn text-gray w-20 rounded-xl btn-accent"
+                                            onClick={() => setIsOpen(true)}>
+                                        <CgFolderAdd className="text-3xl"/>
+                                    </button>
                                 </div>
                             </div>
                         </div>
