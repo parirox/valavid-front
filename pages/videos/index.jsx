@@ -12,6 +12,7 @@ import { ImPriceTag } from "react-icons/im"
 import { IoIosArrowDown } from "react-icons/io"
 import RangeInput from "@/components/RangeInput";
 import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
+import CollectionModel from "@/components/CollectionModal";
 
 
 const data = [
@@ -226,6 +227,7 @@ export default function Videos() {
       <CoverPage className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]" backgroundImage={PicMountain} icon={<VideoIcon />}>
       مجموعه فیلم ویدئویی با کیفیت باورنکردنی
       </CoverPage>
+      <CollectionModel />
       <div className="flex w-full">
         <div className="basis-1/4 bg-secondary-light pt-8 px-7">
           <Button
