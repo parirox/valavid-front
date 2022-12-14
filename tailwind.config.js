@@ -43,7 +43,8 @@ module.exports = {
           200: "#54626C",
           300: "#90999F",
           400: "#23303B",
-          500: "#00101C"
+          500: "#00101C",
+          600: "#13222D",
         } ,
         accent: "#303D47",
         neutral: "#23282F",
@@ -71,7 +72,6 @@ module.exports = {
         
         color10: "#A9A4FD",
         color11: "#AEAAFF",
-        color12: "#13222D",
         cyan: "#55DBCB",
       }
     },
