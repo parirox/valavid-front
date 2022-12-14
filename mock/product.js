@@ -149,12 +149,6 @@ module.exports = [
                 id: 1,
                 type: "image",
                 title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-                price: "2,500 T",
-                stats: {
-                    liked: false,
-                    cart_added: false,
-                    added_in_collection: false,
-                },
                 media: {
                     alt: "natural",
                     src: "https://placeimg.com/640/480/nature/5"
@@ -191,12 +185,6 @@ module.exports = [
                 id: 5,
                 type: "image",
                 title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-                price: "2,500 T",
-                stats: {
-                    liked: false,
-                    cart_added: false,
-                    added_in_collection: false,
-                },
                 media: {
                     alt: "natural",
                     src: "https://placeimg.com/640/480/nature/9"
