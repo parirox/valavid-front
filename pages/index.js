@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <Head>
-        <title>Valavid</title>
+          <title>والاوید | صفحه ی اصلی</title>
       </Head>
       <Slider />
       {/* modal */}
