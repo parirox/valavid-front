@@ -1,32 +1,31 @@
-import Chip from "@/components/Chip";
-import ButtonIcon from "@/components/ButtonIcon";
-import {IoAdd, IoClose, IoHeart, IoInformationCircleOutline, IoShareSocialOutline} from "react-icons/io5";
-import Image from "next/image";
-import {FaCartPlus, FaHeart, FaRegHeart} from "react-icons/fa";
-import {BsShieldFillCheck} from "react-icons/bs";
-import Button from "@/components/Button";
-import {CgFolderAdd} from "react-icons/cg";
-import PopularCardImage from "@/components/PopularCardImage";
-import {Fragment, Popover, Transition} from '@headlessui/react'
-import RatePieChart from "../../components/charts/RatePieChart";
-import Divider from "@/components/Divider";
 import Avatar from "@/components/Avatar";
-import {useDispatch, useSelector} from "react-redux";
-import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/local/CheckoutSlice";
-import {wrapper} from "@/datasources/store";
-import product_api, {ProductDetails, useProductDetailsQuery} from "@/datasources/product/remote/ProductSliceApi";
-import {useRouter} from "next/router";
-import {useMemo, useState} from "react";
-import {MdRemoveShoppingCart} from "react-icons/md";
-import Error from "next/error";
-import {addToFavorite, checkInFavorite, favoriteItems} from "@/datasources/user/local/UserSlice";
+import Button from "@/components/Button";
+import ButtonIcon from "@/components/ButtonIcon";
+import Chip from "@/components/Chip";
 import CollectionModel from "@/components/CollectionModal";
+import Divider from "@/components/Divider";
+import PopularCardImage from "@/components/PopularCardImage";
+import { addOrRemoveToCart, cartItems, checkInCart } from "@/datasources/checkout/local/CheckoutSlice";
+import { setModalCollectionTo } from "@/datasources/config/local/ConfigSlice";
+import product_api, { ProductDetails, useProductDetailsQuery } from "@/datasources/product/remote/ProductSliceApi";
+import { wrapper } from "@/datasources/store";
+import { addToFavorite, checkInFavorite, favoriteItems } from "@/datasources/user/local/UserSlice";
+import { Fragment, Popover, Transition } from '@headlessui/react';
+import Error from "next/error";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
+import { BsShieldFillCheck } from "react-icons/bs";
+import { CgFolderAdd } from "react-icons/cg";
+import { FaCartPlus, FaHeart, FaRegHeart } from "react-icons/fa";
+import { IoHeart, IoInformationCircleOutline, IoShareSocialOutline } from "react-icons/io5";
+import { MdRemoveShoppingCart } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import RatePieChart from "../../components/charts/RatePieChart";
 
 function FootageDetails() {
     const dispatch = useDispatch();
     const router = useRouter();
-
-    const [isOpen, setIsOpen] = useState(false)
 
     const {data, isSuccess, isLoading, isError} = useProductDetailsQuery(router.query);
 
@@ -46,7 +45,7 @@ function FootageDetails() {
     if (isSuccess) {
         return (
             <div className="container mt-20">
-                <CollectionModel isOpen={isOpen} setIsOpen={setIsOpen} data={data} />
+                <CollectionModel />
                 <div className="flex gap-24 flex-col md:flex-row md:items-stretch">
                     <div className="basis-full md:basis-7/12">
                         <div className="relative full">
@@ -201,7 +200,7 @@ function FootageDetails() {
                                             <FaRegHeart className="text-3xl"/>}
                                     </button>
                                     <button className="btn text-gray w-20 rounded-xl btn-accent"
-                                            onClick={() => setIsOpen(true)}>
+                                            onClick={() => dispatch(setModalCollectionTo({active:true,footage_details:data}))}>
                                         <CgFolderAdd className="text-3xl"/>
                                     </button>
                                 </div>

@@ -9,6 +9,7 @@ import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/
 import {MdRemoveShoppingCart} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
 import {addToFavorite, checkInFavorite, favoriteItems} from "@/datasources/user/local/UserSlice";
+import { setModalCollectionTo } from '@/datasources/config/local/ConfigSlice';
 
 const PopularCardVideo = ({ data, className, link = '#' }) => {
     const _cartItems = useSelector(cartItems);
@@ -32,7 +33,10 @@ const PopularCardVideo = ({ data, className, link = '#' }) => {
                                             <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary' onClick={() => dispatch(addToFavorite({id: data.id, price: data.price}))}>
                                                 {checkInFavorite(_favoriteItems, data.id) ? <IoHeart className={"text-danger"}/> : <IoHeartOutline/>}
                                             </Badge>
-                                            <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'><IoFolderOpenOutline /></Badge>
+                                            <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary' 
+                                                onClick={() =>  dispatch(setModalCollectionTo({active:true,footage_details:data}))}>
+                                                    <IoFolderOpenOutline />
+                                            </Badge>
                                             <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                                                    onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price}))}>
                                                 {checkInCart(_cartItems, data.id) ? <MdRemoveShoppingCart/> : <FaCartPlus/>}
@@ -47,7 +51,7 @@ const PopularCardVideo = ({ data, className, link = '#' }) => {
                                 <div className="flex p-1 gap-3 justify-between">
                                     <div className="basis-auto">
                                         <div className="flex gap-3 justify-center items-center">
-                                            <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data.price}</span></Badge>
+                                            {data.price && <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data.price}</span></Badge>}
                                             <Badge className='bg-primary rounded-2xl  text-2xl'><IoVideocamOutline /></Badge>
                                         </div>
                                     </div>
@@ -78,7 +82,7 @@ const PopularCardVideo = ({ data, className, link = '#' }) => {
                                 <FaPlay className='h-full w-full' />
                             </div>
                         </div>
-                        <Link href={link}>
+                        <Link href={link} className="absolute inset-0">
                             <video ref={ref} autoPlay={false} muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30 hover:autoPlay">
                                 <source src={data.media.src} type="video/mp4" />
                             </video>

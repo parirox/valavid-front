@@ -1,3 +1,4 @@
+import CollectionModel from "@/components/CollectionModal";
 import BecomeASeller from "@/components/home/BecomeASeller";
 import Blog from "@/components/home/Blog";
 import Collections from "@/components/home/Collections";
@@ -15,6 +16,8 @@ function Home() {
         <title>Valavid</title>
       </Head>
       <Slider />
+      {/* modal */}
+      <CollectionModel />
       <InfoItems />
       <Collections />
       <MostPopular />

@@ -1,42 +1,48 @@
-import Modal from "@/components/Modal";
-import Image from "next/image";
 import Button from "@/components/Button";
-import {IoAdd, IoClose} from "react-icons/io5";
-import {isEmpty} from '@/utils/general';
-import {addCollection, addOrRemoveFootageInCollection, collectionItems} from "@/datasources/user/local/UserSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useMemo, useState} from "react";
+import Modal from "@/components/Modal";
+import { collectionSelectedFootage, modalCollectionState, setModalCollectionTo } from "@/datasources/config/local/ConfigSlice";
+import { addCollection, addOrRemoveFootageInCollection, collectionItems } from "@/datasources/user/local/UserSlice";
+import { isEmpty } from '@/utils/general';
+import Image from "next/image";
+import { useMemo, useState,useEffect } from "react";
+import { IoAdd, IoClose } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function CollectionModel({isOpen, setIsOpen, data}) {
+export default function CollectionModel() {
     const [newCollectionName, setNewCollectionName] = useState("")
 
     const dispatch = useDispatch();
 
+    const isOpen = useSelector(modalCollectionState);
     const _collectionItems = useSelector(collectionItems);
+    const footage_details = useSelector(collectionSelectedFootage);
 
     const the_collection_ids_has_this_footage = useMemo(() => {
-        return !isEmpty(_collectionItems) ? _collectionItems.filter(collection => !isEmpty(collection.items) && collection.items.find(footage => footage.id === data.id)).map(collection => collection.localId) : []
-    }, [data, _collectionItems])
+        return !isEmpty(_collectionItems) ? _collectionItems.filter(collection => !isEmpty(collection.items) && collection.items.find(footage => footage.id === footage_details.id)).map(collection => collection.localId) : []
+    }, [footage_details, _collectionItems])
 
     function addNewCollectionHandler() {
         dispatch(addCollection({collection_name: newCollectionName}))
         setNewCollectionName("")
     }
-
+ 
+    if(isEmpty(footage_details?.id)) return <></>
     return (
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Modal isOpen={isOpen ?? false === true} setIsOpen={(state)=>dispatch(setModalCollectionTo({active:state,footage_details}))}>
             <div className="bg-white w-full flex flex-cols gap-7 rounded-3xl text-center p-5">
                 <div className="relative basis-2/6 rounded-tr-3xl rounded-br-3xl overflow-hidden">
-                    <Image src='https://placeimg.com/250/600/nature' fill alt="ads"
-                           className="object-cover"/>
-                </div>
+                    {footage_details?.type === "video" ?
+                     (<video autoPlay={false} preload='metadata' className="full object-cover">
+                          <source src={footage_details.media.src} type="video/mp4"/>
+                    </video>) : (<Image src={footage_details.media.src} fill alt={footage_details.media.alt} className="object-cover"/>)}
+                </div> 
                 <div className="basis-4/6">
                     <div className="flex flex-col gap-8">
                         <div className="flex-initial">
                             <div className="flex justify-between">
                                 <span className="text-secondary-300 text-xl">افزودن به مجموعه ها</span>
                                 <span className="text-accent text-2xl cursor-pointer"
-                                      onClick={() => setIsOpen(false)}><IoClose/></span>
+                                      onClick={() => dispatch(setModalCollectionTo({active:false,footage_details}))}><IoClose/></span>
                             </div>
                         </div>
                         <div className="flex-auto w-full">
@@ -53,16 +59,15 @@ export default function CollectionModel({isOpen, setIsOpen, data}) {
                                         <div>
                                             {the_collection_ids_has_this_footage.includes(collection.localId) ? <Button
                                                     onClick={() => {
-                                                        dispatch(addOrRemoveFootageInCollection({localId:collection.localId, footage_details:data,type:'remove'}))
+                                                        dispatch(addOrRemoveFootageInCollection({localId:collection.localId, footage_details,type:'remove'}))
                                                     }}
                                                     className="border-2 flex items-center btn-primary rounded-2xl px-10 py-4 bg-">موجود
                                                     در مجموعه</Button>
                                                 : <Button
                                                     onClick={() => {
-                                                        dispatch(addOrRemoveFootageInCollection({localId:collection.localId, footage_details:data,type:'add'}))
+                                                        dispatch(addOrRemoveFootageInCollection({localId:collection.localId, footage_details,type:'add'}))
                                                     }}
-                                                    className="flex items-center btn-outline-primary rounded-2xl px-10 py-4"
-                                                    icon={<IoAdd/>}>افزودن</Button>}
+                                                    className="flex items-center btn-outline-primary rounded-2xl px-10 py-4" icon={<IoAdd/>}>افزودن</Button>}
                                         </div>
                                     </li>
                                 )) : <li className={"full flex justify-center items-center"}>مجموعه ای یافت نشد!</li>}
