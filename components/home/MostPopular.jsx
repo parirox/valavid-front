@@ -50,17 +50,17 @@ const data = [
         media: [
             {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/466/800/600.jpg?hmac=WV-cGmI8qrm_odvJ_4-Ytcl-c8E4WeZj9CPqxOrgpYA"
+                src: "https://placeimg.com/640/480/nature/1"
             },
             {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/204/800/600.jpg?hmac=mI8BSeKI2n7dCfBgsWHk8yY0FUyS--DCsSrTP2xBX84"
+                src: "https://placeimg.com/640/480/nature/2"
             }, {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/492/800/600.jpg?hmac=aolz_CKCnAf54UuNY7lvPbI6wMzb2t81dvRkt2WJdJE"
+                src: "https://placeimg.com/640/480/nature/3"
             }, {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/648/800/600.jpg?hmac=m76icL0QjVYJF9TNKGTd67CQ4-zDLe6fVmrSygdfBfo"
+                src: "https://placeimg.com/640/480/nature/4"
             }
         ]
     }, 
@@ -90,17 +90,17 @@ const data = [
         media: [
             {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/466/800/600.jpg?hmac=WV-cGmI8qrm_odvJ_4-Ytcl-c8E4WeZj9CPqxOrgpYA"
+                src: "https://placeimg.com/640/480/nature/5"
             },
             {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/204/800/600.jpg?hmac=mI8BSeKI2n7dCfBgsWHk8yY0FUyS--DCsSrTP2xBX84"
+                src: "https://placeimg.com/640/480/nature/6"
             }, {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/492/800/600.jpg?hmac=aolz_CKCnAf54UuNY7lvPbI6wMzb2t81dvRkt2WJdJE"
+                src: "https://placeimg.com/640/480/nature/7"
             }, {
                 alt: "natural",
-                src: "https://i.picsum.photos/id/648/800/600.jpg?hmac=m76icL0QjVYJF9TNKGTd67CQ4-zDLe6fVmrSygdfBfo"
+                src: "https://placeimg.com/640/480/nature/8"
             }
         ]
     },
