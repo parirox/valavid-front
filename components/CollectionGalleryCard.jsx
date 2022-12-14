@@ -32,6 +32,7 @@ const CollectionGalleryCard = ({ items, label, icon }) => {
             src={image.src}
             className="object-cover"
             fill
+            sizes="33vw"
             alt={image.alt}
           />
         </div>
