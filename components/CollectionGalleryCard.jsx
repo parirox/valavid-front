@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import Badge from "./Badge";
 
-const CollectionGalleryCard = ({ items, label, icon }) => {
+const CollectionGalleryCard = ({ items, label, icon, total_count, id }) => {
   return (
     <div className="grid grid-cols-3 grid-row-3 h-[250px] rounded-[32px] overflow-hidden gap-3 group/collection cursor-pointer">
       {items.map((image, index) => (
@@ -23,18 +24,20 @@ const CollectionGalleryCard = ({ items, label, icon }) => {
           {index === 3 && (
             <span className="absolute inset-0 flex items-center justify-center text-4xl z-20 ">
               <span className="text-slate-50" dir="ltr">
-                +54
+                +{total_count}
               </span>
             </span>
-          )}
+          )}<Link href={`#${id}`} className='absolute inset-0'>
           <div className="absolute inset-0 z-10 bg-gradient-to-bl from-[#00101c98] to-[#0e1f2c14] group-hover/collection:from-[#534cda81] group-hover/collection:to-transparent"></div>
-          <Image
-            src={image.src}
-            className="object-cover"
-            fill
-            sizes="33vw"
-            alt={image.alt}
-          />
+          
+            <Image
+              src={image.src}
+              className="object-cover"
+              fill
+              sizes="33vw"
+              alt={image.alt}
+            />
+          </Link>
         </div>
       ))}
     </div>
