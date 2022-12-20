@@ -126,19 +126,6 @@ const data = [
 ]
 
 const MostPopular = () => {
-
-    const likeItem = (v) => {
-        // to do
-    }
-
-    const addToCart = (v) => {
-        // to do
-    }
-
-    const addToCollection = (v) => {
-        // to do
-    }
-
     return (
         <div className='my-40'>
             <SectionTitleDivider title="محبوب ها‍" ></SectionTitleDivider>
