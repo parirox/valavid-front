@@ -76,8 +76,8 @@ export default function index() {
       <div className="relative h-[10rem] w-full">
         <div className="absolute -top-[4.25rem] right-0 left-0 flex gap-14 max-w-[940px] items-center w-full m-auto">
           {
-            InfoItemData.map(item => (
-              <ReverseEffectInfoItem data={item} disable={item.value == null} className="basis-1/4"></ReverseEffectInfoItem>
+            InfoItemData.map((item,i) => (
+              <ReverseEffectInfoItem title={item.title} value={item.value} icon={item.icon} disable={item.value == null} className="basis-1/4" key={i}></ReverseEffectInfoItem>
             ))
           }
         </div>
@@ -101,8 +101,8 @@ export default function index() {
           <div className="flex justify-between gap-2 items-center">
             <div className="flex flex-wrap gap-6 w-[75rem] py-24">
               {
-                contactBoxes.map(box => (
-                  <ContactUsBox value={box.value} connectionWay={box.connectinoWay} icon={box.icon} className="w-[calc(50%_-_1.5rem)]"></ContactUsBox>
+                contactBoxes.map((box,i) => (
+                  <ContactUsBox value={box.value} connectionWay={box.connectinoWay} icon={box.icon} className="w-[calc(50%_-_1.5rem)]" key={i}></ContactUsBox>
                 ))
               }
             </div>

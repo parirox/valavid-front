@@ -32,4 +32,3 @@ function App({Component, ...rest}) {
 }
 
 export default App
-// export default wrapper.withRedux(App);

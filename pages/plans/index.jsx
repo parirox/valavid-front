@@ -116,7 +116,7 @@ export default function index() {
         <div className="flex pt-40 pb-10 justify-between gap-2">
         {
           advantagesData.map((advantage, i) => (
-            <AdvantageBox icon={advantage.icon} advantage={advantage.advantage} description={advantage.description}></AdvantageBox>
+            <AdvantageBox icon={advantage.icon} advantage={advantage.advantage} description={advantage.description} key={i}></AdvantageBox>
           ))
         }
         </div>

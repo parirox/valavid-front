@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import Head from "next/head";
 import Image from "next/image";
 
-export default function index() {
+export default function Error404() {
   return (
     <>
       <Head>

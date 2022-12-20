@@ -15,6 +15,7 @@ import Error from "next/error";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Error404 from "pages/404";
 import { useMemo } from "react";
 import { BsShieldFillCheck } from "react-icons/bs";
 import { CgFolderAdd } from "react-icons/cg";
@@ -28,7 +29,7 @@ function FootageDetails() {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const {data, isSuccess, isLoading, isError} = useProductDetailsQuery(router.query);
+    const { data, isSuccess, isError } = useProductDetailsQuery(router.query);
 
     const _cartItems = useSelector(cartItems);
     const is_in_cart = useMemo(() => {
@@ -41,7 +42,7 @@ function FootageDetails() {
     }, [data, _favoriteItems])
 
 
-    if (isError) return <Error statusCode={404}/>
+    if (isError) return <Error404 />
 
     if (isSuccess) {
         return (
@@ -58,14 +59,14 @@ function FootageDetails() {
                                     data.type === "video" ?
                                         <video autoPlay={false} preload='metadata' controls loop
                                             className="full object-cover rounded-[2.6rem]">
-                                            <source src={data.media.src} type="video/mp4"/>
+                                            <source src={data.media.src} type="video/mp4" />
                                         </video>
                                         :
                                         <Image src={data.media.src} alt={data.media.alt} fill
-                                            className="full object-cover rounded-[2.6rem]"/>
+                                            className="full object-cover rounded-[2.6rem]" />
                                 }
-                                <ButtonIcon icon={<IoHeart className={"text-3xl"}/>}
-                                            className={"btn-ghost absolute top-8 right-8 flex-row-reverse justify-center gap-1 text-lg z-40"}>
+                                <ButtonIcon icon={<IoHeart className={"text-3xl"} />}
+                                    className={"btn-ghost absolute top-8 right-8 flex-row-reverse justify-center gap-1 text-lg z-40"}>
                                     120
                                 </ButtonIcon>
                             </div>
@@ -78,7 +79,7 @@ function FootageDetails() {
                                         <div className="flex-none">
                                             <div className="flex items-center gap-3">
                                                 <Avatar src={data.author.profile_image} alt={data.author.name}
-                                                        badge={<BsShieldFillCheck/>}/>
+                                                    badge={<BsShieldFillCheck />} />
                                                 <span className="text-lg">{data.author.name}</span>
                                             </div>
                                         </div>
@@ -106,7 +107,7 @@ function FootageDetails() {
                                 <div className="basis-2/12 flex gap-3 h-full text-xl">
                                     <Popover className="relative">
                                         <Popover.Button className="btn text-gray py-4 px-6 rounded-xl btn-accent">
-                                            <IoInformationCircleOutline className="text-3xl"/>
+                                            <IoInformationCircleOutline className="text-3xl" />
                                             <span className="ml-2">اطلاعات بیشتر</span>
                                         </Popover.Button>
                                         <Popover.Panel
@@ -139,7 +140,7 @@ function FootageDetails() {
                                                             {
                                                                 data.extra_information.colors.map((Hex, k) => (
                                                                     <div key={k} className='flex-initial full'
-                                                                        style={{backgroundColor: Hex}}></div>
+                                                                        style={{ backgroundColor: Hex }}></div>
                                                                 ))
                                                             }
                                                         </div>
@@ -165,8 +166,8 @@ function FootageDetails() {
                                                     {
                                                         data.extra_information.rates.map((rate, key) => (
                                                             <li key={key} className="flex flex-col gap-2 mb-5">
-                                                            <span className="w-20 h-20 block mb-2 mx-auto"><RatePieChart
-                                                                data={rate}/></span>
+                                                                <span className="w-20 h-20 block mb-2 mx-auto"><RatePieChart
+                                                                    data={rate} /></span>
                                                                 <span className="text-sm text-center">{rate.label}</span>
                                                             </li>
                                                         ))}
@@ -175,12 +176,12 @@ function FootageDetails() {
                                         </Popover.Panel>
                                     </Popover>
                                     <button className="btn text-gray w-16 h-16 rounded-xl btn-accent"><IoShareSocialOutline
-                                        className="text-3xl"/></button>
+                                        className="text-3xl" /></button>
                                 </div>
                                 <div className="basis-3/12">
                                     <div className="flex items-center gap-3 mb-4">
-                                    <span
-                                        className="bg-danger rounded-2xl w-12 px-2 py-1 text-center">{data.price.percent}</span>
+                                        <span
+                                            className="bg-danger rounded-2xl w-12 px-2 py-1 text-center">{data.price.percent}</span>
                                         <span className="text-xs text-gray">تخفیف اشتراک</span>
                                     </div>
                                     <div className="flex items-center gap-3">
@@ -191,22 +192,22 @@ function FootageDetails() {
                                 <div className="basis-3/12">
                                     <div className="flex gap-3 h-20 items-stretch">
                                         <Button className="btn text-white py-4 px-6 rounded-xl btn-primary-gradient"
-                                                onClick={() => dispatch(addOrRemoveToCart({
-                                                    id: data.id,
-                                                    price: data.price
-                                                }))}
-                                                icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
-                                                    <FaCartPlus
-                                                        className="text-3xl"/>}>{is_in_cart ? 'حذف از' : 'اضافه به'} سبد
+                                            onClick={() => dispatch(addOrRemoveToCart({
+                                                id: data.id,
+                                                price: data.price
+                                            }))}
+                                            icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl" /> :
+                                                <FaCartPlus
+                                                    className="text-3xl" />}>{is_in_cart ? 'حذف از' : 'اضافه به'} سبد
                                             خرید</Button>
                                         <button className="btn text-gray w-20 rounded-xl btn-accent"
-                                                onClick={() => dispatch(addToFavorite({id: data.id}))}>
-                                            {is_in_favorite ? <FaHeart className="text-3xl text-danger"/> :
-                                                <FaRegHeart className="text-3xl"/>}
+                                            onClick={() => dispatch(addToFavorite({ id: data.id }))}>
+                                            {is_in_favorite ? <FaHeart className="text-3xl text-danger" /> :
+                                                <FaRegHeart className="text-3xl" />}
                                         </button>
                                         <button className="btn text-gray w-20 rounded-xl btn-accent"
-                                                onClick={() => dispatch(setModalCollectionTo({active:true,footage_details:data}))}>
-                                            <CgFolderAdd className="text-3xl"/>
+                                            onClick={() => dispatch(setModalCollectionTo({ active: true, footage_details: data }))}>
+                                            <CgFolderAdd className="text-3xl" />
                                         </button>
                                     </div>
                                 </div>
@@ -217,28 +218,28 @@ function FootageDetails() {
                         <div className="basis-7/12">
                             <div className="flex justify-start gap-3 mt-6">
                                 {data.tags.map((v, i) => (
-                                    <Chip key={i} className={"btn-glass font-bold h-[24px]"} content={v.label}/>
+                                    <Chip key={i} className={"btn-glass font-bold h-[24px]"} content={v.label} />
                                 ))}
                             </div>
                         </div>
                     </div>
                     <Divider start={(
                         <div className='flex items-center gap-4'>
-                            <Avatar src={data.author.profile_image} alt={data.author.name} badge={<BsShieldFillCheck/>}/>
+                            <Avatar src={data.author.profile_image} alt={data.author.name} badge={<BsShieldFillCheck />} />
                             <span>بیشتر از حمید باقری</span>
                         </div>
                     )}
-                            end={<Button className="btn-accent text-secondary-300" link={"#"}>مشاهده پروفایل</Button>}
+                        end={<Button className="btn-accent text-secondary-300" link={"#"}>مشاهده پروفایل</Button>}
                     />
                     <div className="grid grid-cols-4 h-72 mb-20 mt-10">
                         {data.more_user_products.map((item, key) => (
-                            <PopularCardImage key={key} data={item} link={`/footage/${item.id}`}/>))}
+                            <PopularCardImage key={key} data={item} link={`/footage/${item.id}`} />))}
                     </div>
-                    <Divider start='مشابه ها'/>
+                    <Divider start='مشابه ها' />
                     <section className="mb-40 mt-10">
                         <div className="grid grid-cols-4 grid-rows-2 h-[36rem]">
                             {data.related_products.map((item, key) => (
-                                <div key={key} className={(key === 3 ? 'row-span-2' : '')}><PopularCardImage data={item}/>
+                                <div key={key} className={(key === 3 ? 'row-span-2' : '')}><PopularCardImage data={item} />
                                 </div>))}
                         </div>
                         <Button
