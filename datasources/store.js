@@ -19,6 +19,7 @@ import {loadingBarReducer} from 'react-redux-loading-bar'
 import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
 import storage from '@/datasources/storage';
+import homeSliceApi,{ homeSliceApiTag } from '@/datasources/home/remote/HomeSliceApi';
 
 const persistConfig = {
     key: 'VALAVID',
@@ -28,6 +29,8 @@ const persistConfig = {
 };
 
 let reducer = {
+    //->> home
+    [homeSliceApiTag]: homeSliceApi.reducer,
     //->> checkout
     checkout: checkoutSlice,
     [checkoutSliceApiTag]: checkoutSliceApi.reducer,
@@ -50,10 +53,11 @@ export const store = (context) => configureStore({
         getDefaultMiddleware({
             serializableCheck: false,
         }).concat([
-            rtkQueryErrorLogger,
-            LoadingHandler,
+            homeSliceApi.middleware,
             checkoutSliceApi.middleware,
             productSliceApi.middleware,
+            rtkQueryErrorLogger,
+            LoadingHandler,
         ]),
 })
 
