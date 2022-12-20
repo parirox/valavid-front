@@ -1,18 +1,22 @@
+import Button from "@/components/Button";
 import CoverPage from "@/components/CoverPage";
+import PopularCardVideo from "@/components/PopularCardVideo";
 import SortTabs from "@/components/SortTabs";
-import Head from "next/head";
 import VideoIcon from '@/public/icons/FillVideoPrimary.svg';
 import PicMountain from '@/public/images/astara_mountain.jpg';
-import PopularCardVideo from "@/components/PopularCardVideo";
+import Head from "next/head";
 import { useEffect, useState } from "react";
-import Button from "@/components/Button";
 // Filter Drawern sidebar
-import { TiFilter } from "react-icons/ti"
-import { ImPriceTag } from "react-icons/im"
-import { IoIosArrowDown } from "react-icons/io"
-import RangeInput from "@/components/RangeInput";
-import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
 import CollectionModel from "@/components/CollectionModal";
+import RangeInput from "@/components/RangeInput";
+import product_api, { GetProductList, useGetProductListQuery } from "@/datasources/product/remote/ProductSliceApi";
+import { wrapper } from "@/datasources/store";
+import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
+import { ImPriceTag } from "react-icons/im";
+import { IoIosArrowDown } from "react-icons/io";
+import { TiFilter } from "react-icons/ti";
+import Error404 from "pages/404";
+import { useRouter } from "next/router";
 
 
 const data = [
@@ -189,7 +193,10 @@ const data = [
   },
 ]
 
-export default function Videos() {
+function Videos() {
+  const router = useRouter();
+  const { data2, isSuccess, isError } = useGetProductListQuery(router.query);
+
   const [formData, setFormData] = useState({
     price: 0,
     resolution: 0,
@@ -217,8 +224,10 @@ export default function Videos() {
   useEffect(() => {
     console.log(formData);
   }, [formData])
+ 
+  if (isError) return <Error404 />
 
-  return (
+  if (isSuccess) return (
     <>
       <Head>
         <title>Valavid | Videos</title>
@@ -419,7 +428,6 @@ export default function Videos() {
                     <Disclosure.Panel className="border-b border-secondary-400 pr-2">
                       <div className="w-full relative pt-0 py-10 px-3">
                         <RadioGroup value={formData.setting} className="flex gap-4" onChange={setFormDataHandler('setting')}>
-
                           {settings.map(opt => (
                             <RadioGroup.Option value={opt} key={opt}
                               className={({ active, checked }) =>
@@ -563,7 +571,6 @@ export default function Videos() {
                     <Disclosure.Panel className="border-b border-secondary-400 pr-2">
                       <div className="w-full relative pt-0 py-10 px-3">
                         <RadioGroup value={formData.setting} className="flex gap-4" onChange={setFormDataHandler('setting')}>
-
                           {settings.map(opt => (
                             <RadioGroup.Option value={opt} key={opt}
                               className={({ active, checked }) =>
@@ -585,7 +592,6 @@ export default function Videos() {
                   </Transition>
                 </>
               )}
-
             </Disclosure>
           </div>
         </div>
@@ -601,3 +607,15 @@ export default function Videos() {
     </>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    store.dispatch(GetProductList.initiate(context.params))
+    await Promise.all(store.dispatch(product_api.util.getRunningQueriesThunk()))
+    return {
+      props: {},
+    };
+  }
+);
+
+export default Videos
