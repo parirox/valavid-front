@@ -4,6 +4,7 @@ import { IoFolderSharp } from "react-icons/io5";
 
 const data = [
   {
+    id: 1,
     title: 'مجموعه زیبایی های ایرانی اسلامی',
     media: [
       {
@@ -23,6 +24,7 @@ const data = [
     ]
   },
   {
+    id: 2,
     title: 'مجموعه زیبایی های ایرانی اسلامی',
     media: [
       {
@@ -42,13 +44,14 @@ const data = [
     ]
   },
   {
+    id: 3,
     title: 'مجموعه زیبایی های ایرانی اسلامی',
     media: [
       {
         alt: "natural",
         src: "https://placeimg.com/640/480/nature/9"
       },
-      { 
+      {
         alt: "natural",
         src: "https://placeimg.com/640/480/nature/10"
       }, {
@@ -71,8 +74,10 @@ const Collections = () => {
         {data.map((collection, k) => (
           <div className="min-h-6" key={k}>
             <CollectionGalleryCard
+              id={collection.id}
               items={collection.media}
               label={collection.title}
+              total_count={collection.total_count}
               icon={<IoFolderSharp />}
             />
           </div>
