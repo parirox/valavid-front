@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useTransition } from "react";
 import BorderValue from '@/public/icons/OutlineBorderValueRange.png'
 
 export default function RangeInput(props) {
@@ -19,16 +19,22 @@ export default function RangeInput(props) {
   const rangeVal = useRef();
   const rangeBar = useRef();
   const showValue = useRef();
+  const [isPending, startTransition] = useTransition()
+
   function setRangeVal() {
     let percent = ((rangeInputTag.current.value - min) / (max - min)) * 100;
     rangeVal.current.style.left = percent + "%";
     rangeBar.current.style.width = percent + "%";
     showValue.current.innerText = rangeInputTag.current.value
-    setState(rangeInputTag.current.value)
+    startTransition(() => {
+      setState(rangeInputTag.current.value)
+    })
   }
+
+
+
   useEffect(() => {
     setRangeVal();
-
     rangeInputTag.current.addEventListener("input", setRangeVal);
   }, [])
 
