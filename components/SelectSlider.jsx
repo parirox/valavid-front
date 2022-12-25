@@ -13,13 +13,13 @@ export const people = [
   {
     id: 1,
     name: "ویدئو",
-    icon: <IoVideocamOutline className="text-[#001727] text-2xl" />,
+    icon: <IoVideocamOutline className="text-2xl" />,
     unavailable: false,
   },
   {
     id: 2,
     name: "تصویر",
-    icon: <IoImageOutline className="text-[#001727] text-2xl" />,
+    icon: <IoImageOutline className="text-2xl" />,
     unavailable: false,
   },
 ];
@@ -33,11 +33,11 @@ export default function SelectSlider() {
         <div className="basis-2/12 py-3 h-full">
           <Listbox value={selected} onChange={setSelected}>
             <div className="border-l-[1px] border-[#D6DADC] relative px-2 h-full">
-              <Listbox.Button className="flex gap-2 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+              <Listbox.Button className="flex gap-2 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm text-accent">
                 <span className="basis-1/4 pointer-events-none flex items-center pr-2">
                   {selected.icon}
                 </span>
-                <span className="basis-2/4 block truncate text-[#001727] text-center">
+                <span className="basis-2/4 block truncate text-center">
                   {selected.name}
                 </span>
                 <IoCaretDown/>
@@ -48,7 +48,7 @@ export default function SelectSlider() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-accent  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {people.map((person, personIdx) => (
                     <Listbox.Option
                       key={personIdx}
