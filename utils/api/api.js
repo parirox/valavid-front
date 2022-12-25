@@ -4,7 +4,8 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi"
 export const ApiEndpoint = {
     cart: {
-        get: "/cart/",
+        detailsByIds: "/cart/:ids",
+        offerCode: "/offerCode/:code",
     },
     product: {
         get: "/videos/",
