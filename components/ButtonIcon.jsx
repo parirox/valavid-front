@@ -1,23 +1,27 @@
+import { isEmpty } from "@/utils/general";
 import Link from "next/link";
 
-const ButtonIcon = ({
-  type,
-  className,
-  link,
-  icon,
-  children,
-  onClickHandler = () => {},
-}) => {
+const ButtonIcon = (props) => {
+  const {
+    link,
+    icon,
+    children, ...rest
+  } = props;
+  rest.className += ' btn rounded-full gap-2'
+
+  if (isEmpty(link)) {
+    return (
+      <button {...rest}>
+        <span>{icon}</span>
+        <span>{children}</span>
+      </button>
+    )
+  }
   return (
-    <button
-      className={`btn ${
-        type ? "btn-" + type : "btn-primary"
-      } rounded-full ${className}`}
-      onClick={onClickHandler}
-    >
-      {icon && <span className="ml-2">{icon}</span>}
-      {link ? <Link href={link}>{children}</Link> : <span>{children}</span>}
-    </button>
+    <Link {...rest} href={link}>
+      <span>{icon}</span>
+      {children}
+    </Link>
   );
 };
 
