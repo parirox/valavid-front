@@ -15,20 +15,30 @@ const checkout_api = createApi({
     baseQuery,
     tagTypes: [checkoutSliceApiTag],
     endpoints: (build) => ({
-        getCartList: build.query({
+        getCartDetailsByIds: build.mutation({
             query: (query) => ({
-                url: ApiAddress(ApiEndpoint.cart.list, query),
+                url: ApiAddress(ApiEndpoint.cart.detailsByIds, query),
                 method: 'GET',
             }),
             providesTags: (result, error, id) => [
-                { type: checkoutSliceApiTag, id: 'LIST' }
+                { type: checkoutSliceApiTag, id: 'Cart' }
+            ],
+        }),
+        checkOfferCode: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.cart.offerCode, query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                { type: checkoutSliceApiTag, id: 'OfferCode' }
             ],
         }),
     })
 });
 
 export const {
-    useGetCartListQuery
+    useGetCartDetailsByIdsMutation,
+    useCheckOfferCodeMutation,
 } = checkout_api;
 
 export default checkout_api;
