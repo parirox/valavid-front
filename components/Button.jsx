@@ -1,20 +1,23 @@
+import { isEmpty } from "@/utils/general";
 import Link from "next/link";
 
-const Button = (props) => {
-  const {
-    link,
-    icon,
-    children,...rest
-  } = props;
+const Button = ({
+  link,
+  children, ...rest
+}) => {
   rest.className += ' btn'
-  
+
+  if (isEmpty(link)) {
+    return (
+      <button {...rest}>
+        {children}
+      </button>
+    )
+  }
   return (
-    <button
-      {...rest}
-    >
-      {icon && <span className="ml-2">{icon}</span>}
-      {link ? <Link href={link}>{children}</Link> : <span>{children}</span>}
-    </button>
+    <Link {...rest} href={link}>
+      {children}
+    </Link>
   );
 };
 
