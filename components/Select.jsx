@@ -60,7 +60,7 @@ export default function Select() {
                       {({ selected }) => (
                         <>
                           <span
-                            className={`block truncate ${
+                            className={`block truncate text-accent ${
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >
