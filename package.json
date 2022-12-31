@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "@headlessui/react": "^1.7.3",
+    "@headlessui/tailwindcss": "^0.1.2",
     "@heroicons/react": "^2.0.12",
     "@reduxjs/toolkit": "^1.9.1",
     "@svgr/webpack": "^6.5.1",
