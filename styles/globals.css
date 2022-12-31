@@ -88,3 +88,7 @@ video::-webkit-media-controls-panel {
 .navbarItem .active {
     color: #fff;
 }
+
+.box-shadow {
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.10) !important;
+}

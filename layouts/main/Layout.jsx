@@ -7,7 +7,7 @@ const Layout = ({children, styleMode = "others"}) => {
         <>
             <LoadingBar className={"bg-primary h-1 fixed z-50"} />
             <Header styleMode={styleMode}/>
-            <main className={"min-h-screen"}>{children}</main>
+            <main className={`min-h-screen ${styleMode == 'blog' ? 'bg-[#F8F8F8]' : ''}`}>{children}</main>
             <Footer styleMode={styleMode}/>
         </>
     );

@@ -2,16 +2,43 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-const Navbar = () => { 
-  const router = useRouter()
 
+const links = [
+  {
+    title: 'خانه',
+    href: '/'
+  },
+  {
+    title: 'ویدئو',
+    href: '/videos'
+  },
+  {
+    title: 'تصویر',
+    href: '/pictures'
+  },
+  {
+    title: 'وبلاگ',
+    href: '/blog'
+  },
+  {
+    title: 'درباره ی ما',
+    href: '/aboutUs'
+  },
+  {
+    title: 'سوالات متداول',
+    href: '/faq'
+  },
+]
+
+const Navbar = ({styleMode}) => { 
+  const router = useRouter()
   return (
-    <nav className="w-full flex gap-12 navbarItem text-base">
-        <Link className={router?.pathname === "/" ? "active" : ""} href="/">خانه</Link>
-        <Link className={router?.pathname === "/videos" ? "active" : ""} href="/videos">ویدئو</Link>
-        <Link className={router?.pathname === "/images" ? "active" : ""} href="/images">تصویر</Link>
-        <Link className={router?.pathname === "/blogs" ? "active" : ""} href="/blogs">وبلاگ</Link>
-        <Link className={router?.pathname === "/aboutUs" ? "active" : ""} href="/aboutUs">درباره ما</Link>
+    <nav className={`w-full flex gap-12 navbarItem text-base ${styleMode === 'blog' ? 'text-secondary' : ''}`}>
+        {
+          links.map((page, index) => (
+            <Link href={page.href} className={`${styleMode === 'blog' ? 'text-secondary' : ''} ${router?.pathname === page.href ? 'active' : ''}`} key={index}>{page.title}</Link>
+          ))
+        }
     </nav>
   );
 };
