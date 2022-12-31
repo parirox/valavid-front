@@ -53,7 +53,7 @@ module.exports = {
         success: "#6CB288",
         warning: "#DAAD58",
         error: "#AB3D30",
-        success: 
+        success:
         {
           DEFAULT: "#2DC269",
           100: "#2DC2BD"
@@ -69,7 +69,7 @@ module.exports = {
         color6: "#ECECEC",
         color7: "#1E303E", // shadow modal
         color8: "#D6DADC", // text color
-        
+
         color10: "#A9A4FD",
         color11: "#AEAAFF",
         cyan: "#55DBCB",
@@ -77,11 +77,12 @@ module.exports = {
     },
   },
   plugins: [
+    require('@headlessui/tailwindcss')({ prefix: 'ui' }),
     require("@tailwindcss/typography"),
     require('tailwind-scrollbar'),
     // require("daisyui"),
     plugin(function ({ addBase, theme }) {
-      addBase({  
+      addBase({
         html: { fontSize: "12px",backgroundColor: theme('colors.color2')},
         h1: { fontSize: "3rem" },
         h2: { fontSize: "2.5rem" },
@@ -90,9 +91,9 @@ module.exports = {
         h5: { fontSize: "1.4rem" },
         h6: { fontSize: "1rem" },
         p: {
-          fontSize: "1rem", 
-          color: theme('colors.color8'),  
-        }, 
+          fontSize: "1rem",
+          color: theme('colors.color8'),
+        },
       });
     }),
   ],
