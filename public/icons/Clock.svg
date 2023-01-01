@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40.905" height="39.364" viewBox="0 0 40.905 39.364">
+  <g id="Group_1236" data-name="Group 1236" transform="translate(-12190.026 -2664.63)">
+    <g id="Icon_feather-clock" data-name="Icon feather-clock" transform="translate(12194.454 2671.263)">
+      <path id="Path_2577" data-name="Path 2577" d="M18,9v6.073L22.049,17.1" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    </g>
+    <path id="Icon_ionic-ios-refresh" data-name="Icon ionic-ios-refresh" d="M5.552,20.306a1.049,1.049,0,0,1,1.048.956,11.415,11.415,0,1,0,11.672-12.3.275.275,0,0,0-.288.281v3.537a1.127,1.127,0,0,1-1.73.949L9.489,9a1.124,1.124,0,0,1,0-1.905l6.757-4.669a1.127,1.127,0,0,1,1.73.949V6.588a.276.276,0,0,0,.274.281A13.443,13.443,0,1,1,4.5,21.438a1.045,1.045,0,0,1,1.048-1.132Z" transform="translate(12185.779 2690.469) rotate(-59)"/>
+  </g>
+</svg>

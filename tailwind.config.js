@@ -19,6 +19,9 @@ module.exports = {
       sans: ["IRANSans", "vazir", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        'hero-pattern': "linear-gradient(0deg, rgba(83,76,218,0.8) 0%, rgba(174,170,255,0.8) 100%),url('../public/icons/LoginImage.jpg')",
+     },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -30,6 +33,7 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
     require("daisyui"),
     plugin(function ({ addBase, theme }) {
       addBase({
