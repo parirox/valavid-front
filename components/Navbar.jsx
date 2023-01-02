@@ -1,14 +1,17 @@
 
-const Navbar = () => {
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+const Navbar = () => { 
+  const router = useRouter()
+
   return (
-    <nav className="w-full">
-      <ul className="w-full flex gap-12 navbarItem text-base">
-        <li className="active">خانه</li>
-        <li>ویدئو</li>
-        <li>تصویر</li>
-        <li>وبلاگ</li>
-        <li>درباره ما</li>
-      </ul>
+    <nav className="w-full flex gap-12 navbarItem text-base">
+        <Link className={router?.pathname === "/" ? "active" : ""} href="/">خانه</Link>
+        <Link className={router?.pathname === "/videos" ? "active" : ""} href="/videos">ویدئو</Link>
+        <Link className={router?.pathname === "/images" ? "active" : ""} href="/images">تصویر</Link>
+        <Link className={router?.pathname === "/blogs" ? "active" : ""} href="/blogs">وبلاگ</Link>
+        <Link className={router?.pathname === "/aboutUs" ? "active" : ""} href="/aboutUs">درباره ما</Link>
     </nav>
   );
 };

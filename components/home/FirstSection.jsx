@@ -1,10 +1,11 @@
 import SliderBg from "@/public/mountain-village-iran-wallpaper.jpg";
 import Image from "next/image";
 import { IoSearchOutline } from "react-icons/io5";
-import Chip from "./Chip";
-import SelectSlider from "./SelectSlider";
+import Chip from "../Chip";
+import SelectSlider from "../SelectSlider";
 
-const Slider = () => {
+
+const FirstSection = ({ video, tags }) => {
   return (
     <div className={"relative h-[800px] z-0"}>
       <Image src={SliderBg} className={"brightness-[0.8]"} fill alt="slider-1" />
@@ -15,12 +16,10 @@ const Slider = () => {
           <div>
             <SelectSlider />
           </div>
-          <div className="flex justify-center gap-3">
-            <Chip className={"glass font-bold h-[24px]"} content={"مشهد"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"میلاد"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"امام رضا"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"برج میلاد"} icon={<IoSearchOutline />} />
-            <Chip className={"glass font-bold h-[24px]"} content={"شب های قدر"} icon={<IoSearchOutline />} />
+          <div className="flex justify-center gap-3 flex-wrap">
+            {tags.map((v, i) => (
+              <Chip key={i} className={"btn-glass font-bold h-[24px]"} content={v.title} href={'tags/' + v.title} icon={<IoSearchOutline />} />
+            ))}
           </div>
         </div>
       </div>
@@ -28,4 +27,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default FirstSection;

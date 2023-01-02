@@ -28,7 +28,7 @@ export default function Select() {
       <div className="flex flex-row gap-3 h-full">
         <div className="basis-2/12 py-1 h-full">
           <Listbox value={selected} onChange={setSelected}>
-            <div className="border-l-[1px] border-gray-600 relative px-2 h-full">
+            <div className="border-l-[1px] border-secondary-200 relative px-2 h-full">
               <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                 <span className="pointer-events-none flex items-center pr-2">
                   {selected.icon}
@@ -60,7 +60,7 @@ export default function Select() {
                       {({ selected }) => (
                         <>
                           <span
-                            className={`block truncate ${
+                            className={`block truncate text-accent ${
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >

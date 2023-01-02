@@ -1,23 +1,23 @@
+import { isEmpty } from "@/utils/general";
 import Link from "next/link";
 
 const Button = ({
-  type,
-  className,
   link,
-  icon,
-  children,
-  onClickHandler = () => {},
+  children, ...rest
 }) => {
+  rest.className += ' btn'
+
+  if (isEmpty(link)) {
+    return (
+      <button {...rest}>
+        {children}
+      </button>
+    )
+  }
   return (
-    <button
-      className={`btn ${
-        type ? "btn-" + type : "btn-primary"
-      } ${className}`}
-      onClick={onClickHandler}
-    >
-      {icon && <span className="ml-2">{icon}</span>}
-      {link ? <Link href={link}>{children}</Link> : <span>{children}</span>}
-    </button>
+    <Link {...rest} href={link}>
+      {children}
+    </Link>
   );
 };
 
