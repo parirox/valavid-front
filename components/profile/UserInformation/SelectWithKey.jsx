@@ -35,20 +35,23 @@ export const socials = [
         unavailable: false,
     },
 ];
-export default function SelectWithKey({ value, setState }) {
-    const [selected, setSelected] = useState(socials.find(social=>social.name == value.name));
+export default function SelectWithKey({ value, index, setState }) {
+    const [selected, setSelected] = useState(socials.find(social => social.name == value.name));
     const [val, setVal] = useState(value.address);
- 
-    useEffect(()=>{
-        // setState((socials)=>({...socials,{socials.find((social)=>(social.name===value.name))))
-    },[val])
+
+    useEffect(() => {
+        setState({
+            name: selected.name,
+            address: val,
+        })
+    }, [val, selected])
 
     return (
         <div className="rounded-full h-full w-full bg-accent text-white">
             <div className="flex flex-row gap-3 h-full input-secondary p-0">
                 <div className="basis-9/12">
                     <input
-                        className="input p-4"
+                        className="input py-4 px-6 w-full"
                         type="text"
                         name="seach"
                         id="search-header"
@@ -59,7 +62,7 @@ export default function SelectWithKey({ value, setState }) {
                 <div className="basis-3/12 py-1 h-full">
                     <Listbox value={selected} onChange={setSelected}>
                         <div className="relative px-3 border-r border-secondary-100 h-full">
-                            <Listbox.Button className="flex gap-3 items-center justify-center h-full relative w-full cursor-default text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
+                            <Listbox.Button className="flex gap-3 items-center justify-center h-full relative w-full cursor-pointer text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
                                 <FaChevronDown />
                                 <span className="mt-1">
                                     {selected.name}
@@ -74,12 +77,12 @@ export default function SelectWithKey({ value, setState }) {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <Listbox.Options className="absolute z-50 mt-3 max-h-60 w-full overflow-auto rounded-md bg-accent  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <Listbox.Options className="absolute z-50 mt-3 max-h-60 w-full overflow-auto rounded-md bg-accent cursor-pointer py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     {socials.map((social, socialIdx) => (
                                         <Listbox.Option
                                             key={socialIdx}
                                             className={({ active }) =>
-                                                `relative cursor-default select-none py-2 pl-10 pr-4 hover:bg-secondary-100 ${active
+                                                `relative select-none py-2 pl-10 pr-4 hover:bg-secondary-100 ${active
                                                     ? " text-amber-900"
                                                     : "text-gray-900"
                                                 }`
@@ -105,7 +108,7 @@ export default function SelectWithKey({ value, setState }) {
                                                 </>
                                             )}
                                         </Listbox.Option>
-                                    ))} 
+                                    ))}
                                 </Listbox.Options>
                             </Transition>
                         </div>
