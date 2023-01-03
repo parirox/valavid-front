@@ -28,7 +28,7 @@
         @apply text-white bg-accent hover:bg-[#54626D];
     } 
     .btn-ghost {
-        @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
+        @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-[#e3e6e800] !important;
     }
     .btn-glass {
         @apply backdrop-blur border border-[#707070] text-[#cbcbcb] bg-[#aaaaaa63]
