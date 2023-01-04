@@ -27,9 +27,9 @@ export const sortTabsInformation = [
     query: ''
   },
 ]
-export default function SortTabs() {
+export default function SortTabs({className}) {
   return (
-    <div className='w-full flex gap-8  h-20 mt-4 px-4 mx-auto border-b border-solid border-secondary-100 items-center'>
+    <div className={`w-full flex gap-8 h-20 mt-4 mx-auto items-center ${className}`}>
       <div className="flex items-center text-xl gap-2 min-w-[10rem]">
         <BsSortDown className='text-3xl'></BsSortDown>
         مرتب سازی :
