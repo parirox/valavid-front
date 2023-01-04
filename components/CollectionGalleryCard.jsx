@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import Badge from "./Badge";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
 
-const CollectionGalleryCard = ({ items, label, icon, total_count, id }) => {
+const CollectionGalleryCard = ({ items, label, icon, is_published = null, editLink, total_count, id }) => {
   return (
-    <div className="grid grid-cols-3 grid-row-3 h-[250px] rounded-[32px] overflow-hidden gap-3 group/collection cursor-pointer">
+    <div className="grid grid-cols-3 grid-row-3 h-[250px] rounded-[32px] overflow-hidden gap-3 group/collection cursor-pointer relative">
+      <Link href={`#${id}`} className='full absolute inset-0 z-40'></Link>
       {items.map((image, index) => (
         <div
           key={index}
@@ -15,10 +17,17 @@ const CollectionGalleryCard = ({ items, label, icon, total_count, id }) => {
         >
           {/* first div */}
           {index === 0 && (
-            <div className="absolute inset-x-0 top-0 z-20 p-8 flex justify-between">
-              <span className="bg-primary rounded-xl p-2">{label}</span>
-              <Badge>{icon}</Badge>
-            </div>
+            <>
+              <span className="absolute right-8 top-8 w-auto z-20 bg-primary rounded-xl p-2">{label}</span>
+              <span className="absolute left-8 top-8 w-10 h-10 z-20 bg-primary rounded-2xl p-3 text-center">{icon}</span>
+              {is_published !== null &&
+                <span className={`absolute bottom-8 left-8 flex items-center gap-3 z-20 rounded-2xl px-5 py-2 text-center  ${is_published ? "bg-white text-primary" : "backdrop-blur bg-white/20 text-white"}`}>
+                  {is_published ? <IoMdEye className="text-2xl" /> : <IoMdEyeOff className="text-2xl" />}
+                  <span>انتشار عمومی</span>
+                </span>
+              }
+              {editLink && <span className="absolute right-8 bottom-8 w-10 h-10 z-50 backdrop-blur bg-white/20 rounded-2xl p-3 text-center"><MdEdit /></span>}
+            </> 
           )}
           {/* first div */}
           {index === 3 && (
@@ -27,17 +36,16 @@ const CollectionGalleryCard = ({ items, label, icon, total_count, id }) => {
                 +{total_count}
               </span>
             </span>
-          )}<Link href={`#${id}`} className='absolute inset-0'>
+          )}
           <div className="absolute inset-0 z-10 bg-gradient-to-bl from-[#00101c98] to-[#0e1f2c14] group-hover/collection:from-[#534cda81] group-hover/collection:to-transparent"></div>
-          
-            <Image
-              src={image.src}
-              className="object-cover"
-              fill
-              sizes="33vw"
-              alt={image.alt}
-            />
-          </Link>
+
+          <Image
+            src={image.src}
+            className="object-cover"
+            fill
+            sizes="33vw"
+            alt={image.alt}
+          />
         </div>
       ))}
     </div>
