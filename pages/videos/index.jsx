@@ -328,7 +328,7 @@ function Videos() {
           </div>
         </div>
         <div className="basis-full px-10 pb-[20rem]">
-          <SortTabs></SortTabs>
+          <SortTabs className={'border-b border-solid border-secondary-100 px-4'}></SortTabs>
           <div className="flex flex-wrap py-7 w-full">
             {data.map((video, key) => {
               return <PopularCardVideo className="basis-1/3" key={key} data={video} />
