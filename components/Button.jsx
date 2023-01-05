@@ -3,13 +3,14 @@ import Link from "next/link";
 
 const Button = ({
   link,
+  onClick,
   children, ...rest
 }) => {
   rest.className += ' btn'
 
   if (isEmpty(link)) {
     return (
-      <button {...rest}>
+      <button type={rest.type ?? 'button'} onClick={onClick} {...rest}>
         {children}
       </button>
     )
