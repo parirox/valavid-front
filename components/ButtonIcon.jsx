@@ -10,7 +10,7 @@ const ButtonIcon = ({
 
   if (isEmpty(link)) {
     return (
-      <button {...rest}>
+      <button type={rest.type ?? 'button'} {...rest}>
         <span>{icon}</span>
         {children}
       </button> 

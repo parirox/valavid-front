@@ -10,7 +10,7 @@ const Button = ({
 
   if (isEmpty(link)) {
     return (
-      <button onClick={onClick} {...rest}>
+      <button type={rest.type ?? 'button'} onClick={onClick} {...rest}>
         {children}
       </button>
     )

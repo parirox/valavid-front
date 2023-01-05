@@ -8,10 +8,14 @@ import Medals from "@/components/profile/Medals";
 import Tickets from "@/components/profile/Tickets";
 import Uploads from "@/components/profile/Uploads";
 import UserInformation from "@/components/profile/UserInformation/UserInformation";
+import { isEmpty } from "@/utils/general";
 import { Tab } from "@headlessui/react";
 import moment from 'jalali-moment';
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { BsFolder2Open } from "react-icons/bs";
 import { FaChevronDown, FaMedal, FaStar } from "react-icons/fa";
 import { FiDownload, FiUpload } from "react-icons/fi";
@@ -43,48 +47,79 @@ const ACCESS = {
 
 const tabs = [
     {
+        id: 'UserInformation',
         title: "اطلاعات کاربری",
         icon: <IoPerson />,
-        content: <UserInformation/>,
+        content: <UserInformation />,
     },
     {
+        id: 'Downloads',
         title: "دانلود ها",
         icon: <FiDownload />,
-        content: <Downloads/>,
+        content: <Downloads />,
     },
     {
+        id: 'Collections',
         title: "مجموعه ها",
         icon: <BsFolder2Open />,
-        content: <Collections/>,
+        content: <Collections />,
     },
     {
+        id: 'Uploads',
         title: "آپلود ها",
         icon: <FiUpload />,
-        content: <Uploads/>,
+        content: <Uploads />,
     },
     {
+        id: 'Favorites',
         title: "علاقه مندی ها",
         icon: <IoHeart />,
-        content: <Favorites/>,
+        content: <Favorites />,
     },
     {
+        id: 'Tickets',
         title: "تیکت ها",
         icon: <IoTicketSharp />,
-        content: <Tickets/>,
+        content: <Tickets />,
     },
     {
+        id: 'Medals',
         title: "افتخارات",
         icon: <FaMedal />,
-        content: <Medals/>,
+        content: <Medals />,
     },
     {
+        id: 'Accounting',
         title: "حسابداری",
         icon: <IoCalculator />,
-        content: <Accounting/>,
+        content: <Accounting />,
     }
 ]
 
 function SellerProfile() {
+    const router = useRouter()
+    const [selectedIndex, setSelectedIndex] = useState(null)
+
+    useEffect(() => {
+        if (router.isReady) {
+            const tabId = !isEmpty(router.query.tab) ? router.query.tab[0] : tabs[0].id;
+            const targetTab = tabs.findIndex(tab => tab.id === tabId)
+            if (targetTab >= 0) {
+                setSelectedIndex(targetTab)
+            }
+        }
+    }, [router])
+
+    const changeTabHandler = (i) => {
+        router.push(
+            {
+                pathname: `/profile/${tabs[i].id}`,
+            },
+            undefined,
+            { shallow: true }
+        );
+    }
+
     return (
         <>
             <Head>
@@ -143,7 +178,7 @@ function SellerProfile() {
                                 <div className="basis-4/6">
                                     <div className="mb-2 text-2xl">فروشنده شوید</div>
                                     <div className="mb-6 text-gray">اطلاعات ثبت نام خود را کامل کنید</div>
-                                    <Button className="btn-primary-gradient px-16 py-3">فروشنده شوید</Button>
+                                    <Button className="btn-primary-gradient px-16 py-3" link={`#sellerForm`}>فروشنده شوید</Button>
                                 </div>
                                 <div className="flex justify-between basis-2/6 relative">
                                     <Image src="/images/camera.png" alt="be seller" fill className="object-cover scale-110" />
@@ -151,34 +186,37 @@ function SellerProfile() {
                             </div>
                             <div className="w-full bg-accent rounded-2xl p-8 flex items-center gap-3">
                                 <MdGroupAdd className="text-primary text-4xl" />
-                                <span className="text-xl">تغییر حساب کاربری به شخصیت حقوقی</span>
+                                <Link href={`#teamForm`}><span className="text-xl">تغییر حساب کاربری به شخصیت حقوقی</span></Link>
                             </div>
                         </div>
                     </div>
                 </aside>
                 <div className="basis-3/4 relative">
-                    <Tab.Group>
-                        <Tab.List className="w-full h-20 flex relative">
-                            <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
-                            {tabs.map((tab,k) => (
-                                <Tab key={k} className="w-44 flex items-center gap-4 outline-0 border-b-4 ui-not-selected:border-accent ui-not-selected:text-secondary-300  ui-selected:border-primary justify-center">
-                                    {tab.icon}
-                                    <span>{tab.title}</span>
-                                </Tab>
-                            ))}
-                        </Tab.List>
-                        <Tab.Panels className="p-5">
-                            {tabs.map((tab,k) => (
-                                <Tab.Panel key={k}>
-                                    {tab.content}
-                                </Tab.Panel>
-                            ))}
-                        </Tab.Panels>
-                    </Tab.Group>
+                    {
+                        selectedIndex >= 0 && <Tab.Group selectedIndex={selectedIndex} onChange={changeTabHandler}>
+                            <Tab.List className="w-full h-20 flex relative">
+                                <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
+                                {tabs.map((tab, k) => (
+                                    <Tab key={k} className="w-44 flex items-center gap-4 outline-0 border-b-4 ui-not-selected:border-accent ui-not-selected:text-secondary-300  ui-selected:border-primary justify-center">
+                                        {tab.icon}
+                                        <span>{tab.title}</span>
+                                    </Tab>
+                                ))}
+                            </Tab.List>
+                            <Tab.Panels className="p-5">
+                                {tabs.map((tab, k) => (
+                                    <Tab.Panel key={k}>
+                                        {tab.content}
+                                    </Tab.Panel>
+                                ))}
+                            </Tab.Panels>
+                        </Tab.Group>
+                    }
                 </div>
             </div>
         </>
     )
 }
+
 
 export default SellerProfile
