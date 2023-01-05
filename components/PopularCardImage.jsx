@@ -10,13 +10,13 @@ import { IoFolderOpenOutline, IoHeart, IoHeartOutline, IoImagesOutline } from 'r
 import { MdRemoveShoppingCart } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
-const PopularCardImage = ({ data, link = '#' }) => {
+const PopularCardImage = ({ data, link = '#', className }) => {
     const _cartItems = useSelector(cartItems);
     const _favoriteItems = useSelector(favoriteItems);
     const dispatch = useDispatch();
 
     return (
-        <div className='h-full group/popularCard relative'>
+        <div className={`h-full group/popularCard relative ${className}`}>
             <div className="hidden group-hover/popularCard:block border-[1px] rounded-[3.35rem] w-full h-full z-30 absolute border-white">
                 <BsFillDiamondFill className="w-9 absolute -left-[0.5px] top-2/4 -translate-y-2/4 -translate-x-2/4"></BsFillDiamondFill>
             </div>
