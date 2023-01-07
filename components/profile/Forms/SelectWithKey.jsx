@@ -36,7 +36,7 @@ export const socials = [
     },
 ];
 export default function SelectWithKey({ value, index, setState }) {
-    const [selected, setSelected] = useState(socials.find(social => social.name == value.name));
+    const [selected, setSelected] = useState(socials.find(social => social.name === value.name));
     const [val, setVal] = useState(value.address);
 
     useEffect(() => {
