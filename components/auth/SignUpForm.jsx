@@ -1,22 +1,21 @@
-import { signupUser } from "apis/auth";
 import React, { useState } from "react";
-import Checkbox from "../Checkbox";
-import TextInput from "../TextInput";
-import { useNotification } from "react-hook-notification";
-import { handleApiError } from "apis/helpers.js/errorHandler";
-import { toast } from "react-toastify";
+import Checkbox from "@/components/Checkbox";
+import TextInput from "@/components/TextInput";
+import toast from "@/utils/notification/toast";
+import { useSendVerificationCodeMutation } from "@/datasources/auth/remote/AuthSliceApi";
+import {
+  createValidMobileNumber,
+  isPersionMobileNumber,
+} from "@/utils/helpers/form";
+import { handleApiError } from "@/datasources/errorHandler";
 
-const SignUpForm = () => {
-  const [form, setForm] = useState({
-    first_name: "",
-    last_name: "",
-    username: "",
-    number_email: "",
-    password: "",
-    repeated_password: "",
-  });
+const SignUpForm = ({ signupData, setSignupData, setSelectedTab }) => {
   const [acceptRules, setAcceptRules] = useState(false);
-  const notification = useNotification();
+
+  const [
+    sendVerificationCode,
+    { data, isSuccess: isSendCodeSuccess, isError, error },
+  ] = useSendVerificationCodeMutation();
 
   const inputs = [
     {
@@ -52,7 +51,7 @@ const SignUpForm = () => {
   ];
 
   const handleChangeInput = (name, value) => {
-    setForm((prev) => {
+    setSignupData((prev) => {
       return {
         ...prev,
         [name]: value,
@@ -60,29 +59,25 @@ const SignUpForm = () => {
     });
   };
 
-  const handleSendForm = async () => {
-    try {
-       if (form.password !== form.repeated_password) {
-        toast.error("پسورد و تکرار پسورد یکسان نیست!");
-      } else {
-        let { first_name,
-        last_name,
-        username,
-        number_email,
-        password} = form
-        let response = await signupUser({ first_name,
-          last_name,
-          username,
-          number_email,
-          password});
-        if (response.status == 200) {
-          notification.success({
-            text: "ثبت نام با موفقیت انجام شد",
-          });
-        }
+  const handleSendForm = () => {
+    if (signupData.password !== signupData.repeated_password) {
+      toast.error("پسورد و تکرار پسورد یکسان نیست!");
+    } else if (!signupData.number_email) {
+      toast.error("ایمیل یا شماره موبایل را وارد کنید.");
+    } else {
+      let number_email = signupData.number_email;
+      if (isPersionMobileNumber(signupData.number_email)) {
+        number_email = createValidMobileNumber(signupData.number_email);
       }
-    } catch (error) {
-      handleApiError(error.response);
+      sendVerificationCode({ number_email })
+        .unwrap()
+        .then((response) => {
+          toast.success(response.message);
+          setSelectedTab("auth");
+        })
+        .catch((err) => {
+          handleApiError(err);
+        });
     }
   };
   return (
@@ -93,7 +88,7 @@ const SignUpForm = () => {
             <TextInput
               onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
               name={input.name}
-              value={form[input.name]}
+              value={signupData[input.name]}
               type={input.type}
               label={input.label}
             />

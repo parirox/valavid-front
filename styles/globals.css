@@ -90,5 +90,9 @@ video::-webkit-media-controls-panel {
 }
 
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
-    display: none;
+    display: none !important;
+}
+
+.ltr {
+    direction: ltr;
 }
