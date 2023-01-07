@@ -7,7 +7,7 @@ import Favorites from "@/components/profile/Favorites";
 import Medals from "@/components/profile/Medals";
 import Tickets from "@/components/profile/Tickets";
 import Uploads from "@/components/profile/Uploads";
-import UserInformation from "@/components/profile/UserInformation/UserInformation";
+import UserForm from "@/components/profile/Forms/UserForm";
 import { isEmpty } from "@/utils/general";
 import { Tab } from "@headlessui/react";
 import moment from 'jalali-moment';
@@ -21,6 +21,8 @@ import { FaChevronDown, FaMedal, FaStar } from "react-icons/fa";
 import { FiDownload, FiUpload } from "react-icons/fi";
 import { IoCalculator, IoHeart, IoLocationOutline, IoPerson, IoTicketSharp } from "react-icons/io5";
 import { MdEdit, MdGroupAdd, MdVerifiedUser } from "react-icons/md";
+import SellerForm from "@/components/profile/Forms/SellerForm";
+import TeamForm from "@/components/profile/Forms/TeamForm";
 
 const data = {
     user: {
@@ -28,7 +30,7 @@ const data = {
         profile_image: "https://placeimg.com/192/192/people",
         location: "ایران, کرمانشاه",
         bio: "عکاسی تازه کار هستم که دنبال کشف دنیای زیبای خودم هستم و در تلاش برای پیشرفت",
-        registerd_at: '2022-12-167T15:24:17.604594',
+        registered_at: '2022-12-167T15:24:17.604594',
         is_seller: false,
         is_team: false,
         subscribe: {
@@ -46,10 +48,10 @@ const data = {
 
 const tabs = [
     {
-        id: 'UserInformation',
+        id: 'UserForm',
         title: "اطلاعات کاربری",
         icon: <IoPerson />,
-        content: <UserInformation />,
+        content: <UserForm />,
     },
     {
         id: 'Downloads',
@@ -92,6 +94,18 @@ const tabs = [
         title: "حسابداری",
         icon: <IoCalculator />,
         content: <Accounting />,
+    },
+    {
+        id: 'SellerForm',
+        title: "فروشنده شوید",
+        content: <SellerForm />,
+        className:"rounded-2xl bg-primary text-color6 text-sm",
+    },
+    {
+        id: 'TeamForm',
+        title: "ثبت تیم",
+        content: <TeamForm />,
+        className:"rounded-2xl bg-primary text-color6 text-sm",
     }
 ]
 
@@ -148,7 +162,7 @@ function SellerProfile() {
                             <div className="text-4xl">{data.user.name}</div>
                             <div className="flex items-end gap-2 text-color8"><IoLocationOutline className="text-3xl" /> <span>{data.user.location}</span></div>
                             <div className="text-color8 px-10 text-center ">{data.user.bio}</div>
-                            <div className="text-gray px-10 text-center">عضویت: {moment(data.user.registerd_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}</div>
+                            <div className="text-gray px-10 text-center">عضویت: {moment(data.user.registered_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}</div>
                         </div>
                         <div className="flex items-center flex-col gap-5 text-lg justify-end">
                             <div className="relative w-full cursor-default">
@@ -190,15 +204,15 @@ function SellerProfile() {
                         </div>
                     </div>
                 </aside>
-                <div className="basis-3/4 relative">
+                <div className="basis-3/4 overflow-hidden relative">
                     {
                         selectedIndex >= 0 && <Tab.Group selectedIndex={selectedIndex} onChange={changeTabHandler}>
                             <Tab.List className="w-full h-20 flex relative">
                                 <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
                                 {tabs.map((tab, k) => (
                                     <Tab key={k} className="w-44 flex items-center gap-4 outline-0 border-b-[0.5rem] ui-not-selected:border-accent ui-not-selected:text-secondary-300 ui-selected:border-primary justify-center">
-                                        {tab.icon}
-                                        <span>{tab.title}</span>
+                                        {tab?.icon}
+                                        <span className={tab?.className ? "px-5 py-2 "+tab?.className : "" }>{tab.title}</span>
                                     </Tab>
                                 ))}
                             </Tab.List>
