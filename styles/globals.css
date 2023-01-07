@@ -61,7 +61,10 @@
         @apply border-none focus:ring-transparent text-color3 py-4 px-6 rounded-2xl placeholder:text-secondary-300 bg-secondary-400 w-full h-full;
     }
     .input-error{
-        @apply border border-solid border-danger-100 text-danger-100 border-opacity-50;
+        @apply border border-solid border-danger-100 text-danger-100 !important;;
+    }
+    .input-bg-black-error{
+        @apply border border-solid border-danger-100 text-danger-100 border-opacity-50 !important;
     }
 }
 
