@@ -59,16 +59,6 @@ const UserForm = () => {
     })
   }
 
-  useEffect(() => {
-    const sectionSelected = router.asPath.split('#')?.[1];
-    if (router.isReady && !isEmpty(sectionSelected)) {
-      if (document.querySelector(`.${sectionSelected}`)) {
-        document.querySelector(`.${sectionSelected}`).click()
-      }
-      ;
-    }
-  }, [router.asPath])
-
 
   return (
     <div className="mb-40">
