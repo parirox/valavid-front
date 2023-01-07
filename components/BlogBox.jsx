@@ -18,7 +18,7 @@ export default function BlogBox(props) {
     <div className={`group bg-white min-h-[300px] p-3 rounded-[29px] box-shadow flex ${className} ${row ? 'flex-row-reverse w-100' : 'flex-col'}`}>
       <div className={`relative overflow-hidden rounded-[2rem] ${row ? 'w-7/12 h-100' : 'w-100 min-h-[20rem]'}`}>
         <Chip content={date} className="bg-[#0000009a] absolute top-3 left-3 flex-row-reverse text-[0.95rem] z-10 py-[0.2rem] px-[0.7rem] gap-[0.4rem]" icon={<IoCalendarClearOutline className="text-[1.1rem]"/>}></Chip>
-        <Image className="rounded-[2rem] group-hover:scale-110 transition-all" src={image} fill></Image>
+        <Image alt={title} className="rounded-[2rem] group-hover:scale-110 transition-all" src={image} fill sizes={"33vw"}></Image>
       </div>
       <div className={`p-5 ${row ? 'w-5/12' : 'w-100'}`}>
         <h4 className={`text-black font-semibold text-[1.6rem] group-hover:text-primary transition-all w-100 pb-7 ${row ? 'pt-1' : 'pt-4'}`}>{title}</h4>
