@@ -1,25 +1,25 @@
 import Divider from "@/components/Divider";
-import { Disclosure } from "@headlessui/react";
+import {Disclosure} from "@headlessui/react";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import DatePicker, { DateObject } from "react-multi-date-picker";
+import DatePicker, {DateObject} from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
 
-import { FaChevronUp } from "react-icons/fa";
+import {FaChevronUp} from "react-icons/fa";
 
 import Button from "@/components/Button";
 import ButtonIcon from "@/components/ButtonIcon";
 import RadioButton from "@/components/Form/RadioButton";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { IoAdd } from "react-icons/io5";
-import { MdEdit } from "react-icons/md";
+import {Fragment, useEffect, useState} from "react";
+import {Controller, useForm} from "react-hook-form";
+import {IoAdd} from "react-icons/io5";
+import {MdEdit} from "react-icons/md";
 import CitySelect from "./CitySelect";
 import RowInput from "./RowInput";
 import SelectWithKey from "./SelectWithKey";
 import FileInput from "@/components/Form/FileInput";
-import { useRouter } from "next/router";
-import { isEmpty } from "@/utils/general";
+import {useRouter} from "next/router";
+import {isEmpty} from "@/utils/general";
 import Link from "next/link";
 
 
@@ -117,7 +117,6 @@ const UserInformation = () => {
 
     useEffect(() => {
         const sectionSelected = router.asPath.split('#')?.[1];
-        console.log(sectionSelected);
         if (router.isReady && !isEmpty(sectionSelected)) {
             if (document.querySelector(`.${sectionSelected}`)) {
                 document.querySelector(`.${sectionSelected}`).click()
