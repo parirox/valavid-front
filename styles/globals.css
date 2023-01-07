@@ -55,7 +55,7 @@
     }
     /* form */
     .input{
-        @apply bg-transparent py-3;
+        @apply border-none bg-transparent py-3;
     }
     .input-secondary{
         @apply border-none focus:ring-transparent text-color3 py-4 px-6 rounded-2xl placeholder:text-secondary-300 bg-secondary-400 w-full h-full;
