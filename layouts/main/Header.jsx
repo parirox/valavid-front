@@ -16,7 +16,7 @@ const Header = ({ data, styleMode }) => {
       <header className={"bg-white py-7 box-shadow relative"}>
       <div className="flex items-center gap-4 container px-2 h-[45px]">
         <div className="basis-1/12 relative h-11 min-w-[100px]">
-          <Image src={ValavidIcon} fill sizes=""></Image>
+          <Image alt={"valavid icon"} src={ValavidIcon} fill sizes=""></Image>
         </div>
         <div className="basis-5/12 mr-16">
           <Navbar styleMode={styleMode}/>
@@ -25,7 +25,7 @@ const Header = ({ data, styleMode }) => {
           <div className="flex flex-row justify-end gap-3 h-full">
             <div className="flex-initial">
               <ButtonIcon
-                className={"h-full w-full btn-circle btn-primary // h-full w-full btn-circle bg-success-100 min-w-[130px]"}
+                className={"h-full rounded-full w-full btn-circle btn-primary // h-full w-full btn-circle bg-success-100 min-w-[130px]"}
                 link={"/auth"}
                 type="success"
                 icon={<IoPerson className="text-lg" />}

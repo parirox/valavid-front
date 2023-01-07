@@ -28,7 +28,7 @@ export default function CollectionModel() {
  
     if(isEmpty(footage_details?.id)) return <></>
     return (
-        <Modal isOpen={isOpen ?? false === true} setIsOpen={(state)=>dispatch(setModalCollectionTo({active:state,footage_details}))}>
+        <Modal isOpen={isOpen ?? false} setIsOpen={(state)=>dispatch(setModalCollectionTo({active:state,footage_details}))}>
             <div className="bg-white w-full flex flex-cols gap-7 rounded-3xl text-center p-5">
                 <div className="relative basis-2/6 rounded-tr-3xl rounded-br-3xl overflow-hidden">
                     {footage_details?.type === "video" ?

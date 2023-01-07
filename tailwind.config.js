@@ -26,6 +26,9 @@ module.exports = {
       sans: ["IRANSans", "vazir", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        'hero-pattern': "linear-gradient(0deg, rgba(83,76,218,0.8) 0%, rgba(174,170,255,0.8) 100%),url('../public/icons/LoginImage.jpg')",
+     },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -53,7 +56,7 @@ module.exports = {
         success: "#6CB288",
         warning: "#DAAD58",
         error: "#AB3D30",
-        success: 
+        success:
         {
           DEFAULT: "#2DC269",
           100: "#2DC2BD"
@@ -69,7 +72,7 @@ module.exports = {
         color6: "#ECECEC",
         color7: "#1E303E", // shadow modal
         color8: "#D6DADC", // text color
-        
+
         color10: "#A9A4FD",
         color11: "#AEAAFF",
         cyan: "#55DBCB",
@@ -77,11 +80,12 @@ module.exports = {
     },
   },
   plugins: [
+    require('@headlessui/tailwindcss')({ prefix: 'ui' }),
     require("@tailwindcss/typography"),
     require('tailwind-scrollbar'),
-    // require("daisyui"),
+    require("@tailwindcss/forms"),
     plugin(function ({ addBase, theme }) {
-      addBase({  
+      addBase({
         html: { fontSize: "12px",backgroundColor: theme('colors.color2')},
         h1: { fontSize: "3rem" },
         h2: { fontSize: "2.5rem" },
@@ -90,9 +94,9 @@ module.exports = {
         h5: { fontSize: "1.4rem" },
         h6: { fontSize: "1rem" },
         p: {
-          fontSize: "1rem", 
-          color: theme('colors.color8'),  
-        }, 
+          fontSize: "1rem",
+          color: theme('colors.color8'),
+        },
       });
     }),
   ],

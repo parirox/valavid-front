@@ -1,7 +1,7 @@
-import {Dialog, Transition} from '@headlessui/react'
-import {Fragment} from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment } from 'react'
 
-function Modal({isOpen, setIsOpen, title, closeButton, children, ...props}) {
+function Modal({ isOpen, setIsOpen, title, closeButton, children, ...props }) {
 
     function closeModal() {
         setIsOpen(false)
@@ -19,7 +19,7 @@ function Modal({isOpen, setIsOpen, title, closeButton, children, ...props}) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black backdrop-blur bg-opacity-20"/>
+                    <div className="fixed inset-0 bg-black backdrop-blur bg-opacity-20" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
@@ -33,7 +33,7 @@ function Modal({isOpen, setIsOpen, title, closeButton, children, ...props}) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95">
                             <Dialog.Panel
-                                className="w-8/12 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                className={"transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all " + props.small ? "w-6/12" : "w-8/12"}>
                                 {title && <Dialog.Title
                                     as="h3"
                                     className="text-lg font-medium leading-6 text-accent">

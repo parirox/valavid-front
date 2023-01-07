@@ -1,5 +1,5 @@
-import { isEmpty } from "../general";
-import { fetchBaseQuery } from '@reduxjs/toolkit/query'
+import {isEmpty} from "../general";
+import {fetchBaseQuery} from '@reduxjs/toolkit/query'
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi"
 export const ApiEndpoint = {
@@ -13,6 +13,14 @@ export const ApiEndpoint = {
     },
     home: {
         main: "/home/",
+    },
+    user: {
+        collection: {
+            get: "/collections/",
+            add: "/collections/",
+            edit: "/collections/:id/",
+            remove: "/collections/:id/",
+        }
     }
 }
 
@@ -29,7 +37,7 @@ export function ApiAddress(address, params = {}) {
 export const baseQuery = fetchBaseQuery({
     baseUrl: BASE_API_URL,
     timeout: 10000,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, {getState}) => {
         //     const token = getState().auth.token
         //
         //     // If we have a token set in state, let's assume that we should be passing it.

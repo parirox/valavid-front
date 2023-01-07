@@ -13,13 +13,14 @@ import productSliceApi, {productSliceApiTag} from '@/datasources/product/remote/
 import configSlice from '@/datasources/config/local/ConfigSlice';
 //-->> user slices
 import userSlice from '@/datasources/user/local/UserSlice';
+import userSliceApi, {userSliceApiTag} from '@/datasources/user/remote/UserSliceApi';
 //-->> loading slices
 import {loadingBarReducer} from 'react-redux-loading-bar'
 //-->> middlewares
 import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
 import storage from '@/datasources/storage';
-import homeSliceApi,{ homeSliceApiTag } from '@/datasources/home/remote/HomeSliceApi';
+import homeSliceApi, {homeSliceApiTag} from '@/datasources/home/remote/HomeSliceApi';
 
 const persistConfig = {
     key: 'VALAVID',
@@ -41,6 +42,7 @@ let reducer = {
     config: configSlice,
     //->> user
     user: userSlice,
+    [userSliceApiTag]: userSliceApi.reducer,
     //->> loadingBar
     loadingBar: loadingBarReducer,
 }
@@ -56,6 +58,7 @@ export const store = (context) => configureStore({
             homeSliceApi.middleware,
             checkoutSliceApi.middleware,
             productSliceApi.middleware,
+            userSliceApi.middleware,
             rtkQueryErrorLogger,
             LoadingHandler,
         ]),
