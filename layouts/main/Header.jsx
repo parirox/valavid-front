@@ -25,7 +25,7 @@ const Header = ({ data, styleMode }) => {
           <div className="flex flex-row justify-end gap-3 h-full">
             <div className="flex-initial">
               <ButtonIcon
-                className={"h-full rounded-full w-full btn-circle btn-primary // h-full w-full btn-circle bg-success-100 min-w-[130px]"}
+                className={"rounded-full btn-primary full bg-success-100 min-w-[130px]"}
                 link={"/auth"}
                 type="success"
                 icon={<IoPerson className="text-lg" />}
@@ -62,7 +62,7 @@ const Header = ({ data, styleMode }) => {
               </div>
               <div className="basis-2/12">
                 <Button
-                  className={"h-full w-full btn-circle btn-primary min-w-[130px]"}
+                  className={"rounded-full full btn-primary min-w-[130px]"}
                   link={"/auth"}
                   icon={<IoPerson className="text-lg" />}
                 >
