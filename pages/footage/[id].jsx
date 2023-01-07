@@ -2,7 +2,7 @@ import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import ButtonIcon from "@/components/ButtonIcon";
 import Chip from "@/components/Chip";
-import CollectionModel from "@/components/CollectionModal";
+import CollectionModal from "@/components/CollectionModal";
 import Divider from "@/components/Divider";
 import PopularCardImage from "@/components/PopularCardImage";
 import { addOrRemoveToCart, cartItems, checkInCart } from "@/datasources/checkout/local/CheckoutSlice";
@@ -11,7 +11,6 @@ import product_api, { ProductDetails, useProductDetailsQuery } from "@/datasourc
 import { wrapper } from "@/datasources/store";
 import { addToFavorite, checkInFavorite, favoriteItems } from "@/datasources/user/local/UserSlice";
 import { Fragment, Popover, Transition } from '@headlessui/react';
-import Error from "next/error";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -21,11 +20,11 @@ import { BsShieldFillCheck } from "react-icons/bs";
 import { CgFolderAdd } from "react-icons/cg";
 import { FaCartPlus, FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoHeart, IoInformationCircleOutline, IoShareSocialOutline } from "react-icons/io5";
-import { MdRemoveShoppingCart } from "react-icons/md";
+import { MdRemoveShoppingCart, MdVerifiedUser } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import RatePieChart from "../../components/charts/RatePieChart";
 
-const data =  {
+const data = {
     id: 1,
     type: "video",
     title: "مقبره بزرگ زیبای شب در شهر اصفهان",
@@ -263,7 +262,7 @@ function FootageDetails() {
                     <title>والاوید | {data.title}</title>
                 </Head>
                 <div className="container mt-20">
-                    <CollectionModel />
+                    <CollectionModal />
                     <div className="flex gap-24 flex-col md:flex-row md:items-stretch">
                         <div className="basis-full md:basis-7/12">
                             <div className="relative full">
@@ -437,7 +436,7 @@ function FootageDetails() {
                     </div>
                     <Divider start={(
                         <div className='flex items-center gap-4'>
-                            <Avatar src={data.author.profile_image} alt={data.author.name} badge={<BsShieldFillCheck />} />
+                            <Avatar src={data.author.profile_image} alt={data.author.name} badge={<MdVerifiedUser className="text-2xl" />} />
                             <span>بیشتر از حمید باقری</span>
                         </div>
                     )}

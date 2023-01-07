@@ -20,6 +20,14 @@ export const ApiEndpoint = {
   home: {
     main: "/home/",
   },
+  user: {
+    collection: {
+        get: "/collections/",
+        add: "/collections/",
+        edit: "/collections/:id/",
+        remove: "/collections/:id/",
+    }
+}
 };
 
 export function ApiAddress(address, params = {}) {
@@ -32,17 +40,17 @@ export function ApiAddress(address, params = {}) {
 }
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_API_URL,
-  timeout: 10000,
-  prepareHeaders: (headers, { getState }) => {
-    //     const token = getState().auth.token
-    //
-    //     // If we have a token set in state, let's assume that we should be passing it.
-    //     if (token) {
-    //         headers.set('authorization', `Bearer ${token}`)
-    //     }
-    //
-    // headers.set('Content-Type', 'application/json')
-    return headers;
-  },
-});
+    baseUrl: BASE_API_URL,
+    timeout: 10000,
+    prepareHeaders: (headers, {getState}) => {
+        //     const token = getState().auth.token
+        //
+        //     // If we have a token set in state, let's assume that we should be passing it.
+        //     if (token) {
+        //         headers.set('authorization', `Bearer ${token}`)
+        //     }
+        //
+        // headers.set('Content-Type', 'application/json')
+        return headers
+    },
+})

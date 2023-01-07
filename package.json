@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "@headlessui/react": "^1.7.3",
+    "@headlessui/tailwindcss": "^0.1.2",
     "@heroicons/react": "^2.0.12",
     "@reduxjs/toolkit": "^1.9.1",
     "@svgr/webpack": "^6.5.1",
@@ -26,6 +27,8 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
+    "react-hook-form": "^7.41.2",
+    "react-multi-date-picker": "^3.3.4",
     "react-redux": "^8.0.5",
     "react-redux-loading-bar": "^5.0.4",
     "redux-persist": "^6.0.0",

@@ -7,6 +7,11 @@
     .full{
         @apply w-full h-full;
     }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
 }
 @layer components { 
     .card {
@@ -28,7 +33,7 @@
         @apply text-white bg-accent hover:bg-[#54626D];
     } 
     .btn-ghost {
-        @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-0 !important;
+        @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-[#e3e6e800] !important;
     }
     .btn-glass {
         @apply backdrop-blur border border-[#707070] text-[#cbcbcb] bg-[#aaaaaa63]
@@ -40,10 +45,26 @@
     .transition-400-linear {
         @apply transition-all duration-[400ms] ease-in-out;
     }
-    /* badge */
+    /* alert */
+    .alert {
+        @apply flex-auto px-6 py-4 text-center text-white rounded-xl;
+    }
+
+    .alert-danger {
+        @apply bg-danger-100;
+    }
     /* form */
     .input{
-        @apply bg-transparent py-3
+        @apply border-none bg-transparent py-3;
+    }
+    .input-secondary{
+        @apply border-none focus:ring-transparent text-color3 py-4 px-6 rounded-2xl placeholder:text-secondary-300 bg-secondary-400 w-full h-full;
+    }
+    .input-error{
+        @apply border border-solid border-danger-100 text-danger-100 !important;;
+    }
+    .input-bg-black-error{
+        @apply border border-solid border-danger-100 text-danger-100 border-opacity-50 !important;
     }
 }
 

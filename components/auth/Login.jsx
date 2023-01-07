@@ -50,6 +50,7 @@ const Login = ({ setSelectedTab }) => {
     <div className="flex flex-col mt-[4rem]">
       <TextInput
         name="username"
+        type="text"
         value={loginInfo.username}
         onChange={(e) => {
           setForm(e.target.name, e.target.value);
@@ -58,6 +59,7 @@ const Login = ({ setSelectedTab }) => {
       />
       <TextInput
         name="password"
+        type="password"
         value={loginInfo.password}
         onChange={(e) => {
           setForm(e.target.name, e.target.value);

@@ -6,6 +6,7 @@ const data = [
   {
     id: 1,
     title: 'مجموعه زیبایی های ایرانی اسلامی',
+    total_count: 25,
     media: [
       {
         alt: "natural",
@@ -26,6 +27,7 @@ const data = [
   {
     id: 2,
     title: 'مجموعه زیبایی های ایرانی اسلامی',
+    total_count: 25,
     media: [
       {
         alt: "natural",
@@ -46,6 +48,7 @@ const data = [
   {
     id: 3,
     title: 'مجموعه زیبایی های ایرانی اسلامی',
+    total_count: 25,
     media: [
       {
         alt: "natural",

@@ -23,12 +23,12 @@ const Header = ({ data, styleMode }) => {
             </div>
             <div className="flex-initial">
               <ButtonIcon
-                className={"h-full w-full btn-circle btn-primary"}
+                className={"h-full rounded-full w-full btn-circle btn-primary"}
                 link={"/auth"}
                 icon={<IoPerson className="text-lg" />}
               >
                 عضویت / ورود
-              </ButtonIcon>
+              </ButtonIcon> 
             </div>
             <div className="basis-1/12">
               <ButtonIcon 
