@@ -39,11 +39,10 @@ const data = {
     }
 }
 
-const ACCESS = {
-    team: "TEAM",
-    seller: "TEAM",
-    team: "TEAM",
-}
+// const ACCESS = {
+//     team: "TEAM",
+//     seller: "TEAM",
+// }
 
 const tabs = [
     {
@@ -110,20 +109,20 @@ function SellerProfile() {
         }
     }, [router])
 
-    const changeTabHandler = (i) => {
-        router.push(
+    const changeTabHandler = async (i) => {
+        await router.push(
             {
                 pathname: `/profile/${tabs[i].id}`,
             },
             undefined,
-            { shallow: true }
+            {shallow: true}
         );
     }
 
     return (
         <>
             <Head>
-                <title>والاوید | پروفایل فروشنده</title>
+                <title>والاوید | پروفایل کاربری</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <div className="w-full h-72 relative">
@@ -178,7 +177,7 @@ function SellerProfile() {
                                 <div className="basis-4/6">
                                     <div className="mb-2 text-2xl">فروشنده شوید</div>
                                     <div className="mb-6 text-gray">اطلاعات ثبت نام خود را کامل کنید</div>
-                                    <Button className="btn-primary-gradient px-16 py-3" link={`#sellerForm`}>فروشنده شوید</Button>
+                                    <Button className="btn-primary-gradient px-16 py-3" link={`/profile/UserInformation#sellerForm`}>فروشنده شوید</Button>
                                 </div>
                                 <div className="flex justify-between basis-2/6 relative">
                                     <Image src="/images/camera.png" alt="be seller" fill className="object-cover scale-110" />
@@ -186,7 +185,7 @@ function SellerProfile() {
                             </div>
                             <div className="w-full bg-accent rounded-2xl p-8 flex items-center gap-3">
                                 <MdGroupAdd className="text-primary text-4xl" />
-                                <Link href={`#teamForm`}><span className="text-xl">تغییر حساب کاربری به شخصیت حقوقی</span></Link>
+                                <Link href={`/profile/UserInformation#teamForm`}><span className="text-xl">تغییر حساب کاربری به شخصیت حقوقی</span></Link>
                             </div>
                         </div>
                     </div>
@@ -197,7 +196,7 @@ function SellerProfile() {
                             <Tab.List className="w-full h-20 flex relative">
                                 <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
                                 {tabs.map((tab, k) => (
-                                    <Tab key={k} className="w-44 flex items-center gap-4 outline-0 border-b-4 ui-not-selected:border-accent ui-not-selected:text-secondary-300  ui-selected:border-primary justify-center">
+                                    <Tab key={k} className="w-44 flex items-center gap-4 outline-0 border-b-[0.5rem] ui-not-selected:border-accent ui-not-selected:text-secondary-300 ui-selected:border-primary justify-center">
                                         {tab.icon}
                                         <span>{tab.title}</span>
                                     </Tab>
