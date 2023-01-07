@@ -43,11 +43,11 @@ const UserForm = () => {
         city: '',
       },
       postal_code: '',
-      adderss: '',
+      address: '',
       // second
       username: '',
       password: '',
-      password_confimation: '',
+      password_confirmation: '',
     }
   });
   const onSubmit = data => console.log(data);
@@ -163,7 +163,7 @@ const UserForm = () => {
             </RowInput>
             <RowInput label='آدرس'>
               <input type="text" className="input-secondary" {...register('address')} />
-              {errors.lastname && <span>This field is required</span>}
+              {errors.address && <span>This field is required</span>}
             </RowInput>
           </div>
         </form>
@@ -186,8 +186,8 @@ const UserForm = () => {
             <RowInput label='تکرار رمز' required>
               <input
                 className="input-secondary"
-                {...register('password_confimation')} type="password"/>
-              {errors.password_confimation && <span>This field is required</span>}
+                {...register('password_confirmation')} type="password"/>
+              {errors.password_confirmation && <span>This field is required</span>}
             </RowInput>
           </div>
         </form>

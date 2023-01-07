@@ -53,7 +53,6 @@ export default function SelectWithKey({ value, index, setState }) {
                     <input
                         className="input py-4 px-6 w-full"
                         type="text"
-                        name="seach"
                         id="search-header"
                         value={val}
                         onChange={(e) => setVal(e.target.value)}
