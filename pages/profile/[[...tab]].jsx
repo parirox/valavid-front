@@ -191,7 +191,7 @@ function SellerProfile() {
                                 <div className="basis-4/6">
                                     <div className="mb-2 text-2xl">فروشنده شوید</div>
                                     <div className="mb-6 text-gray">اطلاعات ثبت نام خود را کامل کنید</div>
-                                    <Button className="btn-primary-gradient px-16 py-3" link={`/profile/UserInformation#sellerForm`}>فروشنده شوید</Button>
+                                    <Button className="btn-primary-gradient px-16 py-3" link={`/profile/SellerForm`}>فروشنده شوید</Button>
                                 </div>
                                 <div className="flex justify-between basis-2/6 relative">
                                     <Image src="/images/camera.png" alt="be seller" fill className="object-cover scale-110" />
@@ -199,7 +199,7 @@ function SellerProfile() {
                             </div>
                             <div className="w-full bg-accent rounded-2xl p-8 flex items-center gap-3">
                                 <MdGroupAdd className="text-primary text-4xl" />
-                                <Link href={`/profile/UserInformation#teamForm`}><span className="text-xl">تغییر حساب کاربری به شخصیت حقوقی</span></Link>
+                                <Link href={`/profile/TeamForm`}><span className="text-xl">تغییر حساب کاربری به شخصیت حقوقی</span></Link>
                             </div>
                         </div>
                     </div>
