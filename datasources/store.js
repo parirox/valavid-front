@@ -1,13 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 // import storage from 'redux-persist/lib/storage'
-import { persistCombineReducers } from "redux-persist";
-import { createWrapper } from "next-redux-wrapper";
+import {persistCombineReducers} from "redux-persist";
+import {createWrapper} from "next-redux-wrapper";
 
 //-->> auth slices
 import authSlice from "@/datasources/auth/local/AuthSlice";
 import authSliceApi, {
-    authSliceApiTag,
-  } from "@/datasources/auth/remote/AuthSliceApi";
+  authSliceApiTag,
+} from "@/datasources/auth/remote/AuthSliceApi";
 //-->> checkout slices
 import checkoutSlice from "@/datasources/checkout/local/CheckoutSlice";
 import checkoutSliceApi, {
@@ -24,7 +24,7 @@ import configSlice from "@/datasources/config/local/ConfigSlice";
 import userSlice from '@/datasources/user/local/UserSlice';
 import userSliceApi, {userSliceApiTag} from '@/datasources/user/remote/UserSliceApi';
 //-->> loading slices
-import { loadingBarReducer } from "react-redux-loading-bar";
+import {loadingBarReducer} from "react-redux-loading-bar";
 //-->> middlewares
 import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
@@ -41,9 +41,9 @@ const persistConfig = {
 let reducer = {
   //->> home
   [homeSliceApiTag]: homeSliceApi.reducer,
-   //->> auth
-   auth: authSlice,
-   [authSliceApiTag]: authSliceApi.reducer,
+  //->> auth
+  auth: authSlice,
+  [authSliceApiTag]: authSliceApi.reducer,
   //->> checkout
   checkout: checkoutSlice,
   [checkoutSliceApiTag]: checkoutSliceApi.reducer,
@@ -54,6 +54,7 @@ let reducer = {
   config: configSlice,
   //->> user
   user: userSlice,
+  [userSliceApiTag]: userSliceApi.reducer,
   //->> loadingBar
   loadingBar: loadingBarReducer,
 };
@@ -71,9 +72,10 @@ export const store = (context) =>
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,
+        userSliceApi.middleware,
         rtkQueryErrorLogger,
         LoadingHandler,
       ]),
   });
 
-export const wrapper = createWrapper(store, { debug: false });
+export const wrapper = createWrapper(store, {debug: false});
