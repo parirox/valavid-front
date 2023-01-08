@@ -1,4 +1,4 @@
-import { isEmpty } from "../general";
+import { getCookieClient, isEmpty } from "../general";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
@@ -6,8 +6,8 @@ export const ApiEndpoint = {
   auth: {
     login: "/account/auth/login/",
     signup: "/account/auth/signup/",
-    sendCode:"/account/auth/send-code/",
-    resetPassword:"/account/auth/reset-password/"
+    sendCode: "/account/auth/send-code/",
+    resetPassword: "/account/auth/reset-password/",
   },
   cart: {
     detailsByIds: "/cart/:ids",
@@ -22,12 +22,12 @@ export const ApiEndpoint = {
   },
   user: {
     collection: {
-        get: "/collections/",
-        add: "/collections/",
-        edit: "/collections/:id/",
-        remove: "/collections/:id/",
-    }
-}
+      get: "/collections/",
+      add: "/collections/",
+      edit: "/collections/:id/",
+      remove: "/collections/:id/",
+    },
+  },
 };
 
 export function ApiAddress(address, params = {}) {
@@ -40,17 +40,16 @@ export function ApiAddress(address, params = {}) {
 }
 
 export const baseQuery = fetchBaseQuery({
-    baseUrl: BASE_API_URL,
-    timeout: 10000,
-    prepareHeaders: (headers, {getState}) => {
-        //     const token = getState().auth.token
-        //
-        //     // If we have a token set in state, let's assume that we should be passing it.
-        //     if (token) {
-        //         headers.set('authorization', `Bearer ${token}`)
-        //     }
-        //
-        // headers.set('Content-Type', 'application/json')
-        return headers
-    },
-})
+  baseUrl: BASE_API_URL,
+  timeout: 10000,
+  prepareHeaders: (headers, { getState }) => {
+    const token = getCookieClient("valavid_token");
+
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+    }
+
+    headers.set("Content-Type", "application/json");
+    return headers;
+  },
+});

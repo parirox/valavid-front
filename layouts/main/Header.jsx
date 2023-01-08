@@ -8,9 +8,46 @@ import { cartItems } from "@/datasources/checkout/local/CheckoutSlice";
 import Image from "next/image";
 import Button from "@/components/Button";
 import ValavidIcon from "@/public/icons/VALAVID_blogPage.png"
+import { useEffect, useState } from "react";
+import { getCookieClient } from "@/utils/general";
+import ProfileIcon from "@/public/icons/profile.svg"
+import Link from "next/link";
 
 const Header = ({ data, styleMode }) => {
+  const [isLogedin,setIsLogedIn] = useState(false)
   const _cartItems = useSelector(cartItems);
+
+  useEffect(()=>{
+    let token = getCookieClient('valavid_token')
+    if(token){
+      setIsLogedIn(true)
+    }
+  },[])
+
+  const renderProfileBtn = () => {
+   if(isLogedin){
+    return(
+      <Link href="/profile">
+        <Button className="rounded-full bg-white h-full w-[4rem] h-[4rem] relative">
+          <ProfileIcon/>
+        </Button>
+      </Link>
+    )
+   }else{
+    return(
+      <div className="basis-2/12">
+      <Button
+        className={"rounded-full full btn-primary min-w-[130px]"}
+        link={"/auth"}
+        icon={<IoPerson className="text-lg" />}
+      >
+        عضویت / ورود
+      </Button>
+    </div>
+    )
+   }
+  }
+
   if (styleMode === 'blog') {
     return (
       <header className={"bg-white py-7 box-shadow relative"}>
@@ -23,20 +60,13 @@ const Header = ({ data, styleMode }) => {
         </div>
         <div className="basis-6/12 h-full">
           <div className="flex flex-row justify-end gap-3 h-full">
-            <div className="flex-initial">
-              <ButtonIcon
-                className={"rounded-full btn-primary full bg-success-100 min-w-[130px]"}
-                link={"/auth"}
-                type="success"
-                icon={<IoPerson className="text-lg" />}
-              >
-                عضویت / ورود
-              </ButtonIcon>
-            </div>
+            {
+              renderProfileBtn()
+            }
             <div className="basis-1/12">
               <ButtonIcon 
                 link={"/cart"} 
-                className="rounded-full bg-accent h-full w-[4rem] relative"
+                className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
                 icon={<BsCart2 className="text-white text-2xl mx-auto" />}
                 >
                 <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">{_cartItems.length}</span>
@@ -60,17 +90,9 @@ const Header = ({ data, styleMode }) => {
               <div className="basis-9/12">
                 <Select />
               </div>
-              <div className="basis-2/12">
-                <Button
-                  className={"rounded-full full btn-primary min-w-[130px]"}
-                  link={"/auth"}
-                  icon={<IoPerson className="text-lg" />}
-                >
-                  عضویت / ورود
-                </Button>
-              </div>
+               {renderProfileBtn()}
               <div className="basis-1/12">
-                <button className="rounded-full bg-accent h-full w-[4rem] relative">
+                <button className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative">
                   <BsCart2 className="text-white text-2xl m-auto" />
                   <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">{_cartItems.length}</span>
                 </button>

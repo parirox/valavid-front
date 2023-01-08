@@ -8,6 +8,7 @@ import {
   isPersionMobileNumber,
 } from "@/utils/helpers/form";
 import { handleApiError } from "@/datasources/errorHandler";
+import _toast from "@/utils/notification/toast";
 
 const SignUpForm = ({ signupData, setSignupData, setSelectedTab }) => {
   const [acceptRules, setAcceptRules] = useState(false);

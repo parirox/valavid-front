@@ -20,11 +20,7 @@ export const rtkQueryErrorLogger = (api) => (next) => (action) => {
 export const handleFormApiResponse = (response) => {
   Object.keys(response.data).map((item) => {
     response.data[item].forEach((err) => {
-      if (item === "non_field_errors") {
         toast.error(`${err}`);
-      } else {
-        toast.error(`${item}:${err}`);
-      }
     });
   });
 };
