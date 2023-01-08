@@ -1,20 +1,29 @@
+import { useResetUserPasswordMutation } from "@/datasources/auth/remote/AuthSliceApi";
+import { handleApiError } from "@/datasources/errorHandler";
+import toast from "@/utils/notification/toast";
 import React, { useState } from "react";
-import BackIcon from "@/public/icons/Back.svg";
-import TextInput from "@/components/TextInput";
+import Authentication from "../Authentication";
 import Mobile from "./Mobile";
 import Password from "./Password";
-import Authentication from "./Authentication";
 
-const PasswordRecovery = ({setSelectedTab}) => {
+const PasswordRecovery = ({ setSelectedTab }) => {
   const [content, setContent] = useState("mobile");
+  const [verifyUserData, setUserVerifyData] = useState({
+    number_email: "",
+    verify_code: "",
+    password: "",
+    repeated_password: "",
+  });
+
+  const [
+    resetUserPassword,
+    { data: verificationData, isSuccess: isSendCodeSuccess },
+  ] = useResetUserPasswordMutation();
 
   const handleBackBtnClick = () => {
     switch (content) {
       case "password":
         setContent("auth");
-        break;
-      case "auth":
-        setContent("mobile");
         break;
       case "mobile":
         setSelectedTab("login");
@@ -23,23 +32,46 @@ const PasswordRecovery = ({setSelectedTab}) => {
         break;
     }
   };
+
+  const handleResetPassword = (data) => {
+    resetUserPassword(data)
+      .unwrap()
+      .then((response) => {
+        toast.success(response.message);
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
+  };
+
   return (
     <div>
-      <div className="flex items-center justify-between text-[#303D47] m-4">
-        <h2 className="text-[25px]">
-          {content === "auth" ? "احراز هویت" : "بازیابی رمز عبور"}
-        </h2>
-        <div
-          onClick={() => handleBackBtnClick()}
-          className="flex items-center cursor-pointer"
-        >
-          <BackIcon className="mx-3" />
-          <span>بازگشت</span>
-        </div>
-      </div>
-      {content === "mobile" && <Mobile setContent={setContent} />}
-      {content === "auth" && <Authentication setContent={setContent} />}
-      {content === "password" && <Password setContent={setContent} />}
+      {content === "mobile" && (
+        <Mobile
+          verifyUserData={verifyUserData}
+          setUserVerifyData={setUserVerifyData}
+          setContent={setContent}
+          setSelectedTab={setSelectedTab}
+        />
+      )}
+      {content === "auth" && (
+        <Authentication
+          handleClickBackBtn={() => setContent("mobile")}
+          handleClickEditBtn={() => setContent("mobile")}
+          number_email={verifyUserData.number_email}
+          handleSendForm={() => setContent("password")}
+          setState={setUserVerifyData}
+          state={verifyUserData}
+        />
+      )}
+      {content === "password" && (
+        <Password
+          verifyUserData={verifyUserData}
+          setUserVerifyData={setUserVerifyData}
+          setContent={setContent}
+          handleResetPassword={handleResetPassword}
+        />
+      )}
     </div>
   );
 };
