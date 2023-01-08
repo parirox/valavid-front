@@ -8,7 +8,7 @@ function SingleBlog() {
   return (
     <>
       <Head>
-        <title>Valavid | {'Blog name'} </title>
+        <title>Valavid | Blog name </title>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="container pb-96 pt-16">
