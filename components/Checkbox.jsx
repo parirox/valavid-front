@@ -10,8 +10,8 @@ const Checkbox = ({ children, checked, onChange }) => {
         className="checked:bg-[#534CDA] ml-2 checkmark bg-[#F2F2F3] w-[25px] h-[25px] rounded-[8px] border border-[#90999F]"
       />
       <label
-        for="default-checkbox"
-        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        htmlFor="default-checkbox"
+        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
       >
         {children}
       </label>

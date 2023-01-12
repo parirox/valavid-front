@@ -1,14 +1,26 @@
 import React, { use, useState } from "react";
 import TextInput from "../TextInput";
 import GoogleIcon from "@/public/icons/google.svg";
-import { loginUser } from "apis/auth";
-import { handleApiError } from "apis/helpers.js/errorHandler";
+import { useLoginUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
+import { handleApiError } from "@/datasources/errorHandler";
+import {
+  createValidMobileNumber,
+  isPersionMobileNumber,
+} from "@/utils/helpers/form";
+import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { setCookieClient } from "@/utils/general";
 
 const Login = ({ setSelectedTab }) => {
+  const { data: session } = useSession();
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
   });
+  const [loginUser, { data, isSuccess: isSendCodeSuccess, isError, error }] =
+    useLoginUserMutation();
+  const router = useRouter();
+
   const setForm = (name, value) => {
     setLoginInfo((prev) => {
       return {
@@ -19,16 +31,27 @@ const Login = ({ setSelectedTab }) => {
   };
 
   const handleLoginUser = async () => {
-    try {
-      const response = await loginUser(loginInfo)
-    } catch (error) {
-      handleApiError(error.response)
-    }
-  }
+    let apiData = {
+      username: isPersionMobileNumber(loginInfo.username)
+        ? createValidMobileNumber(loginInfo.username)
+        : loginInfo.username,
+      password: loginInfo.password,
+    };
+    loginUser(apiData)
+      .unwrap()
+      .then((response) => {
+        setCookieClient("valavid_token", response.token);
+        router.push("/profile");
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
+  };
   return (
     <div className="flex flex-col mt-[4rem]">
       <TextInput
         name="username"
+        type="text"
         value={loginInfo.username}
         onChange={(e) => {
           setForm(e.target.name, e.target.value);
@@ -37,6 +60,7 @@ const Login = ({ setSelectedTab }) => {
       />
       <TextInput
         name="password"
+        type="password"
         value={loginInfo.password}
         onChange={(e) => {
           setForm(e.target.name, e.target.value);
@@ -44,10 +68,16 @@ const Login = ({ setSelectedTab }) => {
         label="رمز عبور"
       />
       <div className="my-4 flex flex-col">
-        <button onClick={()=>handleLoginUser()} className="bg-[#534CDA] color-white mx-4 mb-1 h-[4.063rem] rounded-[1.438rem]">
+        <button
+          onClick={() => handleLoginUser()}
+          className="bg-[#534CDA] color-white mx-4 mb-1 h-[4.063rem] rounded-[1.438rem]"
+        >
           ورود
         </button>
-        <button className="border border-[#D6DADC] flex items-center justify-center text-[#54626C] mx-4 mt-1 h-[4.063rem] rounded-[1.438rem]">
+        <button
+          onClick={() => signIn()}
+          className="border border-[#D6DADC] flex items-center justify-center text-[#54626C] mx-4 mt-1 h-[4.063rem] rounded-[1.438rem]"
+        >
           <span>ورود با حساب گوگل</span>
           <GoogleIcon className="w-[32.35px] h-[33px] mx-3" />
         </button>

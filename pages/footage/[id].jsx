@@ -2,7 +2,7 @@ import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import ButtonIcon from "@/components/ButtonIcon";
 import Chip from "@/components/Chip";
-import CollectionModel from "@/components/CollectionModal";
+import CollectionModal from "@/components/CollectionModal";
 import Divider from "@/components/Divider";
 import PopularCardImage from "@/components/PopularCardImage";
 import { addOrRemoveToCart, cartItems, checkInCart } from "@/datasources/checkout/local/CheckoutSlice";
@@ -262,7 +262,7 @@ function FootageDetails() {
                     <title>والاوید | {data.title}</title>
                 </Head>
                 <div className="container mt-20">
-                    <CollectionModel />
+                    <CollectionModal />
                     <div className="flex gap-24 flex-col md:flex-row md:items-stretch">
                         <div className="basis-full md:basis-7/12">
                             <div className="relative full">

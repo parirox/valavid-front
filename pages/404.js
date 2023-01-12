@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import Head from "next/head";
 import Image from "next/image";
 
-export default function Error404() {
+function NotFound() {
   return (
     <>
       <Head>
@@ -23,3 +23,7 @@ export default function Error404() {
     </>
   )
 }
+
+NotFound.styleMode = '404'
+
+export default NotFound;
