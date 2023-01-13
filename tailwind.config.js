@@ -72,7 +72,7 @@ module.exports = {
         color6: "#ECECEC",
         color7: "#1E303E", // shadow modal
         color8: "#D6DADC", // text color
-
+        color9: "#F8F8F8",
         color10: "#A9A4FD",
         color11: "#AEAAFF",
         cyan: "#55DBCB",

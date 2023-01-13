@@ -1,10 +1,9 @@
 import clsx from "clsx";
 
-const TextInput = ({ label, className, name, value, type, onChange, background }) => {
+const TextArea = ({ label, className, name, value, type, onChange, background }) => {
   return (
-    <div className="h-[4.063rem] relative m-4 w-100 group">
-      <input
-        type={type}
+    <div className="h-[10rem] relative m-4 w-100 group">
+      <textarea
         name={name}
         value={value}
         onChange={onChange}
@@ -44,4 +43,4 @@ const TextInput = ({ label, className, name, value, type, onChange, background }
   );
 };
 
-export default TextInput;
+export default TextArea;

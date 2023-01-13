@@ -32,6 +32,16 @@ const product_api = createApi({
                 { type: productSliceApiTag, id: 'LIST' }
             ],
         }),
+        addProduct: build.mutation({
+            query: (payload) => ({
+                url: ApiAddress(ApiEndpoint.product.add, payload),
+                body: payload,
+                method: 'POST',
+            }),
+            providesTags: (result, error, id) => [
+                { type: productSliceApiTag, id: 'Add' }
+            ],
+        }),
     })
 });
 
@@ -39,10 +49,11 @@ const product_api = createApi({
 export const {
     useGetProductListQuery,
     useProductDetailsQuery,
+    useAddProductMutation
 } = product_api;
 
 // export endpoints for use in SSR
-export const { GetProductList, ProductDetails } = product_api.endpoints;
+export const { GetProductList, ProductDetails, addProduct } = product_api.endpoints;
 
 export default product_api;
 

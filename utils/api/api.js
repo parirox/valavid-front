@@ -15,6 +15,7 @@ export const ApiEndpoint = {
   },
   product: {
     get: "/videos/",
+    add:"/account/products/",
     details: "/product/:id/",
   },
   home: {
@@ -46,10 +47,10 @@ export const baseQuery = fetchBaseQuery({
     const token = getCookieClient("valavid_token");
 
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("Authorization", `Token ${token}`);
     }
 
-    headers.set("Content-Type", "application/json");
+    // headers.set("Content-Type", "multipart/form-data");
     return headers;
   },
 });
