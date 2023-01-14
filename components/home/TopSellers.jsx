@@ -1,45 +1,11 @@
 import Image from 'next/image';
-import React, { Fragment } from 'react';
-import { BsFillDiamondFill } from 'react-icons/bs';
-import Button from '../Button';
-import OctagonalDivider from '../OctagonalDivider';
+import React, {Fragment} from 'react';
+import {BsFillDiamondFill} from 'react-icons/bs';
 import SectionTitleDivider from '../SectionTitleDivider';
+import Button from "@/components/Button";
+import Avatar from "react-avatar";
 
-const data = [
-    {
-        id: 1,
-        name: "حمید باقری",
-        profile_image: "https://placeimg.com/192/192/people/1",
-        produce_count: 49,
-    },
-    {
-        id: 2,
-        name: "حمید باقری",
-        profile_image: "https://placeimg.com/192/192/people/2",
-        produce_count: 49,
-    },
-    {
-        id: 3,
-        name: "حمید باقری",
-        profile_image: "https://placeimg.com/192/192/people/3",
-        produce_count: 49,
-    },
-    {
-        id: 4,
-        name: "حمید باقری",
-        profile_image: "https://placeimg.com/192/192/people/4",
-        produce_count: 49,
-    },
-    {
-        id: 4,
-        name: "حمید باقری",
-        profile_image: "https://placeimg.com/192/192/people/5",
-        produce_count: 49,
-    }
-]
-
-
-const TopSellers = () => {
+const TopSellers = ({data = []}) => {
     return (
         <div className="container mb-40">
             <SectionTitleDivider title="برترین فروشندگان" ></SectionTitleDivider>
@@ -50,7 +16,7 @@ const TopSellers = () => {
                             <div className="flex-1 group/topSellerCard h-full rounded-2xl  bg-gradient-to-t hover:from-[#173358] hover:to-[#0D213B44] p-7 cursor-pointer">
                                 <div className="flex flex-col w-full items-center justify-end h-full">
                                     <div className="flex-grow">
-                                        <Image src={item.profile_image} alt={item.name} width="110" height="110" className='rounded-full' />
+                                        {item.profile_image ? <Image src={item.profile_image} alt={item.name} width={110} height={110} className='rounded-full' /> : <Avatar round={true} name={item.name} size="110" />}
                                     </div>
                                     <div className="flex-1 text-xl">
                                         <span>{item.name}</span>
@@ -59,7 +25,7 @@ const TopSellers = () => {
                                         <span>تولید {item.produce_count}</span>
                                     </div>
                                     <div className="flex-1 w-full h-full">
-                                        <Button link={`/show-user/${item.id}`} className='btn-primary-gradient text-xl w-full h-full opacity-0 transition-all group-hover/topSellerCard:opacity-100'>
+                                        <Button link={`/profile/${item.username}/products`} className='btn-primary-gradient text-xl w-full h-full opacity-0 transition-all group-hover/topSellerCard:opacity-100'>
                                             مشاهدات تولیدات
                                         </Button>
                                     </div>

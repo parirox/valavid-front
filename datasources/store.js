@@ -13,7 +13,7 @@ import checkoutSlice from "@/datasources/checkout/local/CheckoutSlice";
 import checkoutSliceApi, {
   checkoutSliceApiTag,
 } from "@/datasources/checkout/remote/CheckoutSliceApi";
-//-->> product slices
+//-->> products slices
 import productSlice from "@/datasources/product/local/ProductSlice";
 import productSliceApi, {
   productSliceApiTag,
@@ -47,7 +47,7 @@ let reducer = {
   //->> checkout
   checkout: checkoutSlice,
   [checkoutSliceApiTag]: checkoutSliceApi.reducer,
-  //->> product
+  //->> products
   product: productSlice,
   [productSliceApiTag]: productSliceApi.reducer,
   //->> config

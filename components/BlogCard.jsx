@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function BlogCard({className, data}) {
   return (
-    <Link className={'full'} href={`/blog/${data.id}`}>
+    <Link className={'full'} href={`/blogs/${data.id}`}>
       <div
         className={`rounded-[3.875rem] group relative before:content-[''] overflow-hidden before:h-1/2 before:w-full before:absolute before:bottom-0 before:right-0 before:bg-gradient-to-b before:from-[#ffffff00] before:to-secondary before:opacity-70 ${className}`}>
         <div className=" flex gap-1 absolute top-8 left-14 opacity-60 items-center text-sm">

@@ -12,17 +12,17 @@ const MostPopular = ({data}) => {
                 {data.map((item, key) => {
                     switch (item.type) {
                         case 'image':
-                            return <PopularCardImage key={key} data={item} link={`/images/${item.id}`} />
+                            return <PopularCardImage key={key} data={item} link={`/product/${item.id}`} />
                         case 'video':
-                            return <PopularCardVideo key={key} data={item} link={`/videos/${item.id}`} />
+                            return <PopularCardVideo key={key} data={item} link={`/product/${item.id}`} />
                         case 'collection':
-                            return <PopularCardCollection key={key} data={item} link={`/collections/${item.id}`} />
+                            return <PopularCardCollection key={key} data={item} link={`/product/${item.id}`} />
                     }
                 })}
             </div>
             <Button
                 className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
-                link={"/collections"}
+                link={"/videos?order=popular"}
               >
                 بیشتر
               </Button>

@@ -10,15 +10,15 @@ const links = [
   },
   {
     title: 'ویدئو',
-    href: '/videos'
+    href: '/products/video'
   },
   {
     title: 'تصویر',
-    href: '/pictures'
+    href: '/products/image'
   },
   {
     title: 'وبلاگ',
-    href: '/blog'
+    href: '/blogs'
   },
   {
     title: 'درباره ی ما',

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Button from '@/components/Button';
 
-const BecomeASeller = () => {
+const BecomeASeller = ({data}) => {
     return (
         <div className='mt-40 bg-accent h-80'>
             <div className="container h-full">
@@ -16,7 +16,7 @@ const BecomeASeller = () => {
                         </div>
                     </div>
                     <div className="basis-1/4 relative">
-                        <Image src={'/images/pink-camera.png'} className="absolute -top-9 left-0 object-cover" alt="" width={350} height={350} />
+                        <Image src={'/images/pink-camera.png'} className="absolute -top-9 left-0 object-cover" alt="be a seller in Valavid" width={350} height={350} />
                     </div>
                 </div>
             </div>

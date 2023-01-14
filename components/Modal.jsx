@@ -21,7 +21,6 @@ function Modal({ isOpen, setIsOpen, title, closeButton, children, ...props }) {
                 >
                     <div className="fixed inset-0 bg-black backdrop-blur bg-opacity-20" />
                 </Transition.Child>
-
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4 text-center">
                         <Transition.Child
@@ -33,7 +32,7 @@ function Modal({ isOpen, setIsOpen, title, closeButton, children, ...props }) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95">
                             <Dialog.Panel
-                                className={"transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all " + props.small ? "w-6/12" : "w-8/12"}>
+                                className={"transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all " + (props.small ? "w-6/12" : "w-8/12")}>
                                 {title && <Dialog.Title
                                     as="h3"
                                     className="text-lg font-medium leading-6 text-accent">

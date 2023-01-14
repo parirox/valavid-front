@@ -1,9 +1,11 @@
 import { isEmpty } from "@/utils/general";
 import Link from "next/link";
+import {AiOutlineLoading} from "react-icons/ai";
 
 const Button = ({
   link,
   onClick,
+  loading=false,
   children, ...rest
 }) => {
   rest.className += ' btn'

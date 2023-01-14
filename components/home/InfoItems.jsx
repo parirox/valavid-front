@@ -1,21 +1,19 @@
 import ReverseEffectInfoItem from '@/components/ReverseEffectInfoItem';
-import MusicIcon from '@/public/icons/FillMusicDisable.svg';
-import PictureIcon from '@/public/icons/FillPictureActive.svg';
-import ThemeIcon from '@/public/icons/FillThemeDisable.svg';
-import VideoIcon from '@/public/icons/FillVideoActive.svg';
 import OctagonalDivider from '../OctagonalDivider';
+import {IoImage, IoMusicalNote, IoVideocam} from "react-icons/io5";
+import {FaPalette} from "react-icons/fa";
 
 
 const InfoItems = ({stats}) => {
     return (
         <div className="flex gap-16 max-w-[1120px] h-[20rem] items-center w-full m-auto">
-            <ReverseEffectInfoItem title='تصویر' value={stats.images} icon={<PictureIcon className="scale-[0.7]" />} className="basis-1/4"></ReverseEffectInfoItem>
+            <ReverseEffectInfoItem title='تصویر' value={stats.images} icon={<IoImage className="text-3xl" />} disable={!stats.images} className="basis-1/4"></ReverseEffectInfoItem>
             <OctagonalDivider></OctagonalDivider>
-            <ReverseEffectInfoItem title='ویدئو' value={stats.videos} icon={<VideoIcon className="scale-[0.7]" />} className="basis-1/4"></ReverseEffectInfoItem>
+            <ReverseEffectInfoItem title='ویدئو' value={stats.videos} icon={<IoVideocam className="text-3xl" />} disable={!stats.videos} className="basis-1/4"></ReverseEffectInfoItem>
             <OctagonalDivider></OctagonalDivider>
-            <ReverseEffectInfoItem title='صوت' value={stats.audios} icon={<MusicIcon className="scale-[0.7]" />} disable className="basis-1/4"></ReverseEffectInfoItem>
+            <ReverseEffectInfoItem title='صوت' value={stats.audios} icon={<IoMusicalNote className="text-3xl" />} disable={!stats.audios} className="basis-1/4"></ReverseEffectInfoItem>
             <OctagonalDivider></OctagonalDivider>
-            <ReverseEffectInfoItem title='تمپلیت' value={stats.templates} icon={<ThemeIcon className="scale-[0.7]" />} disable className="basis-1/4"></ReverseEffectInfoItem>
+            <ReverseEffectInfoItem title='تمپلیت' value={stats.templates} icon={<FaPalette className="text-3xl" />} disable={!stats.templates} className="basis-1/4"></ReverseEffectInfoItem>
         </div>
     );
 }

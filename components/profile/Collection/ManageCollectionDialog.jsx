@@ -41,43 +41,33 @@ export default function ManageCollectionDialog({show, showHandler, ...rest}) {
 
   const onSubmit = (data) => {
     if (isEmpty(id)) {
-      fetchAdd(data)
+      //->> on edit
+      fetchAdd(data).unwrap().then((data) => {
+        successResult("مجموعه جدید با موفقیت ایجاد شد!")
+      }).catch((err) => {
+        toast.error(err)
+      })
     } else {
-      fetchEdit([{id}, data])
+      //->> on create a new
+      fetchEdit([{id}, data]).unwrap().then((data) => {
+        successResult("ویرایش مجموعه با موفقیت انجام شد!")
+      }).catch((err) => {
+        toast.error(err)
+      })
     }
   }
 
   const removeCollectionHandler = () => {
-    fetchRemove({id})
+    fetchRemove({id}).unwrap().then((data) => {
+      successResult("حذف مجموعه با موفقیت انجام شد!")
+    }).catch((err) => {
+      toast.error(err)
+    })
   };
-
-  //->> edit notify
-  useEffect(() => {
-    // on edit item
-    if (editIsSuccess) {
-      toast.success("ویرایش مجموعه با موفقیت انجام شد!")
-      showHandler(false)
-    }
-    if (editIsError) toast.error(editError)
-
-    // on edit remove
-    if (removeIsSuccess) {
-      toast.success("حذف مجموعه با موفقیت انجام شد!")
-      showHandler(false)
-    }
-    if (removeIsError) toast.error(removeError)
-  }, [editIsSuccess, editIsError, removeIsSuccess, removeIsError])
-
-
-  //->> add notify
-  useEffect(() => {
-    // on add item
-    if (addIsSuccess) {
-      toast.success("ویرایش مجموعه با موفقیت انجام شد!")
-      showHandler(false)
-    }
-    if (addIsError) toast.error(addError)
-  }, [addIsSuccess, addIsError])
+  const successResult = (message) => {
+    toast.success(message)
+    showHandler(false)
+  }
 
   //->> initialize the default form value
   useEffect(() => {

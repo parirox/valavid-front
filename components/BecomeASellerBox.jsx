@@ -25,7 +25,7 @@ export default function BecomeASellerBox({ className }) {
           تبدیل شدن به یک تولید کننده حرفه ای
         </div>
       </div>
-      <Button className="rounded-2xl w-full text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-lg h-14">فروشنده شدن</Button>
+      <Button link={"/auth"} className="rounded-2xl w-full text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-lg h-14">فروشنده شدن</Button>
     </div>
   )
 }

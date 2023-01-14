@@ -22,7 +22,7 @@ import { FaCartPlus, FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoHeart, IoInformationCircleOutline, IoShareSocialOutline } from "react-icons/io5";
 import { MdRemoveShoppingCart, MdVerifiedUser } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import RatePieChart from "../../components/charts/RatePieChart";
+import RatePieChart from "@/components/charts/RatePieChart";
 
 const data = {
     id: 1,
