@@ -7,13 +7,9 @@ import MostPopular from "@/components/home/MostPopular";
 import SubscribeBanner from "@/components/home/SubscribeBanner";
 import TopSellers from "@/components/home/TopSellers";
 import FirstSection from "@/components/home/FirstSection";
-import home_api, {
-  GetHomeData,
-  useGetHomeDataQuery,
-} from "@/datasources/home/remote/HomeSliceApi";
-import { wrapper } from "@/datasources/store";
+import home_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/home/remote/HomeSliceApi";
+import {wrapper} from "@/datasources/store";
 import Head from "next/head";
-import { useEffect } from "react";
 import Error404 from "./404";
 
 function Home() {

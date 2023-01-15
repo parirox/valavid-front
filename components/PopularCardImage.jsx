@@ -1,22 +1,63 @@
 import Badge from '@/components/Badge';
-import { addOrRemoveToCart, cartItems, checkInCart } from "@/datasources/checkout/local/CheckoutSlice";
-import { setModalCollectionTo } from '@/datasources/config/local/ConfigSlice';
-import { addToFavorite, checkInFavorite, favoriteItems } from "@/datasources/user/local/UserSlice";
+import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/local/CheckoutSlice";
+import {setModalCollectionTo} from '@/datasources/config/local/ConfigSlice';
+import {addToFavorite, checkInFavorite, favoriteItems} from "@/datasources/user/local/UserSlice";
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsFillDiamondFill } from 'react-icons/bs';
-import { FaCartPlus } from "react-icons/fa";
-import { IoFolderOpenOutline, IoHeart, IoHeartOutline, IoImagesOutline } from 'react-icons/io5';
-import { MdRemoveShoppingCart } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import {BsFillDiamondFill} from 'react-icons/bs';
+import {FaCartPlus} from "react-icons/fa";
+import {IoFolderOpenOutline, IoHeart, IoHeartOutline, IoImagesOutline} from 'react-icons/io5';
+import {MdRemoveShoppingCart} from "react-icons/md";
+import {useDispatch, useSelector} from "react-redux";
+import Avatar from "react-avatar";
+import React, {useEffect, useMemo} from "react";
+import {
+    useAddToFavoritesMutation,
+    useGetFavoritesQuery,
+    useRemoveFromFavoritesMutation
+} from "@/datasources/user/remote/UserSliceApi";
+import toast from "@/utils/notification/toast";
 
-const PopularCardImage = ({ data, link = '#', className }) => {
+const PopularCardImage = ({ data, link = '#', className = "" }) => {
     const _cartItems = useSelector(cartItems);
-    const _favoriteItems = useSelector(favoriteItems);
     const dispatch = useDispatch();
 
+    //->> favorite endpoints
+    const {
+        data: favoritesData,
+        isSuccess: getFavoriteIsSuccess,
+        error: getFavoriteError,
+        isError: getFavoriteIsError,
+        isLoading: getFavoriteIsLoading
+    } = useGetFavoritesQuery()
+    const [addToFavorites, {
+        data: addFavoriteData,
+        isSuccess: addFavoriteIsSuccess,
+        error: addFavoriteError,
+        isError: addFavoriteIsError,
+        isLoading: addFavoriteIsLoading
+    }] = useAddToFavoritesMutation()
+    const [removeFromFavorites, {
+        data: removeFavoriteData,
+        isSuccess: removeFavoriteIsSuccess,
+        error: removeFavoriteError,
+        isError: removeFavoriteIsError,
+        isLoading: removeFavoriteIsLoading
+    }] = useRemoveFromFavoritesMutation()
+
+    const myFavoritesIds = useMemo(() => {
+        return favoritesData?.results.map(v => v.id) ?? []
+    }, [favoritesData])
+
+    useEffect(() => {
+        if (addFavoriteIsSuccess) toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
+        if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
+        if (addFavoriteIsError) toast.error(addFavoriteError)
+        if (removeFavoriteIsError) toast.error(removeFavoriteError)
+    }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError])
+
     return (
-        <div className={`h-full group/popularCard relative ${className}`}>
+        <div className={`h-[300px] group/popularCard relative ${className}`}>
             <div className="hidden group-hover/popularCard:block border-[1px] rounded-[3.35rem] w-full h-full z-30 absolute border-white">
                 <BsFillDiamondFill className="w-9 absolute -left-[0.5px] top-2/4 -translate-y-2/4 -translate-x-2/4"></BsFillDiamondFill>
             </div>
@@ -27,12 +68,16 @@ const PopularCardImage = ({ data, link = '#', className }) => {
                             <div className="flex p-1 gap-3 justify-between">
                                 <div className="basis-auto">
                                     <div className="flex gap-3 text-2xl">
-                                        <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary' onClick={() => dispatch(addToFavorite({id: data.id, price: data.price}))}>
-                                            {checkInFavorite(_favoriteItems, data.id) ? <IoHeart className={"text-danger"}/> : <IoHeartOutline/>}
+                                        <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                                               onClick={() => {
+                                                   myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
+                                               }}>
+                                            {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
+                                              <IoHeartOutline/>}
                                         </Badge>
-                                        <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary' 
-                                                onClick={() =>  dispatch(setModalCollectionTo({active:true,footage_details:data}))}>
-                                                    <IoFolderOpenOutline />
+                                        <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                                               onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
+                                            <IoFolderOpenOutline/>
                                         </Badge>
                                         <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                                                onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price}))}>
@@ -48,7 +93,7 @@ const PopularCardImage = ({ data, link = '#', className }) => {
                             <div className="flex p-1 gap-3 justify-between">
                                 <div className="basis-auto">
                                     <div className="flex gap-3 justify-center items-center">
-                                        {data.price && <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data.price}</span></Badge>}
+                                        <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data?.price ?? "رایگان"}</span></Badge>
                                         <Badge className='bg-primary rounded-2xl  text-2xl'><IoImagesOutline /></Badge>
                                     </div>
                                 </div>
@@ -59,7 +104,7 @@ const PopularCardImage = ({ data, link = '#', className }) => {
                         {data.author && (<div className="flex gap-3 justify-end items-center mb-3">
                                 <div className="flex items-center basis rounded-3xl bg-white py-2 px-3">
                                     <span className='ml-2 text-sm opacity-80'>{data.author.name}</span>
-                                    <Image src={data.author.profile_image} alt={data.author.name} width={16} height={16} className='w-8 rounded-full' />
+                                    {data.author.profile_image ? <Image src={data.author.profile_image} alt={data.author.name} width={16} height={16} className='w-8 rounded-full' /> : <Avatar round={true} name={data.author.name} size="20" />}
                                 </div>
                             </div>)}
                             <div className="flex gap-3 justify-end">
@@ -72,8 +117,8 @@ const PopularCardImage = ({ data, link = '#', className }) => {
                                 </div>
                             </div>
                     </div>
-                    <Link href={link} className="absolute inset-0">
-                        <Image
+                    <Link href={link} className="absolute inset-0"></Link>
+                    <Image
                             src={data.media.src}
                             className="object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30"
                             fill
@@ -82,7 +127,6 @@ const PopularCardImage = ({ data, link = '#', className }) => {
                                     33vw"
                             alt={data.media.alt}
                         />
-                    </Link>
                 </div>
             </div>
         </div>

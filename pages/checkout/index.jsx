@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoArrowBackOutline, IoCheckmarkCircleOutline, IoCheckmarkCircleSharp, IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import {useAddToCartMutation, useGetCartQuery, useRemoveFromCartMutation} from "@/datasources/user/remote/UserSliceApi";
 
 const data = [
   {
@@ -66,7 +67,30 @@ export default function Cart() {
 
   const [offerCode, setOfferCode] = useState("")
 
+  //->> cart endpoints
   const [getCartDetailsByIds, { data2, isSuccess, isError, error }] = useGetCartDetailsByIdsMutation()
+  const {
+    data: cartData,
+    isSuccess: cartIsSuccess,
+    error: cartError,
+    isError: cartIsError,
+    isLoading: cartIsLoading
+  } = useGetCartQuery()
+  const [addToCart, {
+    data: addCartData,
+    isSuccess: addCartIsSuccess,
+    error: addCartError,
+    isError: addCartIsError,
+    isLoading: addCartIsLoading
+  }] = useAddToCartMutation()
+  const [removeFromCart, {
+    data: removeCartData,
+    isSuccess: removeCartIsSuccess,
+    error: removeCartError,
+    isError: removeCartIsError,
+    isLoading: removeCartIsLoading
+  }] = useRemoveFromCartMutation()
+
   const [checkOfferCode, { data: checkOfferCodeData, isLoading: checkOfferIsLoading, isSuccess: checkOfferIsSuccess, isError: checkOfferIsError, error: checkOfferCodeError }] = useCheckOfferCodeMutation()
   useEffect(() => {
     getCartDetailsByIds({ ids: _cartItems.map(v => v.id).join(",") })

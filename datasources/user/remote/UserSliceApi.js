@@ -15,6 +15,7 @@ const user_api = createApi({
     baseQuery,
     tagTypes: [userSliceApiTag],
     endpoints: (build) => ({
+        //->> collections
         getCollection: build.query({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.user.collection.get),
@@ -69,14 +70,143 @@ const user_api = createApi({
             ],
             invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
         }),
+        addProductToCollection: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.collection.add_product),
+                method: 'POST',
+                body: query,
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'CollectionProduct' + id}
+            ],
+            invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
+        }),
+        removeProductFromCollection: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.collection.remove_product),
+                method: 'POST',
+                body: query,
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'CollectionProduct' + id}
+            ],
+            invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
+        }),
+        //->> favorites
+
+        //->> favorites
+        getFavorites: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.favorite.get),
+                method: 'GET',
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'FavoritesList'}
+            ],
+        }),
+        addToFavorites:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.favorite.add,query),
+                method: 'GET',
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+              {type: userSliceApiTag, id: 'Favorite' + id}
+            ],
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'FavoritesList'}
+            ]
+        }),
+        removeFromFavorites:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.favorite.remove,query),
+                method: 'GET',
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'Favorite' + id}
+            ],
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'FavoritesList'}
+            ]
+        }),
+        //->> cart
+        getCart:build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.cart),
+                method: 'GET',
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'CartList'}
+            ],
+        }),
+        addToCart:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.cart),
+                method: 'POST',
+                body: query,
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'Cart' + id}
+            ],
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'CartList'}
+            ]
+        }),
+        removeFromCart:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.cart),
+                method: 'DELETE',
+                body: query,
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'Cart' + id}
+            ],
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'CartList'}
+            ]
+        }),
     })
 });
 
 export const {
+    //->> collections
     useGetCollectionQuery,
     useAddCollectionMutation,
     useEditCollectionMutation,
     useRemoveCollectionMutation,
+    useAddProductToCollectionMutation,
+    useRemoveProductFromCollectionMutation,
+    //->> favorites
+    useGetFavoritesQuery,
+    useAddToFavoritesMutation,
+    useRemoveFromFavoritesMutation,
+    //->> carts
+    useGetCartQuery,
+    useAddToCartMutation,
+    useRemoveFromCartMutation
 } = user_api;
 
 export default user_api;
