@@ -30,6 +30,7 @@ import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
 import storage from '@/datasources/storage';
 import homeSliceApi, {homeSliceApiTag} from '@/datasources/home/remote/HomeSliceApi';
+import ticketSliceApi, { ticketSliceApiTag } from "./ticket/remote/TicketSliceApi";
 
 const persistConfig = {
   key: "VALAVID",
@@ -54,6 +55,9 @@ let reducer = {
   config: configSlice,
   //->> user
   user: userSlice,
+  //->> ticket
+  // ticket: ticketSlice,
+  [ticketSliceApiTag]: ticketSliceApi.reducer,
   //->> loadingBar
   loadingBar: loadingBarReducer,
 };
@@ -71,6 +75,7 @@ export const store = (context) =>
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,
+        ticketSliceApi.middleware,
         rtkQueryErrorLogger,
         LoadingHandler,
       ]),

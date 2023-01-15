@@ -5,7 +5,7 @@ import Collections from "@/components/profile/Collection/Collections";
 import Downloads from "@/components/profile/Downloads";
 import Favorites from "@/components/profile/Favorites";
 import Medals from "@/components/profile/Medals";
-import Tickets from "@/components/profile/Tickets";
+import Tickets from "@/components/profile/Tickets/Tickets";
 import Uploads from "@/components/profile/Uploads";
 import UserForm from "@/components/profile/Forms/UserForm";
 import { isEmpty } from "@/utils/general";

@@ -1,4 +1,4 @@
-import { getCookieClient, isEmpty } from "../general";
+import { getCookieClient, isEmpty } from "../general";  
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
@@ -27,6 +27,9 @@ export const ApiEndpoint = {
       edit: "/collections/:id/",
       remove: "/collections/:id/",
     },
+  },
+  ticket: {
+    get: "/ticket/",
   },
 };
 
