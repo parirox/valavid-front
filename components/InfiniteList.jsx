@@ -13,28 +13,14 @@ import dynamic from 'next/dynamic'
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false}) // disable ssr
 
-function InfiniteList({className, query, rtkSlice, page, setPage, items, isFetching, isLoading, isError, children}) {
-  const dispatch = useDispatch()
+function InfiniteList({className, query, items, isFetching, isLoading, loadingContent, isError, children}) {
   const router = useRouter()
-  // const [page, setPage] = useState(parseInt(query?.page ?? 1))
-  // const {
-  //   data: items,
-  //   isFetching,
-  //   isSuccess,
-  //   isLoading,
-  //   isError
-  // } = useGetVideosListScrollQuery({query: {...query, page: page}});
   const loadMore = () => {
-    // if (page > 3) {
-    //   dispatch(rtkSlice.util.resetApiState())
-    //   router.reload()
-    // }
     if (!isFetching) {
-      setPage((prev) => prev + 1)
       router.replace({
-          query: {...query, page: page + 1}
+          query: {...query, page: query.page + 1}
         },
-        undefined, {shallow: true}
+        undefined, {scroll: false}
       )
     }
   }
@@ -56,7 +42,7 @@ function InfiniteList({className, query, rtkSlice, page, setPage, items, isFetch
       </div>
       {(isLoading || !!items.next) && (
         <div ref={sentryRef} className={"flex w-full gap-10"}>
-          <VideoCardLoader count={3}/>
+          {loadingContent}
         </div>
       )}
     </>

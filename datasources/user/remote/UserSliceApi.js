@@ -20,9 +20,6 @@ const user_api = createApi({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.user.collection.get),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'CollectionList'}
@@ -33,9 +30,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.collection.add),
                 method: 'POST',
                 body: query,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'Collection' + id}
@@ -47,9 +41,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.collection.edit, query[0]),
                 method: 'PUT',
                 body: query[1],
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'Collection' + id}
@@ -61,9 +52,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.collection.remove, query),
                 method: 'DELETE',
                 body: {},
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'Collection' + id}
@@ -75,9 +63,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.collection.add_product),
                 method: 'POST',
                 body: query,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'CollectionProduct' + id}
@@ -89,9 +74,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.collection.remove_product),
                 method: 'POST',
                 body: query,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'CollectionProduct' + id}
@@ -105,9 +87,6 @@ const user_api = createApi({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.user.favorite.get),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'FavoritesList'}
@@ -117,9 +96,6 @@ const user_api = createApi({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.user.favorite.add,query),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
               {type: userSliceApiTag, id: 'Favorite' + id}
@@ -132,9 +108,6 @@ const user_api = createApi({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.user.favorite.remove,query),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'Favorite' + id}
@@ -148,9 +121,6 @@ const user_api = createApi({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.user.cart),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'CartList'}
@@ -161,9 +131,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.cart),
                 method: 'POST',
                 body: query,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'Cart' + id}
@@ -177,9 +144,6 @@ const user_api = createApi({
                 url: ApiAddress(ApiEndpoint.user.cart),
                 method: 'DELETE',
                 body: query,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'Cart' + id}

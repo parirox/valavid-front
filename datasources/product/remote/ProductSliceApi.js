@@ -32,8 +32,7 @@ const product_api = createApi({
         currentCache.results.push(...newItems.results);
       },
       forceRefetch({currentArg, previousArg}) {
-        debugger
-        return currentArg !== previousArg
+        return JSON.stringify(currentArg) !== JSON.stringify(previousArg)
       },
       providesTags: (result, error, {query}) => [
         {type: productSliceApiTag, id: 'ProductListScroll'}
@@ -47,7 +46,7 @@ const product_api = createApi({
       }),
       providesTags: (result, error, {query}) => {
         return [
-          {type: productSliceApiTag, id: 'ProductListFilter'}
+          {type: productSliceApiTag, id: 'ProductListFilter-'+JSON.stringify(query)}
         ]
       },
     }),

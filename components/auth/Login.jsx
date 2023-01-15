@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { setCookieClient } from "@/utils/general";
+import { setCookie } from 'cookies-next';
 
 const Login = ({ setSelectedTab }) => {
   const { data: session } = useSession();
