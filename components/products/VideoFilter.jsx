@@ -10,6 +10,7 @@ import {FaLightbulb, FaPalette, FaUserFriends, FaVenusMars} from "react-icons/fa
 import CheckBoxColorButton from "@/components/Form/CheckBoxColorButton";
 import {TbAngle} from "react-icons/tb";
 import {AiOutlineRotateRight} from "react-icons/ai";
+import {MdOutlineZoomOutMap} from "react-icons/md";
 
 const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
   return (
@@ -22,9 +23,9 @@ const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
       </div>
     </CollapseElement>
 
-    <CollapseElement headTitle='رزولوشن' headIcon={<ImPriceTag className="text-2xl"/>}>
-      <CheckBoxButton data={filterOptions.resolutions} options={formData.resolution}
-                      setOptions={setFormDataHandler('resolution')}/>
+    <CollapseElement headTitle='رزولوشن' headIcon={<MdOutlineZoomOutMap className="text-2xl"/>}>
+      {filterOptions?.resolutions && <CheckBoxButton data={filterOptions.resolutions} options={formData.resolution}
+                      setOptions={setFormDataHandler('resolution')}/>}
     </CollapseElement>
 
     <CollapseElement headTitle='فریم ریت' headIcon={<IoMdSpeedometer className="text-2xl"/>}>
@@ -32,12 +33,12 @@ const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
                       setOptions={setFormDataHandler('frame_rate')}/>
     </CollapseElement>
 
-    {/*<CollapseElement headTitle='زمان' headIcon={<IoTimeSharp className="text-2xl"/>}>*/}
-    {/*  <div className="pt-5 pb-10">*/}
-    {/*    <RangeInput min={filterOptions.duration[0] ?? 0} max={filterOptions.duration[1] ?? 0} unit="دقیقه" step={1}*/}
-    {/*                state={formData.duration} setState={setFormDataHandler('duration')}></RangeInput>*/}
-    {/*  </div>*/}
-    {/*</CollapseElement>*/}
+    <CollapseElement headTitle='زمان' headIcon={<IoTimeSharp className="text-2xl"/>}>
+      {filterOptions?.duration && <div className="pt-5 pb-10">
+        <RangeInput min={filterOptions.duration[0] ?? 0} max={filterOptions.duration[1] ?? 0} unit="دقیقه" step={1}
+                    state={formData.duration} setState={setFormDataHandler('duration')}></RangeInput>
+      </div>}
+    </CollapseElement>
 
     <CollapseElement headTitle='فضا' headIcon={<BsPinMapFill className="text-2xl"/>}>
       <CheckBoxButton data={filterOptions.environments} options={formData.environment}

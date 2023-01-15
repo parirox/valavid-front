@@ -34,9 +34,8 @@ const product_api = createApi({
       merge: (currentCache, newItems) => {
         currentCache.results.push(...newItems.results);
       },
-      forceRefetch({ currentArg, previousArg }) {
-        debugger;
-        return currentArg !== previousArg;
+      forceRefetch({currentArg, previousArg}) {
+        return JSON.stringify(currentArg) !== JSON.stringify(previousArg)
       },
       providesTags: (result, error, { query }) => [
         { type: productSliceApiTag, id: "ProductListScroll" },
@@ -48,8 +47,10 @@ const product_api = createApi({
         url: ApiAddress(ApiEndpoint.product.filter, query),
         method: "GET",
       }),
-      providesTags: (result, error, { query }) => {
-        return [{ type: productSliceApiTag, id: "ProductListFilter" }];
+      providesTags: (result, error, {query}) => {
+        return [
+          {type: productSliceApiTag, id: 'ProductListFilter-'+JSON.stringify(query)}
+        ]
       },
     }),
     //->> collections

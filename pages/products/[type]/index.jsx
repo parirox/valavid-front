@@ -28,7 +28,6 @@ const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), 
 
 function Products({query}) {
   const router = useRouter()
-  const [page, setPage] = useState(parseInt(query?.page ?? 1))
   const {
     data,
     isFetching,
@@ -36,7 +35,7 @@ function Products({query}) {
     isLoading,
     isError,
     error,
-  } = useGetProductListScrollQuery({query: {...query, page: page}});
+  } = useGetProductListScrollQuery({query});
 
   const {
     data: filterOptions,
@@ -78,19 +77,20 @@ function Products({query}) {
       const {order, type} = query
       let newQuery = {...deferredQuery, type, page: 1}
       if (!isEmpty(order)) {
-        newQuery = {
-          ...newQuery,
-          order,
-        }
+        newQuery.order = order
       }
       const removedEmptyObject = Object.fromEntries(Object.entries(newQuery).filter((v) => !isEmpty(v[1])))
+
       router.push({
         pathname: router.pathname,
         query: removedEmptyObject
       }, undefined, {scroll: false})
-      setPage(1)
     }
   }, [deferredQuery, filterChanged])
+
+  useEffect(() => {
+    console.log(filterOptions)
+  }, [filterOptions])
 
   if (isError) return <Error404/>
 
@@ -126,24 +126,23 @@ function Products({query}) {
                     className={`border-b border-solid border-secondary-100 px-4 ${filterState ? '' : 'pr-52'}`}></SortTabs>
           {isSuccess &&
             <>
-              {(isEmpty(query?.page) || parseInt(query?.page) === 1) ? <InfiniteList
+              {query?.page ? <InfiniteList
                   className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}
                   query={query}
                   rtkSlice={product_api}
-                  page={page}
-                  setPage={setPage}
                   isError={isError}
                   isLoading={isLoading}
                   isFetching={isFetching}
+                  loadingContent={<VideoCardLoader count={3}/>}
                   items={data}>
                   {(item, k) => {
-                    return <ProductCart key={k} data={item}/>
+                    return <ProductCart link={`/products/${query.type}/${item.id}`} key={k} data={item}/>
                   }}
                 </InfiniteList>
                 :
                 <div className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}>
                   {data.results.map((item, key) => {
-                    return <ProductCart link={`/${query.type}/${item.id}`} key={key} data={item}/>
+                    return <ProductCart link={`/products/${query.type}/${item.id}`} key={key} data={item}/>
                   })}
                 </div>
               }
@@ -171,16 +170,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
         notFound: true,
       }
     }
-    console.log("ssr")
+    const page = parseInt(context.query?.page ?? 1)
+    const query = {...context.query,page}
     store.dispatch(GetProductListFilter.initiate({query: {type: context.query.type}}))
-    store.dispatch(GetProductListScroll.initiate({query: context.query, page: 1}))
+    store.dispatch(GetProductListScroll.initiate({query}))
 
-    store.dispatch(product_api.util.resetApiState())
     await Promise.all(store.dispatch(product_api.util.getRunningQueriesThunk()))
-
     return {
       props: {
-        query: context.query
+        query,
       }
     };
   }

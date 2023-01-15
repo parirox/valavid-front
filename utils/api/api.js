@@ -18,7 +18,7 @@ export const ApiEndpoint = {
     details: "/product/:id/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
-    collection: "/collection/:query",
+    collection: "/collections/:id/",
     details: "/products/:id/",
   },
   accounting:{

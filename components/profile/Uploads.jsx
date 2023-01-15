@@ -64,29 +64,24 @@ const UploadsData = [
   },
 ];
 
-const Uploads = ({ handleCompleteInfo }) => {
-  return (
-    <div className="pb-72">
-      <SortTabs className={"pt-7"}></SortTabs>
-      <div className="flex flex-col gap-6 pt-8">
-        {UploadsData.map((upload, index) => (
-          <UploadCard
-            cover={upload.cover}
-            status={upload.status}
-            address={upload.address}
-            downloadUrl={upload.downloadUrl}
-            price={upload.price}
-            title={upload.title}
-            date={upload.date}
-            likes={upload.likes}
-            purchases={upload.purchases}
-            views={upload.views}
-            handleCompleteInfo={handleCompleteInfo}
-          ></UploadCard>
-        ))}
-      </div>
-    </div>
-  );
-};
+const Uploads = () => {
+    return (
+        <div className="pb-72">
+            <SortTabs className={'pt-7'}></SortTabs>
+            <div className="flex flex-col gap-6 pt-8">
+                {
+                    UploadsData.map((upload, index) => (
+                        <UploadCard
+                            key={index}
+                            cover={upload.cover} status={upload.status} address={upload.address}
+                            downloadUrl={upload.downloadUrl} price={upload.price} title={upload.title}
+                            date={upload.date} likes={upload.likes} purchases={upload.purchases} views={upload.views}>
+                        </UploadCard>
+                    ))
+                }
+            </div>
+        </div>
+    );
+}
 
 export default Uploads;
