@@ -32,7 +32,7 @@ export default function RangeInput(props) {
   }
 
   return (
-    <div className="relative" dir="ltr">
+    <div className="relative w-full" dir="ltr">
       <div className="relative w-full" ref={sliderUI}>
         <input className="absolute opacity-0 cursor-pointer w-full top-0 bottom-0 z-50" onInput={setRangeVal} value={state} type="range" min={min} max={max} step={step ?? 100} ref={rangeInputTag} onChange={setRangeVal} />
         <div className="absolute z-20 left-0 bottom-0 top-0 right-0 w-full h-2 rounded-full bg-primary" ref={rangeBar}></div>

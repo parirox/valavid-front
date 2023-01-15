@@ -18,6 +18,11 @@ import productSlice from "@/datasources/product/local/ProductSlice";
 import productSliceApi, {
   productSliceApiTag,
 } from "@/datasources/product/remote/ProductSliceApi";
+//-->> accounting slices
+import accountingSlice from "@/datasources/Accounting/local/AccountingSlice";
+import accountingSliceApi, {
+  accountingSliceApiTag,
+} from "@/datasources/Accounting/remote/AccountingSliceApi";
 //-->> config slices
 import configSlice from "@/datasources/config/local/ConfigSlice";
 //-->> user slices
@@ -50,6 +55,9 @@ let reducer = {
   //->> products
   product: productSlice,
   [productSliceApiTag]: productSliceApi.reducer,
+   //->> accounting
+   // product: accountingSlice,
+   [accountingSliceApiTag]: accountingSliceApi.reducer,
   //->> config
   config: configSlice,
   //->> user
@@ -72,6 +80,7 @@ export const store = (context) =>
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,
+        accountingSliceApi.middleware,
         userSliceApi.middleware,
         rtkQueryErrorLogger,
         LoadingHandler,

@@ -1,5 +1,6 @@
 import { getCookieClient, isEmpty } from "../general";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { getCookie } from "cookies-next";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
 export const ApiEndpoint = {
@@ -14,10 +15,14 @@ export const ApiEndpoint = {
     offerCode: "/offerCode/:code",
   },
   product: {
+    add:"/account/products/",
+    details: "/products/:id/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",
-    details: "/products/:id/",
+  },
+  accounting:{
+    get: "/account/wallet/",
   },
   pages: {
     home: "/home/",
@@ -59,13 +64,13 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_API_URL,
   timeout: 10000,
   prepareHeaders: (headers, { getState }) => {
-    const token = "cca3b7aaddd85d85513f55ddac72b4c5fc26d595";
+    const token = getCookie("valavid_token");
 
     if (token) {
-      headers.set("authorization", `Token ${token}`);
+      headers.set("Authorization", `Token ${token}`);
     }
 
-    headers.set("Content-Type", "application/json");
+    // headers.set("Content-Type", "multipart/form-data");
     return headers;
   },
 });
