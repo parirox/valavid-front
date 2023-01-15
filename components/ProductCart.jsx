@@ -18,7 +18,7 @@ import {
 } from "@/datasources/user/remote/UserSliceApi";
 import toast from "@/utils/notification/toast";
 
-const ProductCart = ({data, className, link = '#'}) => {
+const ProductCart = ({data,small, className, link = '#'}) => {
   const _cartItems = useSelector(cartItems);
   const dispatch = useDispatch();
   const ref = useRef()
@@ -71,7 +71,7 @@ const ProductCart = ({data, className, link = '#'}) => {
 
   return (
     <div className={className}>
-      <div className='h-[300px] group/popularCard relative' onMouseEnter={onMouseEnterHandler}
+      <div className={`group/popularCard relative ${small ? 'h-[250px]' :'h-[300px]'}`} onMouseEnter={onMouseEnterHandler}
            onMouseLeave={onMouseLeaveHandler}>
         <div
           className="hidden group-hover/popularCard:block border-[1px] rounded-[3.35rem] w-full h-full z-30 absolute border-white">

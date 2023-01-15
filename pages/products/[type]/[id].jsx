@@ -22,225 +22,15 @@ import { FaCartPlus, FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoHeart, IoInformationCircleOutline, IoShareSocialOutline } from "react-icons/io5";
 import { MdRemoveShoppingCart, MdVerifiedUser } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import RatePieChart from "@/components/charts/RatePieChart";
-
-const data = {
-    id: 1,
-    type: "video",
-    title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-    description: "سایت والاوید نخستین سایت ایرانی است که با تمرکز ویژه بر سبک زندگی ایرانیان، به روایت منظم آن پرداخته است . این سایت به دو زبان فارسی و انگلیسی هر آنچه را مورد نیاز در شناساندن حقیقی سیمای ایران و ایرانیان",
-    author: {
-        name: "حمید باقری",
-        profile_image: "https://placeimg.com/192/192/people",
-    },
-    publisher: {
-        id: 1,
-        name: "گروه تولیدی رسانه نوین"
-    },
-    price: {
-        main: "25,000",
-        off: "12,000",
-        percent: "40%"
-    },
-    stats: {
-        liked: false,
-        cart_added: false,
-        added_in_collection: false,
-    },
-    created_at: "1400/2/12",
-    media: {
-        alt: "natural",
-        src: "/videos/sample2.mp4"
-    },
-    tags: [
-        {
-            id: 1,
-            label: "مشهد"
-        },
-        {
-            id: 2,
-            label: "میلاد"
-        },
-        {
-            id: 3,
-            label: "برج میلاد"
-        },
-        {
-            id: 4,
-            label: "شب های قدر"
-        },
-        {
-            id: 5,
-            label: "امام رضا"
-        }
-    ],
-    extra_information: {
-        resolution: '4k',
-        codek: 'prores',
-        ratio: '16:9',
-        colors: ['#f55', '#f99', '#f1a'],
-        file_type: 'QuickTime',
-        frame_rate: '25 FPS',
-        time: '00:20',
-        file_size: '8.3 MB',
-        rates: [
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Framing'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Beauty image'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Pristine'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Difficulty'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Lighting'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Decor'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Color Correction'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Admin point1'
-            },
-            {
-                total: 5,
-                rate: 3.5,
-                label: 'Admin point1'
-            },
-        ]
-    },
-    more_user_products: [
-        {
-            id: 1,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/1"
-            }
-        },
-        {
-            id: 2,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/2"
-            }
-        },
-        {
-            id: 3,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/3"
-            }
-        },
-        {
-            id: 4,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/4"
-            }
-        },
-    ],
-    related_products: [
-        {
-            id: 1,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/5"
-            }
-        },
-        {
-            id: 2,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/6"
-            }
-        },
-        {
-            id: 3,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/7"
-            }
-        },
-        {
-            id: 4,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/8"
-            }
-        },
-        {
-            id: 5,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/9"
-            }
-        },
-        {
-            id: 6,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/10"
-            }
-        },
-        {
-            id: 7,
-            type: "image",
-            title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-            media: {
-                alt: "natural",
-                src: "https://placeimg.com/640/480/nature/12"
-            }
-        },
-    ]
-}
+import dynamic from "next/dynamic";
+import ProductCart from "@/components/ProductCart";
+const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
 
 function FootageDetails() {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const { data: data2, isSuccess, isError } = useProductDetailsQuery(router.query);
+    const { data: data, isSuccess, isError } = useProductDetailsQuery(router.query);
 
     const _cartItems = useSelector(cartItems);
     const is_in_cart = useMemo(() => {
@@ -253,9 +43,9 @@ function FootageDetails() {
     }, [data, _favoriteItems])
 
 
-    if (!isError) return <Error404 />
+    if (isError) return <Error404 />
 
-    if (!isSuccess) {
+    if (isSuccess) {
         return (
             <>
                 <Head>
@@ -297,7 +87,7 @@ function FootageDetails() {
                                         <div className="flex-none border-l border-gray p-2"></div>
                                         <div className="flex-none">
                                             <span className="text-gray">ناشر اثر: </span>
-                                            <span className="text-success-100">{data.publisher.name}</span>
+                                            <span className="text-success-100">{data.publisher?.name}</span>
                                         </div>
                                         <div className="flex-none border-l border-gray p-2"></div>
                                         <div className="flex-none text-gray">
@@ -377,8 +167,9 @@ function FootageDetails() {
                                                     {
                                                         data.extra_information.rates.map((rate, key) => (
                                                             <li key={key} className="flex flex-col gap-2 mb-5">
-                                                                <span className="w-20 h-20 block mb-2 mx-auto"><RatePieChart
-                                                                    data={rate} /></span>
+                                                                <span className="w-20 h-20 block mb-2 mx-auto">
+                                                                    <RatePieChart data={rate} />
+                                                                </span>
                                                                 <span className="text-sm text-center">{rate.label}</span>
                                                             </li>
                                                         ))}
@@ -390,14 +181,13 @@ function FootageDetails() {
                                         className="text-3xl" /></button>
                                 </div>
                                 <div className="basis-3/12">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <span
-                                            className="bg-danger rounded-2xl w-12 px-2 py-1 text-center">{data.price.percent}</span>
+                                    {data.price.off && <div className="flex items-center gap-3 mb-4">
+                                        <span className="bg-danger rounded-2xl w-12 px-2 py-1 text-center">{data.price.percent}</span>
                                         <span className="text-xs text-gray">تخفیف اشتراک</span>
-                                    </div>
+                                    </div>}
                                     <div className="flex items-center gap-3">
                                         <span className="text-2xl">{data.price.main}تومان </span>
-                                        <span className="line-through text-gray text-lg">{data.price.off}</span>
+                                        {data.price.off && <span className="line-through text-gray text-lg">{data.price.off}</span>}
                                     </div>
                                 </div>
                                 <div className="basis-3/12">
@@ -427,7 +217,7 @@ function FootageDetails() {
                     </div>
                     <div className="flex gap-24 items-stretch mb-60">
                         <div className="basis-7/12">
-                            <div className="flex justify-start gap-3 mt-6">
+                            <div className="flex justify-start flex-wrap gap-3 mt-6">
                                 {data.tags.map((v, i) => (
                                     <Chip key={i} className={"btn-glass font-bold h-[24px]"} content={v.label} />
                                 ))}
@@ -442,21 +232,20 @@ function FootageDetails() {
                     )}
                         end={<Button className="btn-accent text-secondary-300" link={"#"}>مشاهده پروفایل</Button>}
                     />
-                    <div className="grid grid-cols-4 h-72 mb-20 mt-10">
+                    <div className="grid grid-cols-4 overflow-hidden mb-20 mt-10">
                         {data.more_user_products.map((item, key) => (
-                            <PopularCardImage key={key} data={item} link={`/footage/${item.id}`} />))}
+                            <ProductCart small key={key} data={item} link={`/footage/${item.id}`} />))}
                     </div>
                     <Divider start='مشابه ها' />
                     <section className="mb-40 mt-10">
                         <div className="grid grid-cols-4 grid-rows-2 h-[36rem]">
                             {data.related_products.map((item, key) => (
-                                <div key={key} className={(key === 3 ? 'row-span-2' : '')}><PopularCardImage data={item} />
+                                <div key={key} className={(key === 3 ? 'row-span-2' : '')}><ProductCart small data={item} />
                                 </div>))}
                         </div>
                         <Button
                             className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
-                            link={"#"}
-                        >
+                            link={"#"}>
                             بیشتر
                         </Button>
                     </section>
