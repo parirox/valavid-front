@@ -21,6 +21,9 @@ export const ApiEndpoint = {
     collection: "/collection/:query",
     details: "/products/:id/",
   },
+  accounting:{
+    get: "/account/wallet/",
+  },
   home: {
     main: "/home/",
   },

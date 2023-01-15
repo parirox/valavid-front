@@ -9,7 +9,7 @@ import {
 } from "@/utils/helpers/form";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { setCookieClient } from "@/utils/general";
+import { setCookie } from "cookies-next";
 
 const Login = ({ setSelectedTab }) => {
   const { data: session } = useSession();
@@ -40,7 +40,7 @@ const Login = ({ setSelectedTab }) => {
     loginUser(apiData)
       .unwrap()
       .then((response) => {
-        setCookieClient("valavid_token", response.token);
+        setCookie("valavid_token", response.token);
         router.push("/profile");
       })
       .catch((err) => {

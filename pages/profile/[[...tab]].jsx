@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import ButtonIcon from "@/components/ButtonIcon";
-import Accounting from "@/components/profile/Accounting";
+import Accounting from "@/components/profile/Accounting/index";
 import Collections from "@/components/profile/Collection/Collections";
 import Downloads from "@/components/profile/Downloads";
 import Favorites from "@/components/profile/Favorites";
@@ -30,6 +30,7 @@ import {
 import { MdEdit, MdGroupAdd, MdVerifiedUser } from "react-icons/md";
 import SellerForm from "@/components/profile/Forms/SellerForm";
 import TeamForm from "@/components/profile/Forms/TeamForm";
+import withAuth from "HOC/withAuth";
 
 const data = {
   user: {
@@ -104,7 +105,7 @@ const tabs = [
   },
   {
     id: "Accounting",
-    title: "حسابداری",
+    title: "امور مالی",
     icon: <IoCalculator />,
     content: <Accounting />,
   },
@@ -298,4 +299,4 @@ function SellerProfile() {
   );
 }
 
-export default SellerProfile;
+export default withAuth(SellerProfile);
