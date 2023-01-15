@@ -56,7 +56,7 @@ let reducer = {
   product: productSlice,
   [productSliceApiTag]: productSliceApi.reducer,
    //->> accounting
-   product: accountingSlice,
+   // product: accountingSlice,
    [accountingSliceApiTag]: accountingSliceApi.reducer,
   //->> config
   config: configSlice,
