@@ -1,5 +1,6 @@
-import { getCookieClient, isEmpty } from "../general";
+import { isEmpty } from "../general";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { getCookie } from "cookies-next";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
 export const ApiEndpoint = {
@@ -63,7 +64,7 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_API_URL,
   timeout: 10000,
   prepareHeaders: (headers, { getState }) => {
-    const token = getCookieClient("valavid_token");
+    const token = getCookie("valavid_token");
 
     if (token) {
       headers.set("Authorization", `Token ${token}`);
