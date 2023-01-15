@@ -25,17 +25,17 @@ export default function CollectionModel() {
         dispatch(addCollection({collection_name: newCollectionName}))
         setNewCollectionName("")
     }
- 
+
     if(isEmpty(footage_details?.id)) return <></>
     return (
         <Modal isOpen={isOpen ?? false} setIsOpen={(state)=>dispatch(setModalCollectionTo({active:state,footage_details}))}>
-            <div className="bg-white w-full flex flex-cols gap-7 rounded-3xl text-center p-5">
+            <div className="bg-white w-full flex flex-row gap-7 rounded-3xl text-center p-5">
                 <div className="relative basis-2/6 rounded-tr-3xl rounded-br-3xl overflow-hidden">
                     {footage_details?.type === "video" ?
                      (<video autoPlay={false} preload='metadata' className="full object-cover">
                           <source src={footage_details.media.src} type="video/mp4"/>
                     </video>) : (<Image src={footage_details.media.src} fill alt={footage_details.media.alt} className="object-cover"/>)}
-                </div> 
+                </div>
                 <div className="basis-4/6">
                     <div className="flex flex-col gap-8">
                         <div className="flex-initial">

@@ -18,7 +18,7 @@ import {
 } from "@/datasources/user/remote/UserSliceApi";
 import toast from "@/utils/notification/toast";
 
-const PopularCardVideo = ({data, className, link = '#'}) => {
+const ProductCart = ({data,small, className, link = '#'}) => {
   const _cartItems = useSelector(cartItems);
   const dispatch = useDispatch();
   const ref = useRef()
@@ -57,10 +57,22 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
     if (removeFavoriteIsError) toast.error(removeFavoriteError)
   }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError])
 
+  function onMouseEnterHandler() {
+    if (data.type === 'video') {
+      ref.current.play()
+    }
+  }
+
+  function onMouseLeaveHandler() {
+    if (data.type === 'video') {
+      ref.current.pause()
+    }
+  }
+
   return (
     <div className={className}>
-      <div className='h-[300px] group/popularCard relative' onMouseEnter={() => ref.current.play()}
-           onMouseLeave={() => ref.current.pause()}>
+      <div className={`group/popularCard relative ${small ? 'h-[250px]' :'h-[300px]'}`} onMouseEnter={onMouseEnterHandler}
+           onMouseLeave={onMouseLeaveHandler}>
         <div
           className="hidden group-hover/popularCard:block border-[1px] rounded-[3.35rem] w-full h-full z-30 absolute border-white">
           <BsFillDiamondFill
@@ -68,8 +80,7 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
         </div>
         <div className="w-full h-full p-3">
           <div className="relative w-full h-full rounded-[2.6rem] overflow-hidden">
-            <div
-              className="absolute top-12 right-10 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            <div className="absolute top-12 right-10 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto">
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
@@ -94,8 +105,7 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
                 </div>
               </div>
             </div>
-            <div
-              className="absolute top-12 left-10 z-40 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            <div className="absolute top-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto">
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
@@ -107,8 +117,7 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
                 </div>
               </div>
             </div>
-            {data.author && <div
-              className="absolute bottom-[5.5rem] left-10 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            {data.author && <div className="absolute bottom-[5.5rem] left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto text-black">
                 <div className="relative z-50 flex gap-3 justify-end items-center mb-3">
                   <div className="flex items-center basis rounded-3xl bg-white py-2 px-3">
@@ -120,10 +129,8 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
                   </div>
                 </div>
               </div>
-            </div>
-            }
-            <div
-              className="absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            </div>}
+            <div className="absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto text-black">
                 <div className="flex gap-3 justify-end">
                   <div className="flex-none rounded-3xl bg-white py-2 px-3">
@@ -136,17 +143,25 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
                 </div>
               </div>
             </div>
-            <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 z-30">
-              <div
-                className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
+            {data.type === 'video' && <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 z-30">
+              <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
                 <FaPlay className='h-full w-full'/>
               </div>
-            </div>
+            </div>}
             <Link href={link} className="absolute inset-0 z-40"></Link>
-            <video ref={ref} autoPlay={false} muted loop
-                   className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-30 hover:autoPlay">
-              <source src={data.media.src} type="video/mp4"/>
-            </video>
+            {data.type === 'video' ?
+              <video ref={ref} autoPlay={false} muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+                <source src={data.media.src} type="video/mp4"/>
+              </video>
+              :
+              <Image
+                src={data.media.src}
+                className="object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20"
+                fill
+                sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"
+                alt={data.media.alt}
+              />
+            }
           </div>
         </div>
       </div>
@@ -154,4 +169,4 @@ const PopularCardVideo = ({data, className, link = '#'}) => {
   );
 }
 
-export default PopularCardVideo;
+export default ProductCart;

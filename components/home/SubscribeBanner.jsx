@@ -2,6 +2,7 @@ import MapOfIran from '@/public/images/mapOfIranInBaner.svg'
 import React from 'react';
 import { MdDone } from 'react-icons/md'
 import Button from '@/components/Button';
+import Link from "next/link";
 
 const SubscribeBanner = () => {
     return (
@@ -27,7 +28,7 @@ const SubscribeBanner = () => {
                             <p className="text-2xl">دسترسی به کلیه مطالب سایت</p>
                         </div>
                     </div>
-                    <Button className="btn-primary text-primary text-[1.6rem] font-light bg-gradient-to-r from-white via-white to-[#9893F5] hover:to-[#E9E8FF] h-[5rem] w-[27rem] rounded-3xl">خرید اشتراک</Button>
+                    <Button link={"/plans"} className="btn-primary text-primary text-[1.6rem] font-light bg-gradient-to-r from-white via-white to-[#9893F5] hover:to-[#E9E8FF] h-[5rem] w-[27rem] rounded-3xl">خرید اشتراک</Button>
                 </div>
                 <div className="basis-1/2 h-full items-center flex flex-row-reverse">
                     <MapOfIran className="scale-[0.6]"></MapOfIran>

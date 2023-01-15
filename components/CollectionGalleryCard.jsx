@@ -13,7 +13,7 @@ const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHa
     if (isEmpty(_items)) return <></>
   return (
     <div className="grid grid-cols-3 grid-row-3 h-[250px] rounded-[32px] overflow-hidden gap-3 group/collection cursor-pointer relative">
-      <Link href={`#${id}`} className='full absolute inset-0 z-40'></Link>
+      <Link href={`/collections/${id}`} className='full absolute inset-0 z-40'></Link>
       {_items.map((image, index) => (
         <div
           key={index}

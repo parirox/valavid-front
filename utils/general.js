@@ -71,6 +71,7 @@ export function eraseCookieClient(name) {
 }
 
 
+
 export function parents(el, selector, stopSelector) {
     let retval = null;
     if (isEmpty(selector)) return el.parentNode;

@@ -72,6 +72,7 @@ const Uploads = () => {
                 {
                     UploadsData.map((upload, index) => (
                         <UploadCard
+                            key={index}
                             cover={upload.cover} status={upload.status} address={upload.address}
                             downloadUrl={upload.downloadUrl} price={upload.price} title={upload.title}
                             date={upload.date} likes={upload.likes} purchases={upload.purchases} views={upload.views}>

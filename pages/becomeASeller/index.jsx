@@ -7,7 +7,7 @@ export default function index() {
   return (
     <>
       <Head>
-        <title>Valavid | Become a seller</title>
+        <title>والاوید | فروشنده شوید</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="relative min-h-[100vh] pt-24 bg-gradient-to-b from-[#08182355] to-transparent">

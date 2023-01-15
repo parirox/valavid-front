@@ -14,8 +14,10 @@ export const ApiEndpoint = {
     offerCode: "/offerCode/:code",
   },
   product: {
-    get: "/videos/",
-    details: "/product/:id/",
+    get: "/products/:query",
+    filter: "/products/filter-values/:query",
+    collection: "/collections/:id/",
+    details: "/products/:id/",
   },
   home: {
     main: "/home/",
@@ -26,15 +28,30 @@ export const ApiEndpoint = {
       add: "/collections/",
       edit: "/collections/:id/",
       remove: "/collections/:id/",
+      add_product: "/collections/add/",
+      remove_product: "/collections/pop/",
     },
-  },
-  ticket: {
-    getList: "/ticket/",
-  },
+    favorite: {
+      get: "/account/products/favorites/",
+      add: "/account/products/:id/like/",
+      remove: "/account/products/:id/unlike/",
+    },
+    cart: "/basket/",
+    ticket: {
+      getList: "/ticket/",
+      getTicket: "/ticket/:id/",
+      add: "/ticket/"
+    }
+  }
 };
 
+export function makeGetQuery(params) {
+  return "?"+(Object.entries(params).filter((v) => !isEmpty(v[1])).map((v) => v[0] + "=" + v[1]).join("&"))
+
+}
 export function ApiAddress(address, params = {}) {
   if (isEmpty(params)) return address;
+  if (!isEmpty(params.query)) params = {...params, query: makeGetQuery(params.query)}
   Object.entries(params).forEach((v) => {
     const pattern = `:${v[0]}`;
     if (address.includes(pattern)) address = address.replace(pattern, v[1]);
