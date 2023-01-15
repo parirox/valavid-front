@@ -29,7 +29,7 @@ export const ApiEndpoint = {
     },
   },
   ticket: {
-    get: "/ticket/",
+    getList: "/ticket/",
   },
 };
 

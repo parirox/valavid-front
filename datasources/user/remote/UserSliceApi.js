@@ -41,7 +41,34 @@ const user_api = createApi({
             ],
             invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
         }),
-        
+        editCollection: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.collection.edit, query[0]),
+                method: 'PUT',
+                body: query[1],
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'Collection' + id}
+            ],
+            invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
+        }),
+        removeCollection: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.collection.remove, query),
+                method: 'DELETE',
+                body: {},
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'Collection' + id}
+            ],
+            invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
+        }),
     })
 });
 

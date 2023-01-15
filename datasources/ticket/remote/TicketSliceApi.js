@@ -15,9 +15,9 @@ const ticket_api = createApi({
     baseQuery,
     tagTypes: [ticketSliceApiTag],
     endpoints: (build) => ({
-        getCollection: build.query({
+        getTicket: build.query({
             query: () => ({
-                url: ApiAddress(ApiEndpoint.ticket.collection.get),
+                url: ApiAddress(ApiEndpoint.ticket.getList),
                 method: 'GET',
                 headers: {
                     "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
@@ -41,34 +41,7 @@ const ticket_api = createApi({
             ],
             invalidatesTags: [{type: ticketSliceApiTag, id: 'CollectionList'}]
         }),
-        editCollection: build.mutation({
-            query: (query) => ({
-                url: ApiAddress(ApiEndpoint.ticket.collection.edit, query[0]),
-                method: 'PUT',
-                body: query[1],
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
-            }),
-            providesTags: (result, error, id) => [
-                {type: ticketSliceApiTag, id: 'Collection' + id}
-            ],
-            invalidatesTags: [{type: ticketSliceApiTag, id: 'CollectionList'}]
-        }),
-        removeCollection: build.mutation({
-            query: (query) => ({
-                url: ApiAddress(ApiEndpoint.ticket.collection.remove, query),
-                method: 'DELETE',
-                body: {},
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
-            }),
-            providesTags: (result, error, id) => [
-                {type: ticketSliceApiTag, id: 'Collection' + id}
-            ],
-            invalidatesTags: [{type: ticketSliceApiTag, id: 'CollectionList'}]
-        }),
+        
     })
 });
 
