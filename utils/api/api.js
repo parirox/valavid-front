@@ -19,8 +19,9 @@ export const ApiEndpoint = {
     collection: "/collections/:id/",
     details: "/products/:id/",
   },
-  home: {
-    main: "/home/",
+  pages: {
+    home: "/home/",
+    publishers: "/publishers/",
   },
   user: {
     collection: {
@@ -58,10 +59,10 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_API_URL,
   timeout: 10000,
   prepareHeaders: (headers, { getState }) => {
-    const token = getCookieClient("valavid_token");
+    const token = "cca3b7aaddd85d85513f55ddac72b4c5fc26d595";
 
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("authorization", `Token ${token}`);
     }
 
     headers.set("Content-Type", "application/json");

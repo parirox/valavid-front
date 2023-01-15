@@ -1,169 +1,43 @@
 import PopularCardVideo from "../PopularCardVideo";
 import PopularCardImage from '@/components/PopularCardImage';
+import {useGetCollectionQuery, useGetFavoritesQuery} from "@/datasources/user/remote/UserSliceApi";
+import NoContent from "@/components/NoContent";
 
 const data = [
-    {
-        id: 6,
-        type: "image",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "https://placeimg.com/640/480/nature"
-        }
+  {
+    id: 6,
+    type: "image",
+    title: "مقبره بزرگ زیبای شب در شهر اصفهان",
+    author: {
+      name: "حمید باقری",
+      profile_image: "https://placeimg.com/192/192/people",
     },
-    {
-        id: 4,
-        type: "video",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "/videos/sample2.mp4"
-        }
+    price: "2,500 T",
+    stats: {
+      liked: false,
+      cart_added: false,
+      added_in_collection: false,
     },
-    {
-        id: 1,
-        type: "video",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "/videos/sample1.mp4"
-        }
-    },
-    {
-        id: 6,
-        type: "image",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "https://placeimg.com/640/480/nature"
-        }
-    },
-    {
-        id: 1,
-        type: "video",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "/videos/sample1.mp4"
-        }
-    },
-    {
-        id: 6,
-        type: "image",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "https://placeimg.com/640/480/nature"
-        }
-    },
-    {
-        id: 1,
-        type: "video",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "/videos/sample1.mp4"
-        }
-    },
-    {
-        id: 1,
-        type: "video",
-        title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-        author: {
-            name: "حمید باقری",
-            profile_image: "https://placeimg.com/192/192/people",
-        },
-        price: "2,500 T",
-        stats: {
-            liked: false,
-            cart_added: false,
-            added_in_collection: false,
-        },
-        media: {
-            alt: "natural",
-            src: "/videos/sample1.mp4"
-        }
-    },
+    media: {
+      alt: "natural",
+      src: "https://placeimg.com/640/480/nature"
+    }
+  },
 ]
 
 const Favorites = () => {
-    return (
-        <div className="flex flex-wrap py-7 w-full pb-48">
-            {data.map((favorite, key) => {
-                return favorite.type === 'video' ? <PopularCardVideo className="basis-1/3" key={key} data={favorite} /> : <PopularCardImage className="basis-1/3 h-[25rem]" key={key} data={favorite} />
-            })}
-        </div>
-    );
+  const {data2, isSuccess, isError, isLoading} = useGetFavoritesQuery()
+
+  if (!isSuccess) return <></>
+  return (
+    <div className="flex flex-wrap py-7 w-full pb-48">
+      {data.count === 0 ? <NoContent/> :
+        data.map((favorite, key) => {
+
+        })
+      }
+    </div>
+  );
 }
 
 export default Favorites;

@@ -29,7 +29,7 @@ import {loadingBarReducer} from "react-redux-loading-bar";
 import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
 import storage from '@/datasources/storage';
-import homeSliceApi, {homeSliceApiTag} from '@/datasources/home/remote/HomeSliceApi';
+import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
 
 const persistConfig = {
   key: "VALAVID",
@@ -39,8 +39,8 @@ const persistConfig = {
 };
 
 let reducer = {
-  //->> home
-  [homeSliceApiTag]: homeSliceApi.reducer,
+  //->> pages
+  [pageSliceApiTag]: pageSliceApi.reducer,
   //->> auth
   auth: authSlice,
   [authSliceApiTag]: authSliceApi.reducer,
@@ -68,7 +68,7 @@ export const store = (context) =>
       getDefaultMiddleware({
         serializableCheck: false,
       }).concat([
-        homeSliceApi.middleware,
+        pageSliceApi.middleware,
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,

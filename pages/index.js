@@ -7,7 +7,7 @@ import MostPopular from "@/components/home/MostPopular";
 import SubscribeBanner from "@/components/home/SubscribeBanner";
 import TopSellers from "@/components/home/TopSellers";
 import FirstSection from "@/components/home/FirstSection";
-import home_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/home/remote/HomeSliceApi";
+import home_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/pages/remote/PageSliceApi";
 import {wrapper} from "@/datasources/store";
 import Head from "next/head";
 import Error404 from "./404";
