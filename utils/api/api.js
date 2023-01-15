@@ -16,11 +16,10 @@ export const ApiEndpoint = {
   },
   product: {
     add:"/account/products/",
-    details: "/product/:id/",
+    details: "/products/:id/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",
-    details: "/products/:id/",
   },
   accounting:{
     get: "/account/wallet/",
