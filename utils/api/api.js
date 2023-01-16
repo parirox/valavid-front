@@ -1,6 +1,6 @@
-import { getCookieClient, isEmpty } from "../general";
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { getCookie } from "cookies-next";
+import {getCookieClient, isEmpty} from "../general";
+import {fetchBaseQuery} from "@reduxjs/toolkit/query";
+import {getCookie} from "cookies-next";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
 export const ApiEndpoint = {
@@ -15,18 +15,24 @@ export const ApiEndpoint = {
     offerCode: "/offerCode/:code",
   },
   product: {
-    add:"/account/products/",
+    add: "/account/products/",
     details: "/products/:id/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",
   },
-  accounting:{
+  accounting: {
     get: "/account/wallet/",
   },
   pages: {
     home: "/home/",
-    publishers: "/publishers/",
+    publishers: "/publishers/:query",
+  },
+  publisher: {
+    profile: "/publishers/:username/",
+    collection: "/publishers/:username/collections/",
+    product: "/publishers/:username/products/",
+    medal: "/publishers/:username/medal/",
   },
   user: {
     collection: {
@@ -47,9 +53,10 @@ export const ApiEndpoint = {
 };
 
 export function makeGetQuery(params) {
-  return "?"+(Object.entries(params).filter((v) => !isEmpty(v[1])).map((v) => v[0] + "=" + v[1]).join("&"))
+  return "?" + (Object.entries(params).filter((v) => !isEmpty(v[1])).map((v) => v[0] + "=" + v[1]).join("&"))
 
 }
+
 export function ApiAddress(address, params = {}) {
   if (isEmpty(params)) return address;
   if (!isEmpty(params.query)) params = {...params, query: makeGetQuery(params.query)}
@@ -63,7 +70,7 @@ export function ApiAddress(address, params = {}) {
 export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_API_URL,
   timeout: 10000,
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers, {getState}) => {
     const token = getCookie("valavid_token");
 
     if (token) {

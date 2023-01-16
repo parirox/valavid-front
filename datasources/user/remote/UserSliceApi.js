@@ -81,8 +81,6 @@ const user_api = createApi({
             invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
         }),
         //->> favorites
-
-        //->> favorites
         getFavorites: build.query({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.user.favorite.get),
@@ -152,6 +150,43 @@ const user_api = createApi({
                 {type: userSliceApiTag, id: 'CartList'}
             ]
         }),
+        //->> publishers
+        GetPublisherProfile: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.profile,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherProfile'}
+            ],
+        }),
+        GetPublisherCollection: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.collection,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherCollectionList'}
+            ],
+        }),
+        GetPublisherProduct: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.product,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherProductList'}
+            ],
+        }),
+        GetPublisherMedal: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.medal,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherMedalList'}
+            ],
+        }),
     })
 });
 
@@ -170,7 +205,20 @@ export const {
     //->> carts
     useGetCartQuery,
     useAddToCartMutation,
-    useRemoveFromCartMutation
+    useRemoveFromCartMutation,
+    //->> publishers
+    useGetPublisherProfileQuery,
+    useGetPublisherCollectionQuery,
+    useGetPublisherProductQuery,
+    useGetPublisherMedalQuery
 } = user_api;
+
+
+export const {
+    GetPublisherProfile,
+    GetPublisherCollection,
+    GetPublisherProduct,
+    GetPublisherMedal,
+} = user_api.endpoints
 
 export default user_api;
