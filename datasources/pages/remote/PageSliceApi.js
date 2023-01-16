@@ -24,8 +24,8 @@ const page_api = createApi({
             ],
         }),
         GetPublishers: build.query({
-            query: () => ({
-                url: ApiAddress(ApiEndpoint.pages.publishers),
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.pages.publishers,query),
                 method: 'GET',
             }),
             providesTags: (result, error, id) => [
