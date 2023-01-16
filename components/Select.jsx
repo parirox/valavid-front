@@ -1,27 +1,36 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Fragment, useState } from "react";
+import {Fragment, useEffect, useState} from "react";
 import {
   IoCaretDown, IoImageOutline, IoSearchOutline, IoVideocamOutline
 } from "react-icons/io5";
+import Router from "next/router";
 
-export const people = [
+export const options = [
   {
     id: 1,
+    route: "video",
     name: "ویدئو",
-    icon: <IoVideocamOutline className="text-[15px]" />,
+    icon: <IoVideocamOutline className="text-2xl"/>,
     unavailable: false,
   },
   {
     id: 2,
+    route: "image",
     name: "تصویر",
-    icon: <IoImageOutline className="text-[15px]" />,
+    icon: <IoImageOutline className="text-2xl"/>,
     unavailable: false,
   },
 ];
+
 export default function Select() {
-  const [pictureState, setPictureState] = useState(0);
-  const [selected, setSelected] = useState(people[0]);
+  const [searchValue, setSearchValue] = useState("");
+  const [selected, setSelected] = useState(options[0]);
+
+  async function searchHandler() {
+    await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
+  }
+
 
   return (
     <div className="rounded-full h-full w-full bg-accent text-white">
@@ -45,9 +54,9 @@ export default function Select() {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {people.map((person, personIdx) => (
+                  {options.map((item, itemIdx) => (
                     <Listbox.Option
-                      key={personIdx}
+                      key={itemIdx}
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
                           active
@@ -55,7 +64,7 @@ export default function Select() {
                             : "text-gray-900"
                         }`
                       }
-                      value={person}
+                      value={item}
                     >
                       {({ selected }) => (
                         <>
@@ -64,7 +73,7 @@ export default function Select() {
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >
-                            {person.name}
+                            {item.name}
                           </span>
                           {selected ? (
                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
@@ -88,11 +97,12 @@ export default function Select() {
             className="border-none focus:ring-transparent text-white bg-transparent w-full h-full"
             placeholder="جستجوی عبارت ..."
             type="text"
-            name="seach"
+            value={searchValue}
+            onChange={event => setSearchValue(event.target.value)}
             id="search-header"
           />
         </div>
-        <button className="basis-1/12 text-white p-4">
+        <button className="basis-1/12 text-white p-4" onClick={searchHandler}>
           <IoSearchOutline className="text-[15px]" />
         </button>
       </div>
