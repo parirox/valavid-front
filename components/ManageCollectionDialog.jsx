@@ -22,7 +22,6 @@ import {
   setModalCollectionTo
 } from "@/datasources/config/local/ConfigSlice";
 import Image from "next/image";
-import {AiOutlineLoading} from "react-icons/ai";
 
 export default function ManageCollectionDialog({...rest}) {
   const dispatch = useDispatch();
@@ -133,7 +132,7 @@ export default function ManageCollectionDialog({...rest}) {
         </div>
         <div className="basis-4/6">
           <header className="flex justify-between mb-5">
-            <span className="text-secondary-300 text-xl">ویرایش مجموعه</span>
+            <span className="text-secondary-300 text-xl">افزودن به مجموعه ها</span>
             <span className="text-accent text-2xl cursor-pointer"
                   onClick={() => dispatch(setModalCollectionTo({active: false}))}><IoClose/></span>
           </header>

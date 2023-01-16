@@ -1,11 +1,12 @@
-import { getCookieClient } from "@/utils/general";
 import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
+
 const withAuth = (WrappedComponent) => {
   return (props) => {
     if (typeof window !== "undefined") {
       const Router = useRouter();
 
-      const accessToken = getCookieClient("valavid_token");
+      const accessToken = getCookie("valavid_token");
 
       if (!accessToken) {
         Router.replace("/auth");

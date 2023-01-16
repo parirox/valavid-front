@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { SessionProvider } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 function App({ Component, pageProps: { session, ...pageProps } }, ...rest) {
   const {
@@ -19,27 +20,40 @@ function App({ Component, pageProps: { session, ...pageProps } }, ...rest) {
   const persistor = persistStore(store, {}, function () {
     persistor.persist();
   });
+  const [showing, setShowing] = useState(false);
 
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        {() => (
-          <Layout styleMode={Component?.styleMode}>
-            <Head>
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-              />
-            </Head>
-            <Toaster />
-            <SessionProvider session={session}>
-              <Component {...pageProps} />
-            </SessionProvider>
-          </Layout>
-        )}
-      </PersistGate>
-    </Provider>
-  );
+  useEffect(() => {
+    setShowing(true);
+  }, []);
+
+  if (!showing) {
+    return null;
+  }
+
+  if (typeof window === "undefined") {
+    return <></>;
+  } else {
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          {() => (
+            <Layout styleMode={Component?.styleMode}>
+              <Head>
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+                />
+              </Head>
+              <Toaster />
+              <SessionProvider session={session}>
+                <Component {...pageProps} />
+              </SessionProvider>
+            </Layout>
+          )}
+        </PersistGate>
+      </Provider>
+    );
+  }
 }
 
 export default App;

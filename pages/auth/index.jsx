@@ -12,7 +12,8 @@ import { useSignupUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
 import { handleApiError } from "@/datasources/errorHandler";
 import Authentication from "@/components/auth/Authentication";
 import { useRouter } from "next/router";
-import { setCookieClient } from "@/utils/general";
+import { setCookie } from "cookies-next";
+import _toast from "@/utils/notification/toast";
 
 const Index = () => {
   const [selectedTab, setSelectedTab] = useState("login");
@@ -45,11 +46,9 @@ const Index = () => {
     signupUser(apiData)
       .unwrap()
       .then((response) => {
-        notification.success({
-          text: "ثبت نام با موفقیت انجام شد",
-        });
-        setCookieClient("valavid_token", response.token);
-        router.push("/");
+        _toast.success("ثبت نام با موفقیت انجام شد");
+        setCookie("valavid_token", response.token);
+        router.push("/profile/me");
       })
       .catch((error) => handleApiError(error));
   };

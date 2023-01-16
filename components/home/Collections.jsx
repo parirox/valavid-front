@@ -1,6 +1,5 @@
 import CollectionGalleryCard from "@/components/CollectionGalleryCard";
-import { useState } from "react";
-import { IoFolderSharp } from "react-icons/io5";
+import {IoFolderSharp} from "react-icons/io5";
 
 const Collections = ({data}) => {
 

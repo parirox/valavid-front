@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-const TextInput = ({ label, className, name, value, type, onChange }) => {
+const TextInput = ({ label, className, name, value, type, onChange, background }) => {
   return (
     <div className="h-[4.063rem] relative m-4 w-100 group">
       <input
@@ -8,13 +8,13 @@ const TextInput = ({ label, className, name, value, type, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        className="h-[100%] w-[100%] border-none outline-none px-3 py-3 peer text-[#303D47] bg-[#F2F2F3]"
+        className={`h-[100%] w-[100%] border-none outline-none px-3 py-3 peer text-[#303D47] ${background ? background : "bg-[#F2F2F3]"}`}
         placeholder=" "
       />
 
       <label
-        className="z-10 bg-[#F2F2F3]  absolute right-[9px] top-px text-sm text-[#C2CACF] transition-all duration-300 px-1 transform -translate-y-1/2 pointer-events-none 
-  peer-placeholder-shown:top-[45%] peer-placeholder-shown:text-base group-focus-within:!top-px group-focus-within:!text-sm group-focus-within:!text-[#C2CACF]"
+        className={`z-10 absolute right-[9px] top-px text-sm text-[#C2CACF] transition-all duration-300 px-1 transform -translate-y-1/2 pointer-events-none 
+        peer-placeholder-shown:top-[45%] peer-placeholder-shown:text-base group-focus-within:!top-px group-focus-within:!text-sm group-focus-within:!text-[#C2CACF] ${background ? background : "bg-[#F2F2F3]"}`}
       >
         {label}
       </label>

@@ -1,0 +1,193 @@
+import React, { useState } from "react";
+import AddFile from "@/components/AddFile";
+import Modal from "@/components/Modal";
+import Uploads from "../Uploads";
+import Stepper from "@/components/Stepper";
+import CompleteInfo from "./AddProduct/CompleteInfo/CpmleteInfo";
+import KeyWords from "./AddProduct/KeyWords";
+import Location from "./AddProduct/Location";
+import Release from "./AddProduct/Release/Release";
+import SuccessIcon from "@/public/icons/SuccessIcon.svg";
+import ComputerIcon from "@/public/icons/ComputerIcon.svg";
+import Button from "@/components/Button";
+import { useAddProductMutation } from "@/datasources/product/remote/ProductSliceApi";
+import { handleApiError } from "@/datasources/errorHandler";
+import _toast from "@/utils/notification/toast";
+import Link from "next/link";
+
+const Products = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [content, setContent] = useState("steps");
+  const [activeStep, setActiveStep] = useState(1);
+  const [productInfo, setProductInfo] = useState({
+    title: "",
+    description: "",
+    translations: {
+      fa: {},
+      en: {},
+      ar: {},
+      fr: {},
+      tr: {},
+    },
+    country: "",
+    state: "",
+    city: "",
+    tags_level_1: [],
+    tags_level_2: [],
+    tags_level_3: [],
+    file: null,
+    publish_type: null,
+  });
+
+  const [addProduct, { data, isSuccess }] = useAddProductMutation();
+
+  const setProduct = (name, value) => {
+    setProductInfo((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSelectFile = (file) => {
+    if (file) {
+      setProduct("file", file);
+      setIsOpen(true);
+    }
+  };
+
+  const getApiTranslationsFormat = (translations) => {
+    let tranlationsArray = [];
+    Object.keys(translations).forEach((key) => {
+      if (translations[key].title && translations[key].description) {
+        tranlationsArray.push({
+          title: translations[key].title,
+          description: translations[key].description,
+          language_code: key,
+        });
+      }
+    });
+
+    return JSON.stringify(tranlationsArray);
+  };
+
+  const handleAddProduct = (publish_type) => {
+    const formData = new FormData();
+    formData.append("title", productInfo.translations["fa"].title);
+    formData.append("description", productInfo.translations["fa"].description);
+    formData.append(
+      "translations",
+      getApiTranslationsFormat(productInfo.translations)
+    );
+    productInfo.country && formData.append("country", productInfo.country);
+    productInfo.state && formData.append("state", productInfo.state);
+    productInfo.city && formData.append("city", productInfo.city);
+    productInfo.tags_level_1 &&
+      formData.append("tags_level_1", productInfo.tags_level_1);
+    productInfo.tags_level_2 &&
+      formData.append("tags_level_2", productInfo.tags_level_2);
+    productInfo.tags_level_3 &&
+      formData.append("tags_level_3", productInfo.tags_level_3);
+    productInfo.file && formData.append("file", productInfo.file);
+    formData.append("publish_type", "free");
+
+    addProduct(formData)
+      .unwrap()
+      .then(() => {
+        _toast.success("محصول با موفقیت اضافه شد.");
+        setContent("success");
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
+
+    console.log("lasssttt", formData);
+  };
+
+  const steps = [
+    {
+      label: "بارگزاری محصول",
+    },
+    {
+      label: "تکمیل اطلاعات",
+      content: (
+        <CompleteInfo
+          handleCompleteStep={() => setActiveStep(activeStep + 1)}
+          productInfo={productInfo}
+          setProductInfo={setProductInfo}
+        />
+      ),
+    },
+    {
+      label: "کلیدواژه",
+      content: (
+        <KeyWords
+          setProduct={setProduct}
+          productInfo={productInfo}
+          handleCompleteStep={() => setActiveStep(activeStep + 1)}
+        />
+      ),
+    },
+    {
+      label: "لوکیشن",
+      content: (
+        <Location
+          setProduct={setProduct}
+          productInfo={productInfo}
+          handleCompleteStep={() => setActiveStep(activeStep + 1)}
+        />
+      ),
+    },
+    {
+      label: "انتشار",
+      content: (
+        <Release
+          handleAddProduct={handleAddProduct}
+          productInfo={productInfo}
+          setProduct={setProduct}
+          handleCompleteStep={() => setActiveStep(activeStep + 1)}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      <AddFile handleSelectFile={handleSelectFile} />
+      <Uploads handleCompleteInfo={() => setIsOpen(true)} />
+      <Modal
+        big={true}
+        isOpen={isOpen ?? false}
+        setIsOpen={(state) => setIsOpen(state)}
+        background="bg-[#F8F8F8]"
+      >
+        <div className="w-full flex flex-cols gap-7 rounded-3xl text-center p-5 min-h-[70vh] h-[765px] justify-center">
+          {content === "steps" && (
+            <Stepper
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
+              steps={steps}
+            />
+          )}
+          {content === "success" && (
+            <div className="flex flex-col items-center justify-center">
+              <SuccessIcon className="w-[10rem] h-[10rem]" />
+              <p className="text-[#42C950] p-4 my-4 text-center">
+                درخواست انتشار محصول با موفقیت ثبت شد.
+              </p>
+              <ComputerIcon className="my-[4rem]" />
+              <Link href="/">
+                <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block">
+                  رفتن به خانه
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+export default Products;

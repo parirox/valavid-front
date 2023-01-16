@@ -16,20 +16,20 @@ const Footer = ({ styleMode }) => {
                         <div className="col-span-4 flex gap-20 flex-row">
                             <div className="flex-initial flex flex-col gap-3">
                                 <span className="text-2xl">دسته بندی ها</span>
-                                <Link href={'#'} className="text-[#90999F] text-lg">ویدئو ها</Link>
-                                <Link href={'#'} className="text-[#90999F] text-lg">تصاویر</Link>
+                                <Link href={'/products/video'} className="text-[#90999F] text-lg">ویدئو ها</Link>
+                                <Link href={'/products/image'} className="text-[#90999F] text-lg">تصاویر</Link>
                                 <Link href={'#'} className="text-[#90999F] text-lg">مجموعه ها</Link>
                             </div>
                             <div className="flex-initial flex flex-col gap-3">
                                 <span className="text-2xl">مطالب</span>
-                                <Link href={'#'} className="text-[#90999F] text-lg">درباره ما</Link>
-                                <Link href={'#'} className="text-[#90999F] text-lg">وبلاگ</Link>
-                                <Link href={'#'} className="text-[#90999F] text-lg">تولید کنندگان</Link>
+                                <Link href={'/product/aboutUs'} className="text-[#90999F] text-lg">درباره ما</Link>
+                                <Link href={'/blogs'} className="text-[#90999F] text-lg">وبلاگ</Link>
+                                <Link href={'/publishers'} className="text-[#90999F] text-lg">تولید کنندگان</Link>
                             </div>
                             <div className="flex-initial flex flex-col gap-3">
                                 <span className="text-2xl">سوالات</span>
-                                <Link href={'#'} className="text-[#90999F] text-lg">پرسش های متداول</Link>
-                                <Link href={'#'} className="text-[#90999F] text-lg">انواع اشتراک</Link>
+                                <Link href={'/faq'} className="text-[#90999F] text-lg">پرسش های متداول</Link>
+                                <Link href={'/plans'} className="text-[#90999F] text-lg">انواع اشتراک</Link>
                                 <Link href={'#'} className="text-[#90999F] text-lg">قوانین و مقررات</Link>
                             </div>
                         </div>

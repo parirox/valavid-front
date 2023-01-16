@@ -18,6 +18,11 @@ import productSlice from "@/datasources/product/local/ProductSlice";
 import productSliceApi, {
   productSliceApiTag,
 } from "@/datasources/product/remote/ProductSliceApi";
+//-->> accounting slices
+import accountingSlice from "@/datasources/Accounting/local/AccountingSlice";
+import accountingSliceApi, {
+  accountingSliceApiTag,
+} from "@/datasources/Accounting/remote/AccountingSliceApi";
 //-->> config slices
 import configSlice from "@/datasources/config/local/ConfigSlice";
 //-->> user slices
@@ -29,7 +34,7 @@ import {loadingBarReducer} from "react-redux-loading-bar";
 import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
 import {LoadingHandler} from "@/datasources/loadingHandler";
 import storage from '@/datasources/storage';
-import homeSliceApi, {homeSliceApiTag} from '@/datasources/home/remote/HomeSliceApi';
+import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
 import ticketSliceApi, { ticketSliceApiTag } from "./ticket/remote/TicketSliceApi";
 
 const persistConfig = {
@@ -40,8 +45,8 @@ const persistConfig = {
 };
 
 let reducer = {
-  //->> home
-  [homeSliceApiTag]: homeSliceApi.reducer,
+  //->> pages
+  [pageSliceApiTag]: pageSliceApi.reducer,
   //->> auth
   auth: authSlice,
   [authSliceApiTag]: authSliceApi.reducer,
@@ -51,6 +56,9 @@ let reducer = {
   //->> products
   product: productSlice,
   [productSliceApiTag]: productSliceApi.reducer,
+   //->> accounting
+   // product: accountingSlice,
+   [accountingSliceApiTag]: accountingSliceApi.reducer,
   //->> config
   config: configSlice,
   //->> user
@@ -72,10 +80,11 @@ export const store = (context) =>
       getDefaultMiddleware({
         serializableCheck: false,
       }).concat([
-        homeSliceApi.middleware,
+        pageSliceApi.middleware,
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,
+        accountingSliceApi.middleware,
         ticketSliceApi.middleware,
         userSliceApi.middleware,
         rtkQueryErrorLogger,

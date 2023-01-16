@@ -10,17 +10,17 @@ import {
 } from "react-icons/io5";
 import Router from "next/router";
 
-export const people = [
+export const options = [
   {
     id: 1,
-    route: "videos",
+    route: "video",
     name: "ویدئو",
     icon: <IoVideocamOutline className="text-2xl"/>,
     unavailable: false,
   },
   {
     id: 2,
-    route: "images",
+    route: "image",
     name: "تصویر",
     icon: <IoImageOutline className="text-2xl"/>,
     unavailable: false,
@@ -29,14 +29,14 @@ export const people = [
 
 export default function SelectSlider({value = ""}) {
   const [searchValue, setSearchValue] = useState("");
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(options[0]);
 
   useEffect(() => {
     setSearchValue(value)
   }, [value])
 
   async function searchHandler() {
-    await Router.push(`/${selected.route}/?tags=${searchValue}`)
+    await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
   }
 
   return (
@@ -63,9 +63,9 @@ export default function SelectSlider({value = ""}) {
               >
                 <Listbox.Options
                   className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-accent  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {people.map((person, personIdx) => (
+                  {options.map((item, itemIdx) => (
                     <Listbox.Option
-                      key={personIdx}
+                      key={itemIdx}
                       className={({active}) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
                           active
@@ -73,7 +73,7 @@ export default function SelectSlider({value = ""}) {
                             : "text-gray-900"
                         }`
                       }
-                      value={person}
+                      value={item}
                     >
                       {({selected}) => (
                         <>
@@ -82,7 +82,7 @@ export default function SelectSlider({value = ""}) {
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >
-                            {person.name}
+                            {item.name}
                           </span>
                           {selected ? (
                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">

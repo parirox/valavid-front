@@ -6,15 +6,10 @@ import {useEffect, useState} from "react";
 import {isEmpty} from "@/utils/general";
 
 const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHandler, total_count, id }) => {
-    const [_items,setItems] = useState(items)
-    useEffect(()=>{
-        if(isEmpty(items)) setItems([0,1,2,3])
-    },[items])
-    if (isEmpty(_items)) return <></>
   return (
     <div className="grid grid-cols-3 grid-row-3 h-[250px] rounded-[32px] overflow-hidden gap-3 group/collection cursor-pointer relative">
       <Link href={`/collections/${id}`} className='full absolute inset-0 z-40'></Link>
-      {_items.map((image, index) => (
+      {[1,2,3,4].map((item, index) => (
         <div
           key={index}
           className={
@@ -45,13 +40,13 @@ const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHa
             </span>
           )}
           <div className="absolute inset-0 z-10 bg-gradient-to-bl from-[#00101c98] to-[#0e1f2c14] group-hover/collection:from-[#534cda81] group-hover/collection:to-transparent"></div>
-            {image.src ?
+            {(typeof items[index] !== "undefined") ?
               <Image
-                src={image.src}
+                src={items[index]?.src}
                 className="object-cover"
                 fill
                 sizes="33vw"
-                alt={image.alt}
+                alt={items[index]?.src}
               />
                 :
                 <div className={"bg-secondary full"}></div>

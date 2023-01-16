@@ -9,7 +9,7 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import ValavidIcon from "@/public/icons/VALAVID_blogPage.png"
 import { useEffect, useState } from "react";
-import { getCookieClient } from "@/utils/general";
+import { getCookie } from 'cookies-next';
 import ProfileIcon from "@/public/icons/profile.svg"
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ const Header = ({ data, styleMode }) => {
   const _cartItems = useSelector(cartItems);
 
   useEffect(()=>{
-    let token = getCookieClient('valavid_token')
+    let token = getCookie('valavid_token')
     if(token){
       setIsLogedIn(true)
     }
@@ -27,7 +27,7 @@ const Header = ({ data, styleMode }) => {
   const renderProfileBtn = () => {
    if(isLogedin){
     return(
-      <Link href="/profile">
+      <Link href="/profile/me">
         <Button className="rounded-full bg-white h-full w-[4rem] h-[4rem] relative">
           <ProfileIcon/>
         </Button>

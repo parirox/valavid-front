@@ -2,28 +2,28 @@ import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import ButtonIcon from "@/components/ButtonIcon";
 import Chip from "@/components/Chip";
-import CollectionModal from "@/components/CollectionModal";
 import Divider from "@/components/Divider";
-import PopularCardImage from "@/components/PopularCardImage";
-import { addOrRemoveToCart, cartItems, checkInCart } from "@/datasources/checkout/local/CheckoutSlice";
-import { setModalCollectionTo } from "@/datasources/config/local/ConfigSlice";
-import product_api, { ProductDetails, useProductDetailsQuery } from "@/datasources/product/remote/ProductSliceApi";
-import { wrapper } from "@/datasources/store";
-import { addToFavorite, checkInFavorite, favoriteItems } from "@/datasources/user/local/UserSlice";
-import { Fragment, Popover, Transition } from '@headlessui/react';
+import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/local/CheckoutSlice";
+import {setModalCollectionTo} from "@/datasources/config/local/ConfigSlice";
+import product_api, {ProductDetails, useProductDetailsQuery} from "@/datasources/product/remote/ProductSliceApi";
+import {wrapper} from "@/datasources/store";
+import {addToFavorite, checkInFavorite, favoriteItems} from "@/datasources/user/local/UserSlice";
+import {Fragment, Popover, Transition} from '@headlessui/react';
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import Error404 from "pages/404";
-import { useMemo } from "react";
-import { BsShieldFillCheck } from "react-icons/bs";
-import { CgFolderAdd } from "react-icons/cg";
-import { FaCartPlus, FaHeart, FaRegHeart } from "react-icons/fa";
-import { IoHeart, IoInformationCircleOutline, IoShareSocialOutline } from "react-icons/io5";
-import { MdRemoveShoppingCart, MdVerifiedUser } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import {useMemo} from "react";
+import {BsShieldFillCheck} from "react-icons/bs";
+import {CgFolderAdd} from "react-icons/cg";
+import {FaCartPlus, FaHeart, FaRegHeart} from "react-icons/fa";
+import {IoHeart, IoInformationCircleOutline, IoShareSocialOutline} from "react-icons/io5";
+import {MdRemoveShoppingCart, MdVerifiedUser} from "react-icons/md";
+import {useDispatch, useSelector} from "react-redux";
 import dynamic from "next/dynamic";
 import ProductCart from "@/components/ProductCart";
+import ManageCollectionDialog from "@/components/ManageCollectionDialog";
+
 const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
 
 function FootageDetails() {
@@ -52,7 +52,7 @@ function FootageDetails() {
                     <title>والاوید | {data.title}</title>
                 </Head>
                 <div className="container mt-20">
-                    <CollectionModal />
+                    <ManageCollectionDialog />
                     <div className="flex gap-24 flex-col md:flex-row md:items-stretch">
                         <div className="basis-full md:basis-7/12">
                             <div className="relative full">

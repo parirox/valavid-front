@@ -1,7 +1,6 @@
 import CoverPage from "@/components/CoverPage";
 import Head from "next/head";
 // Filter Drawern sidebar
-import CollectionModel from "@/components/CollectionModal";
 import product_api, {
   GetCollectionDetails,
   useGetCollectionDetailsQuery
@@ -11,6 +10,7 @@ import Error404 from "pages/404";
 import {IoImage} from "react-icons/io5";
 import ProductCart from "@/components/ProductCart";
 import moment from "jalali-moment";
+import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 
 function Collections({query}) {
   const {data, isSuccess, isError} = useGetCollectionDetailsQuery(query);
@@ -29,13 +29,13 @@ function Collections({query}) {
           {data.title}
         </div>
         <div className={"text-lg mt-3"}>
-          به مناسبت روز گردشگری کالکشنی از نقاط گردشگری ایران را منتشر کردیم
+          گزینش مجموعه توسط :
         </div>
         <div className={'absolute bottom-10 left-0 right-0 text-center text-lg'}>
           بروزرسانی {moment(data.updated_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}
         </div>
       </CoverPage>
-      <CollectionModel/>
+      <ManageCollectionDialog/>
       <div className="flex w-full">
         <div className="basis-full px-10 pb-[20rem]">
           <div className='grid grid-cols-4 gap-2 py-16'>
