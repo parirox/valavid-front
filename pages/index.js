@@ -1,4 +1,3 @@
-import CollectionModel from "@/components/CollectionModal";
 import BecomeASeller from "@/components/home/BecomeASeller";
 import Blog from "@/components/home/Blog";
 import Collections from "@/components/home/Collections";
@@ -11,6 +10,7 @@ import home_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/pages/r
 import {wrapper} from "@/datasources/store";
 import Head from "next/head";
 import Error404 from "./404";
+import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 
 function Home() {
   const { data, isSuccess, isError } = useGetHomeDataQuery();
@@ -25,7 +25,7 @@ function Home() {
         </Head>
         <FirstSection video={data?.video} tags={data.tags} />
         {/* modal */}
-        <CollectionModel />
+        <ManageCollectionDialog />
         <InfoItems stats={data.stats} />
         <Collections data={data.collections} />
         <MostPopular data={data.most_popular} />

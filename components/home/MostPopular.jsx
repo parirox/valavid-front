@@ -1,7 +1,4 @@
 import Button from '@/components/Button';
-import PopularCardCollection from '@/components/PopularCardCollection';
-import PopularCardImage from '@/components/PopularCardImage';
-import PopularCardVideo from '@/components/PopularCardVideo';
 import SectionTitleDivider from '@/components/SectionTitleDivider';
 import ProductCart from "@/components/ProductCart";
 
