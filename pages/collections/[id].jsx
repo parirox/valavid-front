@@ -8,7 +8,7 @@ import product_api, {
 import {wrapper} from "@/datasources/store";
 import Error404 from "pages/404";
 import {IoImage} from "react-icons/io5";
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
 import moment from "jalali-moment";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 
@@ -40,7 +40,7 @@ function Collections({query}) {
         <div className="basis-full px-10 pb-[20rem]">
           <div className='grid grid-cols-4 gap-2 py-16'>
             {data?.products.map((item, k) => {
-              return <ProductCart link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
+              return <MainProductCard link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
             })}
           </div>
         </div>

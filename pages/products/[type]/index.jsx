@@ -22,7 +22,7 @@ import dynamic from 'next/dynamic'
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import VideoFilter from "@/components/products/VideoFilter";
 import ImageFilter from "@/components/products/ImageFilter";
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
@@ -136,13 +136,13 @@ function Products({query}) {
                   loadingContent={<VideoCardLoader count={3}/>}
                   items={data}>
                   {(item, k) => {
-                    return <ProductCart link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
+                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
                   }}
                 </InfiniteList>
                 :
                 <div className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}>
                   {data.results.map((item, key) => {
-                    return <ProductCart link={`/products/${item.type}/${item.id}`} key={key} data={item}/>
+                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={key} data={item}/>
                   })}
                 </div>
               }

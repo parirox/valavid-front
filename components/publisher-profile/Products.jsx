@@ -1,5 +1,5 @@
 import {useGetPublisherProductQuery} from "@/datasources/user/remote/UserSliceApi";
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
 import NoContent from "@/components/NoContent";
 
 
@@ -12,7 +12,7 @@ const Products = () => {
       {data.count === 0 && <NoContent/>}
       <div className="grid grid-cols-3 gap-10 gap-x-14">
         {data.results.map((item, k) => (
-          <ProductCart link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
+          <MainProductCard link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
         ))}
       </div>
     </div>

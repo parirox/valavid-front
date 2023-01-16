@@ -18,7 +18,7 @@ import {
 } from "@/datasources/user/remote/UserSliceApi";
 import toast from "@/utils/notification/toast";
 
-const ProductCart = ({data,small, className, link = '#'}) => {
+const MainProductCard = ({data,small, className, link = '#'}) => {
   const _cartItems = useSelector(cartItems);
   const dispatch = useDispatch();
   const ref = useRef()

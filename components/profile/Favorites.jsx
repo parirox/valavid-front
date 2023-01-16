@@ -1,6 +1,6 @@
 import {useGetFavoritesQuery} from "@/datasources/user/remote/UserSliceApi";
 import NoContent from "@/components/NoContent";
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
 
 const Favorites = () => {
   const {data, isSuccess, isError, isLoading} = useGetFavoritesQuery()
@@ -12,7 +12,7 @@ const Favorites = () => {
       <div className={`grid gap-2 grid-cols-3`}>
       {
         data.results.map((item, k) => (
-          <ProductCart link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
+          <MainProductCard link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
         ))
       }
       </div>

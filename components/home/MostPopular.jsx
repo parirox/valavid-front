@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import SectionTitleDivider from '@/components/SectionTitleDivider';
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
 
 const MostPopular = ({data}) => {
     return (
@@ -8,7 +8,7 @@ const MostPopular = ({data}) => {
             <SectionTitleDivider title="محبوب ها‍" ></SectionTitleDivider>
             <div className='container grid grid-cols-3 gap-2'>
                 {data.map((item, key) => (
-                    <ProductCart key={key} data={item} link={`/products/${item.type}/${item.id}`} />
+                    <MainProductCard key={key} data={item} link={`/products/${item.type}/${item.id}`} />
                 ))}
             </div>
             <Button

@@ -21,7 +21,7 @@ import {IoHeart, IoInformationCircleOutline, IoShareSocialOutline} from "react-i
 import {MdRemoveShoppingCart, MdVerifiedUser} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
 import dynamic from "next/dynamic";
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 
 const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
@@ -234,13 +234,13 @@ function FootageDetails() {
                     />
                     <div className="grid grid-cols-4 overflow-hidden mb-20 mt-10">
                         {data.more_user_products.map((item, key) => (
-                            <ProductCart small key={key} data={item} link={`/footage/${item.id}`} />))}
+                            <MainProductCard small key={key} data={item} link={`/footage/${item.id}`} />))}
                     </div>
                     <Divider start='مشابه ها' />
                     <section className="mb-40 mt-10">
                         <div className="grid grid-cols-4 grid-rows-2 h-[36rem]">
                             {data.related_products.map((item, key) => (
-                                <div key={key} className={(key === 3 ? 'row-span-2' : '')}><ProductCart small data={item} />
+                                <div key={key} className={(key === 3 ? 'row-span-2' : '')}><MainProductCard small data={item} />
                                 </div>))}
                         </div>
                         <Button
