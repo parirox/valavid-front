@@ -17,6 +17,7 @@ import {
   useRemoveFromFavoritesMutation
 } from "@/datasources/user/remote/UserSliceApi";
 import toast from "@/utils/notification/toast";
+import {handleApiError} from "@/datasources/errorHandler";
 
 const MainProductCard = ({data,small, className, link = '#'}) => {
   const _cartItems = useSelector(cartItems);
@@ -53,8 +54,8 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
   useEffect(() => {
     if (addFavoriteIsSuccess) toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
     if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
-    if (addFavoriteIsError) toast.error(addFavoriteError)
-    if (removeFavoriteIsError) toast.error(removeFavoriteError)
+    if (addFavoriteIsError) handleApiError(addFavoriteError)
+    if (removeFavoriteIsError) handleApiError(removeFavoriteError)
   }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError])
 
   function onMouseEnterHandler() {
@@ -169,4 +170,4 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
   );
 }
 
-export default ProductCart;
+export default MainProductCard;

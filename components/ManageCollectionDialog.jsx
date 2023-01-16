@@ -8,9 +8,7 @@ import {Controller, useForm} from "react-hook-form";
 import {
   useAddCollectionMutation,
   useAddProductToCollectionMutation,
-  useEditCollectionMutation,
   useGetCollectionQuery,
-  useRemoveCollectionMutation,
   useRemoveProductFromCollectionMutation
 } from "@/datasources/user/remote/UserSliceApi";
 import toast from "@/utils/notification/toast";
@@ -22,6 +20,7 @@ import {
   setModalCollectionTo
 } from "@/datasources/config/local/ConfigSlice";
 import Image from "next/image";
+import {handleApiError} from "@/datasources/errorHandler";
 
 export default function ManageCollectionDialog({...rest}) {
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ export default function ManageCollectionDialog({...rest}) {
     error: getError,
     isError: getIsError,
     isLoading: getIsLoading
-  } = useGetCollectionQuery({skip: !initials})
+  } = useGetCollectionQuery(undefined,{skip: !initials})
 
   const [fetchAddProduct, {
     data: addProductData,
@@ -63,62 +62,32 @@ export default function ManageCollectionDialog({...rest}) {
     isError: addIsError,
     isLoading: addIsLoading
   }] = useAddCollectionMutation()
-  const [fetchEdit, {
-    data: editData,
-    isSuccess: editIsSuccess,
-    error: editError,
-    isError: editIsError,
-    isLoading: editIsLoading
-  }] = useEditCollectionMutation()
-  const [fetchRemove, {
-    data: removeData,
-    isSuccess: removeIsSuccess,
-    error: removeError,
-    isError: removeIsError,
-    isLoading: removeIsLoading
-  }] = useRemoveCollectionMutation()
 
   const {register, control, reset, handleSubmit, formState: {errors}} = useForm()
   const onSubmit = (data) => {
     if (isEmpty(id)) {
       //->> on edit
       fetchAdd(data).unwrap().then((data) => {
-        successResult("مجموعه جدید با موفقیت ایجاد شد!")
+        toast.success("مجموعه جدید با موفقیت ایجاد شد!")
       }).catch((err) => {
         toast.error(err)
       })
-    } else {
-      //->> on create a new
-      // fetchEdit([{id}, data]).unwrap().then((data) => {
-      //   successResult("ویرایش مجموعه با موفقیت انجام شد!")
-      // }).catch((err) => {
-      //   toast.error(err)
-      // })
     }
   }
-
-  const removeCollectionHandler = () => {
-    // fetchRemove({id}).unwrap().then((data) => {
-    //   successResult("حذف مجموعه با موفقیت انجام شد!")
-    // }).catch((err) => {
-    //   toast.error(err)
-    // })
-  };
-  const successResult = (message) => {
-    toast.success(message)
-    // dispatch(setModalCollectionTo({active: false}))
-  }
-
   //->> initialize the default form value
   useEffect(() => {
-    if (show) setInitials(true)
-    // reset({
-    //   title: title,
-    //   is_public: is_published
-    // })
+    if (show){
+      setInitials(true)
+    }
   }, [show])
 
-  if (isEmpty(footage_details?.id)) return <></>
+  //->> check results and do
+  useEffect(() => {
+    if (getIsError) handleApiError(getError)
+  }, [getIsError])
+
+
+  if (!getIsSuccess || getIsError && getError?.status === 401) return <></>
   return (
     <Modal isOpen={show} setIsOpen={(state) => dispatch(setModalCollectionTo({active: state}))}>
       <form onSubmit={handleSubmit(onSubmit)}
