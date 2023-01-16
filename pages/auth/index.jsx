@@ -48,7 +48,7 @@ const Index = () => {
       .then((response) => {
         _toast.success("ثبت نام با موفقیت انجام شد");
         setCookie("valavid_token", response.token);
-        router.push("/profile");
+        router.push("/profile/me");
       })
       .catch((error) => handleApiError(error));
   };

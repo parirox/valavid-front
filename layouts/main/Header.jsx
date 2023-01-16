@@ -27,7 +27,7 @@ const Header = ({ data, styleMode }) => {
   const renderProfileBtn = () => {
    if(isLogedin){
     return(
-      <Link href="/profile">
+      <Link href="/profile/me">
         <Button className="rounded-full bg-white h-full w-[4rem] h-[4rem] relative">
           <ProfileIcon/>
         </Button>

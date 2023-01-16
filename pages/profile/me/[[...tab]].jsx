@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import ButtonIcon from "@/components/ButtonIcon";
-import Accounting from "@/components/profile/Accounting/index";
+import Accounting from "@/components/profile/Accounting";
 import Collections from "@/components/profile/Collection/Collections";
 import Downloads from "@/components/profile/Downloads";
 import Favorites from "@/components/profile/Favorites";
@@ -8,7 +8,7 @@ import Medals from "@/components/profile/Medals";
 import Tickets from "@/components/profile/Tickets";
 import Uploads from "@/components/profile/Uploads";
 import UserForm from "@/components/profile/Forms/UserForm";
-import Products from "@/components/profile/Products/index";
+import Products from "@/components/profile/Products";
 import { isEmpty } from "@/utils/general";
 import { Tab } from "@headlessui/react";
 import moment from "jalali-moment";
@@ -142,7 +142,7 @@ function SellerProfile() {
   const changeTabHandler = async (i) => {
     await router.push(
       {
-        pathname: `/profile/${tabs[i].id}`,
+        pathname: `/profile/me/${tabs[i].id}`,
       },
       undefined,
       { shallow: true }
@@ -237,7 +237,7 @@ function SellerProfile() {
                   </div>
                   <Button
                     className="btn-primary-gradient px-16 py-3"
-                    link={`/profile/SellerForm`}
+                    link={`/profile/me/SellerForm`}
                   >
                     فروشنده شوید
                   </Button>
@@ -253,7 +253,7 @@ function SellerProfile() {
               </div>
               <div className="w-full bg-accent rounded-2xl p-8 flex items-center gap-3">
                 <MdGroupAdd className="text-primary text-4xl" />
-                <Link href={`/profile/TeamForm`}>
+                <Link href={`/profile/me/TeamForm`}>
                   <span className="text-xl">
                     تغییر حساب کاربری به شخصیت حقوقی
                   </span>
