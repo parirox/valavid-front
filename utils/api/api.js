@@ -37,11 +37,12 @@ export const ApiEndpoint = {
       remove: "/account/products/:id/unlike/",
     },
     cart: "/basket/",
-    ticket: {
-      getList: "/ticket/",
-      getTicket: "/ticket/:id/",
-      add: "/ticket/"
-    }
+  },
+  ticket: {
+    getList: "/tickets/",
+    getTicket: "/tickets/:id/",
+    add: "/tickets/",
+    addMessage: "/tickets/:id/"
   }
 };
 

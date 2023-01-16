@@ -15,7 +15,7 @@ const ticket_api = createApi({
     baseQuery,
     tagTypes: [ticketSliceApiTag],
     endpoints: (build) => ({
-        getTicket: build.query({
+        getListTicket: build.query({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.ticket.getList),
                 method: 'GET',
@@ -24,12 +24,12 @@ const ticket_api = createApi({
                 },
             }),
             providesTags: (result, error, id) => [
-                {type: ticketSliceApiTag, id: 'CollectionList'}
+                {type: ticketSliceApiTag, id: 'TicketList'}
             ],
         }),
-        addCollection: build.mutation({
+        addTicket: build.mutation({
             query: (query) => ({
-                url: ApiAddress(ApiEndpoint.ticket.collection.add),
+                url: ApiAddress(ApiEndpoint.ticket.getTicket),
                 method: 'POST',
                 body: query,
                 headers: {
@@ -37,19 +37,44 @@ const ticket_api = createApi({
                 },
             }),
             providesTags: (result, error, id) => [
-                {type: ticketSliceApiTag, id: 'Collection' + id}
+                {type: ticketSliceApiTag, id: 'ticket' + id}
             ],
-            invalidatesTags: [{type: ticketSliceApiTag, id: 'CollectionList'}]
+            invalidatesTags: [{type: ticketSliceApiTag, id: 'getList'}]
         }),
-        
+        getTicket: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.ticket.getTicket),
+                method: 'GET',
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: ticketSliceApiTag, id: 'Ticket'}
+            ],
+        }),
+        addMessage: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.ticket.addMessage),
+                method: 'POST',
+                body: query,
+                headers: {
+                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
+                },
+            }),
+            providesTags: (result, error, id) => [
+                {type: ticketSliceApiTag, id: 'ticket' + id}
+            ],
+            invalidatesTags: [{type: ticketSliceApiTag, id: 'Ticket'}]
+        }),
     })
 });
 
 export const {
-    useGetCollectionQuery,
-    useAddCollectionMutation,
-    useEditCollectionMutation,
-    ticketemoveCollectionMutation,
+    useGetListTicketQuery,
+    useAddTicketMutation,
+    useGetTicketQuery,
+    useAddMessageMutation,
 } = ticket_api;
 
 export default ticket_api;

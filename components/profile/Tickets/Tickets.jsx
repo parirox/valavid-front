@@ -1,23 +1,60 @@
 import Button from "@/components/Button";
+import Modal from "@/components/Modal";
+import { useAddTicketMutation, useGetListTicketQuery } from "@/datasources/ticket/remote/TicketSliceApi";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import TdTable from "./TdTableTicket";
-const ticketsData = [
-    {
-        id: 1,
-        subject: "اعتراض قیمت گذاری",
-        productName: "تصویر صحرای دشت مغان در غروب",
-        date: "1401/12/24"
-    },
-    {
-        id: 1,
-        subject: "اعتراض قیمت گذاری",
-        productName: "تصویر صحرای دشت مغان در غروب",
-        date: "1401/12/24"
-    },
-]
+// const ticketsData = [
+//     {
+//         id: 1,
+//         subject: "اعتراض قیمت گذاری",
+//         productName: "تصویر صحرای دشت مغان در غروب",
+//         date: "1401/12/24"
+//     },
+//     {
+//         id: 1,
+//         subject: "اعتراض قیمت گذاری",
+//         productName: "تصویر صحرای دشت مغان در غروب",
+//         date: "1401/12/24"
+//     },
+// ]
 const Tickets = () => {
+    const {data, isSuccess, isError, isLoading} = useGetListTicketQuery()
+    const [fetchAdd, {
+        data: addData,
+        isSuccess: addIsSuccess,
+        error: addError,
+        isError: addIsError,
+        isLoading: addIsLoading
+      }] = useAddTicketMutation()
+    const [isOpen, setIsOpen] = useState(false)
+
+    const onSubmit = data => console.log(data);
+    const { register, control, setValue, getValues, handleSubmit, watch, formState: { errors } } = useForm({
+        defaultValues: {
+            // second
+            subject: '',
+            message: '',
+            priority: 'low',
+            product: null
+        }
+    });
+
+    const createTicket = () => {
+
+        fetchAdd(data).unwrap().then((data) => {
+            successResult("تیکت جدید با موفقیت ایجاد شد!")
+        }).catch((err) => {
+            toast.error(err)
+        })
+
+        setIsOpen(false)
+    }
+
+    if (!isSuccess) return <></> 
     return (
         <div className="pt-7 pb-20">
-            <Button className={'btn-primary py-4 px-12 rounded-full text-2xl'}>افزودن تیکت</Button>
+            <Button className={'btn-primary py-4 px-12 rounded-full text-2xl'} onClick={() => setIsOpen(true)}>افزودن تیکت</Button>
             <div className="pt-10">
                 <div className="h-16 flex w-full">
                     <div className="text-start pr-14 basis-1/4">موضوع</div>
@@ -26,13 +63,41 @@ const Tickets = () => {
                     <div className="text-start basis-1/4"></div>
                 </div>
                 <div className="flex flex-col gap-6">
-                    {
-                        ticketsData.map((data, index) => (
+                    {/* {
+                        data.results.map((data, index) => (
                             <TdTable data={data} key={index}></TdTable>
                         ))
-                    }
+                    } */}
                 </div>
             </div>
+            <Modal small isOpen={isOpen ?? false} setIsOpen={createTicket}>
+                <form onSubmit={handleSubmit(onSubmit)} className="p-2">
+                    <p className="opacity-50 text-accent w-full text-start px-3 py-4 text-xl">ایجاد تیکت</p>
+                    <div className="pb-8">
+                        <div className="flex pt-16 gap-x-3 justify-between">
+                            <div className="relative basis-4/12">
+                                <label htmlFor="subjectInput" className="text-accent absolute -top-9">موضوع</label>
+                                <input type="text" id="subjectInput" className="bg-color8 text-secondary px-4 h-14 w-full rounded-[1.2rem] border-none active:border-none focus:border-none"
+                                {...register('subject')} />
+                            </div>
+                            <div className="relative basis-7/12">
+                                <label htmlFor="productInput" className="text-accent absolute -top-9">محصول</label>
+                                <input type="text" id="productInput" className="bg-color8 text-secondary px-4 h-14 w-full rounded-[1.2rem] border-none active:border-none focus:border-none"
+                                {...register('product')} />
+                            </div>
+                        </div>
+                        <div className="pt-20 pb-10 w-full">
+                            <div className="relative w-full">
+                                <label htmlFor="productInput" className="text-accent absolute -top-9">توضیحات</label>
+                                <textarea type="text" id="productInput" 
+                                className="bg-white text-secondary p-4 min-h-[14rem] max-h-[16rem] h-56 w-full rounded-[.7rem] border-1 border-secondary-300 border-solid active:border-primary focus:border-primary"
+                                {...register('message')} />
+                            </div>
+                        </div>
+                        <Button className="btn-primary px-20 py-3 rounded-3xl text-lg" type="submit">ایجاد تیکت</Button>
+                    </div>
+                </form>
+            </Modal>
         </div>
     );
 }
