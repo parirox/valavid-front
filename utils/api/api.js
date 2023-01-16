@@ -51,10 +51,8 @@ export const ApiEndpoint = {
     cart: "/basket/",
   },
   ticket: {
-    getList: "/tickets/",
-    getTicket: "/tickets/:id/",
-    add: "/tickets/",
-    addMessage: "/tickets/:id/"
+    get_or_create: "/tickets/",
+    details_or_send_message: "/tickets/:id",
   }
 };
 

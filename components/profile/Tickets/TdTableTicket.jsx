@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import { useEffect, useRef, useState } from "react";
 
 
-export default function divTable({ data }) {
+export default function TdTableTicket({ data }) {
   const [open, setOpen] = useState(false)
   const [hight, setHight] = useState()
   const ref = useRef()

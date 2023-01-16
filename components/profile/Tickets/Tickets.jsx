@@ -1,60 +1,77 @@
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
-import { useAddTicketMutation, useGetListTicketQuery } from "@/datasources/ticket/remote/TicketSliceApi";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import TdTable from "./TdTableTicket";
-// const ticketsData = [
-//     {
-//         id: 1,
-//         subject: "اعتراض قیمت گذاری",
-//         productName: "تصویر صحرای دشت مغان در غروب",
-//         date: "1401/12/24"
-//     },
-//     {
-//         id: 1,
-//         subject: "اعتراض قیمت گذاری",
-//         productName: "تصویر صحرای دشت مغان در غروب",
-//         date: "1401/12/24"
-//     },
-// ]
+import {
+  useAddMessageMutation,
+  useCreateTicketMutation,
+  useGetTicketDetailsMutation,
+  useGetTicketListQuery
+} from "@/datasources/ticket/remote/TicketSliceApi";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
+import NoContent from "@/components/NoContent";
+import toast from "@/utils/notification/toast";
+import {IoAttach} from "react-icons/io5";
+import TdTableTicket from "@/components/profile/Tickets/TdTableTicket";
+
 const Tickets = () => {
-    const {data, isSuccess, isError, isLoading} = useGetListTicketQuery()
-    const [fetchAdd, {
-        data: addData,
-        isSuccess: addIsSuccess,
-        error: addError,
-        isError: addIsError,
-        isLoading: addIsLoading
-      }] = useAddTicketMutation()
+    const {data, isSuccess, isError, isLoading} = useGetTicketListQuery()
+    const [fetchCreate, {
+        data: createData,
+        isSuccess: createIsSuccess,
+        error: createError,
+        isError: createIsError,
+        isLoading: createIsLoading
+    }] = useCreateTicketMutation()
+    const [fetchDetails, {
+        data: getDetails,
+        isSuccess: detailsIsSuccess,
+        error: detailsError,
+        isError: detailsIsError,
+        isLoading: detailsIsLoading
+      }] = useGetTicketDetailsMutation()
+    const [fetchSendMessage, {
+        data: getSendData,
+        isSuccess: sendIsSuccess,
+        error: sendError,
+        isError: sendIsError,
+        isLoading: sendIsLoading
+      }] = useAddMessageMutation()
     const [isOpen, setIsOpen] = useState(false)
 
-    const onSubmit = data => console.log(data);
     const { register, control, setValue, getValues, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: {
             // second
             subject: '',
             message: '',
             priority: 'low',
-            product: null
+            product: null,
+            attachment: ""
         }
     });
 
-    const createTicket = () => {
-
-        fetchAdd(data).unwrap().then((data) => {
-            successResult("تیکت جدید با موفقیت ایجاد شد!")
+    const createTicket = (formData) => {
+        fetchCreate(formData).unwrap().then((data) => {
+            toast.success("تیکت جدید با موفقیت ایجاد شد!")
         }).catch((err) => {
             toast.error(err)
         })
-
         setIsOpen(false)
     }
 
-    if (!isSuccess) return <></> 
+    const sendMessage = (formData) => {
+        const {id} = getDetails
+        fetchSendMessage({id,formData}).unwrap().then((data) => {
+            toast.success("پیام شما با موفقیت ثبت شد!")
+        }).catch((err) => {
+            toast.error(err)
+        })
+    }
+
+    if (!isSuccess) return <></>
     return (
         <div className="pt-7 pb-20">
             <Button className={'btn-primary py-4 px-12 rounded-full text-2xl'} onClick={() => setIsOpen(true)}>افزودن تیکت</Button>
+            {data.count === 0 ? <NoContent/>:
             <div className="pt-10">
                 <div className="h-16 flex w-full">
                     <div className="text-start pr-14 basis-1/4">موضوع</div>
@@ -63,16 +80,16 @@ const Tickets = () => {
                     <div className="text-start basis-1/4"></div>
                 </div>
                 <div className="flex flex-col gap-6">
-                    {/* {
+                     {
                         data.results.map((data, index) => (
-                            <TdTable data={data} key={index}></TdTable>
+                            <TdTableTicket data={data} key={index}></TdTableTicket>
                         ))
-                    } */}
+                    }
                 </div>
-            </div>
-            <Modal small isOpen={isOpen ?? false} setIsOpen={createTicket}>
-                <form onSubmit={handleSubmit(onSubmit)} className="p-2">
-                    <p className="opacity-50 text-accent w-full text-start px-3 py-4 text-xl">ایجاد تیکت</p>
+            </div>}
+            <Modal small isOpen={isOpen ?? false} setIsOpen={setIsOpen}>
+                <form onSubmit={handleSubmit(createTicket)} className="p-2">
+                    <p className="opacity-50 text-accent w-full text-start px-3 text-xl">ایجاد تیکت</p>
                     <div className="pb-8">
                         <div className="flex pt-16 gap-x-3 justify-between">
                             <div className="relative basis-4/12">
@@ -87,11 +104,17 @@ const Tickets = () => {
                             </div>
                         </div>
                         <div className="pt-20 pb-10 w-full">
-                            <div className="relative w-full">
-                                <label htmlFor="productInput" className="text-accent absolute -top-9">توضیحات</label>
-                                <textarea type="text" id="productInput" 
+                            <div className="relative w-full text-right">
+                                <label htmlFor="productInput" className="text-accent mb-3 inline-block">توضیحات</label>
+                                <div className={"relative w-full"}>
+                                    <textarea id="productInput"
                                 className="bg-white text-secondary p-4 min-h-[14rem] max-h-[16rem] h-56 w-full rounded-[.7rem] border-1 border-secondary-300 border-solid active:border-primary focus:border-primary"
                                 {...register('message')} />
+                                    <label htmlFor="attachmentId" className="text-secondary-300 absolute bottom-7 left-7 rotate-45 text-3xl"><IoAttach/></label>
+                                    <input type="file" id="attachmentId" className="opacity-0 w-0 h-0"
+                                           {...register('attachment')} />
+                                </div>
+
                             </div>
                         </div>
                         <Button className="btn-primary px-20 py-3 rounded-3xl text-lg" type="submit">ایجاد تیکت</Button>
