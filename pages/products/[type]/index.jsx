@@ -136,19 +136,19 @@ function Products({query}) {
                   loadingContent={<VideoCardLoader count={3}/>}
                   items={data}>
                   {(item, k) => {
-                    return <ProductCart link={`/products/${query.type}/${item.id}`} key={k} data={item}/>
+                    return <ProductCart link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
                   }}
                 </InfiniteList>
                 :
                 <div className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}>
                   {data.results.map((item, key) => {
-                    return <ProductCart link={`/products/${query.type}/${item.id}`} key={key} data={item}/>
+                    return <ProductCart link={`/products/${item.type}/${item.id}`} key={key} data={item}/>
                   })}
                 </div>
               }
               <div className="py-20 flex justify-center aligns-center gap-3 cursor-pointer">
                 {isSuccess && (data.count > 0) &&
-                  <Pagination totalCount={data.count} currentPage={router.query?.page} itemsPerPage={30}/>}
+                  <Pagination totalCount={data.count} currentPage={query?.page} itemsPerPage={30}/>}
               </div>
             </>
           }
