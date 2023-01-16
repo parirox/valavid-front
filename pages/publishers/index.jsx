@@ -2,13 +2,15 @@ import Button from '@/components/Button';
 import PageTitle from '@/components/PageTitle';
 import Head from 'next/head';
 import Image from 'next/image';
-import {Fragment} from 'react';
+import React, {Fragment} from 'react';
 import page_api, {GetPublishers, useGetPublishersQuery} from "@/datasources/pages/remote/PageSliceApi";
 import {wrapper} from "@/datasources/store";
 import NoContent from "@/components/NoContent";
+import Avatar from "react-avatar";
+import Pagination from "@/components/Pagination";
 
-function Publishers() {
-  const {data, isSuccess, isError, isLoading} = useGetPublishersQuery()
+function Publishers({query}) {
+  const {data, isSuccess, isError, isLoading} = useGetPublishersQuery({query})
 
   if(!isSuccess) return <></>
   return (
@@ -29,8 +31,10 @@ function Publishers() {
                     className="flex-1 group/topSellerCard h-full rounded-2xl bg-[#051622]  hover:bg-gradient-to-t hover:from-[#173358] hover:to-[#0D213B44] p-7 cursor-pointer">
                     <div className="flex flex-col gap-5 w-full items-center justify-end h-full">
                       <div className="flex-grow">
-                        <Image src={item.profile_image} alt={item.name} width="90" height="90"
-                               className='rounded-full'/>
+                        {item.profile_image ?
+                          <Image src={item.profile_image} alt={item.name} width={90} height={90}
+                                 className='w-8 rounded-full'/> :
+                          <Avatar round={true} name={item.name} size="90"/>}
                       </div>
                       <div className="flex-1 text-xl">
                         <span>{item.name}</span>
@@ -39,7 +43,7 @@ function Publishers() {
                         <span>تولید {item.products_count}</span>
                       </div>
                       <div className="flex-1 w-full h-full">
-                        <Button link={`/show-user/${item.id}`}
+                        <Button link={`/profile/${item.username}`}
                                 className='text-xl w-full h-14 opacity-50 bg-secondary-400 transition-all group-hover/topSellerCard:btn-primary-gradient group-hover/topSellerCard:opacity-100'>
                           مشاهدات تولیدات
                         </Button>
@@ -50,6 +54,10 @@ function Publishers() {
               </div>
             ))
           }
+          <div className="py-20 flex justify-center aligns-center w-full gap-3 cursor-pointer">
+            {isSuccess && (data.count > 0) &&
+              <Pagination totalCount={data.count} currentPage={query?.page} itemsPerPage={30}/>}
+          </div>
         </div>
       </div>
     </>
@@ -59,10 +67,14 @@ function Publishers() {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    store.dispatch(GetPublishers.initiate())
+    const page = parseInt(context.query?.page ?? 1)
+    const query = {page}
+    store.dispatch(GetPublishers.initiate(query))
     await Promise.all(store.dispatch(page_api.util.getRunningQueriesThunk()))
     return {
-      props: {},
+      props: {
+        query,
+      },
     };
   }
 );
