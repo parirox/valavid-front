@@ -11,7 +11,7 @@ import {useForm} from "react-hook-form";
 import NoContent from "@/components/NoContent";
 import toast from "@/utils/notification/toast";
 import {IoAttach} from "react-icons/io5";
-import TdTableTicket from "@/components/profile/Tickets/TdTableTicket";
+import TicketBox from "@/components/profile/Tickets/TicketBox";
 
 const Tickets = () => {
     const {data, isSuccess, isError, isLoading} = useGetTicketListQuery()
@@ -82,7 +82,7 @@ const Tickets = () => {
                 <div className="flex flex-col gap-6">
                      {
                         data.results.map((data, index) => (
-                            <TdTableTicket data={data} key={index}></TdTableTicket>
+                            <TicketBox data={data} key={index}></TicketBox>
                         ))
                     }
                 </div>

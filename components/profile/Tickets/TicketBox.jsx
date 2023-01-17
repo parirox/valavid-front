@@ -1,8 +1,8 @@
 import Button from "@/components/Button";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 
-export default function TdTableTicket({ data }) {
+export default function TicketBox({ data }) {
   const [open, setOpen] = useState(false)
   function openTicket() {
     setOpen(!open)
