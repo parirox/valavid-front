@@ -4,13 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 export default function TdTableTicket({ data }) {
   const [open, setOpen] = useState(false)
-  const [hight, setHight] = useState()
-  const ref = useRef()
-  const [style, setStyle] = useState({
-    height: 'auto'
-  })
   function openTicket() {
-    
+    setOpen(!open)
   }
   useEffect(() => {
 
@@ -21,7 +16,7 @@ export default function TdTableTicket({ data }) {
           group-hover:border-primary z-[-1] border-accent
           m-auto left-0 right-0 rounded-[2rem]">
         <div className="py-8 pr-14 basis-1/4">
-          <div style={style}>
+          <div className="h-auto">
             {data.subject}
           </div>
         </div>
