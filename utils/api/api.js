@@ -27,6 +27,7 @@ export const ApiEndpoint = {
   pages: {
     home: "/home/",
     publishers: "/publishers/:query",
+    faq: "/faq/",
   },
   publisher: {
     profile: "/publishers/:username/",

@@ -32,13 +32,23 @@ const page_api = createApi({
                 { type: pageSliceApiTag, id: 'Publishers' }
             ],
         }),
+        GetFaq: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.pages.faq),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                { type: pageSliceApiTag, id: 'Faq' }
+            ],
+        }),
     })
 });
 
 
 export const {
     useGetHomeDataQuery,
-    useGetPublishersQuery
+    useGetPublishersQuery,
+    useGetFaqQuery,
 } = page_api;
 
 // export endpoints for use in SSR
