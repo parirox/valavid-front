@@ -5,7 +5,7 @@ import Collections from "@/components/profile/Collection/Collections";
 import Downloads from "@/components/profile/Downloads";
 import Favorites from "@/components/profile/Favorites";
 import Achievements from "@/components/profile/Achievements";
-import Tickets from "@/components/profile/Tickets";
+import Tickets from "@/components/profile/Tickets/Tickets";
 import UserForm from "@/components/profile/Forms/UserForm";
 import Products from "@/components/profile/Products";
 import {isEmpty} from "@/utils/general";
@@ -263,7 +263,7 @@ function SellerProfile() {
                     تغییر حساب کاربری به شخصیت حقوقی
                   </span>
                   </Link>
-                </div>}
+                </div> }
               </div>
             </div>
           }
