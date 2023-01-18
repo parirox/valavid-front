@@ -87,7 +87,7 @@ export default function ManageCollectionDialog({...rest}) {
   }, [getIsError])
 
 
-  if (!getIsSuccess || getIsError && getError?.status === 401) return <></>
+  if (isEmpty(footage_details?.id) || !getIsSuccess || getIsError && getError?.status === 401) return <></>
   return (
     <Modal isOpen={show} setIsOpen={(state) => dispatch(setModalCollectionTo({active: state}))}>
       <form onSubmit={handleSubmit(onSubmit)}
