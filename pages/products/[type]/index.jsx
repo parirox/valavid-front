@@ -3,7 +3,7 @@ import CoverPage from "@/components/CoverPage";
 import SortTabs from "@/components/SortTabs";
 import PicMountain from '@/public/images/astara_mountain.jpg';
 import Head from "next/head";
-import {useDeferredValue, useEffect, useState} from "react";
+import {useDeferredValue, useEffect, useMemo, useState} from "react";
 import product_api, {
   GetProductListFilter,
   GetProductListScroll,
@@ -45,6 +45,9 @@ function Products({query}) {
     error: filterError,
   } = useGetProductListFilterQuery({query: {type: query.type}});
 
+  const firstPage = useMemo(()=>{
+    return query.page
+  },[])
   const [filterChanged, setFilterChanged] = useState(false)
   const [filterState, setFilterState] = useState(true);
   const [formData, setFormData] = useState({
@@ -88,12 +91,7 @@ function Products({query}) {
     }
   }, [deferredQuery, filterChanged])
 
-  useEffect(() => {
-    console.log(filterOptions)
-  }, [filterOptions])
-
   if (isError) return <Error404/>
-
   return (
     <>
       <Head>
@@ -126,7 +124,7 @@ function Products({query}) {
                     className={`border-b border-solid border-secondary-100 px-4 ${filterState ? '' : 'pr-52'}`}></SortTabs>
           {isSuccess &&
             <>
-              {query?.page ? <InfiniteList
+              {firstPage === 1 ? <InfiniteList
                   className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}
                   query={query}
                   rtkSlice={product_api}
