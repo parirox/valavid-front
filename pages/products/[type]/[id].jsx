@@ -30,7 +30,7 @@ function FootageDetails() {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const { data: data, isSuccess, isError } = useProductDetailsQuery(router.query);
+    const { data, isSuccess, isError } = useProductDetailsQuery(router.query);
 
     const _cartItems = useSelector(cartItems);
     const is_in_cart = useMemo(() => {
@@ -79,9 +79,9 @@ function FootageDetails() {
                                     <div className="flex justify-between items-center">
                                         <div className="flex-none">
                                             <div className="flex items-center gap-3">
-                                                <Avatar src={data.author.profile_image} alt={data.author.name}
+                                                <Avatar src={data.author?.profile_image} alt={data.author?.name}
                                                     badge={<BsShieldFillCheck />} />
-                                                <span className="text-lg">{data.author.name}</span>
+                                                <span className="text-lg">{data.author?.name}</span>
                                             </div>
                                         </div>
                                         <div className="flex-none border-l border-gray p-2"></div>
@@ -226,7 +226,7 @@ function FootageDetails() {
                     </div>
                     <Divider start={(
                         <div className='flex items-center gap-4'>
-                            <Avatar src={data.author.profile_image} alt={data.author.name} badge={<MdVerifiedUser className="text-2xl" />} />
+                            <Avatar src={data.author?.profile_image} alt={data.author?.name} badge={<MdVerifiedUser className="text-2xl" />} />
                             <span>بیشتر از حمید باقری</span>
                         </div>
                     )}
