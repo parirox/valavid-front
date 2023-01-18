@@ -27,6 +27,9 @@ export const ApiEndpoint = {
   pages: {
     home: "/home/",
     publishers: "/publishers/:query",
+    plans: "/subscription-plans/",
+    plans_join: "/subscription-join/",
+    newsletter: "/newsletter/",
   },
   publisher: {
     profile: "/publishers/:username/",
@@ -48,6 +51,7 @@ export const ApiEndpoint = {
       add: "/account/products/:id/like/",
       remove: "/account/products/:id/unlike/",
     },
+    achievements: "/account/achievements/",
     cart: "/basket/"
   }
 };
