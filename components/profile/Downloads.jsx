@@ -24,7 +24,7 @@ const DownloadsData = [
         filters: [],
         haveLicense: true,
         price: 250000,
-        media: "https://placeimg.com/192/191/people",
+        media: "https://placeimg.com/640/480/nature/10",
         type: "image",
         mediaLink: ''
     },
