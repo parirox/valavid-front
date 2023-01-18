@@ -18,19 +18,26 @@ const page_api = createApi({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.pages.home),
                 method: 'GET',
-            }),
-            providesTags: (result, error, id) => [
-                { type: pageSliceApiTag, id: 'HOME' }
-            ],
+            })
         }),
         GetPublishers: build.query({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.pages.publishers,query),
                 method: 'GET',
             }),
-            providesTags: (result, error, id) => [
-                { type: pageSliceApiTag, id: 'Publishers' }
-            ],
+        }),
+        GetPlans: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.pages.plans),
+                method: 'GET',
+            }),
+        }),
+        SubmitNewsletter: build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.pages.newsletter),
+                method: 'POST',
+                body: query
+            })
         }),
     })
 });
@@ -38,11 +45,13 @@ const page_api = createApi({
 
 export const {
     useGetHomeDataQuery,
-    useGetPublishersQuery
+    useGetPublishersQuery,
+    useGetPlansQuery,
+    useSubmitNewsletterMutation,
 } = page_api;
 
 // export endpoints for use in SSR
-export const { GetHomeData,GetPublishers } = page_api.endpoints;
+export const { GetHomeData,GetPublishers,GetPlans } = page_api.endpoints;
 
 export default page_api;
 

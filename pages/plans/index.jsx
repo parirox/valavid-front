@@ -5,49 +5,8 @@ import AdvantageBox from "@/components/AdvantageBox";
 import lockIcon from "@/public/icons/lockIcon.png";
 import takhfifIcon from "@/public/icons/takhfifIcon.png";
 import eseyShopIcon from "@/public/icons/eseyShopIcon.png";
-
-export const plansData = [
-  {
-    duration: '10 روزه',
-    price: 2300000,
-    withStar: false,
-    items: [
-      "50% تخفیف خرید محصولات",
-      "سقف خرید 8000000 تومان",
-      "ذخیره همیشگی مطالب"
-    ]
-  },
-  {
-    duration: '30 روزه',
-    price: 2300000,
-    withStar: false,
-    items: [
-      "50% تخفیف خرید محصولات",
-      "سقف خرید 8000000 تومان",
-      "ذخیره همیشگی مطالب"
-    ]
-  },
-  {
-    duration: '60 روزه',
-    price: 2300000,
-    withStar: false,
-    items: [
-      "50% تخفیف خرید محصولات",
-      "سقف خرید 8000000 تومان",
-      "ذخیره همیشگی مطالب"
-    ]
-  },
-  {
-    duration: '6 ماهه',
-    price: 2300000,
-    withStar: true,
-    items: [
-      "50% تخفیف خرید محصولات",
-      "سقف خرید 8000000 تومان",
-      "ذخیره همیشگی مطالب"
-    ]
-  },
-]
+import {wrapper} from "@/datasources/store";
+import page_api, {GetPlans, useGetPlansQuery} from "@/datasources/pages/remote/PageSliceApi";
 
 const advantagesData = [
   {
@@ -67,7 +26,17 @@ const advantagesData = [
   },
 ]
 
-export default function index() {
+function Plans() {
+  const {
+    data,
+    isFetching,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useGetPlansQuery();
+
+  if(!isSuccess) return <></>
   return (
     <>
       <Head>
@@ -88,13 +57,13 @@ export default function index() {
           <h5 className="">بسته های قیمتی</h5>
           <OctagonalIcon></OctagonalIcon>
         </div>
-        <p className="text-secondary-100 pb-2 pt-4 text-lg">
+        <p className="text-secondary-300 pb-2 pt-4 text-lg">
           دانلود محتوا با تخفیف تا سقف قیمت مشخص
         </p>
         <div className="flex gap-11 pt-20 flex-wrap">
           {
-            plansData.map((plan, i) => (
-              <Plan className="w-[calc(25%_-_2.1rem)]" duration={plan.duration} items={plan.items} price={plan.price} withStar={plan.withStar} key={i}></Plan>
+            data?.precious?.map((plan, i) => (
+              <Plan className="w-[calc(25%_-_2.1rem)]" name={plan.name} duration={plan.duration} items={plan.features.map(v=>(v.title))} price={plan.price} withStar={plan.is_special} key={i}></Plan>
             ))
           }
         </div>
@@ -103,13 +72,13 @@ export default function index() {
           <h5 className="">بسته های حجمی</h5>
           <OctagonalIcon></OctagonalIcon>
         </div>
-        <p className="text-secondary-100 pb-2 pt-4 text-lg">
+        <p className="text-secondary-300 pb-2 pt-4 text-lg">
           دانلود محتوا با تخفیف تا سقف قیمت مشخص
         </p>
         <div className="flex gap-11 pt-20 flex-wrap">
           {
-            plansData.map((plan, i) => (
-              <Plan className="w-[calc(25%_-_2.1rem)]" duration={plan.duration} items={plan.items} price={plan.price} withStar={plan.withStar} key={i}></Plan>
+            data?.volumetric?.map((plan, i) => (
+              <Plan className="w-[calc(25%_-_2.1rem)]" name={plan.name} duration={plan.duration} items={plan.features.map(v=>(v.title))} price={plan.price} withStar={plan.is_special} key={i}></Plan>
             ))
           }
         </div>
@@ -124,3 +93,16 @@ export default function index() {
     </>
   )
 }
+
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    store.dispatch(GetPlans.initiate())
+    await Promise.all(store.dispatch(page_api.util.getRunningQueriesThunk()))
+    return {
+      props: {},
+    };
+  }
+);
+
+export default Plans
