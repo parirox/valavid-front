@@ -117,3 +117,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
 .ltr {
     direction: ltr;
 }
+
+.sb-avatar {
+    font-family: IRANSans,vazir,sans-serif !important;
+}
