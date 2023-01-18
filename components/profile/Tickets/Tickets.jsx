@@ -13,6 +13,14 @@ import toast from "@/utils/notification/toast";
 import {IoAttach} from "react-icons/io5";
 import TicketBox from "@/components/profile/Tickets/TicketBox";
 
+const ticket = [
+    {
+        subject: "اعتراض قیمت گزاری",
+        productName: "تصویر صحرای دشت مغان در غروب",
+        date: "1401/12/24",
+    }
+]
+
 const Tickets = () => {
     const {data, isSuccess, isError, isLoading} = useGetTicketListQuery()
     const [fetchCreate, {
@@ -22,20 +30,6 @@ const Tickets = () => {
         isError: createIsError,
         isLoading: createIsLoading
     }] = useCreateTicketMutation()
-    const [fetchDetails, {
-        data: getDetails,
-        isSuccess: detailsIsSuccess,
-        error: detailsError,
-        isError: detailsIsError,
-        isLoading: detailsIsLoading
-      }] = useGetTicketDetailsMutation()
-    const [fetchSendMessage, {
-        data: getSendData,
-        isSuccess: sendIsSuccess,
-        error: sendError,
-        isError: sendIsError,
-        isLoading: sendIsLoading
-      }] = useAddMessageMutation()
     const [isOpen, setIsOpen] = useState(false)
 
     const { register, control, setValue, getValues, handleSubmit, watch, formState: { errors } } = useForm({
@@ -46,7 +40,7 @@ const Tickets = () => {
             priority: 'low',
             product: null,
             attachment: ""
-        }
+        },
     });
 
     const createTicket = (formData) => {
@@ -58,20 +52,11 @@ const Tickets = () => {
         setIsOpen(false)
     }
 
-    const sendMessage = (formData) => {
-        const {id} = getDetails
-        fetchSendMessage({id,formData}).unwrap().then((data) => {
-            toast.success("پیام شما با موفقیت ثبت شد!")
-        }).catch((err) => {
-            toast.error(err)
-        })
-    }
-
-    if (!isSuccess) return <></>
+    // if (!isSuccess) return <></>
     return (
         <div className="pt-7 pb-20">
             <Button className={'btn-primary py-4 px-12 rounded-full text-2xl'} onClick={() => setIsOpen(true)}>افزودن تیکت</Button>
-            {data.count === 0 ? <NoContent/>:
+            {ticket.length === 0 ? <NoContent/>:
             <div className="pt-10">
                 <div className="h-16 flex w-full">
                     <div className="text-start pr-14 basis-1/4">موضوع</div>
@@ -81,8 +66,8 @@ const Tickets = () => {
                 </div>
                 <div className="flex flex-col gap-6">
                      {
-                        data.results.map((data, index) => (
-                            <TicketBox data={data} key={index}></TicketBox>
+                        data?.results?.map((data, index) => (
+                            <TicketBox data={data} id={data.id} key={index}></TicketBox>
                         ))
                     }
                 </div>

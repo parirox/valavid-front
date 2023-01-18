@@ -53,7 +53,7 @@ export const ApiEndpoint = {
   },
   ticket: {
     get_or_create: "/tickets/",
-    details_or_send_message: "/tickets/:id",
+    details_or_send_message: "/tickets/:id/",
   }
 };
 
