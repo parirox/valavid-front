@@ -38,6 +38,9 @@ export const ApiEndpoint = {
     medal: "/publishers/:username/medal/",
   },
   user: {
+    profile: {
+      details: '/account/profile/'
+    },
     collection: {
       get: "/collections/",
       add: "/collections/",
