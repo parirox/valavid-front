@@ -200,12 +200,9 @@ const user_api = createApi({
         }),
         GetPublisherAchievements: build.query({
             query: (query) => ({
-                url: ApiAddress(ApiEndpoint.publisher.medal,query),
+                url: ApiAddress(ApiEndpoint.publisher.achievements,query),
                 method: 'GET',
             }),
-            providesTags: (result, error, id) => [
-                {type: userSliceApiTag, id: 'PublisherAchievementsList'}
-            ],
         }),
     })
 });
