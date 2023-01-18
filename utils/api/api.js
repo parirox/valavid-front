@@ -30,6 +30,7 @@ export const ApiEndpoint = {
     plans: "/subscription-plans/",
     plans_join: "/subscription-join/",
     newsletter: "/newsletter/",
+    faq: "/faq/",
   },
   publisher: {
     profile: "/publishers/:username/",
@@ -56,6 +57,10 @@ export const ApiEndpoint = {
     },
     achievements: "/account/achievements/",
     cart: "/basket/"
+  },
+  ticket: {
+    get_or_create: "/tickets/",
+    details_or_send_message: "/tickets/:id/",
   }
 };
 

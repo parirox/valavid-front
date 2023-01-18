@@ -305,4 +305,4 @@ function SellerProfile() {
   );
 }
 
-export default withAuth(SellerProfile);
+export default SellerProfile;
