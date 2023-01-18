@@ -6,36 +6,28 @@ import Downloads from "@/components/profile/Downloads";
 import Favorites from "@/components/profile/Favorites";
 import Achievements from "@/components/profile/Achievements";
 import Tickets from "@/components/profile/Tickets";
-import Uploads from "@/components/profile/Uploads";
 import UserForm from "@/components/profile/Forms/UserForm";
 import Products from "@/components/profile/Products";
 import {isEmpty} from "@/utils/general";
 import {Tab} from "@headlessui/react";
-import moment from "jalali-moment";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {BsFolder2Open} from "react-icons/bs";
-import {FaChevronDown, FaMedal, FaRegStar, FaStar, FaStarOfLife} from "react-icons/fa";
+import {FaChevronDown, FaMedal, FaStar} from "react-icons/fa";
 import {FiDownload, FiUpload} from "react-icons/fi";
-import {
-  IoCalculator,
-  IoHeart,
-  IoLocationOutline,
-  IoPerson, IoStarOutline,
-  IoTicketSharp,
-} from "react-icons/io5";
+import {IoCalculator, IoHeart, IoLocationOutline, IoPerson, IoTicketSharp,} from "react-icons/io5";
 import {MdEdit, MdGroupAdd, MdVerifiedUser} from "react-icons/md";
 import SellerForm from "@/components/profile/Forms/SellerForm";
 import TeamForm from "@/components/profile/Forms/TeamForm";
 import withAuth from "HOC/withAuth";
-import {useGetProfileDetailsQuery, useGetPublisherProfileQuery} from "@/datasources/user/remote/UserSliceApi";
-import Avatar from "react-avatar";
+import {useGetProfileDetailsQuery} from "@/datasources/user/remote/UserSliceApi";
 import {dateFormat} from "@/utils/date/date";
 import ProfileCardLoader from "@/components/skelton/ProfileCardLoader";
 import {CiStar} from "react-icons/ci";
+import Avatar from "@/components/Avatar";
 
 const tabs = [
   {
@@ -103,7 +95,7 @@ const tabs = [
 function SellerProfile() {
   const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const {data, isSuccess, isError, isLoading} = useGetProfileDetailsQuery()
+  const {data, isSuccess, isLoading} = useGetProfileDetailsQuery()
 
   useEffect(() => {
     if (router.isReady) {
@@ -130,7 +122,7 @@ function SellerProfile() {
   return (
     <>
       <Head>
-        <title>والاوید | پروفایل کاربری</title>
+        <title>والاوید | پروفایل من</title>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="w-full h-72 relative">
@@ -153,25 +145,22 @@ function SellerProfile() {
               />
             </span>
               <div className="flex items-center flex-col gap-8 text-lg">
-                <div className="relative">
-                  <div className="flex-initial">
-                    {data.avatar.src ?
-                      <Image src={data.avatar.src} alt={data.avatar.alt} width={140} height={140}
-                             className='rounded-full'/> :
-                      <Avatar round={true} name={data.username} size="140"/>}
-                    <span
-                      className="rounded-full bg-white absolute right-[15%] top-[15%] translate-x-1/2 -translate-y-1/2 w-12 h-12 p-1 flex items-center justify-center text-success-100 text-3xl">
-                      <MdVerifiedUser/>
-                    </span>
-                  </div>
-                </div>
+                <Avatar src={data.avatar.src} alt={data.username}
+                        size={140}
+                        badge={
+                          <span
+                            className="rounded-full bg-white absolute right-[15%] top-[15%] translate-x-1/2 -translate-y-1/2 w-12 h-12 p-1 flex items-center justify-center text-success-100 text-3xl">
+                              <MdVerifiedUser/>
+                            </span>
+                        }
+                />
                 <div className="text-4xl">{data?.first_name ? `${data.first_name} ${data.last_name}` : data.email}</div>
                 <div className="flex items-end gap-2 text-color8">
                   <IoLocationOutline className="text-3xl"/>{" "}
                   <span>{[data.info?.country?.name, data.info?.state, data.info?.city].filter(v => (!isEmpty(v))).join("، ")}</span>
                 </div>
                 <div className="text-color8 px-10 text-center ">
-                  {data.bio}
+                  {data.slogan}
                 </div>
                 <div className="text-gray px-10 text-center">
                   عضویت:{" "}

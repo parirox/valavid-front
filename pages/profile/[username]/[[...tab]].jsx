@@ -1,5 +1,5 @@
 import Collections from "@/components/publisher-profile/Collections";
-import Medals from "@/components/publisher-profile/Medals";
+import Achievements from "@/components/publisher-profile/Achievements";
 import Products from "@/components/publisher-profile/Products";
 import {isEmpty} from "@/utils/general";
 import {Tab} from "@headlessui/react";
@@ -14,26 +14,8 @@ import {MdVerifiedUser} from "react-icons/md";
 import {GetPublisherProfile, useGetPublisherProfileQuery} from "@/datasources/user/remote/UserSliceApi";
 import {wrapper} from "@/datasources/store";
 import product_api from "@/datasources/product/remote/ProductSliceApi";
-import Avatar from "react-avatar";
 import {dateFormat} from "@/utils/date/date";
-
-const data = {
-  user: {
-    name: "سجاد قهرمانی",
-    profile_image: "https://placeimg.com/192/192/people",
-    location: "ایران, کرمانشاه",
-    bio: "عکاسی تازه کار هستم که دنبال کشف دنیای زیبای خودم هستم و در تلاش برای پیشرفت",
-    registered_at: "2022-12-167T15:24:17.604594",
-    is_seller: false,
-    is_team: false,
-    subscribe: {
-      status: false,
-      account_balance: 2500000,
-      expired_at: "2022-12-167T15:24:17.604594",
-    },
-  },
-};
-
+import Avatar from "@/components/Avatar";
 
 const tabs = [
   {
@@ -49,15 +31,15 @@ const tabs = [
     content: <Products/>,
   },
   {
-    id: "Medals",
+    id: "Achievements",
     title: "افتخارات",
     icon: <FaMedal/>,
-    content: <Medals/>,
+    content: <Achievements/>,
   },
 ];
 
 function Profile({query, targetTab}) {
-  const {data, isSuccess, isError, isLoading} = useGetPublisherProfileQuery(query)
+  const {data, isSuccess} = useGetPublisherProfileQuery(query)
 
   if (!isSuccess) return <></>
   return (
@@ -78,25 +60,22 @@ function Profile({query, targetTab}) {
         <aside className="basis-1/4 rounded-2xl relative -top-52 bg-secondary-light p-10">
           <div className="flex flex-col gap-10 relative">
             <div className="flex items-center flex-col gap-8 text-lg">
-              <div className="relative">
-                <div className="flex-initial">
-                  {data.profile_image ?
-                    <Image src={data.profile_image} alt={data.name} width={140} height={140}
-                           className='rounded-full'/> :
-                    <Avatar round={true} name={data.name} size="140"/>}
-                  <span
-                    className="rounded-full bg-white absolute right-[15%] top-[15%] translate-x-1/2 -translate-y-1/2 w-12 h-12 p-1 flex items-center justify-center text-success-100 text-3xl">
-                    <MdVerifiedUser/>
-                  </span>
-                </div>
-              </div>
+              <Avatar src={data.profile_image} alt={data.name}
+                      size={140}
+                      badge={
+                        <span
+                          className="rounded-full bg-white absolute right-[15%] top-[15%] translate-x-1/2 -translate-y-1/2 w-12 h-12 p-1 flex items-center justify-center text-success-100 text-3xl">
+                              <MdVerifiedUser/>
+                            </span>
+                      }
+              />
               <div className="text-4xl">{data.name}</div>
-              {data.location && <div className="flex items-end gap-2 text-color8">
+              {(data.country?.name || data.state || data.city) && <div className="flex items-end gap-2 text-color8">
                 <IoLocationOutline className="text-3xl"/>
-                <span>{data.location}</span>
+                <span> {[data.country?.name, data.state, data.city].filter(v => (!isEmpty(v))).join("، ")}</span>
               </div>}
               <div className="text-color8 px-10 text-center ">
-                {data.bio}
+                {data.slogan}
               </div>
               <div className="text-gray px-10 text-center">
                 عضویت:{" "}
@@ -104,15 +83,29 @@ function Profile({query, targetTab}) {
               </div>
             </div>
             <div className="flex items-center flex-col gap-5 my-10 h-full justify-center">
-              <Image src={"/images/NoMedal.png"} className={"object-contain"} alt={"هنوز افتخاری کسب نشده"} width={100}
-                     height={150} sizes={"33vw"}/>
-              <label className="text-accent text-lg">هنوز افتخاری کسب نشده</label>
+              {data.achievements ?
+                <div className={"flex gap-4 justify-between"}>
+                  {data.achievements.map((achievement,k)=>(
+                      <div key={k} className={"flex flex-col justify-center items-center"}>
+                        <Image src={achievement.image} className={"object-contain"} alt={achievement.title} width={100}
+                               height={150} sizes={"33vw"}/>
+                        <label className="bg-secondary rounded-2xl text-white px-4 py-2 text-lg inline-block">{achievement.title}</label>
+                      </div>
+                  ))}
+                </div>
+                :
+              <>
+                <Image src={"/images/NoMedal.png"} className={"object-contain"} alt={"هنوز افتخاری کسب نشده"} width={100}
+                       height={150} sizes={"33vw"}/>
+                <label className="text-accent text-lg">هنوز افتخاری کسب نشده</label>
+              </>
+              }
             </div>
             <div
               className="flex flex-row gap-6 text-3xl justify-center text-accent border-t-2 border-secondary-600 pt-10">
-              <Link href={'#'}><FaInstagram/></Link>
-              <Link href={'#'}><FaYoutube/></Link>
-              <Link href={'#'}><FaTelegramPlane/></Link>
+              <Link href={data.social?.instagram ?? "#"}><FaInstagram/></Link>
+              <Link href={data.social?.youtube ?? "#"}><FaYoutube/></Link>
+              <Link href={data.social?.telegram ?? "#"}><FaTelegramPlane/></Link>
             </div>
           </div>
         </aside>
