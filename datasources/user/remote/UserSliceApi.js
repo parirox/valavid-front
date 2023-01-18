@@ -16,6 +16,16 @@ const user_api = createApi({
     tagTypes: [userSliceApiTag],
     endpoints: (build) => ({
         //->> collections
+        GetProfileDetails: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.profile.details),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'ProfileDetails'}
+            ],
+        }),
+        //->> collections
         getCollection: build.query({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.user.collection.get),
@@ -150,6 +160,16 @@ const user_api = createApi({
                 {type: userSliceApiTag, id: 'CartList'}
             ]
         }),
+        //->> achievements
+        GetMyAchievements: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.achievements),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'MyAchievementsList'}
+            ],
+        }),
         //->> publishers
         GetPublisherProfile: build.query({
             query: (query) => ({
@@ -178,19 +198,21 @@ const user_api = createApi({
                 {type: userSliceApiTag, id: 'PublisherProductList'}
             ],
         }),
-        GetPublisherMedal: build.query({
+        GetPublisherAchievements: build.query({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.publisher.medal,query),
                 method: 'GET',
             }),
             providesTags: (result, error, id) => [
-                {type: userSliceApiTag, id: 'PublisherMedalList'}
+                {type: userSliceApiTag, id: 'PublisherAchievementsList'}
             ],
         }),
     })
 });
 
 export const {
+    //->> user
+    useGetProfileDetailsQuery,
     //->> collections
     useGetCollectionQuery,
     useAddCollectionMutation,
@@ -202,6 +224,8 @@ export const {
     useGetFavoritesQuery,
     useAddToFavoritesMutation,
     useRemoveFromFavoritesMutation,
+    //->> achievements
+    useGetMyAchievementsQuery,
     //->> carts
     useGetCartQuery,
     useAddToCartMutation,
@@ -210,7 +234,7 @@ export const {
     useGetPublisherProfileQuery,
     useGetPublisherCollectionQuery,
     useGetPublisherProductQuery,
-    useGetPublisherMedalQuery
+    useGetPublisherAchievementsQuery
 } = user_api;
 
 
@@ -218,7 +242,7 @@ export const {
     GetPublisherProfile,
     GetPublisherCollection,
     GetPublisherProduct,
-    GetPublisherMedal,
+    GetPublisherAchievements,
 } = user_api.endpoints
 
 export default user_api;
