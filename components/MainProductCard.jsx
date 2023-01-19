@@ -28,24 +28,18 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
   //->> favorite endpoints
   const {
     data: favoritesData,
-    isSuccess: getFavoriteIsSuccess,
-    error: getFavoriteError,
-    isError: getFavoriteIsError,
-    isLoading: getFavoriteIsLoading
   } = useGetFavoritesQuery()
   const [addToFavorites, {
-    data: addFavoriteData,
     isSuccess: addFavoriteIsSuccess,
+    isLoading: addFavoriteIsLoading,
     error: addFavoriteError,
     isError: addFavoriteIsError,
-    isLoading: addFavoriteIsLoading
   }] = useAddToFavoritesMutation()
   const [removeFromFavorites, {
-    data: removeFavoriteData,
     isSuccess: removeFavoriteIsSuccess,
+    isLoading: removeFavoriteIsLoading,
     error: removeFavoriteError,
     isError: removeFavoriteIsError,
-    isLoading: removeFavoriteIsLoading
   }] = useRemoveFromFavoritesMutation()
 
   const myFavoritesIds = useMemo(() => {
@@ -57,7 +51,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
     if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
     if (addFavoriteIsError) handleApiError(addFavoriteError)
     if (removeFavoriteIsError) handleApiError(removeFavoriteError)
-  }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError])
+  }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError, addFavoriteError, removeFavoriteError])
 
   function onMouseEnterHandler() {
     if (data.type === 'video') {
@@ -89,7 +83,9 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                     <div className="flex gap-3 text-2xl">
                       <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => {
-                               myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
+                               if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
+                                 myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
+                               }
                              }}>
                         {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                           <IoHeartOutline/>}
