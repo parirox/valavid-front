@@ -279,7 +279,7 @@ function FootageDetails({query}) {
             </div>
             <Button
               className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
-              link={"#"}>
+              link={`/products/${data.type}/?tags=${data.tags.slice(0,3).map((v, i) => (v.label)).join(",")}`}>
               بیشتر
             </Button>
           </section>
