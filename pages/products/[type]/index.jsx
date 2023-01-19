@@ -3,7 +3,7 @@ import CoverPage from "@/components/CoverPage";
 import SortTabs from "@/components/SortTabs";
 import PicMountain from '@/public/images/astara_mountain.jpg';
 import Head from "next/head";
-import {useDeferredValue, useEffect, useMemo, useState} from "react";
+import React, {useDeferredValue, useEffect, useMemo, useState} from "react";
 import product_api, {
   GetProductListFilter,
   GetProductListScroll,
@@ -23,6 +23,7 @@ import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import VideoFilter from "@/components/products/VideoFilter";
 import ImageFilter from "@/components/products/ImageFilter";
 import MainProductCard from "@/components/MainProductCard";
+import ErrorPage from "../../ErrorPage";
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
@@ -89,9 +90,9 @@ function Products({query}) {
         query: removedEmptyObject
       }, undefined, {scroll: false})
     }
-  }, [deferredQuery, filterChanged])
+  }, [deferredQuery, filterChanged, query, router])
 
-  if (isError) return <Error404/>
+  if (isError) return <ErrorPage info={error}/>
   return (
     <>
       <Head>

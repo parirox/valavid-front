@@ -9,13 +9,14 @@ import FirstSection from "@/components/home/FirstSection";
 import home_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/pages/remote/PageSliceApi";
 import {wrapper} from "@/datasources/store";
 import Head from "next/head";
-import Error404 from "./404";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
+import ErrorPage from "./ErrorPage";
+import React from "react";
 
 function Home() {
-  const { data, isSuccess, isError } = useGetHomeDataQuery();
+  const { data, isSuccess, isError, error } = useGetHomeDataQuery();
 
-  if (isError) return <Error404 />;
+  if (isError) return <ErrorPage info={error}/>
 
   if (isSuccess)
     return (

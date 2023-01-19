@@ -71,6 +71,11 @@ function FootageDetails({query}) {
 
   if (isError) return <ErrorPage info={error}/>
 
+  function copyToClipboard() {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success("لینک صفحه کپی شد!")
+  }
+
   if (isSuccess) {
     return (
       <>
@@ -113,8 +118,7 @@ function FootageDetails({query}) {
                       <div className="flex items-center gap-3">
                         <Avatar src={data.author?.profile_image} alt={data.author?.name}
                                 size={50}
-                                badge={<span
-                                  className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
+                                badge={<span className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
                         <span className="text-lg">{data.author?.name}</span>
                       </div>
                     </div>
@@ -132,8 +136,7 @@ function FootageDetails({query}) {
                 </div>
                 <div className="basis-3/12">
                   <h1 className="text-3xl mb-6">{data.title}</h1>
-                  <div className="flex gap-3 mb-4 items-center"><MdCamera className={"text-2xl"}/> <span>Canon</span>
-                  </div>
+                  {data.devices && <div className="flex gap-3 mb-4 items-center"><MdCamera className={"text-2xl"}/> <span>{data.devices}</span></div>}
                   <p className="text-secondary-300 leading-9 text-lg">
                     {data.description}
                   </p>
@@ -211,9 +214,9 @@ function FootageDetails({query}) {
                       </Transition>
                     </Popover.Panel>
                   </Popover>
-                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent"><IoShareSocialOutline
+                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"><IoShareSocialOutline
                     className="text-3xl"/></button>
-                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
+                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
                           onClick={() => {
                             if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                               myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
@@ -228,13 +231,13 @@ function FootageDetails({query}) {
                   </button>
                 </div>
                 <div className="basis-3/12">
-                  {data.price.off && <div className="flex items-center gap-3 mb-4">
-                    <span className="bg-danger rounded-2xl w-12 px-2 py-1 text-center">{data.price.percent}</span>
+                  {data.price?.off > 0 && <div className="flex items-center gap-3 mb-4">
+                    <span className="bg-danger rounded-2xl w-12 px-2 py-1 text-center">%{data.price.percent}</span>
                     <span className="text-xs text-gray">تخفیف اشتراک</span>
                   </div>}
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{data.price.main}تومان </span>
-                    {data.price.off && <span className="line-through text-gray text-lg">{data.price.off}</span>}
+                    {data.price.original > 0 && <span className="line-through text-gray text-lg">{data.price.original}</span>}
+                    <span className="text-2xl">{!data.price.free ? `${data.price.pay_price} تومان`: 'رایگان' }</span>
                   </div>
                 </div>
                 <div className="basis-3/12">
@@ -242,7 +245,7 @@ function FootageDetails({query}) {
                     <ButtonIcon className="btn text-white py-4 px-10 rounded-2xl btn-primary-gradient"
                             onClick={() => dispatch(addOrRemoveToCart({
                               id: data.id,
-                              price: data.price
+                              price: data.price.pay_price
                             }))}
                             icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
                               <FaCartPlus
@@ -271,11 +274,10 @@ function FootageDetails({query}) {
           </div>
           <Divider start='مشابه ها'/>
           <section className="mb-40 mt-10">
-            <div className="grid grid-cols-4 grid-rows-2">
+            <div className="grid grid-cols-4 grid-rows-2 gap-4">
               {data.related_products.map((item, key) => (
-                <div key={key} className={(key === 3 ? 'row-span-2' : '')}>
-                  <MainProductCard link={`/products/${item.type}/${item.id}`} small data={item}/>
-                </div>))}
+                  <MainProductCard key={key} className={(key === 3 ? 'row-span-2' : '')} link={`/products/${item.type}/${item.id}`} small data={item}/>
+               ))}
             </div>
             <Button
               className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
