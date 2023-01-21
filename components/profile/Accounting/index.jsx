@@ -126,7 +126,6 @@ const Accounting = () => {
       {modal === "withdrawal" && (
         <Withdrawal isOpen={modal === "withdrawal"} setIsOpen={setModal} />
       )}
-      {console.log("acccc", data)}
       <div className="flex gap-7 justify-between items-center pt-6">
         <div className="flex gap-5">
           <Button
