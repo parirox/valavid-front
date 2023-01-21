@@ -64,7 +64,7 @@ const UploadsData = [
   },
 ];
 
-const Uploads = ({ isFetchProducts, products }) => {
+const Uploads = ({ getAccountProductList, products }) => {
   return (
     <div className="pb-72">
       <SortTabs
@@ -86,6 +86,7 @@ const Uploads = ({ isFetchProducts, products }) => {
               likes={upload.like_count}
               purchases={upload.sell_count}
               views={upload.view_count}
+              getAccountProductList={getAccountProductList}
             ></UploadCard>
           ))}
       </div>

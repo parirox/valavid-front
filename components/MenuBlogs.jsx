@@ -26,7 +26,7 @@ export default function MenuBlogs({menuBlogsData, className, ...rest}) {
                           {
                             subject.children.map((child, index) => (
                               <p className="text-[1.1rem] font-thin text-secondary pr-9 cursor-pointer" key={index}>
-                                {child.title}
+                                {child.name}
                               </p>
                             ))
                           }

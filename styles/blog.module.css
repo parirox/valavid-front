@@ -7,5 +7,9 @@
 .blog img {
   height: 16rem;
   border-radius: 2.75rem;
-  width: 100%;
+  width: 16rem;
+}
+
+.blog strong {
+  color:rgb(8 24 35 / var(--tw-text-opacity))
 }

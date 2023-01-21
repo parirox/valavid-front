@@ -12,6 +12,8 @@ import { wrapper } from "@/datasources/store";
 import moment from "jalali-moment";
 import styles from "../../styles/blog.module.css";
 import Error404 from "../404";
+import React from "react";
+import Link from "next/link";
 
 function SingleBlog() {
   const router = useRouter();
@@ -108,15 +110,16 @@ function SingleBlog() {
                 <React.Fragment key={index}>
                   <Chip
                     className="bg-gray text-white rounded-2xl text-sm"
-                    content={tag}
+                    content={tag.title}
                   ></Chip>
                 </React.Fragment>
               ))}
             </div>
             <p className="pb-8 pt-12 text-secondary-200">مشابه</p>
             <div className="flex flex-wrap gap-8">
-              {[1, 2, 3].map((item, k) => (
-                <div
+              {blog.similar.map((item, k) => (
+                <Link
+                href={`/blogs/${item.id}`}
                   key={k}
                   className="w-[calc(33.32%_-_1.34rem)] bg-white rounded-2xl shadow-md"
                 >
@@ -131,11 +134,11 @@ function SingleBlog() {
                     <div className="flex absolute bottom-4 right-4 gap-1">
                       <Chip
                         className="bg-[#00101C] text-white rounded-2xl text-xs"
-                        content="تصویربرداری"
+                        content={blog.title}
                       ></Chip>
                       <Chip
                         className="bg-[#00101C] text-white rounded-2xl text-xs"
-                        content="گردشگری"
+                        content={blog.description}
                       ></Chip>
                     </div>
                   </div>
@@ -148,13 +151,13 @@ function SingleBlog() {
                       <IoCalendarClearOutline
                         className={"text-base"}
                       ></IoCalendarClearOutline>
-                      1402/3/23
+                      {moment(item.date, "YYYY/MM/DD").locale("fa").format("YYYY/MM/DD")}
                     </div>
                   </div>
                   <h4 className="text-black px-4 pt-4 pb-11">
-                    نقش جهان اصفهان
+                    {item.title}
                   </h4>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

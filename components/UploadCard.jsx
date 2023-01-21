@@ -8,7 +8,7 @@ import { BiCart } from "react-icons/bi";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
-import { MdModeEdit, MdModeEditOutline } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Link from "next/link";
 import moment from "moment";
@@ -16,7 +16,7 @@ import Modal from "./Modal";
 import Router from "next/router";
 import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useRouter } from "next/router";
-import { useDeleteAccountProductMutation, useGetAccountProductListMutation } from "@/datasources/product/remote/ProductSliceApi";
+import { useDeleteAccountProductMutation } from "@/datasources/product/remote/ProductSliceApi";
 import _toast from "@/utils/notification/toast";
 import { handleApiError } from "@/datasources/errorHandler";
 
@@ -55,34 +55,27 @@ export default function UploadCard({
   purchases = 0,
   handleCompleteInfo,
   id,
+  getAccountProductList,
 }) {
   const [selected, setSelected] = useState(actions[0]);
   const [deleteModal, setDeleteModal] = useState(false);
 
   const router = useRouter();
 
-  const [deleteAccountProduct,{data, isSuccess}] = useDeleteAccountProductMutation()
-  const [getAccountProductList , {
-    data: products,
-    isFetching,
-    isSuccess: isFetchProducts,
-    isLoading,
-    isError,
-    error,
-  }] = useGetAccountProductListMutation({
-    ordering: router.query["order"] || "newest",
-  });
+  const [deleteAccountProduct, { data, isSuccess }] =
+    useDeleteAccountProductMutation();
 
   const handleDeleteProduct = () => {
-    setDeleteModal(false)
-    deleteAccountProduct({id}).unwrap().then((res)=>{
-      if(res.id){
-        getAccountProductList()
-        _toast.success('محصول با موفقیت حذف شد.')
-      }
-    }).catch((err)=>{
-      handleApiError(error)
-    })
+    setDeleteModal(false);
+    deleteAccountProduct({ id })
+      .unwrap()
+      .then(() => {
+        getAccountProductList();
+        _toast.success("محصول با موفقیت حذف شد.");
+      })
+      .catch((err) => {
+        handleApiError(error);
+      });
   };
 
   return (
