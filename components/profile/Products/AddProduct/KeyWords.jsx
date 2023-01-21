@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import _toast from "@/utils/notification/toast";
 
 const KeyWords = ({ handleCompleteStep, setProduct, productInfo }) => {
+  const [activeInput, setActiveInput] = useState(null);
+
   const handleAddKeyWord = (level, keyWord) => {
     switch (level) {
       case 1:
@@ -44,6 +46,10 @@ const KeyWords = ({ handleCompleteStep, setProduct, productInfo }) => {
           setValues={handleAddKeyWord}
           level={1}
           label="کلیدواژه های اولویت اول"
+          activeInput={activeInput}
+          setActiveInput={setActiveInput}
+          id={0}
+          ref={React.useRef(null)}
         />
       </div>
       <div className="my-[2rem]">
@@ -52,6 +58,10 @@ const KeyWords = ({ handleCompleteStep, setProduct, productInfo }) => {
           setValues={handleAddKeyWord}
           level={2}
           label="کلیدواژه های اولویت دوم"
+          activeInput={activeInput}
+          setActiveInput={setActiveInput}
+          id={1}
+          ref={React.useRef(null)}
         />
       </div>
       <div className="my-[2rem]">
@@ -60,6 +70,10 @@ const KeyWords = ({ handleCompleteStep, setProduct, productInfo }) => {
           setValues={handleAddKeyWord}
           level={3}
           label="کلیدواژه های اولویت سوم"
+          activeInput={activeInput}
+          setActiveInput={setActiveInput}
+          id={2}
+          ref={React.useRef(null)}
         />
       </div>
       <p className="text-[#EF4345] text-start">

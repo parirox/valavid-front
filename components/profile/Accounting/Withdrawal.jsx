@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "@/components/Modal";
 import RangeInput from "@/components/RangeInput";
 import Button from "@/components/Button";
+import { useWithdrawalMutation } from "@/datasources/Accounting/remote/AccountingSliceApi";
+import _toast from "@/utils/notification/toast";
+import { handleApiError } from "@/datasources/errorHandler";
 
 const Withdrawal = ({ isOpen, setIsOpen }) => {
+  const [amount, setAmount] = useState(0);
+  const [withdrawal, { data, isSuccess, isError, error }] =
+    useWithdrawalMutation();
+
+  const handleWithdrawal = () => {
+    withdrawal({
+      amount,
+      title: "تقاضای وجه",
+    })
+      .unwrap()
+      .then(() => {
+        _toast.success("درخواست با موفقیت ثبت شد");
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
+  };
+
   return (
     <Modal
       isOpen={isOpen ?? false}
@@ -19,11 +40,11 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
           </h5>
           <div className="h-[176px] w-[400px] rounded-[23px] border border-secondary-300 py-4 px-[3rem] flex items-center justify-center">
             <RangeInput
-              min={10}
-              max={100}
+              min={100000}
+              max={1000000}
               step={10}
               state={[]}
-              setState={() => {}}
+              setState={setAmount}
             ></RangeInput>
           </div>
         </div>
@@ -67,7 +88,10 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
           </p>
         </span>
       </div>
-      <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block ">
+      <Button
+        onClick={() => handleWithdrawal()}
+        className="w-[20rem] h-[4rem] btn-primary mt-4 block "
+      >
         ثبت درخواست برداشت
       </Button>
     </Modal>

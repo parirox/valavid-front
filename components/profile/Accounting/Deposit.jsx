@@ -1,40 +1,72 @@
 import Modal from "@/components/Modal";
 import { RadioGroup } from "@headlessui/react";
-import SamanBank from "../../../public/icons/SamanBank.svg";
-import PasargadBank from "../../../public/icons/PasargadBank.svg";
-import ParsianBank from "../../../public/icons/ParsianBank.svg";
+import zarinpal from "../../../public/images/zarinpal.png";
+import mellat from "../../../public/images/mellat.png";
 import Button from "@/components/Button";
-import React from "react";
+import Image from "next/image";
+import React, { useState } from "react";
+import { useDepositeMutation } from "@/datasources/Accounting/remote/AccountingSliceApi";
+import Router from "next/router";
+import { handleApiError } from "@/datasources/errorHandler";
+import _toast from "@/utils/notification/toast";
 
 const Deposit = ({ isOpen, setIsOpen }) => {
   const [paymentGateway, setPaymentGateway] = useState(null);
+  const [amount, setAmount] = useState(null);
+
+  const [deposit, { data, isSuccess, isError, error }] = useDepositeMutation();
+
   const options = [
-    {
-      label: "10000",
-      value: "10000",
-    },
     {
       label: "100000",
       value: "100000",
     },
     {
-      label: "20000",
-      value: "20000",
+      label: "1000000",
+      value: "1000000",
     },
     {
-      label: "20000",
-      value: "20000",
+      label: "200000",
+      value: "200000",
+    },
+    {
+      label: "2000000",
+      value: "2000000",
     },
   ];
+
+  const handleDeposit = () => {
+    deposit({
+      amount: amount,
+      bank: paymentGateway,
+    })
+      .unwrap()
+      .then((data) => {
+        if (data.result) {
+          Router.push(data.payment_url);
+        } else {
+          _toast.error(data.amount);
+        }
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
+  };
+
   return (
-    <Modal isOpen={isOpen ?? false} setIsOpen={setIsOpen} big={true} background="bg-[#F8F8F8]">
+    <Modal
+      isOpen={isOpen ?? false}
+      setIsOpen={setIsOpen}
+      big={true}
+      background="bg-[#F8F8F8]"
+    >
       <h4 className="text-secondary-300 text-start">واریز وجه</h4>
       <h5 className="text-secondary text-start mt-[3rem] mb-[2rem]">
         مبلغ واریز
       </h5>
 
       <div className="flex items-start">
-        <RadioGroup value="startup">
+        <RadioGroup value={amount} onChange={(item) => setAmount(item)}>
           <div className="grid grid-cols-2 grid-row-2 gap-2">
             {options.map((option, index) => (
               <RadioGroup.Option
@@ -57,7 +89,7 @@ const Deposit = ({ isOpen, setIsOpen }) => {
                     </div>
                     <div className="text-secondary flex items-center">
                       <span className="block mx-4">{option.label}</span>
-                      <span>تومان</span>
+                      <span>ریال</span>
                     </div>
                   </div>
                 )}
@@ -67,25 +99,38 @@ const Deposit = ({ isOpen, setIsOpen }) => {
         </RadioGroup>
         <div className="border border-secondary-300 rounded-[23px] h-[80px] w-[400px] mx-4 p-3 flex items-center">
           <div className="text-secondary border-l border-secondary-300 h-[80%] pl-4 flex items-center">
-            مبلغ دلخواه(تومان)
+            مبلغ دلخواه(ریال)
           </div>
           <input
             placeholder="مبلغ خود را ایجا وارد کنید."
             type="number"
-            className="flex-1 text-secondary-300 border-none outline-none ltr"
+            className="flex-1 text-secondary-300 border-none outline-none ltr bg-[#F8F8F8]"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
           />
         </div>
       </div>
       <h5 className="text-secondary text-start mt-[3rem] mb-3">درگاه</h5>
-      <div className="flex items-center">
-        <div on className="m-4 cursor-pointer">
-          <SamanBank />
+      <div className="flex items-center text-secondary">
+        <div
+          onClick={() => setPaymentGateway("ZARINPAL")}
+          className={`m-4 cursor-pointer p-4 ${
+            paymentGateway === "ZARINPAL"
+              ? "border border-primary rounded-[17px]"
+              : ""
+          }`}
+        >
+          <Image width={70} height={90} src={zarinpal} />
         </div>
-        <div className="m-4 cursor-pointer">
-          <PasargadBank />
-        </div>{" "}
-        <div className="m-4 cursor-pointer">
-          <ParsianBank />
+        <div
+          onClick={() => setPaymentGateway("MELLAT")}
+          className={`m-4 cursor-pointer p-4 ${
+            paymentGateway === "MELLAT"
+              ? "border border-primary rounded-[17px]"
+              : ""
+          }`}
+        >
+          <Image width={90} height={90} src={mellat} />
         </div>
       </div>
       <p className="text-secondary-300 text-start my-4">
@@ -97,7 +142,10 @@ const Deposit = ({ isOpen, setIsOpen }) => {
         شارژ نشد مبلغ تراکنش در اسرع وقت به صورت خودکار (توسط سیستم بانکی) به
         حساب شما بزاگزدانده خواهد شد.
       </p>
-      <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block ">
+      <Button
+        onClick={() => handleDeposit()}
+        className="w-[20rem] h-[4rem] btn-primary mt-4 block "
+      >
         واریز وجه
       </Button>
     </Modal>

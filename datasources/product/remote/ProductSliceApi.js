@@ -34,8 +34,8 @@ const product_api = createApi({
       merge: (currentCache, newItems) => {
         currentCache.results.push(...newItems.results);
       },
-      forceRefetch({currentArg, previousArg}) {
-        return JSON.stringify(currentArg) !== JSON.stringify(previousArg)
+      forceRefetch({ currentArg, previousArg }) {
+        return JSON.stringify(currentArg) !== JSON.stringify(previousArg);
       },
       providesTags: (result, error, { query }) => [
         { type: productSliceApiTag, id: "ProductListScroll" },
@@ -47,10 +47,13 @@ const product_api = createApi({
         url: ApiAddress(ApiEndpoint.product.filter, query),
         method: "GET",
       }),
-      providesTags: (result, error, {query}) => {
+      providesTags: (result, error, { query }) => {
         return [
-          {type: productSliceApiTag, id: 'ProductListFilter-'+JSON.stringify(query)}
-        ]
+          {
+            type: productSliceApiTag,
+            id: "ProductListFilter-" + JSON.stringify(query),
+          },
+        ];
       },
     }),
     //->> collections
@@ -74,12 +77,40 @@ const product_api = createApi({
     }),
     addProduct: build.mutation({
       query: (payload) => ({
-        url: ApiAddress(ApiEndpoint.product.add, payload),
+        url: ApiAddress(ApiEndpoint.product.account.add, payload),
         body: payload,
         method: "POST",
       }),
       providesTags: (result, error, id) => [
         { type: productSliceApiTag, id: "Add" },
+      ],
+    }),
+    getAccountProductList: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.account.get, query),
+        method: "GET",
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "getAccountProducts" },
+      ],
+    }),
+    getProductTags: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.account.productTags, query),
+        method: "GET",
+        params: query,
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "tags" },
+      ],
+    }),
+    deleteAccountProduct: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.account.delete, query),
+        method: "GET",
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "Delete" },
       ],
     }),
   }),
@@ -92,6 +123,9 @@ export const {
   useGetCollectionDetailsQuery,
   useProductDetailsQuery,
   useAddProductMutation,
+  useGetAccountProductListMutation,
+  useGetProductTagsMutation,
+  useDeleteAccountProductMutation
 } = product_api;
 
 // export endpoints for use in SSR
@@ -101,6 +135,9 @@ export const {
   GetCollectionDetails,
   ProductDetails,
   addProduct,
+  getAccountProductList,
+  getProductTags,
+  deleteAccountProduct
 } = product_api.endpoints;
 
 export default product_api;

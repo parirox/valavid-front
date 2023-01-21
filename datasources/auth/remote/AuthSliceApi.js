@@ -54,6 +54,16 @@ const auth_api = createApi({
         { type: authSliceApiTag, id: "Login" },
       ],
     }),
+    logoutUser: build.mutation({
+      query: (payload) => ({
+        url: ApiAddress(ApiEndpoint.auth.logout, payload),
+        body: payload,
+        method: "POST",
+      }),
+      providesTags: (result, error, id) => [
+        { type: authSliceApiTag, id: "Logout" },
+      ],
+    }),
   }),
 });
 
@@ -61,11 +71,12 @@ export const {
   useSignupUserMutation,
   useLoginUserMutation,
   useSendVerificationCodeMutation,
-  useResetUserPasswordMutation
+  useResetUserPasswordMutation,
+  useLogoutUserMutation
 } = auth_api;
 
 // export endpoints for use in SSR
-export const { signupUser, loginUser, sendVerificationCode, resetUserPassword } =
+export const { signupUser, loginUser, sendVerificationCode, resetUserPassword, logoutUser } =
   auth_api.endpoints;
 
 export default auth_api;

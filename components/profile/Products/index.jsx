@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddFile from "@/components/AddFile";
 import Modal from "@/components/Modal";
 import Uploads from "../Uploads";
@@ -10,15 +10,20 @@ import Release from "./AddProduct/Release/Release";
 import SuccessIcon from "@/public/icons/SuccessIcon.svg";
 import ComputerIcon from "@/public/icons/ComputerIcon.svg";
 import Button from "@/components/Button";
-import { useAddProductMutation } from "@/datasources/product/remote/ProductSliceApi";
+import {
+  useAddProductMutation,
+  useGetAccountProductListMutation,
+} from "@/datasources/product/remote/ProductSliceApi";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState("steps");
   const [activeStep, setActiveStep] = useState(1);
+  const [filter, setFilter] = useState("newest");
   const [productInfo, setProductInfo] = useState({
     title: "",
     description: "",
@@ -39,7 +44,23 @@ const Products = () => {
     publish_type: null,
   });
 
+  const router = useRouter();
+
   const [addProduct, { data, isSuccess }] = useAddProductMutation();
+  const [getAccountProductList , {
+    data: products,
+    isFetching,
+    isSuccess: isFetchProducts,
+    isLoading,
+    isError,
+    error,
+  }] = useGetAccountProductListMutation({
+    ordering: router.query["order"] || "newest",
+  });
+
+  useEffect(()=>{
+    getAccountProductList()
+  },[router.query])
 
   const setProduct = (name, value) => {
     setProductInfo((prev) => {
@@ -80,9 +101,10 @@ const Products = () => {
       "translations",
       getApiTranslationsFormat(productInfo.translations)
     );
-    productInfo.country && formData.append("country", productInfo.country);
-    productInfo.state && formData.append("state", productInfo.state);
-    productInfo.city && formData.append("city", productInfo.city);
+    productInfo.country &&
+      formData.append("country", productInfo.country.value);
+    productInfo.state && formData.append("state", productInfo.state.value);
+    productInfo.city && formData.append("city", productInfo.city.value);
     productInfo.tags_level_1 &&
       formData.append("tags_level_1", productInfo.tags_level_1);
     productInfo.tags_level_2 &&
@@ -96,13 +118,32 @@ const Products = () => {
       .unwrap()
       .then(() => {
         _toast.success("محصول با موفقیت اضافه شد.");
+        getAccountProductList()
         setContent("success");
+        setProductInfo({
+          title: "",
+          description: "",
+          translations: {
+            fa: {},
+            en: {},
+            ar: {},
+            fr: {},
+            tr: {},
+          },
+          country: "",
+          state: "",
+          city: "",
+          tags_level_1: [],
+          tags_level_2: [],
+          tags_level_3: [],
+          file: null,
+          publish_type: null,
+        });
       })
       .catch((err) => {
         handleApiError(err);
       });
 
-    console.log("lasssttt", formData);
   };
 
   const steps = [
@@ -152,10 +193,21 @@ const Products = () => {
     },
   ];
 
+  useEffect(() => {
+    if (content === "success" && !isOpen) {
+      setContent("steps");
+      setActiveStep(1);
+    }
+  }, [isOpen]);
+
   return (
     <div>
       <AddFile handleSelectFile={handleSelectFile} />
-      <Uploads handleCompleteInfo={() => setIsOpen(true)} />
+      <Uploads
+        isFetchProducts={isFetchProducts}
+        products={products}
+        handleCompleteInfo={() => setIsOpen(true)}
+      />
       <Modal
         big={true}
         isOpen={isOpen ?? false}

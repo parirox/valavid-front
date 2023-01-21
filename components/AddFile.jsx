@@ -12,15 +12,19 @@ const AddFile = ({ handleSelectFile }) => {
     <div className="p-2 rounded-[23px] h-[20rem] border border-dashed overflow-hidden relative">
       <div
         className="rounded-[23px] h-[100%] bg-[#13222D] flex items-center justify-center"
-        {...getRootProps()}
+        {...getRootProps({
+          onClick: event => event.stopPropagation(),
+          role: 'button',
+          'aria-label': 'drag and drop area',
+        })}
       >
-        <div {...getRootProps()}>
+        {/* <div {...getRootProps()}> */}
           <input  accept="video/*,image/*" {...getInputProps()} />
           {isDragActive && (
             <div className="bg-[#6b728078] flex absolute w-full h-full top-0 right-0">
             </div>
           )}
-        </div>
+        {/* </div> */}
         <div className="flex flex-col items-center justify-center">
           <UploadIcon />
           <span className="py-4">

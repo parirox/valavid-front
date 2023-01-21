@@ -55,7 +55,7 @@ const CompleteInfo = ({ handleCompleteStep, productInfo, setProductInfo }) => {
 
   return (
     <div>
-      <ProductCard product={productInfo.file} description={productInfo.translations['fa']?.description || ""} />
+      {productInfo.file && <ProductCard product={productInfo.file} description={productInfo.translations['fa']?.description || ""} />}
       <LangInfo
         translations={productInfo.translations}
         handleChangeTranlations={handleChangeTranlations}

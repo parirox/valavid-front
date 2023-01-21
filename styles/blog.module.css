@@ -1,0 +1,11 @@
+.blog p {
+  line-height: 2.25rem;
+  padding-bottom: 2rem;
+  color: #54626c;
+}
+
+.blog img {
+  height: 16rem;
+  border-radius: 2.75rem;
+  width: 100%;
+}

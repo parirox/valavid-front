@@ -6,6 +6,7 @@ export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
 export const ApiEndpoint = {
   auth: {
     login: "/account/auth/login/",
+    logout: "account/auth/logout/",
     signup: "/account/auth/signup/",
     sendCode: "/account/auth/send-code/",
     resetPassword: "/account/auth/reset-password/",
@@ -15,15 +16,23 @@ export const ApiEndpoint = {
     offerCode: "/offerCode/:code",
   },
   product: {
-    add:"/account/products/",
+    account: {
+      add: "/account/products/",
+      get: "/account/products/",
+      delete: "/account/products/:id/",
+      productTags: "/tags/",
+    },
     details: "/product/:id/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",
     details: "/products/:id/",
   },
-  accounting:{
+  accounting: {
     get: "/account/wallet/",
+    deposit: "/account/wallet/deposit/",
+    withdrawal: "account/wallet/withdraw-request/",
+    cancelWithdrawal: "account/wallet/withdraw-cancel-request/:id/",
   },
   home: {
     main: "/home/",
@@ -42,17 +51,28 @@ export const ApiEndpoint = {
       add: "/account/products/:id/like/",
       remove: "/account/products/:id/unlike/",
     },
-    cart: "/basket/"
-  }
+    cart: "/basket/",
+  },
+  blog: {
+    get: "/blogs/",
+    categories: "/blogs/categories/",
+    singleBlog:"/blogs/:id/"
+  },
 };
 
 export function makeGetQuery(params) {
-  return "?"+(Object.entries(params).filter((v) => !isEmpty(v[1])).map((v) => v[0] + "=" + v[1]).join("&"))
-
+  return (
+    "?" +
+    Object.entries(params)
+      .filter((v) => !isEmpty(v[1]))
+      .map((v) => v[0] + "=" + v[1])
+      .join("&")
+  );
 }
 export function ApiAddress(address, params = {}) {
   if (isEmpty(params)) return address;
-  if (!isEmpty(params.query)) params = {...params, query: makeGetQuery(params.query)}
+  if (!isEmpty(params.query))
+    params = { ...params, query: makeGetQuery(params.query) };
   Object.entries(params).forEach((v) => {
     const pattern = `:${v[0]}`;
     if (address.includes(pattern)) address = address.replace(pattern, v[1]);

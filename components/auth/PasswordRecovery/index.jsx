@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Authentication from "../Authentication";
 import Mobile from "./Mobile";
 import Password from "./Password";
+import { useRouter } from "next/router";
 
 const PasswordRecovery = ({ setSelectedTab }) => {
   const [content, setContent] = useState("mobile");
@@ -19,6 +20,8 @@ const PasswordRecovery = ({ setSelectedTab }) => {
     resetUserPassword,
     { data: verificationData, isSuccess: isSendCodeSuccess },
   ] = useResetUserPasswordMutation();
+
+  const router = useRouter();
 
   const handleBackBtnClick = () => {
     switch (content) {
@@ -38,6 +41,7 @@ const PasswordRecovery = ({ setSelectedTab }) => {
       .unwrap()
       .then((response) => {
         toast.success(response.message);
+        router.push("/profile");
       })
       .catch((err) => {
         handleApiError(err);

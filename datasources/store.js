@@ -1,7 +1,7 @@
-import {configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 // import storage from 'redux-persist/lib/storage'
-import {persistCombineReducers} from "redux-persist";
-import {createWrapper} from "next-redux-wrapper";
+import { persistCombineReducers } from "redux-persist";
+import { createWrapper } from "next-redux-wrapper";
 
 //-->> auth slices
 import authSlice from "@/datasources/auth/local/AuthSlice";
@@ -26,15 +26,20 @@ import accountingSliceApi, {
 //-->> config slices
 import configSlice from "@/datasources/config/local/ConfigSlice";
 //-->> user slices
-import userSlice from '@/datasources/user/local/UserSlice';
-import userSliceApi, {userSliceApiTag} from '@/datasources/user/remote/UserSliceApi';
+import userSlice from "@/datasources/user/local/UserSlice";
+import userSliceApi, {
+  userSliceApiTag,
+} from "@/datasources/user/remote/UserSliceApi";
 //-->> loading slices
-import {loadingBarReducer} from "react-redux-loading-bar";
+import { loadingBarReducer } from "react-redux-loading-bar";
 //-->> middlewares
-import {rtkQueryErrorLogger} from "@/datasources/errorHandler";
-import {LoadingHandler} from "@/datasources/loadingHandler";
-import storage from '@/datasources/storage';
-import homeSliceApi, {homeSliceApiTag} from '@/datasources/home/remote/HomeSliceApi';
+import { rtkQueryErrorLogger } from "@/datasources/errorHandler";
+import { LoadingHandler } from "@/datasources/loadingHandler";
+import storage from "@/datasources/storage";
+import homeSliceApi, {
+  homeSliceApiTag,
+} from "@/datasources/home/remote/HomeSliceApi";
+import blogSliceApi, { blogSliceApiTag } from "./blog/remote/BlogSliceApi";
 
 const persistConfig = {
   key: "VALAVID",
@@ -55,9 +60,11 @@ let reducer = {
   //->> products
   product: productSlice,
   [productSliceApiTag]: productSliceApi.reducer,
-   //->> accounting
-   product: accountingSlice,
-   [accountingSliceApiTag]: accountingSliceApi.reducer,
+  //->> accounting
+  accounting: accountingSlice,
+  [accountingSliceApiTag]: accountingSliceApi.reducer,
+  //->> blog
+  [blogSliceApiTag]: blogSliceApi.reducer,
   //->> config
   config: configSlice,
   //->> user
@@ -82,9 +89,10 @@ export const store = (context) =>
         productSliceApi.middleware,
         accountingSliceApi.middleware,
         userSliceApi.middleware,
+        blogSliceApi.middleware,
         rtkQueryErrorLogger,
         LoadingHandler,
       ]),
   });
 
-export const wrapper = createWrapper(store, {debug: false});
+export const wrapper = createWrapper(store, { debug: false });
