@@ -5,16 +5,35 @@ import {HYDRATE} from 'next-redux-wrapper';
 export const userSliceApiTag = 'user_api';
 
 const user_api = createApi({
-    // extractRehydrationInfo(action, { reducerPath }) {
-    //     if (action.type === HYDRATE) {
-    //         console.log('HYDRATE', action, reducerPath);
-    //         return action.payload[reducerPath];
-    //     }
-    // },
+    extractRehydrationInfo(action, { reducerPath }) {
+        if (action.type === HYDRATE) {
+            return action.payload[reducerPath];
+        }
+    },
     reducerPath: userSliceApiTag,
     baseQuery,
     tagTypes: [userSliceApiTag],
     endpoints: (build) => ({
+        //->> profile information
+        GetProfileDetails: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.profile.details),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'ProfileDetails'}
+            ],
+        }),
+        //->> downloads
+        GetDownloads: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.downloads),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'DownloadsList'}
+            ],
+        }),
         //->> collections
         getCollection: build.query({
             query: () => ({
@@ -80,8 +99,6 @@ const user_api = createApi({
             ],
             invalidatesTags: [{type: userSliceApiTag, id: 'CollectionList'}]
         }),
-        //->> favorites
-
         //->> favorites
         getFavorites: build.query({
             query: () => ({
@@ -152,10 +169,79 @@ const user_api = createApi({
                 {type: userSliceApiTag, id: 'CartList'}
             ]
         }),
+        //->> achievements
+        GetMyAchievements: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.achievements),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'MyAchievementsList'}
+            ],
+        }),
+        //->> publishers
+        GetPublisherProfile: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.profile,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherProfile'}
+            ],
+        }),
+        GetPublisherCollection: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.collection,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherCollectionList'}
+            ],
+        }),
+        GetPublisherProduct: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.product,query),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'PublisherProductList'}
+            ],
+        }),
+        GetPublisherAchievements: build.query({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.publisher.achievements,query),
+                method: 'GET',
+            }),
+        }),
+        //->> user forms endpoints
+        UpdateUserInformation:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.profile.forms.main,query),
+                method: 'PUT',
+                body:query,
+            }),
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'ProfileDetails'}
+            ]
+        }),
+        ChangePassword:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.profile.forms.change_password,query),
+                method: 'POST',
+                body:query
+            }),
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'ProfileDetails'}
+            ]
+        })
     })
 });
 
 export const {
+    //->> user
+    useGetProfileDetailsQuery,
+    //->> downloads
+    useGetDownloadsQuery,
     //->> collections
     useGetCollectionQuery,
     useAddCollectionMutation,
@@ -167,10 +253,28 @@ export const {
     useGetFavoritesQuery,
     useAddToFavoritesMutation,
     useRemoveFromFavoritesMutation,
+    //->> achievements
+    useGetMyAchievementsQuery,
     //->> carts
     useGetCartQuery,
     useAddToCartMutation,
-    useRemoveFromCartMutation
+    useRemoveFromCartMutation,
+    //->> publishers
+    useGetPublisherProfileQuery,
+    useGetPublisherCollectionQuery,
+    useGetPublisherProductQuery,
+    useGetPublisherAchievementsQuery,
+    //->> user forms
+    useUpdateUserInformationMutation,
+    useChangePasswordMutation,
 } = user_api;
+
+
+export const {
+    GetPublisherProfile,
+    GetPublisherCollection,
+    GetPublisherProduct,
+    GetPublisherAchievements,
+} = user_api.endpoints
 
 export default user_api;

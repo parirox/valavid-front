@@ -40,6 +40,8 @@ import homeSliceApi, {
   homeSliceApiTag,
 } from "@/datasources/home/remote/HomeSliceApi";
 import blogSliceApi, { blogSliceApiTag } from "./blog/remote/BlogSliceApi";
+import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
+import ticketSliceApi, { ticketSliceApiTag } from "./ticket/remote/TicketSliceApi";
 
 const persistConfig = {
   key: "VALAVID",
@@ -49,8 +51,8 @@ const persistConfig = {
 };
 
 let reducer = {
-  //->> home
-  [homeSliceApiTag]: homeSliceApi.reducer,
+  //->> pages
+  [pageSliceApiTag]: pageSliceApi.reducer,
   //->> auth
   auth: authSlice,
   [authSliceApiTag]: authSliceApi.reducer,
@@ -70,6 +72,9 @@ let reducer = {
   //->> user
   user: userSlice,
   [userSliceApiTag]: userSliceApi.reducer,
+  //->> ticket
+  // ticket: ticketSlice,
+  [ticketSliceApiTag]: ticketSliceApi.reducer,
   //->> loadingBar
   loadingBar: loadingBarReducer,
 };
@@ -83,11 +88,12 @@ export const store = (context) =>
       getDefaultMiddleware({
         serializableCheck: false,
       }).concat([
-        homeSliceApi.middleware,
+        pageSliceApi.middleware,
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,
         accountingSliceApi.middleware,
+        ticketSliceApi.middleware,
         userSliceApi.middleware,
         blogSliceApi.middleware,
         rtkQueryErrorLogger,

@@ -3,7 +3,7 @@ import CoverPage from "@/components/CoverPage";
 import SortTabs from "@/components/SortTabs";
 import PicMountain from '@/public/images/astara_mountain.jpg';
 import Head from "next/head";
-import {useDeferredValue, useEffect, useState} from "react";
+import React, {useDeferredValue, useEffect, useMemo, useState} from "react";
 import product_api, {
   GetProductListFilter,
   GetProductListScroll,
@@ -22,7 +22,8 @@ import dynamic from 'next/dynamic'
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import VideoFilter from "@/components/products/VideoFilter";
 import ImageFilter from "@/components/products/ImageFilter";
-import ProductCart from "@/components/ProductCart";
+import MainProductCard from "@/components/MainProductCard";
+import ErrorPage from "../../ErrorPage";
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
@@ -45,6 +46,9 @@ function Products({query}) {
     error: filterError,
   } = useGetProductListFilterQuery({query: {type: query.type}});
 
+  const firstPage = useMemo(()=>{
+    return query.page
+  },[])
   const [filterChanged, setFilterChanged] = useState(false)
   const [filterState, setFilterState] = useState(true);
   const [formData, setFormData] = useState({
@@ -86,14 +90,9 @@ function Products({query}) {
         query: removedEmptyObject
       }, undefined, {scroll: false})
     }
-  }, [deferredQuery, filterChanged])
+  }, [deferredQuery, filterChanged, query, router])
 
-  useEffect(() => {
-    console.log(filterOptions)
-  }, [filterOptions])
-
-  if (isError) return <Error404/>
-
+  if (isError) return <ErrorPage info={error}/>
   return (
     <>
       <Head>
@@ -126,7 +125,7 @@ function Products({query}) {
                     className={`border-b border-solid border-secondary-100 px-4 ${filterState ? '' : 'pr-52'}`}></SortTabs>
           {isSuccess &&
             <>
-              {query?.page ? <InfiniteList
+              {firstPage === 1 ? <InfiniteList
                   className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}
                   query={query}
                   rtkSlice={product_api}
@@ -136,19 +135,19 @@ function Products({query}) {
                   loadingContent={<VideoCardLoader count={3}/>}
                   items={data}>
                   {(item, k) => {
-                    return <ProductCart link={`/products/${query.type}/${item.id}`} key={k} data={item}/>
+                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
                   }}
                 </InfiniteList>
                 :
                 <div className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}>
                   {data.results.map((item, key) => {
-                    return <ProductCart link={`/products/${query.type}/${item.id}`} key={key} data={item}/>
+                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={key} data={item}/>
                   })}
                 </div>
               }
               <div className="py-20 flex justify-center aligns-center gap-3 cursor-pointer">
                 {isSuccess && (data.count > 0) &&
-                  <Pagination totalCount={data.count} currentPage={router.query?.page} itemsPerPage={30}/>}
+                  <Pagination totalCount={data.count} currentPage={query?.page} itemsPerPage={30}/>}
               </div>
             </>
           }

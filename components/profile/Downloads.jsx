@@ -1,4 +1,7 @@
 import DownloadCard from "@/components/DownloadCard";
+import {useGetDownloadsQuery, useGetMyAchievementsQuery} from "@/datasources/user/remote/UserSliceApi";
+import NoContent from "@/components/NoContent";
+import MedalBox from "@/components/MedalBox";
 
 const DownloadsData = [
     {
@@ -24,7 +27,7 @@ const DownloadsData = [
         filters: [],
         haveLicense: true,
         price: 250000,
-        media: "https://placeimg.com/192/191/people",
+        media: "https://placeimg.com/640/480/nature/10",
         type: "image",
         mediaLink: ''
     },
@@ -40,16 +43,20 @@ const DownloadsData = [
 ]
 
 const Downloads = () => {
+    // const {data, isSuccess} = useGetDownloadsQuery()
+    // if (!isSuccess) return <></>
     return (
         <div className="flex gap-12 flex-wrap w-full pb-72 px-6">
-            {
-                DownloadsData.map((download, index) => (
-                    <DownloadCard className="w-[calc(33.33%_-_2rem)]"
-                        title={download.title} filterTags={download.filters} haveLicense={download.haveLicense} price={download.price} 
-                        key={index} type={download.type} media={download.media} mediaLink={download.mediaLink}>
-                    </DownloadCard>
-                ))
-            }
+            <NoContent/>
+            {/*{data?.count === 0 && <NoContent/>}*/}
+            {/*{*/}
+            {/*    data.results.map((download, index) => (*/}
+            {/*        <DownloadCard className="w-[calc(33.33%_-_2rem)]"*/}
+            {/*            title={download.title} filterTags={download.filters} haveLicense={download.haveLicense} price={download.price} */}
+            {/*            key={index} type={download.type} media={download.media} mediaLink={download.mediaLink}>*/}
+            {/*        </DownloadCard>*/}
+            {/*    ))*/}
+            {/*}*/}
         </div>
     );
 }

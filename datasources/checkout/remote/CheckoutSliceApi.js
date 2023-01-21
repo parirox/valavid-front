@@ -17,8 +17,9 @@ const checkout_api = createApi({
     endpoints: (build) => ({
         getCartDetailsByIds: build.mutation({
             query: (query) => ({
-                url: ApiAddress(ApiEndpoint.cart.detailsByIds, query),
-                method: 'GET',
+                url: ApiAddress(ApiEndpoint.user.cart, query),
+                method: 'POST',
+                body:query
             }),
             providesTags: (result, error, id) => [
                 { type: checkoutSliceApiTag, id: 'Cart' }

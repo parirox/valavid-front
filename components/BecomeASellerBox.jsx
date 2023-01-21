@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { MdDone } from 'react-icons/md'
 import Button from "./Button";
+import {isEmpty} from "@/utils/general";
+import {getCookie} from "cookies-next";
 
 export default function BecomeASellerBox({ className }) {
   return (
@@ -25,7 +27,9 @@ export default function BecomeASellerBox({ className }) {
           تبدیل شدن به یک تولید کننده حرفه ای
         </div>
       </div>
-      <Button link={"/auth"} className="rounded-2xl w-full text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-lg h-14">فروشنده شدن</Button>
+
+
+      <Button link={isEmpty(getCookie("valavid_token")) ? "/becomeASeller" : "/profile/me/SellerForm"} className="rounded-2xl w-full text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-lg h-14">فروشنده شدن</Button>
     </div>
   )
 }

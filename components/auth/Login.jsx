@@ -41,7 +41,7 @@ const Login = ({ setSelectedTab }) => {
       .unwrap()
       .then((response) => {
         setCookie("valavid_token", response.token);
-        router.push("/profile");
+        router.push("/profile/me");
       })
       .catch((err) => {
         handleApiError(err);

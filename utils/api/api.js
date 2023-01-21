@@ -1,4 +1,4 @@
-import { isEmpty } from "../general";
+import { getCookieClient, isEmpty } from "../general";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { getCookie } from "cookies-next";
 
@@ -12,7 +12,7 @@ export const ApiEndpoint = {
     resetPassword: "/account/auth/reset-password/",
   },
   cart: {
-    detailsByIds: "/cart/:ids",
+    detailsByIds: "/basket/",
     offerCode: "/offerCode/:code",
   },
   product: {
@@ -26,7 +26,6 @@ export const ApiEndpoint = {
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",
-    details: "/products/:id/",
   },
   accounting: {
     get: "/account/wallet/",
@@ -34,10 +33,28 @@ export const ApiEndpoint = {
     withdrawal: "account/wallet/withdraw-request/",
     cancelWithdrawal: "account/wallet/withdraw-cancel-request/:id/",
   },
-  home: {
-    main: "/home/",
+  pages: {
+    home: "/home/",
+    publishers: "/publishers/:query",
+    plans: "/subscription-plans/",
+    plans_join: "/subscription-join/",
+    newsletter: "/newsletter/",
+    faq: "/faq/",
+  },
+  publisher: {
+    profile: "/publishers/:username/",
+    collection: "/publishers/:username/collections/",
+    product: "/publishers/:username/products/",
+    achievements: "/publishers/:username/achievements/",
   },
   user: {
+    profile: {
+      forms: {
+        main: "/account/profile/",
+        change_password: "/account/auth/change-password/",
+      },
+      details: "/account/profile/",
+    },
     collection: {
       get: "/collections/",
       add: "/collections/",
@@ -51,12 +68,18 @@ export const ApiEndpoint = {
       add: "/account/products/:id/like/",
       remove: "/account/products/:id/unlike/",
     },
+    achievements: "/account/achievements/",
+    downloads: "/account/products/downloads/",
     cart: "/basket/",
+  },
+  ticket: {
+    get_or_create: "/tickets/",
+    details_or_send_message: "/tickets/:id/",
   },
   blog: {
     get: "/blogs/",
     categories: "/blogs/categories/",
-    singleBlog:"/blogs/:id/"
+    singleBlog: "/blogs/:id/",
   },
 };
 
@@ -69,6 +92,7 @@ export function makeGetQuery(params) {
       .join("&")
   );
 }
+
 export function ApiAddress(address, params = {}) {
   if (isEmpty(params)) return address;
   if (!isEmpty(params.query))

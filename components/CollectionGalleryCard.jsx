@@ -2,19 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {isEmpty} from "@/utils/general";
 
 const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHandler, total_count, id }) => {
-    const [_items,setItems] = useState(items)
-    useEffect(()=>{
-        if(isEmpty(items)) setItems([0,1,2,3])
-    },[items])
-    if (isEmpty(_items)) return <></>
   return (
     <div className="grid grid-cols-3 grid-row-3 h-[250px] rounded-[32px] overflow-hidden gap-3 group/collection cursor-pointer relative">
       <Link href={`/collections/${id}`} className='full absolute inset-0 z-40'></Link>
-      {_items.map((image, index) => (
+      {[1,2,3,4].map((item, index) => (
         <div
           key={index}
           className={
@@ -40,19 +35,24 @@ const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHa
           {index === 3 && (
             <span className="absolute inset-0 flex items-center justify-center text-4xl z-20 ">
               <span className="text-slate-50" dir="ltr">
-                +{total_count}
+                +{total_count.length > 4 ? total_count-4 : 0}
               </span>
             </span>
           )}
           <div className="absolute inset-0 z-10 bg-gradient-to-bl from-[#00101c98] to-[#0e1f2c14] group-hover/collection:from-[#534cda81] group-hover/collection:to-transparent"></div>
-            {image.src ?
-              <Image
-                src={image.src}
-                className="object-cover"
-                fill
-                sizes="33vw"
-                alt={image.alt}
-              />
+            {(typeof items[index] !== "undefined") ?
+              (items[index].type === 'video' ?
+                   <video autoPlay={false} controls={false} preload={"meta"} className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+                    <source src={items[index].src} type="video/mp4"/>
+                  </video>
+                  :
+                  <Image
+                    src={items[index].src}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"
+                    alt={items[index].alt}
+                  />)
                 :
                 <div className={"bg-secondary full"}></div>
             }

@@ -1,14 +1,19 @@
 import Image from 'next/image';
+import React from "react";
+import ReactAvatar from "react-avatar";
 
-const Avatar = ({src,alt,badge}) => (
+const Avatar = ({src, alt, badge, size}) => {
+  return (
     <div className="flex-initial">
-        <span className="relative">
-            <Image src={src} alt={alt} width={50} height={50} className="rounded-full" />
-            {badge && <span className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl">
-                {badge}
-            </span>}
-        </span>
+      <div className="relative full">
+        {src ?
+          <Image src={src} alt={alt} width={size} height={size}
+                 className={`rounded-full object-contain overflow-hidden`} style={{height:`${size}px`} }/> :
+          <ReactAvatar round={true} name={alt} size={size}/>}
+        {badge}
+      </div>
     </div>
-)
+  )
+}
 
 export default Avatar;

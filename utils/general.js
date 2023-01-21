@@ -1,13 +1,11 @@
 export function isEmpty(value) {
-    if (typeof value == 'undefined' || value == 'undefined' || value == null || value == '') {
-        return true;
-    }
-    for (let key in value) {
-        if (hasOwnProperty.call(value, key)) {
-            return false;
-        }
-    }
-    return false;
+    return (
+      value === null || // check for null
+      value === undefined || // check for undefined
+      value === '' || // check for empty string
+      (Array.isArray(value) && value.length === 0) || // check for empty array
+      (typeof value === 'object' && Object.keys(value).length === 0) // check for empty object
+    );
 }
 
 export function isNumber(value, length = value.length) {

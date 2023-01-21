@@ -8,7 +8,7 @@ export default function AdvantageBox({icon, advantage, description}) {
         <p className="text-lg">
           {advantage}
         </p>
-        <p className="text-base text-secondary-400 pt-2">
+        <p className="text-base text-secondary-200 pt-2">
           {description}
         </p>
       </div>

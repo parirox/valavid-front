@@ -1,16 +1,14 @@
 import CollectionGalleryCard from "@/components/CollectionGalleryCard";
 import {useState} from "react";
 import {IoAdd, IoFolderSharp} from "react-icons/io5";
-import {useDispatch} from "react-redux";
-import Button from "../../Button";
 import ManageCollectionDialog from "@/components/profile/Collection/ManageCollectionDialog";
 import {useGetCollectionQuery} from "@/datasources/user/remote/UserSliceApi";
+import Button from "@/components/Button";
 
 
 const Collections = () => {
   const {data, isSuccess, isError, isLoading} = useGetCollectionQuery()
 
-  const dispatch = useDispatch()
   const [showDialog, setShowDialog] = useState(false)
   const [editData, setEditData] = useState({})
   const editHandler = (data) => () => {

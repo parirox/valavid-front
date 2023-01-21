@@ -32,6 +32,7 @@ export const handleApiError = (response) => {
   } else if (statusCode === 403) {
     toast.error("سطح دسترسی غير مجاز می باشد.");
   } else if (statusCode === 401) {
+    toast.error("لطفا ابتدا در سایت ثبت نام و یا وارد حساب کاریری خود شوید.");
   } else if (statusCode === 404) {
     toast.error("محتوايی برای درخواست شما يافت نشد.");
   } else if (statusCode === 400) {

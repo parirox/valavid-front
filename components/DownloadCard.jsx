@@ -3,11 +3,11 @@ import Link from "next/link";
 import { FaPlay } from "react-icons/fa";
 import Button from "./Button";
 
-export default function DownloadCard({ className, type, media, mediaLink, title, filterTags, haveLicense, price }) {
+export default function DownloadCard({ className, type, media, mediaLink, title, filterTags, price }) {
   return (
     <div className={`bg-secondary-600 min-h-[520px] rounded-[2.25rem] relative p-8 ${className}`}>
       {
-        type == 'video' ?
+        type === 'video' ?
           <div className="relative w-full h-64 rounded-lg overflow-hidden">
             <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 z-40">
               <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
@@ -24,8 +24,8 @@ export default function DownloadCard({ className, type, media, mediaLink, title,
       }
 
       {
-        type == 'image' ?
-          <Image src={media} alt="" className="w-full h-64 rounded-lg" width={200} height={100} />
+        type === 'image' ?
+          <Image src={media} alt={title} className="w-full h-64 rounded-lg object-cover" width={200} height={100} />
           : ''
       }
 
@@ -35,13 +35,9 @@ export default function DownloadCard({ className, type, media, mediaLink, title,
       <div className="text-secondary-100 flex flex-wrap px-2 pt-4">
         {
           filterTags.map((tag, index) => (
-            <p className={`text-secondary-300 ml-1 pt-1`}>{`${tag} |`}</p>
+            <p key={index} className={`text-secondary-300 ml-1 pt-1`}>{`${tag} |`}</p>
           ))
         }
-      </div>
-      <div className="flex text-white pt-6 px-2">
-        <p className="text-lg pl-3">لایسنس:</p>
-        <p className="text-xl">{haveLicense ? 'دارد' : 'ندارد'}</p>
       </div>
       <div className="flex text-white pt-6 px-2">
         <p className="text-lg pl-3">قیمت <span className="text-xs opacity-80">(تومان)</span>:</p>
