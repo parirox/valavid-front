@@ -9,6 +9,8 @@ export const form_fields = {
   avatar: 'تصویر پروفایل',
   background_image: 'تصویر بک گراند',
   national_code: 'کد ملی',
+  subject: 'موضوع',
+  message: 'پیام',
 }
 
 export const form_messages = {

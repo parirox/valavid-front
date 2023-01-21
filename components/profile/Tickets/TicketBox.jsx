@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { RiSendPlaneFill } from "react-icons/ri";
+import {isEmpty} from "@/utils/general";
 
 
 export default function TicketBox({ data, id }) {
@@ -30,8 +31,7 @@ export default function TicketBox({ data, id }) {
   const [open, setOpen] = useState(false)
   const openTicket = async () => {
     if (open === false) {
-      await fetchDetails({ id: id }) 
-      console.log(detailsIsSuccess);
+      await fetchDetails({ id: id })
       setOpen(true)
     } else {
       setOpen(false)
@@ -46,21 +46,21 @@ export default function TicketBox({ data, id }) {
     })
   }
   const check_sendMessage = () => {
-    if (msg.message !== '' || msg.message !== null || msg.message !== undefined) {
-      console.log(msg);
-      sendMessage(msg)
+    if (isEmpty(msg.message)) {
+      toast.error("متن پیام نمی تواند خالی باشد!")
+      return;
     }
+    sendMessage(msg)
   }
   const sendMessage = (message) => {
     fetchSendMessage({ id, body: message }).unwrap().then((data) => {
       toast.success("پیام شما با موفقیت ثبت شد!")
+      fetchDetails({ id: id })
     }).catch((err) => {
       toast.error(err)
     })
   }
-  useEffect(() => {
 
-  }, [])
   return (
     <div className={`relative group border border-solid bg-secondary-500 group-hover:bg-secondary
     group-hover:border-primary border-accent rounded-[2rem] px-3 ${open ? 'pb-7' : ''}`}>
@@ -96,7 +96,7 @@ export default function TicketBox({ data, id }) {
                     <div className={`flex justify-between items-center`}>
                       <div className="flex gap-5 items-center">
                         {
-                          data.user.profile_image == '' || data.user.profile_image == null ?
+                          data.user.profile_image === '' || data.user.profile_image == null ?
                             <div className="w-14 h-14 rounded-full bg-primary"></div>
                             :
                             <Image src={'https://placeimg.com/192/192/people'} className={'w-14 h-14 rounded-full'} alt={''} width={100} height={100}></Image>
