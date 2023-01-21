@@ -16,9 +16,9 @@ export default function MenuBlogs({menuBlogsData, className, ...rest}) {
                     <Disclosure.Button className="flex flex-row py-1 items-center justify-start w-full gap-3 cursor-pointer">
                       {subject.children.length !== 0 ? <IoIosArrowDown className={`rotate-90 transition-all duration-100 text-2xl font-thin text-accent ${open ? 'rotate-[0deg] text-[#90999F]' : 'rotate-90'}`} /> : ''}
                       <p className={`text-[1.1rem] font-thin text-secondary ${subject.children.length === 0 ? 'pr-9' : ''}`}>
-                        {subject.title}
+                        {subject.name}
                       </p>
-                      <Chip href={"#"+subject.id} content={subject.count} className="mr-auto bg-[#F2F4F4] px-[0.75rem] py-[0.5rem]"></Chip>
+                      <Chip href={"#"+subject.id} content={subject.blog_count} className="mr-auto bg-[#F2F4F4] px-[0.75rem] py-[0.5rem]"></Chip>
                     </Disclosure.Button>
                     {
                       subject.children.length !== 0 ?

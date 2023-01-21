@@ -76,7 +76,6 @@ const Header = ({ data, styleMode }) => {
   ];
 
   const renderProfileBtn = () => {
-<<<<<<< HEAD
     if (isLogedin) {
       return (
         <Menu className="relative" as="div">
@@ -106,7 +105,7 @@ const Header = ({ data, styleMode }) => {
                     </div>
                     <div className="mx-4">
                       <Menu.Item>
-                        <Link className="text-start my-4 block" href="/profile">
+                        <Link className="text-start my-4 block" href="/profile/me">
                           داشبورد من
                         </Link>
                       </Menu.Item>
@@ -137,30 +136,6 @@ const Header = ({ data, styleMode }) => {
       );
     }
   };
-=======
-   if(isLogedin){
-    return(
-      <Link href="/profile/me">
-        <Button className="rounded-full bg-white h-full w-[4rem] h-[4rem] relative">
-          <ProfileIcon/>
-        </Button>
-      </Link>
-    )
-   }else{
-    return(
-      <div className="basis-2/12">
-      <Button
-        className={"rounded-full full btn-primary min-w-[130px]"}
-        link={"/auth"}
-        icon={<IoPerson className="text-lg" />}
-      >
-        عضویت / ورود
-      </Button>
-    </div>
-    )
-   }
-  }
->>>>>>> c3a9f91912f86d6a0cf0eca6c47490eb3088aa65
 
   if (styleMode === "blog") {
     return (
@@ -212,14 +187,6 @@ const Header = ({ data, styleMode }) => {
               </div>
               {renderProfileBtn()}
               <div className="basis-1/12">
-<<<<<<< HEAD
-                <button className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative">
-                  <BsCart2 className="text-white text-2xl m-auto" />
-                  <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
-                    {_cartItems.length}
-                  </span>
-                </button>
-=======
                 <ButtonIcon
                   link={"/cart"}
                   className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
@@ -227,7 +194,6 @@ const Header = ({ data, styleMode }) => {
                 >
                   <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">{_cartItems.length}</span>
                 </ButtonIcon>
->>>>>>> c3a9f91912f86d6a0cf0eca6c47490eb3088aa65
               </div>
             </div>
           </div>

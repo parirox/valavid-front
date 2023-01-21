@@ -36,9 +36,9 @@ import { loadingBarReducer } from "react-redux-loading-bar";
 import { rtkQueryErrorLogger } from "@/datasources/errorHandler";
 import { LoadingHandler } from "@/datasources/loadingHandler";
 import storage from "@/datasources/storage";
-import homeSliceApi, {
-  homeSliceApiTag,
-} from "@/datasources/home/remote/HomeSliceApi";
+// import homeSliceApi, {
+//   homeSliceApiTag,
+// } from "@/datasources/home/remote/HomeSliceApi";
 import blogSliceApi, { blogSliceApiTag } from "./blog/remote/BlogSliceApi";
 import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
 import ticketSliceApi, { ticketSliceApiTag } from "./ticket/remote/TicketSliceApi";

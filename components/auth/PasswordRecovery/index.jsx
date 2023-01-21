@@ -41,7 +41,7 @@ const PasswordRecovery = ({ setSelectedTab }) => {
       .unwrap()
       .then((response) => {
         toast.success(response.message);
-        router.push("/profile");
+        router.push("/profile/me");
       })
       .catch((err) => {
         handleApiError(err);
