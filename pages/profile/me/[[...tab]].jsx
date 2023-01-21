@@ -18,7 +18,7 @@ import {useEffect, useState} from "react";
 import {BsFolder2Open} from "react-icons/bs";
 import {FaChevronDown, FaMedal, FaStar} from "react-icons/fa";
 import {FiDownload, FiUpload} from "react-icons/fi";
-import {IoCalculator, IoHeart, IoLocationOutline, IoPerson, IoTicketSharp,} from "react-icons/io5";
+import {IoCalculator, IoClose, IoHeart, IoLocationOutline, IoPerson, IoTicketSharp,} from "react-icons/io5";
 import {MdEdit, MdGroupAdd, MdVerifiedUser} from "react-icons/md";
 import SellerForm from "@/components/profile/Forms/SellerForm";
 import TeamForm from "@/components/profile/Forms/TeamForm";
@@ -157,7 +157,7 @@ function SellerProfile() {
                 <div className="text-4xl">{data?.first_name ? `${data.first_name} ${data.last_name}` : data.email}</div>
                 <div className="flex items-end gap-2 text-color8">
                   <IoLocationOutline className="text-3xl"/>{" "}
-                  <span>{[data.info?.country?.name, data.info?.state, data.info?.city].filter(v => (!isEmpty(v))).join("، ")}</span>
+                  <span>{[data.info?.location?.country, data.info?.location?.state, data.info?.location?.city].filter(v => (!isEmpty(v))).join("، ")}</span>
                 </div>
                 <div className="text-color8 px-10 text-center ">
                   {data.slogan}

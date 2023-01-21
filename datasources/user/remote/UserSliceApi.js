@@ -14,7 +14,7 @@ const user_api = createApi({
     baseQuery,
     tagTypes: [userSliceApiTag],
     endpoints: (build) => ({
-        //->> collections
+        //->> profile information
         GetProfileDetails: build.query({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.user.profile.details),
@@ -22,6 +22,16 @@ const user_api = createApi({
             }),
             providesTags: (result, error, id) => [
                 {type: userSliceApiTag, id: 'ProfileDetails'}
+            ],
+        }),
+        //->> downloads
+        GetDownloads: build.query({
+            query: () => ({
+                url: ApiAddress(ApiEndpoint.user.downloads),
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [
+                {type: userSliceApiTag, id: 'DownloadsList'}
             ],
         }),
         //->> collections
@@ -203,12 +213,35 @@ const user_api = createApi({
                 method: 'GET',
             }),
         }),
+        //->> user forms endpoints
+        UpdateUserInformation:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.profile.forms.main,query),
+                method: 'PUT',
+                body:query,
+            }),
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'ProfileDetails'}
+            ]
+        }),
+        ChangePassword:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.profile.forms.change_password,query),
+                method: 'POST',
+                body:query
+            }),
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'ProfileDetails'}
+            ]
+        })
     })
 });
 
 export const {
     //->> user
     useGetProfileDetailsQuery,
+    //->> downloads
+    useGetDownloadsQuery,
     //->> collections
     useGetCollectionQuery,
     useAddCollectionMutation,
@@ -230,7 +263,10 @@ export const {
     useGetPublisherProfileQuery,
     useGetPublisherCollectionQuery,
     useGetPublisherProductQuery,
-    useGetPublisherAchievementsQuery
+    useGetPublisherAchievementsQuery,
+    //->> user forms
+    useUpdateUserInformationMutation,
+    useChangePasswordMutation,
 } = user_api;
 
 

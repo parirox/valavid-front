@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaPlay } from "react-icons/fa";
 import Button from "./Button";
 
-export default function DownloadCard({ className, type, media, mediaLink, title, filterTags, haveLicense, price }) {
+export default function DownloadCard({ className, type, media, mediaLink, title, filterTags, price }) {
   return (
     <div className={`bg-secondary-600 min-h-[520px] rounded-[2.25rem] relative p-8 ${className}`}>
       {
@@ -38,10 +38,6 @@ export default function DownloadCard({ className, type, media, mediaLink, title,
             <p key={index} className={`text-secondary-300 ml-1 pt-1`}>{`${tag} |`}</p>
           ))
         }
-      </div>
-      <div className="flex text-white pt-6 px-2">
-        <p className="text-lg pl-3">لایسنس:</p>
-        <p className="text-xl">{haveLicense ? 'دارد' : 'ندارد'}</p>
       </div>
       <div className="flex text-white pt-6 px-2">
         <p className="text-lg pl-3">قیمت <span className="text-xs opacity-80">(تومان)</span>:</p>

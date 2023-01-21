@@ -11,7 +11,7 @@ export const ApiEndpoint = {
     resetPassword: "/account/auth/reset-password/",
   },
   cart: {
-    detailsByIds: "/cart/:ids",
+    detailsByIds: "/basket/",
     offerCode: "/offerCode/:code",
   },
   product: {
@@ -40,7 +40,11 @@ export const ApiEndpoint = {
   },
   user: {
     profile: {
-      details: '/account/profile/'
+      forms: {
+        main: "/account/profile/",
+        change_password: "/account/auth/change-password/"
+      },
+      details: "/account/profile/"
     },
     collection: {
       get: "/collections/",
@@ -56,6 +60,7 @@ export const ApiEndpoint = {
       remove: "/account/products/:id/unlike/",
     },
     achievements: "/account/achievements/",
+    downloads: "/account/products/downloads/",
     cart: "/basket/"
   },
   ticket: {

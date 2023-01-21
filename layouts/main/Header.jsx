@@ -92,10 +92,13 @@ const Header = ({ data, styleMode }) => {
               </div>
                {renderProfileBtn()}
               <div className="basis-1/12">
-                <button className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative">
-                  <BsCart2 className="text-white text-2xl m-auto" />
+                <ButtonIcon
+                  link={"/cart"}
+                  className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
+                  icon={<BsCart2 className="text-white text-2xl mx-auto" />}
+                >
                   <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">{_cartItems.length}</span>
-                </button>
+                </ButtonIcon>
               </div>
             </div>
           </div>
