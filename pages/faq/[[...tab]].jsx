@@ -9,7 +9,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { isEmpty } from "@/utils/general";
 import { useGetFaqQuery } from "@/datasources/pages/remote/PageSliceApi";
 
-function faq() {
+function Faq() {
   const { data, isSuccess, isError, isLoading } = useGetFaqQuery()
 
   const router = useRouter();
@@ -117,4 +117,4 @@ function faq() {
   )
 }
 
-export default faq;
+export default Faq;

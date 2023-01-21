@@ -4,7 +4,7 @@ import SamanBank from "../../../public/icons/SamanBank.svg";
 import PasargadBank from "../../../public/icons/PasargadBank.svg";
 import ParsianBank from "../../../public/icons/ParsianBank.svg";
 import Button from "@/components/Button";
-import React from "react";
+import React, {useState} from "react";
 
 const Deposit = ({ isOpen, setIsOpen }) => {
   const [paymentGateway, setPaymentGateway] = useState(null);
@@ -93,7 +93,7 @@ const Deposit = ({ isOpen, setIsOpen }) => {
         نفرمایید.
       </p>
       <p className="text-secondary-300 text-start my-[3rem]">
-        در صورتی که پس از انجام تراکنش و کسر مبلغ آن از حساب شما "قدرت خرید" شما
+        در صورتی که پس از انجام تراکنش و کسر مبلغ آن از حساب شما {'"قدرت خرید"'} شما
         شارژ نشد مبلغ تراکنش در اسرع وقت به صورت خودکار (توسط سیستم بانکی) به
         حساب شما بزاگزدانده خواهد شد.
       </p>
