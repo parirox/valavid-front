@@ -47,6 +47,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
   });
 
   const {
+    handleSubmit,
     control: controlAccount,
     getValues: getValuesAccount,
     trigger: triggerAccount,
@@ -91,8 +92,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
         toast.success(form_fields.password.concat(form_change_fields_success_message))
         resolve()
       }).catch(e => {
-        handleApiError(e)
-        setAlertMessage(e.message)
+        setAlertMessage(e.data.message)
         reject()
       })
     }
@@ -121,7 +121,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
   return (
     <FormSection title={"اطلاعات حساب"} isFormDisable={isFormDisable}
                  setFormDisable={setFormDisable}
-                 handleSubmit={onSubmit}
+                 handleSubmit={handleSubmit(onSubmit)}
                  alertMessage={alertMessage}
                  reset={reset}>
       <RowInput label='نام کاربری'>

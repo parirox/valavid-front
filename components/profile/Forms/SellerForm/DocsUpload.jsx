@@ -19,114 +19,65 @@ import {
 } from "@/utils/form/messages";
 
 
-function DocsUpload({defaultValues,defaultMediaValues, defaultAccountValues}) {
-  const [fetchUpdateUserData] = useUpdateUserInformationMutation();
-  const [fetchChangePassword] = useChangePasswordMutation();
+function DocsUpload({defaultValues}) {
+  const [fetchUpdateUser] = useUpdateUserInformationMutation();
 
   const [alertMessage, setAlertMessage] = useState("")
   const [isFormDisable, setFormDisable] = useState(true)
 
   const formSchemaMedia = Yup.object().shape({});
   const {
-    control: controlMedia,
-    getValues: getValuesMedia,
-    trigger: triggerMedia,
-    reset: resetMedia,
-    formState: {dirtyFields: dirtyFieldsMedia}
+    control,
+    getValues,
+    trigger,
+    reset,
+    handleSubmit,
+    formState: {dirtyFields}
   } = useForm({
     defaultValues,
     resolver: yupResolver(formSchemaMedia)
   });
 
-  const formSchemaAccount = Yup.object().shape({
-    password: Yup.string(),
-    password_confirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], getFormError({field: 'password_confirmation', type: 'required'}))
-  });
-
-  const {
-    control: controlAccount,
-    getValues: getValuesAccount,
-    trigger: triggerAccount,
-    reset: resetAccount,
-    formState: {dirtyFields: dirtyFieldsAccount}
-  } = useForm({
-    mode: "onSubmit",
-    defaultValues: {
-      idcart_photo: '',
-      shabanumber: '',
-      banknumber: '',
-      ...defaultAccountValues
-    },
-    resolver: yupResolver(formSchemaAccount)
-  });
-
-
-  const handleMedia = () => new Promise((resolve, reject) => {
-    // get only dirty values from form
-    let data = dirtyValues(dirtyFieldsMedia, getValuesMedia())
-    if (!isEmpty(data)) {
-      const formData = jsonToFormData(data)
-      fetchUpdateUserData(formData).unwrap().then(_ => {
-        const res_msg = getFormSuccessMessage(data)
-        toast.success(res_msg)
-        resolve()
-      }).catch(e => {
-        handleApiError(e)
-        setAlertMessage(e.message)
-        reject()
-      })
-    } else resolve()
-  })
-
-  const handleAccount = () => new Promise((resolve, reject) => {
-    // get only dirty values from form
-    let data = dirtyValues(dirtyFieldsAccount, getValuesAccount())
-    if (!isEmpty(data)) {
-      fetchChangePassword(data).unwrap().then(_ => {
-        toast.success(form_fields.password.concat(form_change_fields_success_message))
-        resolve()
-      }).catch(e => {
-        handleApiError(e)
-        setAlertMessage(e.message)
-        reject()
-      })
-    } else resolve()
-  })
-  const onSubmit = async () => {
-    let isValidMedia = await triggerMedia()
-    let isValidAccount = await triggerAccount()
-    if (!isValidMedia || !isValidAccount) {
+  const onSubmit = async (data) => {
+    let isValid = await trigger()
+    if (!isValid) {
       setAlertMessage("اطلاعات ورودی خود را بررسی کنید.");
       return;
     }
 
-    Promise.all([handleAccount(), handleMedia()]).then((res) => {
-      reset()
-    })
+    data = dirtyValues(dirtyFields,data)
+    if (!isEmpty(data)) {
+      const formData = jsonToFormData(data)
+      fetchUpdateUser(formData).unwrap().then(_ => {
+        const res_msg = getFormSuccessMessage(data)
+        toast.success(res_msg)
+      }).catch(e => {
+        handleApiError(e)
+        setAlertMessage(e.message)
+      })
+    }
   };
 
-  const reset = () => {
+  const resetForm = () => {
     setFormDisable(true)
     setAlertMessage("")
-    resetMedia(defaultMediaValues)
-    resetAccount(defaultAccountValues)
+    reset(defaultValues)
   }
 
   return (
     <FormSection title={"بارگزاری مدارک"} isFormDisable={isFormDisable}
                  setFormDisable={setFormDisable}
-                 handleSubmit={onSubmit}
+                 handleSubmit={handleSubmit(onSubmit)}
                  alertMessage={alertMessage}
-                 reset={reset}>
+                 reset={resetForm}>
       <RowInput label='تصویر کارت ملی /پاسپورت' required>
-        <FileInput name="idcart_photo" disabled={isFormDisable} hookFormControl={controlMedia}/>
+        <FileInput name="seller.national_card" disabled={isFormDisable} hookFormControl={control}/>
       </RowInput>
       <RowInput label='شماره شبا' required helperText={'(باید به نام صاحب حساب باشد)'}>
-        <Input name='shabanumber' className={"w-1/3"} type="password" control={controlAccount} disabled={isFormDisable}/>
+        <Input name='seller.bank_shaba' className={"w-1/3"} control={control} disabled={isFormDisable}/>
       </RowInput>
       <RowInput label='شماره حساب' required helperText={'(باید به نام صاحب حساب باشد)'}>
-        <Input name='banknumber' className={"w-1/3"} type="password" control={controlAccount} disabled={isFormDisable}/>
+        <Input name='seller.bank_account' className={"w-1/3"} control={control} disabled={isFormDisable}/>
       </RowInput>
     </FormSection>
   );
