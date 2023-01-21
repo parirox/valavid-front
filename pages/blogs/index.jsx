@@ -117,7 +117,7 @@ function BlogList() {
                 عضویت
               </button>
             </div>
-            <MenuBlogs menuBlogsData={blogCategories}></MenuBlogs>
+             {blogCategories && (<MenuBlogs menuBlogsData={blogCategories}></MenuBlogs>)}
           </div>
           <div className="basis-2/3">
             <Link href={`/blogs/${blogsData.results[0].id}`}>

@@ -107,7 +107,7 @@ const product_api = createApi({
     deleteAccountProduct: build.mutation({
       query: (query) => ({
         url: ApiAddress(ApiEndpoint.product.account.delete, query),
-        method: "GET",
+        method: "DELETE",
       }),
       providesTags: (result, error, id) => [
         { type: productSliceApiTag, id: "Delete" },

@@ -47,20 +47,23 @@ const Products = () => {
   const router = useRouter();
 
   const [addProduct, { data, isSuccess }] = useAddProductMutation();
-  const [getAccountProductList , {
-    data: products,
-    isFetching,
-    isSuccess: isFetchProducts,
-    isLoading,
-    isError,
-    error,
-  }] = useGetAccountProductListMutation({
+  const [
+    getAccountProductList,
+    {
+      data: products,
+      isFetching,
+      isSuccess: isFetchProducts,
+      isLoading,
+      isError,
+      error,
+    },
+  ] = useGetAccountProductListMutation({
     ordering: router.query["order"] || "newest",
   });
 
-  useEffect(()=>{
-    getAccountProductList()
-  },[router.query])
+  useEffect(() => {
+    getAccountProductList();
+  }, [router.query]);
 
   const setProduct = (name, value) => {
     setProductInfo((prev) => {
@@ -118,7 +121,7 @@ const Products = () => {
       .unwrap()
       .then(() => {
         _toast.success("محصول با موفقیت اضافه شد.");
-        getAccountProductList()
+        getAccountProductList();
         setContent("success");
         setProductInfo({
           title: "",
@@ -143,7 +146,6 @@ const Products = () => {
       .catch((err) => {
         handleApiError(err);
       });
-
   };
 
   const steps = [
@@ -207,6 +209,7 @@ const Products = () => {
         isFetchProducts={isFetchProducts}
         products={products}
         handleCompleteInfo={() => setIsOpen(true)}
+        getAccountProductList={getAccountProductList}
       />
       <Modal
         big={true}
