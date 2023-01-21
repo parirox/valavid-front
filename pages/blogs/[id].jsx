@@ -1,17 +1,15 @@
 import Chip from "@/components/Chip";
-import blog_api, {
-  GetSingleBlog,
-  useGetSingleBlogQuery,
-} from "@/datasources/blog/remote/BlogSliceApi";
+import blog_api, {GetSingleBlog, useGetSingleBlogQuery,} from "@/datasources/blog/remote/BlogSliceApi";
 import Head from "next/head";
 import Image from "next/image";
-import { BsFillPencilFill } from "react-icons/bs";
-import { IoCalendarClearOutline } from "react-icons/io5";
-import { useRouter } from "next/router";
-import { wrapper } from "@/datasources/store";
+import {BsFillPencilFill} from "react-icons/bs";
+import {IoCalendarClearOutline} from "react-icons/io5";
+import {useRouter} from "next/router";
+import {wrapper} from "@/datasources/store";
 import moment from "jalali-moment";
 import styles from "../../styles/blog.module.css";
-import Error404 from "../404";
+import ErrorPage from "../ErrorPage";
+import {Fragment} from "react";
 
 function SingleBlog() {
   const router = useRouter();
@@ -19,11 +17,10 @@ function SingleBlog() {
     data: blog,
     isSuccess,
     isError,
+    error,
   } = useGetSingleBlogQuery(router.query);
 
-  if (isError) {
-    <Error404 />;
-  }
+  if (isError) return <ErrorPage info={error} />;
 
   if (isSuccess)
     return (
@@ -105,12 +102,12 @@ function SingleBlog() {
             <div className="flex pt-8 pb-16 gap-6 items-center text-lg text-secondary">
               کلید واژه ها:
               {blog.tags.map((tag, index) => (
-                <React.Fragment key={index}>
+                <Fragment key={index}>
                   <Chip
                     className="bg-gray text-white rounded-2xl text-sm"
                     content={tag}
                   ></Chip>
-                </React.Fragment>
+                </Fragment>
               ))}
             </div>
             <p className="pb-8 pt-12 text-secondary-200">مشابه</p>
