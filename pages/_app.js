@@ -7,7 +7,6 @@ import {Toaster} from "react-hot-toast";
 import {Provider} from "react-redux";
 import {persistStore} from "redux-persist";
 import {SessionProvider} from "next-auth/react";
-import {useEffect, useState} from "react";
 
 function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
   const {

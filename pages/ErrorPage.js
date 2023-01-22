@@ -14,7 +14,7 @@ function ErrorPage({info}) {
           <Image src={'/images/treePic404.png'} alt="" fill sizes=""></Image>
         </div>
         <div className="absolute text-[12rem] mt-28 mx-auto right-0 left-0 font-bold text-center">
-          {info.originalStatus}
+          {info?.originalStatus ?? "خطایی رخ داده است"}
           <Button className={`text-xl w-64 mx-auto h-[4rem] -mt-7 rounded-xl transition-all bg-gradient-to-r from-[#9D99F8] to-[#534CDA]`} link={'/'}>
             بازگشت به خانه
           </Button>
