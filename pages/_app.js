@@ -1,15 +1,15 @@
 import Layout from "@/layouts/main/Layout";
 import Head from "next/head";
 import "../styles/globals.css";
-import { wrapper } from "@/datasources/store";
-import { PersistGate } from "redux-persist/integration/react";
-import { Toaster } from "react-hot-toast";
-import { Provider } from "react-redux";
-import { persistStore } from "redux-persist";
-import { SessionProvider } from "next-auth/react";
-import { useEffect, useState } from "react";
+import {wrapper} from "@/datasources/store";
+import {PersistGate} from "redux-persist/integration/react";
+import {Toaster} from "react-hot-toast";
+import {Provider} from "react-redux";
+import {persistStore} from "redux-persist";
+import {SessionProvider} from "next-auth/react";
+import {useEffect, useState} from "react";
 
-function App({ Component, pageProps: { session, ...pageProps } }, ...rest) {
+function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
   const {
     store,
     props: {
@@ -20,40 +20,27 @@ function App({ Component, pageProps: { session, ...pageProps } }, ...rest) {
   const persistor = persistStore(store, {}, function () {
     persistor.persist();
   });
-  const [showing, setShowing] = useState(false);
 
-  useEffect(() => {
-    setShowing(true);
-  }, []);
-
-  if (!showing) {
-    return null;
-  }
-
-  if (typeof window === "undefined") {
-    return <></>;
-  } else {
-    return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          {() => (
-            <Layout styleMode={Component?.styleMode}>
-              <Head>
-                <meta
-                  name="viewport"
-                  content="width=device-width, initial-scale=1.0"
-                />
-              </Head>
-              <Toaster />
-              <SessionProvider session={session}>
-                <Component {...pageProps} />
-              </SessionProvider>
-            </Layout>
-          )}
-        </PersistGate>
-      </Provider>
-    );
-  }
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {() => (
+          <Layout styleMode={Component?.styleMode}>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+              />
+            </Head>
+            <Toaster/>
+            <SessionProvider session={session}>
+              <Component {...pageProps} />
+            </SessionProvider>
+          </Layout>
+        )}
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default App;
