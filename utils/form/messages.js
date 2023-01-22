@@ -11,6 +11,8 @@ export const form_fields = {
   national_code: 'کد ملی',
   subject: 'موضوع',
   message: 'پیام',
+  zarinpal: 'زرین پال',
+  mellat: 'بانک ملت',
 }
 
 export const form_messages = {
