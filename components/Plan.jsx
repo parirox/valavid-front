@@ -10,6 +10,7 @@ export default function Plan(props) {
     price,
     items,
     className,
+    plan_id,
     ...rest
   } = props;
   return (
@@ -30,7 +31,7 @@ export default function Plan(props) {
             ))
           }
         </div>
-        <Button className={`text-xl w-full h-[4rem] rounded-2xl transition-all ${withStar ? 'bg-gradient-to-l text-primary from-white via-white to-[#9893F5] hover:to-[#E9E8FF]' : 'bg-gradient-to-r from-[#9D99F8] to-[#534CDA]'}`}>
+        <Button link={`/plans/checkout/${plan_id}`} className={`text-xl w-full h-[4rem] rounded-2xl transition-all ${withStar ? 'bg-gradient-to-l text-primary from-white via-white to-[#9893F5] hover:to-[#E9E8FF]' : 'bg-gradient-to-r from-[#9D99F8] to-[#534CDA]'}`}>
           انتخاب بسته
         </Button>
       </div>
