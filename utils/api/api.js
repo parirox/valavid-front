@@ -1,6 +1,6 @@
-import { getCookieClient, isEmpty } from "../general";
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { getCookie } from "cookies-next";
+import {isEmpty} from "../general";
+import {fetchBaseQuery} from "@reduxjs/toolkit/query";
+import {getCookie} from "cookies-next";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
 export const ApiEndpoint = {
@@ -36,10 +36,18 @@ export const ApiEndpoint = {
   pages: {
     home: "/home/",
     publishers: "/publishers/:query",
-    plans: "/subscription-plans/",
     plans_join: "/subscription-join/",
     newsletter: "/newsletter/",
     faq: "/faq/",
+  },
+  payment:{
+    bank_gateways: "/bank-gateways/",
+    check_transaction:"/check-payment/:id/"
+  },
+  plans: {
+    get: "/subscription-plans/",
+    details: "/subscription-plans/:id/",
+    payment: "/subscription-join/",
   },
   publisher: {
     profile: "/publishers/:username/",
