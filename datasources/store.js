@@ -30,18 +30,22 @@ import userSlice from "@/datasources/user/local/UserSlice";
 import userSliceApi, {
   userSliceApiTag,
 } from "@/datasources/user/remote/UserSliceApi";
+//-->> blog slices
+import blogSliceApi, { blogSliceApiTag } from "./blog/remote/BlogSliceApi";
+//-->> plan slices
+import planSliceApi, {planSliceApiTag} from '@/datasources/plans/remote/PlansSliceApi';
+//-->> payment slices
+import paymentSliceApi, {paymentSliceApiTag} from '@/datasources/payment/remote/PaymentSliceApi';
+//-->> other page slices
+import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
+//-->> ticket slices
+import ticketSliceApi, { ticketSliceApiTag } from "./ticket/remote/TicketSliceApi";
 //-->> loading slices
 import { loadingBarReducer } from "react-redux-loading-bar";
 //-->> middlewares
 import { rtkQueryErrorLogger } from "@/datasources/errorHandler";
 import { LoadingHandler } from "@/datasources/loadingHandler";
 import storage from "@/datasources/storage";
-// import homeSliceApi, {
-//   homeSliceApiTag,
-// } from "@/datasources/home/remote/HomeSliceApi";
-import blogSliceApi, { blogSliceApiTag } from "./blog/remote/BlogSliceApi";
-import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
-import ticketSliceApi, { ticketSliceApiTag } from "./ticket/remote/TicketSliceApi";
 
 const persistConfig = {
   key: "VALAVID",
@@ -53,6 +57,10 @@ const persistConfig = {
 let reducer = {
   //->> pages
   [pageSliceApiTag]: pageSliceApi.reducer,
+  //->> payment
+  [paymentSliceApiTag]: paymentSliceApi.reducer,
+  //->> plan
+  [planSliceApiTag]: planSliceApi.reducer,
   //->> auth
   auth: authSlice,
   [authSliceApiTag]: authSliceApi.reducer,
@@ -89,6 +97,8 @@ export const store = (context) =>
         serializableCheck: false,
       }).concat([
         pageSliceApi.middleware,
+        planSliceApi.middleware,
+        paymentSliceApi.middleware,
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,
