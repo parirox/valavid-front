@@ -6,7 +6,7 @@ import MostPopular from "@/components/home/MostPopular";
 import SubscribeBanner from "@/components/home/SubscribeBanner";
 import TopSellers from "@/components/home/TopSellers";
 import FirstSection from "@/components/home/FirstSection";
-import home_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/pages/remote/PageSliceApi";
+import page_api, {GetHomeData, useGetHomeDataQuery,} from "@/datasources/pages/remote/PageSliceApi";
 import {wrapper} from "@/datasources/store";
 import Head from "next/head";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
@@ -43,10 +43,10 @@ Home.styleMode = "main";
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     store.dispatch(GetHomeData.initiate());
-    await Promise.all(store.dispatch(home_api.util.getRunningQueriesThunk()));
+    await Promise.all(store.dispatch(page_api.util.getRunningQueriesThunk()));
     return {
       props: {
-        protected: true,
+        // protected: true,
       },
     };
   }
