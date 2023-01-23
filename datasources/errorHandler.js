@@ -36,7 +36,7 @@ export const handleApiError = (response) => {
   } else if (statusCode === 404) {
     toast.error("محتوايی برای درخواست شما يافت نشد.");
   } else if (statusCode === 400) {
-    if (!response.message) {
+    if (!response.message && response.data) {
       handleFormApiResponse(response);
     } else {
       toast.error(response.message);

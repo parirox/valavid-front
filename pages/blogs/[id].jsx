@@ -46,7 +46,7 @@ function SingleBlog() {
                 <BsFillPencilFill
                   className={"text-primary text-lg"}
                 ></BsFillPencilFill>
-                امید اسلامی
+                {blog.author}
               </div>
               <div className="flex gap-1 text-lg text-primary">
                 <IoCalendarClearOutline
@@ -142,7 +142,7 @@ function SingleBlog() {
                   <div className="pt-4 flex gap-16 px-4">
                     <div className="flex gap-2 text-sm items-center text-secondary-300">
                       <BsFillPencilFill className={""}></BsFillPencilFill>
-                      امید اسلامی
+                      {blog.author}
                     </div>
                     <div className="flex gap-1 text-sm text-secondary-300">
                       <IoCalendarClearOutline

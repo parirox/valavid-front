@@ -13,7 +13,8 @@ export const ApiEndpoint = {
   },
   cart: {
     detailsByIds: "/basket/",
-    offerCode: "/offerCode/:code",
+    offerCode: "/check-discount/",
+    payment: "/purchase/",
   },
   product: {
     account: {
@@ -80,6 +81,7 @@ export const ApiEndpoint = {
     get: "/blogs/",
     categories: "/blogs/categories/",
     singleBlog: "/blogs/:id/",
+    addMember: "/newsletter/"
   },
 };
 

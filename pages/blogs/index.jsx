@@ -3,98 +3,50 @@ import MenuBlogs from "@/components/MenuBlogs";
 import blog_api, {
   GetBlogCategories,
   GetBlogData,
+  useAddMembershipMutation,
   useGetBlogCategoriesQuery,
-  useGetBlogDataQuery,
+  useGetBlogDataMutation,
 } from "@/datasources/blog/remote/BlogSliceApi";
 import Head from "next/head";
 import Link from "next/link";
 import Error404 from "../404";
 import { wrapper } from "@/datasources/store";
-
-// const blogsData = [
-//   {
-//     title: 'نقش جهان اصفهان',
-//     description: 'اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است این شهر مرکز استان اصفهان و نیز شهرستان اصفهان استاین شهر مرکز استان اصفهان و نیز شهرستان اصفهان است',
-//     tags: ['نصف جهان'],
-//     image: 'https://placeimg.com/640/480/nature/6',
-//     date: '1400/03/08'
-//   },
-//   {
-//     title: 'نقش جهان اصفهان',
-//     description: 'اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است این شهر مرکز استان اصفهان و نیز شهرستان اصفهان استاین شهر مرکز استان اصفهان و نیز شهرستان اصفهان است',
-//     tags: ['اصفهان'],
-//     image: 'https://placeimg.com/640/480/nature/7',
-//     date: '1400/03/08'
-//   },
-//   {
-//     title: 'نقش جهان اصفهان',
-//     description: 'اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است این شهر مرکز استان اصفهان و نیز شهرستان اصفهان استاین شهر مرکز استان اصفهان و نیز شهرستان اصفهان است',
-//     tags: ['اصفهان'],
-//     image: 'https://placeimg.com/640/480/nature/8',
-//     date: '1400/03/08'
-//   },
-//   {
-//     title: 'نقش جهان اصفهان',
-//     description: 'اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است این شهر مرکز استان اصفهان و نیز شهرستان اصفهان استاین شهر مرکز استان اصفهان و نیز شهرستان اصفهان است',
-//     tags: ['اصفهان'],
-//     image: 'https://placeimg.com/640/480/nature/9',
-//     date: '1400/03/08'
-//   },
-// ]
-const menuBlogsData = [
-  {
-    count: 56,
-    title: "ایران",
-    id: 1,
-    children: [
-      {
-        title: "اقوام",
-        id: 2,
-      },
-      {
-        title: "آداب و رسوم",
-        id: 3,
-      },
-    ],
-  },
-  {
-    count: 56,
-    title: "ایران",
-    id: 1,
-    children: [],
-  },
-  {
-    count: 56,
-    title: "ایران",
-    id: 1,
-    children: [],
-  },
-  {
-    count: 56,
-    title: "ایران",
-    id: 1,
-    children: [
-      {
-        title: "غذاها",
-        id: 10,
-      },
-    ],
-  },
-  {
-    count: 56,
-    title: "ایران",
-    id: 1,
-    children: [],
-  },
-];
+import { useEffect } from "react";
+import { useState } from "react";
+import _toast from "@/utils/notification/toast";
+import { handleApiError } from "@/datasources/errorHandler";
 
 function BlogList() {
-  const { data: blogsData, isSuccess, isError } = useGetBlogDataQuery();
+  const [membershipEmail, setMembershipEmail] = useState("");
   const {
     data: blogCategories,
     isSuccess: CategoriesSuccess,
     isError: CategoriesError,
   } = useGetBlogCategoriesQuery();
+  const [getBlogData, { data: blogsData, isSuccess, isError }] =
+    useGetBlogDataMutation();
+  const [addMembership] = useAddMembershipMutation();
+
+  const handleAddMemberShip = () => {
+    if (membershipEmail) {
+      addMembership({
+        email: membershipEmail,
+      })
+        .unwrap()
+        .then((res) => {
+          _toast.success("درخواست شما با موفقیت انجام شد.");
+        })
+        .catch((err) => {
+          handleApiError(err);
+        });
+    } else {
+      _toast.error("لطفا ایمیل خو را وارد کنید.");
+    }
+  };
+
+  useEffect(() => {
+    getBlogData();
+  }, []);
 
   if (isError) return <Error404 />;
 
@@ -109,15 +61,25 @@ function BlogList() {
           <div className="basis-1/3">
             <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
               <input
-                type="text"
+                type="email"
                 placeholder="ایمیل شما"
                 className="input w-full pr-10 py-3 text-secondary flex justify-center items-center h-full"
+                value={membershipEmail}
+                onChange={(e) => setMembershipEmail(e.target.value)}
               />
-              <button className="bg-secondary-300 absolute left-1 top-0 h-[3.7rem] rounded-[1.6rem] w-[4.2rem] m-auto bottom-0 px-2 text-center">
+              <button
+                onClick={() => handleAddMemberShip()}
+                className="bg-secondary-300 absolute left-1 top-0 h-[3.7rem] rounded-[1.6rem] w-[4.2rem] m-auto bottom-0 px-2 text-center"
+              >
                 عضویت
               </button>
             </div>
-             {blogCategories && (<MenuBlogs menuBlogsData={blogCategories}></MenuBlogs>)}
+            {blogCategories && (
+              <MenuBlogs
+                getBlogData={getBlogData}
+                menuBlogsData={blogCategories}
+              ></MenuBlogs>
+            )}
           </div>
           <div className="basis-2/3">
             <Link href={`/blogs/${blogsData.results[0].id}`}>

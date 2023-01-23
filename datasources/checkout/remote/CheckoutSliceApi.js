@@ -18,7 +18,7 @@ const checkout_api = createApi({
         getCartDetailsByIds: build.mutation({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.user.cart, query),
-                method: 'POST',
+                method: 'PUT',
                 body:query
             }),
             providesTags: (result, error, id) => [
@@ -26,12 +26,23 @@ const checkout_api = createApi({
             ],
         }),
         checkOfferCode: build.mutation({
-            query: (query) => ({
-                url: ApiAddress(ApiEndpoint.cart.offerCode, query),
-                method: 'GET',
+            query: (payload) => ({
+                url: ApiAddress(ApiEndpoint.cart.offerCode, payload),
+                method: 'POST',
+                body:payload
             }),
             providesTags: (result, error, id) => [
                 { type: checkoutSliceApiTag, id: 'OfferCode' }
+            ],
+        }),
+        payment: build.mutation({
+            query: (payload) => ({
+                url: ApiAddress(ApiEndpoint.cart.payment, payload),
+                method: 'POST',
+                body:payload
+            }),
+            providesTags: (result, error, id) => [
+                { type: checkoutSliceApiTag, id: 'Payment' }
             ],
         }),
     })
@@ -40,6 +51,7 @@ const checkout_api = createApi({
 export const {
     useGetCartDetailsByIdsMutation,
     useCheckOfferCodeMutation,
+    usePaymentMutation
 } = checkout_api;
 
 export default checkout_api;

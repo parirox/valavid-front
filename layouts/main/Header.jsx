@@ -66,13 +66,13 @@ const Header = ({ data, styleMode }) => {
       link: "/profile/Favorites",
       title: "علاقه مندی ها",
     },
-    {
-      icon: (
-        <FiUserCheck className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
-      ),
-      link: "",
-      title: "دنبال شده ها",
-    },
+    // {
+    //   icon: (
+    //     <FiUserCheck className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
+    //   ),
+    //   link: "",
+    //   title: "دنبال شده ها",
+    // },
   ];
 
   const renderProfileBtn = () => {
@@ -88,11 +88,11 @@ const Header = ({ data, styleMode }) => {
                 <div className="w-full h-full relative">
                   <div className="w-[200px] bg-[#1D2830] border border-accent rounded-[14px]">
                     <div className="w-[1.3rem] h-[1.3rem] bg-white rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent" />
-                    <Menu.Item>
+                    {/* <Menu.Item>
                       <span className="text-start block text-color8 m-4">
                         <Link href="/profile">سجاد قهرمانی</Link>
                       </span>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <div className="border-b border-[#424E57] mx-4">
                       {profileLinks.map((item, index) => (
                         <Menu.Item key={index}>
@@ -105,7 +105,10 @@ const Header = ({ data, styleMode }) => {
                     </div>
                     <div className="mx-4">
                       <Menu.Item>
-                        <Link className="text-start my-4 block" href="/profile/me">
+                        <Link
+                          className="text-start my-4 block"
+                          href="/profile/me"
+                        >
                           داشبورد من
                         </Link>
                       </Menu.Item>
@@ -150,17 +153,19 @@ const Header = ({ data, styleMode }) => {
           <div className="basis-6/12 h-full">
             <div className="flex flex-row justify-end gap-3 h-full">
               {renderProfileBtn()}
-              <div className="basis-1/12">
-                <ButtonIcon
-                  link={"/cart"}
-                  className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
-                  icon={<BsCart2 className="text-white text-2xl mx-auto" />}
-                >
-                  <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
-                    {_cartItems.length}
-                  </span>
-                </ButtonIcon>
-              </div>
+              {isLogedin && (
+                <div className="basis-1/12">
+                  <ButtonIcon
+                    link={"/cart"}
+                    className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
+                    icon={<BsCart2 className="text-white text-2xl mx-auto" />}
+                  >
+                    <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
+                      {_cartItems.length}
+                    </span>
+                  </ButtonIcon>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -186,15 +191,19 @@ const Header = ({ data, styleMode }) => {
                 <Select />
               </div>
               {renderProfileBtn()}
-              <div className="basis-1/12">
-                <ButtonIcon
-                  link={"/cart"}
-                  className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
-                  icon={<BsCart2 className="text-white text-2xl mx-auto" />}
-                >
-                  <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">{_cartItems.length}</span>
-                </ButtonIcon>
-              </div>
+              {isLogedin && (
+                <div className="basis-1/12">
+                  <ButtonIcon
+                    link={"/cart"}
+                    className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
+                    icon={<BsCart2 className="text-white text-2xl mx-auto" />}
+                  >
+                    <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
+                      {_cartItems.length}
+                    </span>
+                  </ButtonIcon>
+                </div>
+              )}
             </div>
           </div>
         </div>
