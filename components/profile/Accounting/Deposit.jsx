@@ -9,6 +9,7 @@ import { useDepositeMutation } from "@/datasources/Accounting/remote/AccountingS
 import Router from "next/router";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
+import GatewaysList from "@/components/GatewaysList";
 
 const Deposit = ({ isOpen, setIsOpen }) => {
   const [paymentGateway, setPaymentGateway] = useState(null);
@@ -111,7 +112,8 @@ const Deposit = ({ isOpen, setIsOpen }) => {
         </div>
       </div>
       <h5 className="text-secondary text-start mt-[3rem] mb-3">درگاه</h5>
-      <div className="flex items-center text-secondary">
+      <GatewaysList state={paymentGateway} setter={setPaymentGateway}/>
+      {/* <div className="flex items-center text-secondary">
         <div
           onClick={() => setPaymentGateway("ZARINPAL")}
           className={`m-4 cursor-pointer p-4 ${
@@ -132,7 +134,7 @@ const Deposit = ({ isOpen, setIsOpen }) => {
         >
           <Image width={90} height={90} src={mellat} />
         </div>
-      </div>
+      </div> */}
       <p className="text-secondary-300 text-start my-4">
         در هنگام انجام تراکنش به هیچ عنوان از نرم افزارهای فیلترشکن استفاده
         نفرمایید.

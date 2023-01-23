@@ -32,6 +32,7 @@ import { handleApiError } from "@/datasources/errorHandler";
 import zarinpal from "@/public/images/zarinpal.png";
 import mellat from "@/public/images/mellat.png";
 import Router from "next/router";
+import GatewaysList from "@/components/GatewaysList";
 
 const data = [
   {
@@ -377,7 +378,14 @@ export default function Cart() {
                           {`کد تخفیف ${checkOfferCodeData.discount_value}`}
                         </div>
                       )}
-                      <div className="flex items-center text-secondary">
+                      <div className="mt-8">
+                      <GatewaysList
+                        state={paymentGateway}
+                        setter={setPaymentGateway}
+                      />
+                      </div>
+
+                      {/* <div className="flex items-center text-secondary">
                         <div
                           onClick={() => setPaymentGateway("ZARINPAL")}
                           className={`m-4 cursor-pointer p-4 ${
@@ -398,7 +406,7 @@ export default function Cart() {
                         >
                           <Image width={90} height={90} src={mellat} />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="basis-4/12">
                       <div className="flex flex-col text-gray gap-5">
@@ -406,9 +414,9 @@ export default function Cart() {
                           <span>جمع کل:</span>
                           <span className="text-lg">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.total}</>
+                              <>{checkOfferCodeData.total.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.total}</>
+                              <>{cartData.paybox.total.toLocaleString()}</>
                             )}
                           </span>
                         </div>
@@ -416,9 +424,9 @@ export default function Cart() {
                           <span>مالیات بر ارزش افزوده:</span>
                           <span className="text-lg">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.tax}</>
+                              <>{checkOfferCodeData.tax.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.tax}</>
+                              <>{cartData.paybox.tax.toLocaleString()}</>
                             )}
                           </span>
                         </div>
@@ -426,7 +434,7 @@ export default function Cart() {
                           <span>تخفیفات محصولات:</span>
                           <span className="text-lg">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.off}</>
+                              <>{checkOfferCodeData.off.toLocaleString()}</>
                             ) : (
                               <>{cartData.paybox.off}</>
                             )}
@@ -436,9 +444,9 @@ export default function Cart() {
                           <span>سود شما از خرید:</span>
                           <span className="text-lg">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.user_profit}</>
+                              <>{checkOfferCodeData.user_profit.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.user_profit}</>
+                              <>{cartData.paybox.user_profit.toLocaleString()}</>
                             )}
                           </span>
                         </div>
@@ -447,9 +455,9 @@ export default function Cart() {
                           <span>قابل پرداخت:</span>
                           <span className="text-2xl">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.pay_amount}</>
+                              <>{checkOfferCodeData.pay_amount.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.pay_amount}</>
+                              <>{cartData.paybox.pay_amount.toLocaleString()}</>
                             )}
                           </span>
                         </div>

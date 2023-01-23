@@ -50,6 +50,9 @@ export const checkoutSlice = createSlice({
             const index = state.cart.findIndex((item) => item.id === action.payload);
             state.cart.splice(index, 1);
         },
+        emptyCart: (state) => {
+            state.cart = []
+        },
     },
     extraReducers: {
         [HYDRATE]: (state, action) => {
@@ -70,6 +73,7 @@ export const {
     removeFromCart,
     incrementQuantity,
     decrementQuantity,
+    emptyCart
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

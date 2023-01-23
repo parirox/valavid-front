@@ -118,7 +118,7 @@ export default function Cart() {
                 </div>
                 <div>
                   <div className="bg-secondary overflow-hidden px-5 rounded-t-3xl divide-y divide-secondary-400">
-                    {_cartItems.map((cart, key) => {
+                    {data && data.items.map((cart, key) => {
                       const product = data.items.find((v) => v.id === cart.id);
                       if (isEmpty(product)) return <></>;
                       return (
@@ -211,10 +211,7 @@ export default function Cart() {
                   <div className="bg-secondary-600 flex justify-end items-center gap-5 p-8 rounded-b-3xl">
                     <span>جمع کل</span>
                     <span className="text-2xl">
-                      {data.items
-                        .map((product) => Number(product.price.original))
-                        .reduce((a, b) => a + b, 0)
-                        .toLocaleString()}
+                      {data && data.paybox.total.toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -223,7 +220,7 @@ export default function Cart() {
                     onClick={() => router.push("/checkout")}
                     className="btn-primary-gradient pr-20 pl-16 py-5 text-2xl"
                   >
-                    <span>پرداخت</span>
+                    <span>مرحله بعد</span>
                     <span>
                       <IoArrowBackOutline />
                     </span>
