@@ -6,12 +6,18 @@ import {
   useGetTicketDetailsMutation,
   useGetTicketListQuery
 } from "@/datasources/ticket/remote/TicketSliceApi";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import NoContent from "@/components/NoContent";
 import toast from "@/utils/notification/toast";
 import {IoAttach} from "react-icons/io5";
 import TicketBox from "@/components/profile/Tickets/TicketBox";
+import {jsonToFormData} from "@/utils/form/useform";
+import * as Yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {getFormError} from "@/utils/form/messages";
+import {isEmpty} from "@/utils/general";
+import {handleApiError, handleFormApiResponse} from "@/datasources/errorHandler";
 
 const ticket = [
     {
@@ -32,7 +38,14 @@ const Tickets = () => {
     }] = useCreateTicketMutation()
     const [isOpen, setIsOpen] = useState(false)
 
-    const { register, control, setValue, getValues, handleSubmit, watch, formState: { errors } } = useForm({
+
+
+
+    const formSchema = Yup.object().shape({
+        subject: Yup.string().required(getFormError({field:'subject',type:'required'})),
+        message: Yup.string().required(getFormError({field:'message',type:'required'})),
+    });
+    const { register,trigger, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             // second
             subject: '',
@@ -41,9 +54,18 @@ const Tickets = () => {
             product: null,
             attachment: ""
         },
+        resolver: yupResolver(formSchema)
     });
 
-    const createTicket = (formData) => {
+    const createTicket = async (formData) => {
+        let isValid = await trigger()
+        if (!isValid) {
+            console.log(isValid,errors)
+            // const error_message = getFormError()
+            // setAlertMessage("اطلاعات ورودی خود را بررسی کنید.");
+            return;
+        }
+        formData = jsonToFormData(formData)
         fetchCreate(formData).unwrap().then((data) => {
             toast.success("تیکت جدید با موفقیت ایجاد شد!")
         }).catch((err) => {
@@ -52,11 +74,19 @@ const Tickets = () => {
         setIsOpen(false)
     }
 
-    // if (!isSuccess) return <></>
+    useEffect(()=>{
+        if(!isEmpty(errors)) {
+            Object.entries(errors).forEach(([_,value])=>{
+                toast.error(value.message)
+            })
+        }
+    },[errors])
+
+    if (!isSuccess) return <></>
     return (
         <div className="pt-7 pb-20">
             <Button className={'btn-primary py-4 px-12 rounded-full text-2xl'} onClick={() => setIsOpen(true)}>افزودن تیکت</Button>
-            {ticket.length === 0 ? <NoContent/>:
+            {ticket.length === 0 ? <NoContent/> :
             <div className="pt-10">
                 <div className="h-16 flex w-full">
                     <div className="text-start pr-14 basis-1/4">موضوع</div>

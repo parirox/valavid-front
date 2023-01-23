@@ -13,6 +13,7 @@ import {handleApiError} from "@/datasources/errorHandler";
 import SelectWithKey from "@/components/profile/Forms/SelectWithKey";
 import Button from "@/components/Button";
 import {IoAdd} from "react-icons/io5";
+import {dirtyValues} from "@/utils/form/useform";
 
 
 function ContactData({defaultValues}) {
@@ -43,7 +44,8 @@ function ContactData({defaultValues}) {
       setAlertMessage("اطلاعات ورودی خود را بررسی کنید.");
       return;
     }
-    // let data = dirtyValues(dirtyFields,getValues())
+    // data = dirtyValues(dirtyFields,data)
+    // console.log(dirtyFields,getValues(),data)
     if (!isEmpty(data)) {
       updateUserData(data).unwrap().then(_ => {
         toast.success("ثبت شد!")
@@ -66,17 +68,16 @@ function ContactData({defaultValues}) {
                  handleSubmit={handleSubmit(onSubmit)}
                  reset={formReset} alertMessage={alertMessage}>
       <RowInput label='ایمیل' required>
-        <Input name='company_email' control={control} disabled={isFormDisable}/>
+        <Input name='team.email' control={control} disabled={isFormDisable}/>
       </RowInput>
-      <RowInput label='شماره موبایل' required helperText={'(باید به نام صاحب حساب باشد)'}>
-        <Input name='company_phonenumber' control={control} disabled={isFormDisable}/>
+      <RowInput label='تلفن' required helperText={'(باید به نام صاحب حساب باشد)'}>
+        <Input name='team.bank_owner_phone' control={control} disabled={isFormDisable}/>
       </RowInput>
       <RowInput label='شبکه های اجتماعی'>
         <div className="grid grid-cols-2 gap-10">
           <Controller
             control={control}
-            name="company_socials"
-            // rules={{ required: true }}
+            name="info.socials"
             render={({
                        field: {onChange, name, value},
                        fieldState: {error},
@@ -84,14 +85,15 @@ function ContactData({defaultValues}) {
                      }) => (
               value.map((social, k) => (
                 <Fragment key={k}>
-                  <SelectWithKey value={social} index={k}
+                  <SelectWithKey value={social}
+                                 disabled={isFormDisable}
                                  setState={(newVal => setValue(`${name}.${k}`, newVal))}/>
                   {error && <span>{error}</span>}
                 </Fragment>
               ))
             )}
           />
-          <Button onClick={addSocialSelect('socials')} className="btn-accent py-4"><IoAdd/></Button>
+          <Button onClick={addSocialSelect('info.socials')} className="btn-accent py-4"><IoAdd/></Button>
         </div>
       </RowInput>
     </FormSection>

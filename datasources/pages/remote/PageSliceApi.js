@@ -26,12 +26,6 @@ const page_api = createApi({
                 method: 'GET',
             }),
         }),
-        GetPlans: build.query({
-            query: (query) => ({
-                url: ApiAddress(ApiEndpoint.pages.plans),
-                method: 'GET',
-            }),
-        }),
         SubmitNewsletter: build.mutation({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.pages.newsletter),
@@ -55,13 +49,12 @@ const page_api = createApi({
 export const {
     useGetHomeDataQuery,
     useGetPublishersQuery,
-    useGetPlansQuery,
     useGetFaqQuery,
     useSubmitNewsletterMutation,
 } = page_api;
 
 // export endpoints for use in SSR
-export const { GetHomeData,GetPublishers,GetPlans,GetFaq } = page_api.endpoints;
+export const { GetHomeData,GetPublishers,GetFaq } = page_api.endpoints;
 
 export default page_api;
 

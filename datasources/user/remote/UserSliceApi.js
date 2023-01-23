@@ -217,7 +217,7 @@ const user_api = createApi({
         UpdateUserInformation:build.mutation({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.user.profile.forms.main,query),
-                method: 'PUT',
+                method: 'PATCH',
                 body:query,
             }),
             invalidatesTags: [

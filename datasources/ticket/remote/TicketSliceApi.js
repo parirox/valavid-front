@@ -19,9 +19,6 @@ const ticket_api = createApi({
             query: () => ({
                 url: ApiAddress(ApiEndpoint.ticket.get_or_create),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: ticketSliceApiTag, id: 'TicketList'}
@@ -32,9 +29,6 @@ const ticket_api = createApi({
                 url: ApiAddress(ApiEndpoint.ticket.get_or_create),
                 method: 'POST',
                 body:query,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: ticketSliceApiTag, id: 'CreateTicket-'+ id}
@@ -45,22 +39,19 @@ const ticket_api = createApi({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.ticket.details_or_send_message,query),
                 method: 'GET',
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
-            providesTags: (result, error, id) => [
-                {type: ticketSliceApiTag, id: 'TicketDetails'}
-            ],
+            providesTags: (result, error, id) => {
+                console.log(result,error,id)
+                return [
+                    {type: ticketSliceApiTag, id: 'TicketDetails'}
+                ]
+            },
         }),
         AddMessage: build.mutation({
             query: ({id,body}) => ({
                 url: ApiAddress(ApiEndpoint.ticket.details_or_send_message,{id}),
                 method: 'POST',
                 body,
-                headers: {
-                    "Authorization": "Token cca3b7aaddd85d85513f55ddac72b4c5fc26d595",
-                },
             }),
             providesTags: (result, error, id) => [
                 {type: ticketSliceApiTag, id: 'AddMessage' + id}

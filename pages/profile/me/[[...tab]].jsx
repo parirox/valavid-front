@@ -100,8 +100,8 @@ function SellerProfile() {
   useEffect(() => {
     if (router.isReady) {
       if(isSuccess) {
-        if(data.is_seller) tabs = tabs.forEach((v)=>v.id==='SellerForm'? v.title = 'اطلاعات فروشنده' : '' )
-        if(data.is_team) tabs = tabs.forEach((v)=>v.id==='TeamForm'? v.title = 'اطلاعات تیم' : '' )
+        // if(data.is_seller) tabs = tabs.forEach((v)=>v.id==='SellerForm'? v.title = 'اطلاعات فروشنده' : '' )
+        // if(data.is_team) tabs = tabs.forEach((v)=>v.id==='TeamForm'? v.title = 'اطلاعات تیم' : '' )
       }
       const tabId = !isEmpty(router.query.tab)
         ? router.query.tab[0]
@@ -131,10 +131,11 @@ function SellerProfile() {
       </Head>
       <div className="w-full h-72 relative">
         <Image
-          src="/images/profile-bg.png"
+          src={isSuccess && !isEmpty(data.background_image?.src) ? data.background_image.src : "/images/profile-bg.png"}
           fill
-          alt="profile background"
+          alt={isSuccess && !isEmpty(data.background_image?.alt) ? data.background_image.alt : "profile background"}
           className="object-cover"
+          sizes={"100wv"}
         />
       </div>
       <div className="flex w-full px-10 gap-8 items-start">
