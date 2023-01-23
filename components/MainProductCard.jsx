@@ -148,7 +148,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
             </div>}
             <Link href={link} className="absolute inset-0 z-40"></Link>
             {data.type === 'video' ?
-              <video ref={ref} autoPlay={false} muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+              <video ref={ref} autoPlay={false} preload="metadata" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
                 <source src={data.media.src} type="video/mp4"/>
               </video>
               :
