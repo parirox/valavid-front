@@ -95,7 +95,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                         <IoFolderOpenOutline/>
                       </Badge>
                       <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
-                             onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price}))}>
+                             onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price.pay_price}))}>
                         {checkInCart(_cartItems, data.id) ? <MdRemoveShoppingCart/> : <FaCartPlus/>}
                       </Badge>
                     </div>
@@ -108,7 +108,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
                     <div className="flex gap-3 justify-center items-center">
-                      <Badge className='bg-primary rounded-2xl'><span dir="ltr">{isEmpty(data?.price) ? "رایگان" : data.price}</span></Badge>
+                      <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data.price.free ? "رایگان" : (data?.price.pay_price/10).toLocaleString()}</span></Badge>
                       <Badge className='bg-primary rounded-2xl  text-2xl'><IoVideocamOutline/></Badge>
                     </div>
                   </div>

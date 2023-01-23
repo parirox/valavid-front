@@ -12,7 +12,6 @@ import product_api, {
 } from "@/datasources/product/remote/ProductSliceApi";
 import {wrapper} from "@/datasources/store";
 import {useRouter} from "next/router";
-import Error404 from "pages/404";
 import {IoVideocam} from "react-icons/io5";
 import {TiFilter} from "react-icons/ti";
 import Pagination from "@/components/Pagination";
