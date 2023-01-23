@@ -5,11 +5,11 @@ import { FaChevronDown } from "react-icons/fa";
 const SelectBox = ({ label, selected, setSelected, options }) => {
   return (
     <Listbox value={selected} onChange={(item) => setSelected(item)}>
-      <Listbox.Button className="flex items-center justify-between border border-color8 h-[60px] rounded-[16px] w-[100%] text-color8 text-start p-4">
+      <Listbox.Button className="flex items-center justify-between border border-secondary-300 h-[60px] rounded-[16px] w-[100%] text-secondary-300 text-start p-4">
         <span>{(selected && selected.label) || label}</span>
         <FaChevronDown />
       </Listbox.Button>
-      <Listbox.Options className="text-secondary-light bg-white mt-4 rounded-[16px] shadow-xl">
+      <Listbox.Options className="z-10 text-secondary-light bg-white mt-4 rounded-[16px] shadow-3xl absolute w-full h-auto max-h-[15rem] overflow-auto">
         {options &&
           options.map((item, index) => (
             <Listbox.Option

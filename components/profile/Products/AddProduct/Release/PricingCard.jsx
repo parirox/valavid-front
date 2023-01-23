@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 
 const PricingCard = ({ handleSubmit }) => {
   return (
-    <div className="h-[300px] w-[400px] shadow-2xl bg-color9 rounded-[23px] m-4 px-[2rem] py-[1rem] flex items-center">
+    <div className="h-[300px] w-[400px] shadow-4xl bg-color9 rounded-[23px] m-4 px-[2rem] py-[1rem] flex items-center">
       <div className="flex items-center flex-col justify-center">
         <PricingIcon className="my-[0.7rem]" />
         <span className="text-primary">قیمت گذاری</span>

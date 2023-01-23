@@ -3,7 +3,7 @@ import Image from "next/image";
 import { formatBytes, isFileImage, isFileVideo } from "@/utils/helpers/files";
 const ProductCard = ({ product, description }) => {
   return (
-    <div className="flex p-4 rounded-[23px] bg-[#FFFFFF] shadow-xl shadow-gray-50 w-[100%]">
+    <div className="flex p-4 rounded-[23px] bg-[#FFFFFF] shadow-3xl w-[100%]">
       {isFileImage(product) && (
         <Image
           src={URL.createObjectURL(product)}

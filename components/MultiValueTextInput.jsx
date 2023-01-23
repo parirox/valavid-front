@@ -40,8 +40,8 @@ const MultiValueTextInput = ({
   }, [inputValue]);
 
   return (
-    <div className="border border-color8 rounded-[23px] h-[131px] relative p-4">
-      <label className="text-color8 absolute bg-color9 top-[-11px] right-[20px] px-3 z-10">
+    <div className="border border-secondary-300 rounded-[23px] h-[131px] relative p-4">
+      <label className="text-secondary-300 absolute bg-color9 top-[-11px] right-[20px] px-3 z-10">
         {label}
       </label>
       <div className="flex flex-col justify-start items-start">

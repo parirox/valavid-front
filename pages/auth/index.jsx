@@ -60,7 +60,7 @@ const Index = () => {
           {(selectedTab === "login" || selectedTab === "signup") && (
             <>
               <div>
-                <div className="m-4 border-b border-[#D6DADC] text-[#90999F] flex text-2xl items-center justify-around">
+                <div className="m-4 border-b border-secondary-300 text-[#90999F] flex text-2xl items-center justify-around">
                   <div
                     className={clsx(
                       "py-5 px-6 cursor-pointer",

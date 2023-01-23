@@ -385,7 +385,8 @@ const Location = ({ handleCompleteStep, setProduct, productInfo }) => {
       <p className="text-secondary bg-color8 rounded-[22px] h-[55px] flex items-center justify-center w-fit px-[2rem] mx-auto mt-[5rem] mb-[6rem]">
         موقعیت جفرافیایی محصول خود را در صورت نیاز انتخاب کنید.
       </p>
-      <div className="my-[2rem]">
+     <div>
+     <div className="my-[2rem] relative">
         <SelectBox
           options={countryOptions}
           selected={productInfo.country}
@@ -395,7 +396,7 @@ const Location = ({ handleCompleteStep, setProduct, productInfo }) => {
           label="کشور"
         />
       </div>
-      <div className="my-[2rem]">
+      <div className="my-[2rem] relative">
         <SelectBox
           options={proviceOptions}
           selected={productInfo.state}
@@ -405,7 +406,7 @@ const Location = ({ handleCompleteStep, setProduct, productInfo }) => {
           label="استان"
         />
       </div>
-      <div className="my-[2rem]">
+      <div className="my-[2rem] relative">
         <SelectBox
           options={cityOptions}
           selected={productInfo.city}
@@ -415,6 +416,7 @@ const Location = ({ handleCompleteStep, setProduct, productInfo }) => {
           label="شهر"
         />
       </div>
+     </div>
       <Button
         onClick={() => handleClick()}
         className="w-[20rem] h-[4rem] btn-primary mt-[13.5rem] block mr-auto"

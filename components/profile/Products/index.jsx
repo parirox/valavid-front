@@ -8,6 +8,7 @@ import KeyWords from "./AddProduct/KeyWords";
 import Location from "./AddProduct/Location";
 import Release from "./AddProduct/Release/Release";
 import SuccessIcon from "@/public/icons/SuccessIcon.svg";
+import CloudIcon from "@/public/icons/CloudIcon.svg";
 import ComputerIcon from "@/public/icons/ComputerIcon.svg";
 import Button from "@/components/Button";
 import {
@@ -18,6 +19,7 @@ import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import {IoClose} from "react-icons/io5";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -217,28 +219,33 @@ const Products = () => {
         setIsOpen={(state) => setIsOpen(state)}
         background="bg-[#F8F8F8]"
       >
-        <div className="w-full flex flex-cols gap-7 rounded-3xl text-center p-5 min-h-[70vh] h-[765px] justify-center">
-          {content === "steps" && (
-            <Stepper
-              activeStep={activeStep}
-              setActiveStep={setActiveStep}
-              steps={steps}
-            />
-          )}
-          {content === "success" && (
-            <div className="flex flex-col items-center justify-center">
-              <SuccessIcon className="w-[10rem] h-[10rem]" />
-              <p className="text-[#42C950] p-4 my-4 text-center">
-                درخواست انتشار محصول با موفقیت ثبت شد.
-              </p>
-              <ComputerIcon className="my-[4rem]" />
-              <Link href="/">
-                <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block">
-                  رفتن به خانه
-                </Button>
-              </Link>
-            </div>
-          )}
+        <div className="relative w-full flex justify-center">
+          <IoClose onClick={()=>setIsOpen(false)} className="absolute w-8 h-8 text-black left-0 cursor-pointer"/>
+          <CloudIcon className="absolute bottom-[17rem] right-0 z-[-1]" />
+          <div className="w-[900px] max-w-[900px] flex flex-cols gap-7 rounded-3xl text-center p-5 min-h-[70vh] h-[765px] justify-center">
+            {content === "steps" && (
+              <Stepper
+                activeStep={activeStep}
+                setActiveStep={setActiveStep}
+                steps={steps}
+              />
+            )}
+            {content === "success" && (
+              <div className="flex flex-col items-center justify-center">
+                <SuccessIcon className="w-[10rem] h-[10rem]" />
+                <p className="text-[#42C950] p-4 my-4 text-center">
+                  درخواست انتشار محصول با موفقیت ثبت شد.
+                </p>
+                <ComputerIcon className="my-[4rem]" />
+                <Link href="/">
+                  <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block">
+                    رفتن به خانه
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
+          <CloudIcon className="absolute top-[20rem] left-0 z-[-1]" />
         </div>
       </Modal>
     </div>

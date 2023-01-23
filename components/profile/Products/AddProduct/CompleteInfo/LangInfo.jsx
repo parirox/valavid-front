@@ -69,7 +69,7 @@ const LangInfo = ({ handleChangeTranlations, translations }) => {
   };
 
   return (
-    <div className="border border-color8 rounded-[23px] mt-[4rem] overflow-hidden">
+    <div className="border border-[#D6DADC] rounded-[23px] mt-[4rem] overflow-hidden">
       <div className="bg-color8 text-secondary-300 h-[5rem] flex items-center justify-between mb-[5rem]">
         {tabs.map((tab, index) => (
           <div
@@ -79,13 +79,13 @@ const LangInfo = ({ handleChangeTranlations, translations }) => {
             } h-[100%] flex items-center p-4 flex-1 justify-center cursor-pointer`}
             key={index}
           >
-            {tab.label}
             {translations[tab.language_code].title &&
               translations[tab.language_code].description && (
                 <div className="w-[1.5rem] h-[1.5rem] mx-2">
                   <SuccessIcon />
                 </div>
               )}
+              {tab.label}
           </div>
         ))}
       </div>

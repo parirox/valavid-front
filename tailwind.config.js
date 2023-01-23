@@ -26,6 +26,10 @@ module.exports = {
       sans: ["IRANSans", "vazir", "sans-serif"],
     },
     extend: {
+      boxShadow: {
+        '3xl': '8px 11px 23px 0px rgb(0 0 0 / 4%)',
+        '4xl': '6px 4px 15px 0px rgb(0 0 0 / 9%)',
+      },
       backgroundImage: {
         'hero-pattern': "linear-gradient(0deg, rgba(83,76,218,0.8) 0%, rgba(174,170,255,0.8) 100%),url('../public/icons/LoginImage.jpg')",
      },
