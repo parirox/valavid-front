@@ -11,7 +11,7 @@ import product_api, {
   useGetProductListScrollQuery
 } from "@/datasources/product/remote/ProductSliceApi";
 import {wrapper} from "@/datasources/store";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 import {IoVideocam} from "react-icons/io5";
 import {TiFilter} from "react-icons/ti";
 import Pagination from "@/components/Pagination";
@@ -76,20 +76,19 @@ function Products({query}) {
   }
 
   useEffect(() => {
-    if (filterChanged) {
+    if (filterChanged && !isFetching) {
       const {order, type} = query
       let newQuery = {...deferredQuery, type, page: 1}
       if (!isEmpty(order)) {
         newQuery.order = order
       }
       const removedEmptyObject = Object.fromEntries(Object.entries(newQuery).filter((v) => !isEmpty(v[1])))
-
-      router.push({
+      router.replace({
         pathname: router.pathname,
         query: removedEmptyObject
       }, undefined, {scroll: false})
     }
-  }, [deferredQuery, filterChanged, query, router])
+  }, [deferredQuery, filterChanged, query])
 
   if (isError) return <ErrorPage info={error}/>
   return (
