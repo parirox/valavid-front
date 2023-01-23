@@ -294,14 +294,20 @@ export default function Cart() {
                                   قیمت (تومان)
                                 </div>
                                 <div className="flex gap-4 flex-row-reverse items-center">
-                                  <span className="text-xl text-color3 line-through">
-                                    {product.price.original.toLocaleString()}
-                                  </span>
-                                  <span className="bg-danger rounded-3xl w-12 px-2 py-1 text-lg text-center mr-2">
-                                    {product.price.percent}
-                                  </span>
+                                  {product.price.percent !== 0 && (
+                                    <>
+                                      <span className="text-xl text-color3 line-through">
+                                        {product.price.original.toLocaleString()}
+                                      </span>
+                                      <span className="bg-danger rounded-3xl w-12 px-2 py-1 text-lg text-center mr-2">
+                                        {product.price.percent}
+                                      </span>
+                                    </>
+                                  )}
                                   <span className="text-3xl text-color6">
-                                    {product.price.pay_price.toLocaleString()}
+                                    {product.price.pay_price === 0
+                                      ? "رایگان"
+                                      : product.price.pay_price.toLocaleString()}
                                   </span>
                                 </div>
                               </div>
@@ -379,10 +385,10 @@ export default function Cart() {
                         </div>
                       )}
                       <div className="mt-8">
-                      <GatewaysList
-                        state={paymentGateway}
-                        setter={setPaymentGateway}
-                      />
+                        <GatewaysList
+                          state={paymentGateway}
+                          setter={setPaymentGateway}
+                        />
                       </div>
 
                       {/* <div className="flex items-center text-secondary">
@@ -444,9 +450,13 @@ export default function Cart() {
                           <span>سود شما از خرید:</span>
                           <span className="text-lg">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.user_profit.toLocaleString()}</>
+                              <>
+                                {checkOfferCodeData.user_profit.toLocaleString()}
+                              </>
                             ) : (
-                              <>{cartData.paybox.user_profit.toLocaleString()}</>
+                              <>
+                                {cartData.paybox.user_profit.toLocaleString()}
+                              </>
                             )}
                           </span>
                         </div>
@@ -455,7 +465,9 @@ export default function Cart() {
                           <span>قابل پرداخت:</span>
                           <span className="text-2xl">
                             {checkOfferIsSuccess ? (
-                              <>{checkOfferCodeData.pay_amount.toLocaleString()}</>
+                              <>
+                                {checkOfferCodeData.pay_amount.toLocaleString()}
+                              </>
                             ) : (
                               <>{cartData.paybox.pay_amount.toLocaleString()}</>
                             )}
