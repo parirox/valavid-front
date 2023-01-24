@@ -34,7 +34,7 @@ function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
               />
             </Head>
             <Toaster/>
-            <NextNProgress/>
+            <NextNProgress color="#534CDA"/>
             <SessionProvider session={session}>
               <Component {...pageProps} />
             </SessionProvider>
