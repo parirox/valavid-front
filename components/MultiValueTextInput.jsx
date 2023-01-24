@@ -33,21 +33,12 @@ const MultiValueTextInput = ({
   });
 
   useEffect(() => {
-<<<<<<< HEAD
-    if(inputValue.length > 1) {
-      getProductTags({ search: inputValue })
-      .unwrap()
-      .then((data) => {
-        setOffers(data);
-      });
-=======
-    if(!isEmpty(inputValue) && inputValue.length > 2){
-      getProductTags({ search: inputValue })
+    if(inputValue.length > 2) {
+      getProductTags({search: inputValue})
         .unwrap()
         .then((data) => {
           setOffers(data);
         });
->>>>>>> c7a453e7e0c8b87e7c4c514015f16c5b1b9776e8
     }
   }, [inputValue]);
 
