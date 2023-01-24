@@ -47,7 +47,7 @@ function Faq({query}) {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="container flex flex-col items-center relative pb-[25rem]">
-        <Image src={'/images/faq_QuestionsPic.png'} className="mx-auto" alt="" width={320} height={220}></Image>
+        <Image src={'/images/faq_QuestionsPic.png'} className="mx-auto" alt="faq" width={320} height={220}></Image>
         <h3 className="pt-8">چطور می توانیم کمکتان کنیم ؟</h3>
         <p className="text-secondary-100 pt-2">اگر موضوع موردنظرتان را در پایین پیدا نکردید سوال خود را بنویسید</p>
         <div className="relative w-[34rem] h-12 mt-16 mb-20">
