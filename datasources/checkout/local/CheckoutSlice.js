@@ -54,15 +54,6 @@ export const checkoutSlice = createSlice({
             state.cart = []
         },
     },
-    extraReducers: {
-        [HYDRATE]: (state, action) => {
-            // console.log("from extraReducers in checkout slice",action);
-            // return {
-            //     ...state,
-            //     ...action.payload
-            // };
-        },
-    }
 });
 // shortcut stats
 export const cartItems = (state) => state.checkout.cart;
