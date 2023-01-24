@@ -7,6 +7,8 @@ import {Toaster} from "react-hot-toast";
 import {Provider} from "react-redux";
 import {persistStore} from "redux-persist";
 import {SessionProvider} from "next-auth/react";
+import { useStore } from 'react-redux';
+import NextNProgress from 'nextjs-progressbar';
 
 function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
   const {
@@ -16,14 +18,14 @@ function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
       router,
     },
   } = wrapper.useWrappedStore(rest);
-  // const persistor = persistStore(store, {}, function () {
-  //   persistor.persist();
-  // });
+  const persistor = persistStore(store, {}, function () {
+    persistor.persist();
+  });
 
   return (
     <Provider store={store}>
-      {/*<PersistGate loading={null} persistor={persistor}>*/}
-      {/*  {() => (*/}
+      <PersistGate loading={null} persistor={persistor}>
+        {() => (
           <Layout styleMode={Component?.styleMode}>
             <Head>
               <meta
@@ -32,12 +34,13 @@ function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
               />
             </Head>
             <Toaster/>
+            <NextNProgress/>
             <SessionProvider session={session}>
               <Component {...pageProps} />
             </SessionProvider>
           </Layout>
-        {/*)}*/}
-      {/*</PersistGate>*/}
+        )}
+      </PersistGate>
     </Provider>
   );
 }
