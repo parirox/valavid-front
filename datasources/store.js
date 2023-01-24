@@ -55,6 +55,8 @@ const persistConfig = {
 };
 
 let reducer = {
+  //->> loadingBar
+  loadingBar: loadingBarReducer,
   //->> pages
   [pageSliceApiTag]: pageSliceApi.reducer,
   //->> payment
@@ -83,8 +85,6 @@ let reducer = {
   //->> ticket
   // ticket: ticketSlice,
   [ticketSliceApiTag]: ticketSliceApi.reducer,
-  //->> loadingBar
-  loadingBar: loadingBarReducer,
 };
 reducer = persistCombineReducers(persistConfig, reducer);
 
@@ -94,7 +94,7 @@ export const store = (context) =>
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: true,
+        serializableCheck: false,
       }).concat([
         LoadingHandler,
         pageSliceApi.middleware,
