@@ -16,7 +16,7 @@ import {useUpdateUserInformationMutation} from "@/datasources/user/remote/UserSl
 import {dirtyValues} from "@/utils/form/useform";
 import {
   form_change_fields_success_message,
-  form_fields,
+  form_fields, formApiError,
   getFormError,
   getFormSuccessMessage
 } from "@/utils/form/messages";
@@ -44,15 +44,15 @@ function GeneralData({defaultValues}) {
   const [isFormDisable, setFormDisable] = useState(true)
 
   const formSchema = Yup.object().shape({
-    info:Yup.object().shape({
+    info: Yup.object().shape({
       gender: Yup.string()
-        .required(getFormError({field:'gender',type:'choose'})),
+        .required(getFormError({field: 'gender', type: 'choose'})),
       national_code: Yup.string()
-        .required(getFormError({field:'national_code',type:'required'}))
+        .required(getFormError({field: 'national_code', type: 'required'}))
     })
   });
 
-  const {control, handleSubmit, trigger,getValues, reset,formState:{errors,dirtyFields}} = useForm({
+  const {control, handleSubmit, trigger, getValues, reset, formState: {errors, dirtyFields}} = useForm({
     mode: "onSubmit",
     defaultValues,
     resolver: yupResolver(formSchema)
@@ -65,25 +65,26 @@ function GeneralData({defaultValues}) {
     }
     // let data = dirtyValues(dirtyFields,getValues())
     if (!isEmpty(data)) {
-      updateUserData(data).unwrap().then(_=> {
+      updateUserData(data).unwrap().then(_ => {
         toast.success("ثبت شد!")
-        setFormDisable(true)
+        resetForm()
       }).catch(e => {
-        handleApiError({first_name:e.first_name,last_name:e.last_name,info:e.info})
+        handleApiError({first_name: e.first_name, last_name: e.last_name, info: e.info})
         setAlertMessage(e.message)
       })
     }
   };
 
-  const formReset = ()=>{
+  const resetForm = () => {
     setFormDisable(true)
     setAlertMessage("")
     reset(defaultValues)
   }
 
   return (
-    <FormSection title={"اطلاعات هویتی"} isFormDisable={isFormDisable} setFormDisable={setFormDisable} handleSubmit={handleSubmit(onSubmit)}
-                 reset={formReset} alertMessage={alertMessage}>
+    <FormSection title={"اطلاعات هویتی"} isFormDisable={isFormDisable} setFormDisable={setFormDisable}
+                 handleSubmit={handleSubmit(onSubmit)}
+                 alertMessage={alertMessage}>
       <RowInput label='نام' required>
         <Input name='first_name' control={control} disabled={isFormDisable}/>
       </RowInput>
@@ -91,7 +92,8 @@ function GeneralData({defaultValues}) {
         <Input name='last_name' control={control} disabled={isFormDisable}/>
       </RowInput>
       <RowInput label='جنسیت' required error={errors.genders?.message}>
-        <RadioButton name="info.gender" control={control} disabled={isFormDisable} options={filterOptions.genders} defaultValue="male"/>
+        <RadioButton name="info.gender" control={control} disabled={isFormDisable} options={filterOptions.genders}
+                     defaultValue="male"/>
       </RowInput>
       <RowInput label='کد ملی' required>
         <Input name='info.national_code' control={control} disabled={isFormDisable}/>

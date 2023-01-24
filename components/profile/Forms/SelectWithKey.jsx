@@ -2,6 +2,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Fragment, useEffect, useState } from "react";
 import { FaChevronDown, FaInstagram, FaLinkedin, FaPinterest, FaTwitter, FaYoutube } from "react-icons/fa";
+import classNames from "classnames";
 
 export const socials = [
     {
@@ -53,6 +54,7 @@ export default function SelectWithKey({ value,disabled, setState }) {
                     <input
                         className="input py-4 px-6 w-full"
                         type="text"
+                        disabled={disabled}
                         id="search-header"
                         value={val}
                         onChange={(e) => setVal(e.target.value)}
@@ -88,11 +90,10 @@ export default function SelectWithKey({ value,disabled, setState }) {
                                             }
                                             value={social}
                                         >
-                                            {({ selected }) => (
+                                            {({ selected,disabled }) => (
                                                 <>
                                                     <span
-                                                        className={`block truncate text-white ${selected ? "font-medium" : "font-normal"
-                                                            }`}
+                                                        className={classNames(`block truncate text-white`,{"font-medium" :selected, "font-normal":!selected})}
                                                     >
                                                         {social.name}
                                                     </span>

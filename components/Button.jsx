@@ -5,6 +5,7 @@ import {AiOutlineLoading} from "react-icons/ai";
 const Button = ({
   link,
   onClick,
+  disabled ,
   loading=false,
   children, ...rest
 }) => {
@@ -12,7 +13,7 @@ const Button = ({
 
   if (isEmpty(link)) {
     return (
-      <button type={rest.type ?? 'button'} onClick={onClick} {...rest}>
+      <button disabled={disabled} type={rest.type ?? 'button'} onClick={onClick} {...rest}>
         {children}
       </button>
     )

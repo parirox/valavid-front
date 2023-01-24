@@ -51,6 +51,7 @@ function DocsUpload({defaultValues}) {
       fetchUpdateUser(formData).unwrap().then(_ => {
         const res_msg = getFormSuccessMessage(data)
         toast.success(res_msg)
+        resetForm()
       }).catch(e => {
         handleApiError(e)
         setAlertMessage(e.message)

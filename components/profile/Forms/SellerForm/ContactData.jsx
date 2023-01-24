@@ -14,6 +14,7 @@ import SelectWithKey from "@/components/profile/Forms/SelectWithKey";
 import Button from "@/components/Button";
 import {IoAdd} from "react-icons/io5";
 import {dirtyValues} from "@/utils/form/useform";
+import classNames from "classnames";
 
 
 function ContactData({defaultValues}) {
@@ -49,7 +50,7 @@ function ContactData({defaultValues}) {
     if (!isEmpty(data)) {
       updateUserData(data).unwrap().then(_ => {
         toast.success("ثبت شد!")
-        setFormDisable(true)
+        resetForm()
       }).catch(e => {
         handleApiError({first_name: e.first_name, last_name: e.last_name, info: e.info})
         setAlertMessage(e.message)
@@ -57,7 +58,7 @@ function ContactData({defaultValues}) {
     }
   };
 
-  const formReset = () => {
+  const resetForm = () => {
     setFormDisable(true)
     setAlertMessage("")
     reset(defaultValues)
@@ -66,7 +67,7 @@ function ContactData({defaultValues}) {
   return (
     <FormSection title={"اطلاعات تماس"} isFormDisable={isFormDisable} setFormDisable={setFormDisable}
                  handleSubmit={handleSubmit(onSubmit)}
-                 reset={formReset} alertMessage={alertMessage}>
+                 alertMessage={alertMessage}>
       <RowInput label='ایمیل' required>
         <Input name='seller.email' control={control} disabled={isFormDisable}/>
       </RowInput>
@@ -93,7 +94,7 @@ function ContactData({defaultValues}) {
               ))
             )}
           />
-          <Button onClick={addSocialSelect('info.socials')} className="btn-accent py-4"><IoAdd/></Button>
+          <Button disabled={isFormDisable} onClick={addSocialSelect('info.socials')} className={classNames("btn-accent py-4",{"opacity-50":isFormDisable})}><IoAdd/></Button>
         </div>
       </RowInput>
     </FormSection>
