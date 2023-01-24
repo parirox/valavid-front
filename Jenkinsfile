@@ -50,7 +50,7 @@ pipeline {
                         }
                     }
 
-                    if(gitBranch=="origin/master"){
+                    if(gitBranch=="origin/main"){
 
                         withCredentials([usernamePassword(credentialsId: 'valavid_production_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "sudo su && cd /root/projects/valavid-frontend && git pull"'
