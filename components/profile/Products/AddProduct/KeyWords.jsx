@@ -25,8 +25,8 @@ const KeyWords = ({ handleCompleteStep, setProduct, productInfo }) => {
   const handleClick = () => {
     if (
       productInfo.tags_level_1.length === 0 ||
-      productInfo.tags_level_2 === 0 ||
-      productInfo.tags_level_3 === 0
+      productInfo.tags_level_2.length === 0 ||
+      productInfo.tags_level_3.length === 0
     ) {
       _toast.error("پر کردن تمامی فید تگ ها اجباری است.");
     } else {

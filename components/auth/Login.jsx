@@ -75,7 +75,7 @@ const Login = ({ setSelectedTab }) => {
           ورود
         </button>
         <button
-          onClick={() => signIn()}
+          onClick={() => signIn('google')}
           className="border border-secondary-300 flex items-center justify-center text-[#54626C] mx-4 mt-1 h-[4.063rem] rounded-[1.438rem]"
         >
           <span>ورود با حساب گوگل</span>

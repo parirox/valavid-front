@@ -13,17 +13,16 @@ const AddFile = ({ handleSelectFile }) => {
       <div
         className="rounded-[23px] h-[100%] bg-[#13222D] flex items-center justify-center"
         {...getRootProps({
-          onClick: event => event.stopPropagation(),
-          role: 'button',
-          'aria-label': 'drag and drop area',
+          onClick: (event) => event.stopPropagation(),
+          role: "button",
+          "aria-label": "drag and drop area",
         })}
       >
         {/* <div {...getRootProps()}> */}
-          <input  accept="video/*,image/*" {...getInputProps()} />
-          {isDragActive && (
-            <div className="bg-[#6b728078] flex absolute w-full h-full top-0 right-0">
-            </div>
-          )}
+        <input accept="video/*,image/*" {...getInputProps()} />
+        {isDragActive && (
+          <div className="bg-[#6b728078] flex absolute w-full h-full top-0 right-0"></div>
+        )}
         {/* </div> */}
         <div className="flex flex-col items-center justify-center">
           <UploadIcon />
@@ -34,6 +33,7 @@ const AddFile = ({ handleSelectFile }) => {
             onChange={(e) => {
               handleSelectFile(e.target.files[0]);
             }}
+            onClick={(e) => (e.target.value = null)}
             id="file-input"
             type="file"
             className="hidden"

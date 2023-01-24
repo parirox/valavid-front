@@ -2,7 +2,7 @@ import {
   useCancelWithdrawalMutation,
   useGetAccountingListQuery,
 } from "@/datasources/Accounting/remote/AccountingSliceApi";
-import { BiCheck , BiError } from "react-icons/bi";
+import { BiCheck, BiError } from "react-icons/bi";
 import { FiClock } from "react-icons/fi";
 import { RiCloseLine } from "react-icons/ri";
 import { MdErrorOutline, MdOutlineCancel } from "react-icons/md";
@@ -11,6 +11,8 @@ import React, { useState } from "react";
 import Diposit from "./Deposit";
 import Withdrawal from "./Withdrawal";
 import moment from "jalali-moment";
+import { handleApiError } from "@/datasources/errorHandler";
+import _toast from "@/utils/notification/toast";
 
 const inventory = 2500000;
 const AccountingCardData = [
@@ -53,7 +55,12 @@ const Accounting = () => {
   const handleCancelWithdrawal = (id) => {
     cancelWithdrawal({ id })
       .unwrap()
-      .then(() => {});
+      .then(() => {
+        _toast.success("درخواست با موفقیت انجام شد.");
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
   };
 
   const getTransactionStatus = (status) => {
@@ -183,9 +190,7 @@ const Accounting = () => {
                   <td className="py-10">
                     {transaction.can_cancel === true ? (
                       <div
-                        onClick={() =>
-                          handleCancelWithdrawal(transaction.id)
-                        }
+                        onClick={() => handleCancelWithdrawal(transaction.id)}
                         className="flex justify-end items-center gap-1 text-[#EF4345] cursor-pointer"
                       >
                         <RiCloseLine className="text-2xl"></RiCloseLine>

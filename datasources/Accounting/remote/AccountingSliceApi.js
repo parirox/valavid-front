@@ -46,7 +46,7 @@ const accounting_api = createApi({
     cancelWithdrawal: build.mutation({
       query: (query) => ({
         url: ApiAddress(ApiEndpoint.accounting.cancelWithdrawal, query),
-        body: {},
+        body: query,
         method: "POST",
       }),
       providesTags: (result, error, id) => [

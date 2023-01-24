@@ -32,11 +32,13 @@ const MultiValueTextInput = ({
   });
 
   useEffect(() => {
-    getProductTags({ search: inputValue })
+    if(inputValue.length > 1) {
+      getProductTags({ search: inputValue })
       .unwrap()
       .then((data) => {
         setOffers(data);
       });
+    }
   }, [inputValue]);
 
   return (
@@ -73,7 +75,7 @@ const MultiValueTextInput = ({
           {activeInput === id && offers.length > 0 && (
             <div
               ref={wrapperRef}
-              className="absolute top-[3.5rem] overflow-auto h-[15rem] bg-white shadow-2xl p-4 z-50 flex flex-wrap p-4 rounded-[20px] items-start w-full"
+              className="scrollbar-thin scrollbar-thumb-primary overflow-y-scroll absolute top-[3.5rem] overflow-auto h-[15rem] bg-white shadow-2xl p-4 z-50 flex flex-wrap p-4 rounded-[20px] items-start w-full"
             >
               {offers &&
                 offers.map((offer, index) => (

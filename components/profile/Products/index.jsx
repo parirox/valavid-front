@@ -19,7 +19,7 @@ import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {IoClose} from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,7 +78,30 @@ const Products = () => {
 
   const handleSelectFile = (file) => {
     if (file) {
-      setProduct("file", file);
+      if (productInfo.file && file.name === productInfo.file.name) {
+        setProduct("file", file);
+      } else {
+        setProductInfo({
+          title: "",
+          description: "",
+          translations: {
+            fa: {},
+            en: {},
+            ar: {},
+            fr: {},
+            tr: {},
+          },
+          country: "",
+          state: "",
+          city: "",
+          tags_level_1: [],
+          tags_level_2: [],
+          tags_level_3: [],
+          file: file,
+          publish_type: null,
+        });
+        setActiveStep(1);
+      }
       setIsOpen(true);
     }
   };
@@ -218,9 +241,15 @@ const Products = () => {
         isOpen={isOpen ?? false}
         setIsOpen={(state) => setIsOpen(state)}
         background="bg-[#F8F8F8]"
+        containerClass="p-0"
+        modalClass="min-h-[100vh]"
+        rounded="rounded-0"
       >
         <div className="relative w-full flex justify-center">
-          <IoClose onClick={()=>setIsOpen(false)} className="absolute w-8 h-8 text-black left-0 cursor-pointer"/>
+          <IoClose
+            onClick={() => setIsOpen(false)}
+            className="absolute w-8 h-8 text-black left-0 cursor-pointer"
+          />
           <CloudIcon className="absolute bottom-[17rem] right-0 z-[-1]" />
           <div className="w-[900px] max-w-[900px] flex flex-cols gap-7 rounded-3xl text-center p-5 min-h-[70vh] h-[765px] justify-center">
             {content === "steps" && (

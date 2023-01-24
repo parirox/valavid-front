@@ -10,6 +10,9 @@ function Modal({
   small,
   big,
   background,
+  containerClass,
+  modalClass,
+  rounded,
   ...props
 }) {
   function closeModal() {
@@ -31,8 +34,8 @@ function Modal({
           <div className="fixed inset-0 bg-black backdrop-blur bg-opacity-20" />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div className="scrollbar-thin scrollbar-thumb-primary fixed inset-0 overflow-y-auto">
+          <div className={`flex min-h-full items-center justify-center p-4 text-center ${containerClass ? containerClass : ""}`}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -43,9 +46,9 @@ function Modal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`transform overflow-hidden rounded-2xl  p-6 text-left align-middle shadow-xl transition-all ${
-                  small ? "w-6/12" : big ? "w-10/12" : "w-8/12"
-                } ${background ? background : "bg-white"}`}
+                className={`transform overflow-hidden  p-6 text-left align-middle shadow-xl transition-all ${
+                  small ? "w-6/12" : big ? "w-full" : "w-8/12"
+                } ${background ? background : "bg-white"} ${modalClass ? modalClass : ""} ${rounded ? rounded : "rounded-2xl"}`}
               >
                 {title && (
                   <Dialog.Title
