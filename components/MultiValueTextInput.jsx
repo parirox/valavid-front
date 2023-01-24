@@ -1,6 +1,7 @@
 import { useGetProductTagsMutation } from "@/datasources/product/remote/ProductSliceApi";
 import { useOutsideAlerter } from "hooks/ClickOutside";
 import React, { useState, useEffect } from "react";
+import {isEmpty} from "@/utils/general";
 
 const MultiValueTextInput = ({
   label,
@@ -20,7 +21,7 @@ const MultiValueTextInput = ({
   ] = useGetProductTagsMutation();
 
   const handleKeyPress = (event) => {
-    if (event.key === "enter" || event.charCode == 13) {
+    if (event.key === "enter" || event.charCode === 13) {
       setValues(level, event.target.value);
       setInputValue("");
     }
@@ -32,11 +33,13 @@ const MultiValueTextInput = ({
   });
 
   useEffect(() => {
-    getProductTags({ search: inputValue })
-      .unwrap()
-      .then((data) => {
-        setOffers(data);
-      });
+    if(!isEmpty(inputValue) && inputValue.length > 2){
+      getProductTags({ search: inputValue })
+        .unwrap()
+        .then((data) => {
+          setOffers(data);
+        });
+    }
   }, [inputValue]);
 
   return (
@@ -73,7 +76,7 @@ const MultiValueTextInput = ({
           {activeInput === id && offers.length > 0 && (
             <div
               ref={wrapperRef}
-              className="absolute top-[3.5rem] overflow-auto h-[15rem] bg-white shadow-2xl p-4 z-50 flex flex-wrap p-4 rounded-[20px] items-start w-full"
+              className="absolute top-[3.5rem] overflow-auto scrollbar h-[15rem] bg-white shadow-2xl p-4 z-50 flex flex-wrap p-4 rounded-[20px] items-start w-full"
             >
               {offers &&
                 offers.map((offer, index) => (

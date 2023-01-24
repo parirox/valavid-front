@@ -103,7 +103,7 @@ function Products({query}) {
       </CoverPage>
       <ManageCollectionDialog/>
       <div className="flex w-full">
-        <div className={`bg-secondary-light py-6 ${filterState ? 'basis-1/4' : ''}`}>
+        <div className={`bg-secondary-light py-6 sticky top-0 right-0 ${filterState ? 'basis-1/4' : ''}`}>
           <Button
             onClick={() => setFilterState(!filterState)}
             className={`h-14 w-40 rounded-2xl text-xl font-light bg-[#26333E] mx-7 ${filterState ? '' : 'absolute'}`}

@@ -45,6 +45,8 @@ function GeneralData({defaultValues}) {
 
   const formSchema = Yup.object().shape({
     info:Yup.object().shape({
+      gender: Yup.string()
+        .required(getFormError({field:'gender',type:'choose'})),
       national_code: Yup.string()
         .required(getFormError({field:'national_code',type:'required'}))
     })

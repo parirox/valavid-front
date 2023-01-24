@@ -9,7 +9,7 @@ const SelectBox = ({ label, selected, setSelected, options }) => {
         <span>{(selected && selected.label) || label}</span>
         <FaChevronDown />
       </Listbox.Button>
-      <Listbox.Options className="z-10 text-secondary-light bg-white mt-4 rounded-[16px] shadow-3xl absolute w-full h-auto max-h-[15rem] overflow-auto">
+      <Listbox.Options className="z-10 text-secondary-light bg-white mt-4 rounded-[16px] shadow-3xl absolute w-full h-auto max-h-[15rem] overflow-auto scrollbar">
         {options &&
           options.map((item, index) => (
             <Listbox.Option

@@ -49,21 +49,21 @@ const Header = ({ data, styleMode }) => {
       icon: (
         <FiDownload className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
       ),
-      link: "/profile/Downloads",
+      link: "/profile/me/Downloads",
       title: "دانلودها",
     },
     {
       icon: (
         <RiFolderAddLine className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
       ),
-      link: "/profile/Collections",
+      link: "/profile/me/Collections",
       title: "کالکشن ها",
     },
     {
       icon: (
         <FaRegHeart className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
       ),
-      link: "/profile/Favorites",
+      link: "/profile/me/Favorites",
       title: "علاقه مندی ها",
     },
     // {

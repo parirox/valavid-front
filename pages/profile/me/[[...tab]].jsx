@@ -14,11 +14,11 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {BsFolder2Open} from "react-icons/bs";
 import {FaChevronDown, FaMedal, FaStar} from "react-icons/fa";
 import {FiDownload, FiUpload} from "react-icons/fi";
-import {IoCalculator, IoClose, IoHeart, IoLocationOutline, IoPerson, IoTicketSharp,} from "react-icons/io5";
+import {IoCalculator, IoHeart, IoLocationOutline, IoPerson, IoTicketSharp,} from "react-icons/io5";
 import {MdEdit, MdGroupAdd, MdVerifiedUser} from "react-icons/md";
 import SellerForm from "@/components/profile/Forms/SellerForm";
 import TeamForm from "@/components/profile/Forms/TeamForm";
@@ -97,6 +97,27 @@ function SellerProfile() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const {data, isSuccess, isLoading} = useGetProfileDetailsQuery()
 
+  const parentAsideCard = useRef();
+  const asideCard = useRef();
+
+  useEffect(() => {
+    const onScroll = () => {
+      const marginTop = 15
+      if(asideCard.current.getBoundingClientRect().top <= marginTop ){
+        if(parentAsideCard.current.getBoundingClientRect().top >= marginTop){
+          asideCard.current.style.setProperty("top",(-parentAsideCard.current.getBoundingClientRect().top)+marginTop+"px")
+        }else{
+          asideCard.current.style.setProperty("top",(-parentAsideCard.current.getBoundingClientRect().top)+marginTop+"px")
+        }
+      }else{
+        asideCard.current.style.removeProperty("top")
+      }
+    };
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   useEffect(() => {
     if (router.isReady) {
       if(isSuccess) {
@@ -138,17 +159,17 @@ function SellerProfile() {
           sizes={"100wv"}
         />
       </div>
-      <div className="flex w-full px-10 gap-8 items-start">
-        <aside className="basis-1/4 rounded-2xl relative -top-52 bg-secondary-light p-10">
+      <div ref={parentAsideCard} className="flex w-full px-10 gap-8 items-start">
+        <aside ref={asideCard} className={"basis-1/4 rounded-2xl bg-secondary-light transition-400-linear relative -top-52"}>
           {isLoading && <ProfileCardLoader/>}
           {isSuccess &&
-            <div className="grid grid-cols-1 grid-rows-2 gap-10 relative">
-            <span className="absolute left-0 top-0">
-              <ButtonIcon
-                icon={<MdEdit/>}
-                className="btn-accent text-2xl h-14 w-14"
-              />
-            </span>
+            <div className="grid grid-cols-1 grid-rows-2 gap-10 relative p-10">
+              <span className="absolute left-10 top-10">
+                <ButtonIcon
+                  icon={<MdEdit/>}
+                  className="btn-accent text-2xl h-14 w-14"
+                />
+              </span>
               <div className="flex items-center flex-col gap-8 text-lg">
                 <Avatar src={data.avatar.src} alt={data.username}
                         size={140}
