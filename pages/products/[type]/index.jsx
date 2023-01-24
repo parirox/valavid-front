@@ -23,7 +23,7 @@ import VideoFilter from "@/components/products/VideoFilter";
 import ImageFilter from "@/components/products/ImageFilter";
 import MainProductCard from "@/components/MainProductCard";
 import ErrorPage from "../../ErrorPage";
-
+import {connect} from "react-redux";
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
 function Products({query}) {
@@ -182,5 +182,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
+export default Products;
+// export default connect(state => state)(Products);
 
-export default Products
