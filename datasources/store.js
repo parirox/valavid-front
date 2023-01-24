@@ -94,8 +94,9 @@ export const store = (context) =>
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: false,
+        serializableCheck: true,
       }).concat([
+        LoadingHandler,
         pageSliceApi.middleware,
         planSliceApi.middleware,
         paymentSliceApi.middleware,
@@ -107,7 +108,6 @@ export const store = (context) =>
         userSliceApi.middleware,
         blogSliceApi.middleware,
         rtkQueryErrorLogger,
-        LoadingHandler,
       ]),
   });
 
