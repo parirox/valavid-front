@@ -1,7 +1,7 @@
 pipeline {
     environment {
         develop_server = '5.9.198.231'
-        production_server = "5.9.198.231"
+        production_server = "185.206.93.109"
         project_name = "valavid-front"
         version = "master"
 		gitBranch = "origin/master"
@@ -52,9 +52,9 @@ pipeline {
 
                     if(gitBranch=="origin/master"){
 
-                        withCredentials([usernamePassword(credentialsId: 'najmpro', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && git pull"'
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml up -d --build"'
+                        withCredentials([usernamePassword(credentialsId: 'valavid_production_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "sudo su && cd /root/projects/valavid-frontend && git pull"'
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "sudo su && cd /root/projects/valavid-frontend && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml up -d --build"'
                         }
 
                     }
