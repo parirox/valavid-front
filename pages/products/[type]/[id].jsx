@@ -40,7 +40,7 @@ function FootageDetails({query}) {
   const is_in_cart = useMemo(() => {
     return checkInCart(_cartItems, data?.id)
   }, [data, _cartItems])
-  
+
   //->> favorite endpoints
   const {
     data: favoritesData,
@@ -270,7 +270,7 @@ function FootageDetails({query}) {
           />
           <div className="grid grid-cols-4 overflow-hidden mb-20 mt-10">
             {data.more_user_products.map((item, key) => (
-              <MainProductCard small key={key} data={item} link={`/footage/${item.id}`}/>))}
+              <MainProductCard small key={key} data={item} link={`/products/${item.type}/${item.id}`}/>))}
           </div>
           <Divider start='مشابه ها'/>
           <section className="mb-40 mt-10">

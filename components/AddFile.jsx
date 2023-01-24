@@ -9,9 +9,9 @@ const AddFile = ({ handleSelectFile }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className="p-2 rounded-[23px] h-[20rem] border border-dashed overflow-hidden relative">
+    <div className="p-3 rounded-3xl h-80 border-2 border-dashed border-secondary-200 overflow-hidden relative">
       <div
-        className="rounded-[23px] h-[100%] bg-[#13222D] flex items-center justify-center"
+        className="rounded-3xl h-full bg-[#13222D] flex items-center justify-center"
         {...getRootProps({
           onClick: (event) => event.stopPropagation(),
           role: "button",
@@ -43,8 +43,7 @@ const AddFile = ({ handleSelectFile }) => {
             htmlFor="file-input"
             className={
               "cursor-pointer rounded-full full bg-primary w-[238px] h-[65px] flex items-center justify-center"
-            }
-          >
+            }>
             انتخاب فایل
           </label>
           <div className="flex items-center text-[#303D47] mt-4">

@@ -10,29 +10,30 @@ import {
   usePaymentMutation,
   useSetOfferCodeMutation,
 } from "@/datasources/checkout/remote/CheckoutSliceApi";
-import { isEmpty } from "@/utils/general";
+import {isEmpty} from "@/utils/general";
 import _toast from "@/utils/notification/toast";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import {useEffect, useMemo, useState} from "react";
+import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import {
   IoArrowBackOutline,
   IoCheckmarkCircleOutline,
   IoCheckmarkCircleSharp,
   IoTrashOutline,
 } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
   useAddToCartMutation,
   useGetCartQuery,
   useRemoveFromCartMutation,
 } from "@/datasources/user/remote/UserSliceApi";
-import { handleApiError } from "@/datasources/errorHandler";
+import {handleApiError} from "@/datasources/errorHandler";
 import zarinpal from "@/public/images/zarinpal.png";
 import mellat from "@/public/images/mellat.png";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
+import toast from "@/utils/notification/toast";
 
 const data = [
   {
@@ -91,7 +92,7 @@ export default function Cart() {
   const [offerCode, setOfferCode] = useState("");
 
   //->> cart endpoints
-  const [getCartDetailsByIds, { data2, isSuccess, isError, error }] =
+  const [getCartDetailsByIds, {data2, isSuccess, isError, error}] =
     useGetCartDetailsByIdsMutation();
   const {
     data: cartData,
@@ -164,8 +165,9 @@ export default function Cart() {
   );
 
   const setOfferCodeHandler = () => {
+    if(isEmpty(offerCode)) return;
     if (!checkOfferIsLoading) {
-      checkOfferCode({ code: offerCode })
+      checkOfferCode({code: offerCode})
         .unwrap()
         .then((res) => {
           if (!res.result) {
@@ -173,7 +175,8 @@ export default function Cart() {
           }
         })
         .catch((err) => {
-          handleApiError(err);
+          toast.error(err?.data?.message ?? "ثبت کد امکان پذیر نمی باشد!");
+          // handleApiError(err);
           setOfferCode("");
         });
     }
@@ -183,11 +186,11 @@ export default function Cart() {
     if (!paymentGateway) {
       _toast.error("لطفا درگاه پرداخت را انتخاب کنید.");
     } else {
-      let data = { bank: paymentGateway };
+      let data = {bank: paymentGateway};
       if (offerCode) {
         data.discount_code = offerCode;
       }
-      payment({ data })
+      payment({data})
         .unwrap()
         .then((res) => {
           if (res.result) {
@@ -204,7 +207,7 @@ export default function Cart() {
     <>
       <Head>
         <title>والاوید | سبد خرید</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">
         {(() => {
@@ -332,7 +335,7 @@ export default function Cart() {
                                       });
                                   }}
                                 >
-                                  <IoTrashOutline className="text-3xl" />
+                                  <IoTrashOutline className="text-3xl"/>
                                 </div>
                               </div>
                             </div>
@@ -361,7 +364,7 @@ export default function Cart() {
                                 >
                                   ثبت کد
                                   {checkOfferIsLoading && (
-                                    <AiOutlineLoading3Quarters className="animate-spin" />
+                                    <AiOutlineLoading3Quarters className="animate-spin"/>
                                   )}
                                 </button>
                               </div>
@@ -371,7 +374,7 @@ export default function Cart() {
                         {checkOfferIsSuccess && (
                           <div className="basis-1/2 text-success flex gap-2 mr-3 items-center">
                             <span className="text-2xl">
-                              <IoCheckmarkCircleSharp />
+                              <IoCheckmarkCircleSharp/>
                             </span>
                             <span className="text-sm">
                               {checkOfferCodeData.message}
@@ -460,7 +463,7 @@ export default function Cart() {
                             )}
                           </span>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <div className="mt-2 flex justify-between items-center text-color6">
                           <span>قابل پرداخت:</span>
                           <span className="text-2xl">
@@ -485,7 +488,7 @@ export default function Cart() {
                   >
                     <span>پرداخت</span>
                     <span>
-                      <IoArrowBackOutline />
+                      <IoArrowBackOutline/>
                     </span>
                   </Button>
                 </div>
