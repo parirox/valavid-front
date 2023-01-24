@@ -99,19 +99,14 @@ function SellerProfile() {
 
   const parentAsideCard = useRef();
   const asideCard = useRef();
+  const aideCardInitialPosition = useRef();
 
   useEffect(() => {
+    if(isEmpty(aideCardInitialPosition.current)) aideCardInitialPosition.current = asideCard.current.getBoundingClientRect().top;
     const onScroll = () => {
       const marginTop = 15
-      if (asideCard.current.getBoundingClientRect().top <= marginTop) {
-        if (parentAsideCard.current.getBoundingClientRect().top >= marginTop) {
-          asideCard.current.style.setProperty("top", (-parentAsideCard.current.getBoundingClientRect().top) + marginTop + "px")
-        } else {
-          asideCard.current.style.setProperty("top", (-parentAsideCard.current.getBoundingClientRect().top) + marginTop + "px")
-        }
-      } else {
-        asideCard.current.style.removeProperty("top")
-      }
+      if (parentAsideCard.current.getBoundingClientRect().top >= 0) asideCard.current.style.setProperty("top", scrollY - aideCardInitialPosition.current + "px")
+      else asideCard.current.style.setProperty("top", -parentAsideCard.current.getBoundingClientRect().top + marginTop + "px")
     };
     window.removeEventListener('scroll', onScroll);
     window.addEventListener('scroll', onScroll, {passive: true});
