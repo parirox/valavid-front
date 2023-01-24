@@ -102,22 +102,24 @@ function Products({query}) {
         {query.type === 'video' ? 'مجموعه فیلم ویدئویی با کیفیت باورنکردنی' : 'مجموعه عکس با کیفیت باورنکردنی'}
       </CoverPage>
       <ManageCollectionDialog/>
-      <div className="flex w-full">
-        <div className={`bg-secondary-light py-6 sticky top-0 right-0 ${filterState ? 'basis-1/4' : ''}`}>
-          <Button
-            onClick={() => setFilterState(!filterState)}
-            className={`h-14 w-40 rounded-2xl text-xl font-light bg-[#26333E] mx-7 ${filterState ? '' : 'absolute'}`}
-            icon={<TiFilter className="text-[2.1rem]"/>}>
-            فیلترها
-          </Button>
-          <div
-            className={`flex flex-col gap-14 pt-14 transition-all overflow-hidden ${filterState ? 'w-full px-7' : 'w-0'}`}>
-            {(filterIsSuccess && !filterIsLoading && query.type === 'video') &&
-              <VideoFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler} formData={formData}/>}
-            {(filterIsSuccess && !filterIsLoading && query.type === 'image') &&
-              <ImageFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler} formData={formData}/>}
+      <div className="flex w-full items-start">
+        <aside className={`bg-secondary-light py-6 sticky h-screen top-0 right-0 ${filterState ? 'basis-1/4' : ''}`}>
+          <div className="overflow-auto scrollbar h-full">
+            <Button
+              onClick={() => setFilterState(!filterState)}
+              className={`h-14 w-40 rounded-2xl text-xl font-light bg-[#26333E] mx-7 ${filterState ? '' : 'absolute'}`}
+              icon={<TiFilter className="text-[2.1rem]"/>}>
+              فیلترها
+            </Button>
+            <div
+              className={`flex flex-col gap-14 pt-14 transition-all overflow-hidden ${filterState ? 'w-full px-7' : 'w-0'}`}>
+              {(filterIsSuccess && !filterIsLoading && query.type === 'video') &&
+                <VideoFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler} formData={formData}/>}
+              {(filterIsSuccess && !filterIsLoading && query.type === 'image') &&
+                <ImageFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler} formData={formData}/>}
+            </div>
           </div>
-        </div>
+        </aside>
         <div className="basis-full overflow-hidden transition-all px-10 pb-[10rem]">
           <SortTabs count={data?.count}
                     className={`border-b border-solid border-secondary-100 px-4 ${filterState ? '' : 'pr-52'}`}></SortTabs>
