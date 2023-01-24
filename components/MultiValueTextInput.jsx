@@ -1,7 +1,7 @@
 import { useGetProductTagsMutation } from "@/datasources/product/remote/ProductSliceApi";
 import { useOutsideAlerter } from "hooks/ClickOutside";
 import React, { useState, useEffect } from "react";
-import {isEmpty} from "@/utils/general";
+import { isEmpty } from "@/utils/general";
 
 const MultiValueTextInput = ({
   label,
@@ -33,8 +33,8 @@ const MultiValueTextInput = ({
   });
 
   useEffect(() => {
-    if(inputValue.length > 2) {
-      getProductTags({search: inputValue})
+    if (!isEmpty(inputValue) && inputValue.length > 2) {
+      getProductTags({ search: inputValue })
         .unwrap()
         .then((data) => {
           setOffers(data);

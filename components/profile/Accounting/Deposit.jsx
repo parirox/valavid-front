@@ -113,28 +113,6 @@ const Deposit = ({ isOpen, setIsOpen }) => {
       </div>
       <h5 className="text-secondary text-start mt-[3rem] mb-3">درگاه</h5>
       <GatewaysList state={paymentGateway} setter={setPaymentGateway}/>
-      {/* <div className="flex items-center text-secondary">
-        <div
-          onClick={() => setPaymentGateway("ZARINPAL")}
-          className={`m-4 cursor-pointer p-4 ${
-            paymentGateway === "ZARINPAL"
-              ? "border border-primary rounded-[17px]"
-              : ""
-          }`}
-        >
-          <Image width={70} height={90} src={zarinpal} />
-        </div>
-        <div
-          onClick={() => setPaymentGateway("MELLAT")}
-          className={`m-4 cursor-pointer p-4 ${
-            paymentGateway === "MELLAT"
-              ? "border border-primary rounded-[17px]"
-              : ""
-          }`}
-        >
-          <Image width={90} height={90} src={mellat} />
-        </div>
-      </div> */}
       <p className="text-secondary-300 text-start my-4">
         در هنگام انجام تراکنش به هیچ عنوان از نرم افزارهای فیلترشکن استفاده
         نفرمایید.
