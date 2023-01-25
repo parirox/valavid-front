@@ -8,7 +8,7 @@ pipeline {
 	    DOCKER_BUILDKIT = "1"
 	    COMPOSE_DOCKER_CLI_BUILD = 1
     } 
-    agent any
+    agent any 
     stages {
         stage('build') {
             steps {
