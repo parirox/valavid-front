@@ -46,7 +46,7 @@ pipeline {
 
                         withCredentials([usernamePassword(credentialsId: 'develop_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'sshpass -p $PASSWORD ssh $develop_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && git pull"'
-                            sh 'sshpass -p $PASSWORD ssh $develop_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose  up -d --build"'
+                            sh 'sshpass -p $PASSWORD ssh $develop_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && docker compose up -d --build"'
                         }
                     }
 
@@ -54,7 +54,7 @@ pipeline {
 
                         withCredentials([usernamePassword(credentialsId: 'valavid_production_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /projects/valavid-frontend && git pull"'
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /projects/valavid-frontend && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml up -d --build"'
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /projects/valavid-frontend && docker compose up -d --build"'
                         }
 
                     }
