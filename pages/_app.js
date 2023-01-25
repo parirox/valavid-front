@@ -10,20 +10,13 @@ import {SessionProvider} from "next-auth/react";
 import { useStore } from 'react-redux';
 import NextNProgress from 'nextjs-progressbar';
 
-function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
-  const {
-    store,
-    props: {
-      //   pageProps: { session, ...pageProps },
-      router,
-    },
-  } = wrapper.useWrappedStore(rest);
+function App({Component, pageProps: {session, ...pageProps}}) {
+  const {store} = wrapper.useWrappedStore(pageProps);
   const persistor = persistStore(store, {}, function () {
     persistor.persist();
   });
 
   return (
-    <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {() => (
           <Layout styleMode={Component?.styleMode}>
@@ -41,8 +34,7 @@ function App({Component, pageProps: {session, ...pageProps}}, ...rest) {
           </Layout>
         )}
       </PersistGate>
-    </Provider>
   );
 }
 
-export default App;
+export default wrapper.withRedux(App)
