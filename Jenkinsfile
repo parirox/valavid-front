@@ -53,8 +53,8 @@ pipeline {
                     if(gitBranch=="origin/main"){
 
                         withCredentials([usernamePassword(credentialsId: 'valavid_production_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "sudo su && cd /root/projects/valavid-frontend && git pull"'
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "sudo su && cd /root/projects/valavid-frontend && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml up -d --build"'
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /root/projects/valavid-frontend && git pull"'
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /root/projects/valavid-frontend && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml up -d --build"'
                         }
 
                     }
