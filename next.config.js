@@ -6,12 +6,9 @@ const nextConfig = {
   images: {
     domains: [
       //->> for develop
-      "i.picsum.photos",
-      "mestergraph.com",
-      "images.kojaro.com",
       "placeimg.com",
       //->> main host domains
-      "valavid.nwhco.ir",
+      "vala.nwhco.ir",
     ],
   },
   webpack(config) {
