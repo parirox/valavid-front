@@ -5,12 +5,11 @@ import {HYDRATE} from 'next-redux-wrapper';
 export const ticketSliceApiTag = 'ticket_api';
 
 const ticket_api = createApi({
-    // extractRehydrationInfo(action, { reducerPath }) {
-    //     if (action.type === HYDRATE) {
-    //         console.log('HYDRATE', action, reducerPath);
-    //         return action.payload[reducerPath];
-    //     }
-    // },
+    extractRehydrationInfo(action, {reducerPath}) {
+        if (action.type === HYDRATE) {
+            return action.payload[reducerPath];
+        }
+    },
     reducerPath: ticketSliceApiTag,
     baseQuery,
     tagTypes: [ticketSliceApiTag],

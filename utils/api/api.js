@@ -78,7 +78,7 @@ export const ApiEndpoint = {
       remove: "/account/products/:id/unlike/",
     },
     achievements: "/account/achievements/",
-    downloads: "/account/products/downloads/",
+    downloads: "/account/downloads/",
     cart: "/basket/",
   },
   ticket: {
@@ -105,11 +105,12 @@ export function makeGetQuery(params) {
 
 export function ApiAddress(address, params = {}) {
   if (isEmpty(params)) return address;
-  if (!isEmpty(params.query))
+  if (!isEmpty(params.query)) {
     params = { ...params, query: makeGetQuery(params.query) };
-  Object.entries(params).forEach((v) => {
-    const pattern = `:${v[0]}`;
-    if (address.includes(pattern)) address = address.replace(pattern, v[1]);
+  }
+  Object.entries(params).forEach(([index,value]) => {
+    const pattern = `:${index}`;
+    if (address.includes(pattern)) address = address.replace(pattern, value);
   });
   return address;
 }

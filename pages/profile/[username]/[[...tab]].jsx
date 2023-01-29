@@ -11,11 +11,17 @@ import {FaInstagram, FaMedal, FaTelegramPlane, FaYoutube} from "react-icons/fa";
 import {FiUpload} from "react-icons/fi";
 import {IoLocationOutline,} from "react-icons/io5";
 import {MdVerifiedUser} from "react-icons/md";
-import {GetPublisherProfile, useGetPublisherProfileQuery} from "@/datasources/user/remote/UserSliceApi";
+import {
+  GetPublisherAchievements, GetPublisherCollection, GetPublisherProduct,
+  GetPublisherProfile,
+  useGetPublisherProfileQuery
+} from "@/datasources/user/remote/UserSliceApi";
 import {wrapper} from "@/datasources/store";
 import product_api from "@/datasources/product/remote/ProductSliceApi";
 import {dateFormat} from "@/utils/date/date";
 import Avatar from "@/components/Avatar";
+import * as React from 'react'
+import {useEffect, useRef} from "react";
 
 const tabs = [
   {
@@ -41,6 +47,25 @@ const tabs = [
 function Profile({query, targetTab}) {
   const {data, isSuccess} = useGetPublisherProfileQuery(query)
 
+  const parentAsideCard = useRef();
+  const asideCard = useRef();
+  const aideCardInitialPosition = useRef();
+
+  useEffect(() => {
+    console.log(asideCard?.current)
+    if (!isEmpty(asideCard.current)) {
+      if (isEmpty(aideCardInitialPosition?.current)) aideCardInitialPosition.current = asideCard.current.getBoundingClientRect().top;
+      const onScroll = () => {
+        const marginTop = 15
+        if (parentAsideCard.current.getBoundingClientRect().top >= 0) asideCard.current.style.setProperty("top", scrollY - aideCardInitialPosition.current + "px")
+        else asideCard.current.style.setProperty("top", -parentAsideCard.current.getBoundingClientRect().top + marginTop + "px")
+      };
+      window.removeEventListener('scroll', onScroll);
+      window.addEventListener('scroll', onScroll, {passive: true});
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+  }, [asideCard.current]);
+
   if (!isSuccess) return <></>
   return (
     <>
@@ -56,8 +81,9 @@ function Profile({query, targetTab}) {
           className="object-cover"
         />
       </div>
-      <div className="flex w-full px-10 gap-8">
-        <aside className="basis-1/4 rounded-2xl relative -top-52 bg-secondary-light p-10">
+      <div ref={parentAsideCard} className="flex w-full px-10 gap-8 items-start">
+        <aside ref={asideCard}
+               className="basis-1/4 rounded-2xl relative -top-52 bg-secondary-light p-10">
           <div className="flex flex-col gap-10 relative">
             <div className="flex items-center flex-col gap-8 text-lg">
               <Avatar src={data.profile_image} alt={data.name}
@@ -83,22 +109,24 @@ function Profile({query, targetTab}) {
               </div>
             </div>
             <div className="flex items-center flex-col gap-5 my-10 h-full justify-center">
-              {data.achievements ?
+              {data.achievements.length ?
                 <div className={"flex gap-4 justify-between"}>
-                  {data.achievements.map((achievement,k)=>(
-                      <div key={k} className={"flex flex-col justify-center items-center"}>
-                        <Image src={achievement.image} className={"object-contain"} alt={achievement.title} width={100}
-                               height={150} sizes={"33vw"}/>
-                        <label className="bg-secondary rounded-2xl text-white px-4 py-2 text-lg inline-block">{achievement.title}</label>
-                      </div>
+                  {data.achievements.map((achievement, k) => (
+                    <div key={k} className={"flex flex-col justify-center items-center"}>
+                      <Image src={achievement.image} className={"object-contain"} alt={achievement.title} width={100}
+                             height={150} sizes={"33vw"}/>
+                      <label
+                        className="bg-secondary rounded-2xl text-white px-4 py-2 text-lg inline-block">{achievement.title}</label>
+                    </div>
                   ))}
                 </div>
                 :
-              <>
-                <Image src={"/images/NoMedal.png"} className={"object-contain"} alt={"هنوز افتخاری کسب نشده"} width={100}
-                       height={150} sizes={"33vw"}/>
-                <label className="text-accent text-lg">هنوز افتخاری کسب نشده</label>
-              </>
+                <>
+                  <Image src={"/images/NoMedal.png"} className={"object-contain"} alt={"هنوز افتخاری کسب نشده"}
+                         width={100}
+                         height={150} sizes={"33vw"}/>
+                  <label className="text-accent text-lg">هنوز افتخاری کسب نشده</label>
+                </>
               }
             </div>
             <div
@@ -135,7 +163,9 @@ function Profile({query, targetTab}) {
             </Tab.List>
             <Tab.Panels className="p-5">
               {tabs.map((tab, k) => (
-                <Tab.Panel key={k}>{tab.content}</Tab.Panel>
+                <Tab.Panel key={k}>
+                  {React.cloneElement(tab.content, query)}
+                </Tab.Panel>
               ))}
             </Tab.Panels>
           </Tab.Group>
@@ -150,15 +180,25 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
 
     const query = {...context.params}
-    store.dispatch(GetPublisherProfile.initiate(context.params))
-    await Promise.all(store.dispatch(product_api.util.getRunningQueriesThunk()))
-
-
     const tabId = !isEmpty(query.tab)
       ? query.tab[0]
       : tabs[1].id;
     let targetTab = tabs.findIndex((tab) => tab.id === tabId);
-    targetTab = targetTab >= 0 ? targetTab : 0
+    targetTab = targetTab >= 0 ? targetTab : 0;
+
+    store.dispatch(GetPublisherProfile.initiate(context.params))
+    switch (tabs[targetTab]?.id) {
+      case "Achievements":
+        store.dispatch(GetPublisherAchievements.initiate(context.params))
+        break;
+      case "Products":
+        store.dispatch(GetPublisherProduct.initiate(context.params))
+        break;
+      case "Collections":
+        store.dispatch(GetPublisherCollection.initiate(context.params))
+        break;
+    }
+    await Promise.all(store.dispatch(product_api.util.getRunningQueriesThunk()))
 
     return {
       props: {

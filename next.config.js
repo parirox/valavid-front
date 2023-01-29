@@ -9,6 +9,7 @@ const nextConfig = {
       "placeimg.com",
       //->> main host domains
       "vala.nwhco.ir",
+      "s3.ir-thr-at1.arvanstorage.com",
     ],
   },
   webpack(config) {

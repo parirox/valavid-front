@@ -116,16 +116,16 @@ function FootageDetails({query}) {
                   <div className="flex justify-between items-center">
                     <div className="flex-none">
                       <div className="flex items-center gap-3">
-                        <Avatar src={data.author?.profile_image} alt={data.author?.name}
+                        <Avatar src={data.publisher?.profile_image} alt={data.publisher?.name}
                                 size={50}
                                 badge={<span className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
-                        <span className="text-lg">{data.author?.name}</span>
+                        <span className="text-lg">{data.publisher?.name}</span>
                       </div>
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>
                     <div className="flex-none">
                       <span className="text-gray">ناشر اثر: </span>
-                      <span className="text-success-100">{data.publisher?.name}</span>
+                      <span className="text-success-100">{data.author?.name}</span>
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>
                     <div className="flex-none text-gray">

@@ -7,16 +7,21 @@ import {Toaster} from "react-hot-toast";
 import {Provider} from "react-redux";
 import {persistStore} from "redux-persist";
 import {SessionProvider} from "next-auth/react";
-import { useStore } from 'react-redux';
 import NextNProgress from 'nextjs-progressbar';
 
-function App({Component, pageProps: {session, ...pageProps}}) {
-  const {store} = wrapper.useWrappedStore(pageProps);
+function App({Component, ...rest}) {
+  const {
+    store,
+    props: {
+      pageProps: { session, ...pageProps },
+    },
+  } = wrapper.useWrappedStore(rest);
   const persistor = persistStore(store, {}, function () {
     persistor.persist();
   });
 
   return (
+    <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {() => (
           <Layout styleMode={Component?.styleMode}>
@@ -34,7 +39,8 @@ function App({Component, pageProps: {session, ...pageProps}}) {
           </Layout>
         )}
       </PersistGate>
+    </Provider>
   );
 }
 
-export default wrapper.withRedux(App)
+export default App

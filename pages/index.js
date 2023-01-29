@@ -23,6 +23,7 @@ function Home() {
       <>
         <Head>
           <title>والاوید | صفحه ی اصلی</title>
+          <meta name="description" content="بانک فوتیج ایران" />
         </Head>
         <FirstSection video={data?.video} tags={data.tags} />
         {/* modal */}

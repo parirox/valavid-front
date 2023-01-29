@@ -4,7 +4,8 @@ import {Fragment, useEffect, useState} from "react";
 import {
   IoCaretDown, IoImageOutline, IoSearchOutline, IoVideocamOutline
 } from "react-icons/io5";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
+import {isEmpty} from "@/utils/general";
 
 export const options = [
   {
@@ -24,6 +25,7 @@ export const options = [
 ];
 
 export default function Select() {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const [selected, setSelected] = useState(options[0]);
 
@@ -31,6 +33,13 @@ export default function Select() {
     await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
   }
 
+  useEffect(()=>{
+    if(router.isReady && !isEmpty(router.query?.tags)){
+      setSearchValue(router.query?.tags);
+      const selected_option = options.find(v=>v.route === router.query?.type);
+      if(!isEmpty(selected_option))  setSelected(selected_option)
+    }
+  },[router.query])
 
   return (
     <div className="rounded-full h-full w-full bg-accent text-white">

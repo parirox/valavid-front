@@ -3,8 +3,8 @@ import {IoFolderSharp} from "react-icons/io5";
 import {useGetPublisherCollectionQuery,} from "@/datasources/user/remote/UserSliceApi";
 import NoContent from "@/components/NoContent";
 
-const Collections = () => {
-  const {data, isSuccess, isError, isLoading} = useGetPublisherCollectionQuery()
+const Collections = (query) => {
+  const {data, isSuccess} = useGetPublisherCollectionQuery(query)
 
   if (!isSuccess) return <></>
   return (

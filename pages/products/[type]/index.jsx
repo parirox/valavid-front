@@ -23,11 +23,17 @@ import VideoFilter from "@/components/products/VideoFilter";
 import ImageFilter from "@/components/products/ImageFilter";
 import MainProductCard from "@/components/MainProductCard";
 import ErrorPage from "../../ErrorPage";
-import {connect} from "react-redux";
+import {connect, useStore} from "react-redux";
+import NoContent from "@/components/NoContent";
+import Link from "next/link";
+
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
 function Products({query}) {
   const router = useRouter()
+  const firstPage = useMemo(() => (query.page), [])
+  const [page, setPage] = useState(parseInt(query.page))
+
   const {
     data,
     isFetching,
@@ -35,7 +41,7 @@ function Products({query}) {
     isLoading,
     isError,
     error,
-  } = useGetProductListScrollQuery({query});
+  } = useGetProductListScrollQuery({query: {...query, page: page}});
 
   const {
     data: filterOptions,
@@ -45,9 +51,7 @@ function Products({query}) {
     error: filterError,
   } = useGetProductListFilterQuery({query: {type: query.type}});
 
-  const firstPage = useMemo(()=>{
-    return query.page
-  },[])
+
   const [filterChanged, setFilterChanged] = useState(false)
   const [filterState, setFilterState] = useState(true);
   const [formData, setFormData] = useState({
@@ -76,6 +80,15 @@ function Products({query}) {
   }
 
   useEffect(() => {
+    if (router.isReady) {
+      if (router.query.page != query.page) {
+        console.log(page)
+        setPage(parseInt(router.query.page))
+      }
+    }
+  }, [isFetching, isSuccess, isLoading, isError, router.query])
+
+  useEffect(() => {
     if (filterChanged && !isFetching) {
       const {order, type} = query
       let newQuery = {...deferredQuery, type, page: 1}
@@ -88,7 +101,7 @@ function Products({query}) {
         query: removedEmptyObject
       }, undefined, {scroll: false})
     }
-  }, [deferredQuery, filterChanged, query])
+  }, [deferredQuery, filterChanged, query, isFetching])
 
   if (isError) return <ErrorPage info={error}/>
   return (
@@ -114,9 +127,11 @@ function Products({query}) {
             <div
               className={`flex flex-col gap-14 pt-14 transition-all overflow-hidden ${filterState ? 'w-full px-7' : 'w-0'}`}>
               {(filterIsSuccess && !filterIsLoading && query.type === 'video') &&
-                <VideoFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler} formData={formData}/>}
+                <VideoFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler}
+                             formData={formData}/>}
               {(filterIsSuccess && !filterIsLoading && query.type === 'image') &&
-                <ImageFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler} formData={formData}/>}
+                <ImageFilter filterOptions={filterOptions} setFormDataHandler={setFormDataHandler}
+                             formData={formData}/>}
             </div>
           </div>
         </aside>
@@ -125,9 +140,11 @@ function Products({query}) {
                     className={`border-b border-solid border-secondary-100 px-4 ${filterState ? '' : 'pr-52'}`}></SortTabs>
           {isSuccess &&
             <>
+              {data?.count === 0 && <NoContent/>}
               {firstPage === 1 ? <InfiniteList
                   className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}
                   query={query}
+                  page={page}
                   rtkSlice={product_api}
                   isError={isError}
                   isLoading={isLoading}
@@ -135,19 +152,19 @@ function Products({query}) {
                   loadingContent={<VideoCardLoader count={3}/>}
                   items={data}>
                   {(item, k) => {
-                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={k} data={item}/>
+                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={item.id} data={item}/>
                   }}
                 </InfiniteList>
                 :
                 <div className={`grid gap-2 py-16 ${filterState ? 'grid-cols-3' : 'grid-cols-4'}`}>
                   {data.results.map((item, key) => {
-                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={key} data={item}/>
+                    return <MainProductCard link={`/products/${item.type}/${item.id}`} key={item.id} data={item}/>
                   })}
                 </div>
               }
               <div className="py-20 flex justify-center aligns-center gap-3 cursor-pointer">
                 {isSuccess && (data.count > 0) &&
-                  <Pagination totalCount={data.count} currentPage={query?.page} itemsPerPage={30}/>}
+                  <Pagination totalCount={data.count} currentPage={page} itemsPerPage={30}/>}
               </div>
             </>
           }
@@ -170,11 +187,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
     }
     const page = parseInt(context.query?.page ?? 1)
-    const query = {...context.query,page}
+    const query = {...context.query, page}
+
     store.dispatch(GetProductListFilter.initiate({query: {type: context.query.type}}))
     store.dispatch(GetProductListScroll.initiate({query}))
 
     await Promise.all(store.dispatch(product_api.util.getRunningQueriesThunk()))
+
     return {
       props: {
         query,
@@ -182,6 +201,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
-export default Products;
-// export default connect(state => state)(Products);
+// export default Products;
+export default connect(state => state)(Products);
 
