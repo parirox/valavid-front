@@ -29,6 +29,7 @@ import {
   useRemoveFromFavoritesMutation
 } from "@/datasources/user/remote/UserSliceApi";
 import ErrorPage from "../../ErrorPage";
+import Link from "next/link";
 
 const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
 
@@ -115,12 +116,12 @@ function FootageDetails({query}) {
                 <div className="basis-1/12 h-full">
                   <div className="flex justify-between items-center">
                     <div className="flex-none">
-                      <div className="flex items-center gap-3">
+                      <Link href={`/profile/${data.publisher?.username}`} className="flex items-center gap-3">
                         <Avatar src={data.publisher?.profile_image} alt={data.publisher?.name}
                                 size={50}
                                 badge={<span className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
                         <span className="text-lg">{data.publisher?.name}</span>
-                      </div>
+                      </Link>
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>
                     <div className="flex-none">
@@ -216,7 +217,7 @@ function FootageDetails({query}) {
                   </Popover>
                   <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"><IoShareSocialOutline
                     className="text-3xl"/></button>
-                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
+                  <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
                           onClick={() => {
                             if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                               myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
@@ -225,7 +226,7 @@ function FootageDetails({query}) {
                     {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                       <IoHeartOutline/>}
                   </button>
-                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
+                  <button title={"اضافه کردن به مجموعه"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
                           onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
                     <CgFolderAdd className="text-3xl"/>
                   </button>
@@ -243,10 +244,7 @@ function FootageDetails({query}) {
                 <div className="basis-3/12">
                   <div className="flex gap-3 h-20 items-stretch">
                     <ButtonIcon className="btn text-white py-4 px-10 rounded-2xl btn-primary-gradient"
-                            onClick={() => dispatch(addOrRemoveToCart({
-                              id: data.id,
-                              price: data.price.pay_price
-                            }))}
+                            onClick={() => dispatch(addOrRemoveToCart(data))}
                             icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
                               <FaCartPlus
                                 className="text-3xl"/>}>

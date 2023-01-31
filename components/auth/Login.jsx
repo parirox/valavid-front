@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { setCookie } from "cookies-next";
+import {isEmpty} from "@/utils/general";
 
 const Login = ({ setSelectedTab }) => {
   const { data: session } = useSession();
@@ -41,7 +42,12 @@ const Login = ({ setSelectedTab }) => {
       .unwrap()
       .then((response) => {
         setCookie("valavid_token", response.token);
-        router.push("/profile/me");
+        if(!isEmpty(router.query?.callback)){
+          router.push(router.query.callback);
+        }
+        else{
+          router.push("/profile/me");
+        }
       })
       .catch((err) => {
         handleApiError(err);

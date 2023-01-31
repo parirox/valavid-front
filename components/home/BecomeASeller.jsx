@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import {getCookie} from "cookies-next";
 import {isEmpty} from "@/utils/general";
 
-const BecomeASeller = ({data}) => {
+const BecomeASeller = ({isLoggedIn}) => {
   return (
     <div className='mt-40 bg-accent h-80'>
       <div className="container h-full">
@@ -15,7 +15,7 @@ const BecomeASeller = ({data}) => {
               <div className="row-span-3 items-center flex">
                 <Button
                   className="rounded-3xl text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-2xl w-1/4 h-20"
-                  link={isEmpty(getCookie("valavid_token")) ? "/becomeASeller" : "/profile/me/SellerForm"}>فروشنده
+                  link={isLoggedIn ? "/becomeASeller" : "/profile/me/SellerForm"}>فروشنده
                   شوید</Button>
               </div>
             </div>

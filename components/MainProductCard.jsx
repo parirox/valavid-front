@@ -55,13 +55,17 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
 
   function onMouseEnterHandler() {
     if (data.type === 'video') {
+      console.log("play the video")
       ref.current.play()
     }
   }
 
   function onMouseLeaveHandler() {
     if (data.type === 'video') {
-      ref.current.pause()
+      console.log("pause")
+      // ref.current.pause()
+      ref.current.currentTime = 0
+      ref.current.load()
     }
   }
 
@@ -81,7 +85,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
                     <div className="flex gap-3 text-2xl">
-                      <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                      <Badge title={"لایک کردن"} className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => {
                                if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                                  myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
@@ -90,12 +94,12 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                         {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                           <IoHeartOutline/>}
                       </Badge>
-                      <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                      <Badge title={"اضافه کردن به مجموعه"} className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
                         <IoFolderOpenOutline/>
                       </Badge>
                       <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
-                             onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price.pay_price}))}>
+                             onClick={() => dispatch(addOrRemoveToCart(data))}>
                         {checkInCart(_cartItems, data.id) ? <MdRemoveShoppingCart/> : <FaCartPlus/>}
                       </Badge>
                     </div>
@@ -149,8 +153,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
             <Link href={link} className="absolute inset-0 z-40"></Link>
             {data.type === 'video' ?
               <video ref={ref}
-                     // onCanPlay={(e)=>e.target.currentTime = 0}
-                     // poster={"/images/video-loader.gif"}
+                     poster={data.media.cover}
                      autoPlay={false} preload="auto" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
                 <source src={data.media.src} type="video/mp4"/>
               </video>

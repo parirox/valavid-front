@@ -74,7 +74,6 @@ function PlanCheckout({query}) {
         {isSuccess && (
           <div className="w-4/5">
             <div className="flex justify-start text-sm text-gray p-5">
-
               <div className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-white">
                 خرید اشتراک {data.type === "precious" ? "حجمی" : "قیمتی" }</div>
             </div>

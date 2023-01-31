@@ -81,9 +81,10 @@ function Products({query}) {
 
   useEffect(() => {
     if (router.isReady) {
-      if (router.query.page != query.page) {
-        console.log(page)
-        setPage(parseInt(router.query.page))
+      const server_page = query.page
+      const client_page = parseInt(router.query?.page ?? 1)
+      if (client_page !== server_page) {
+        setPage(client_page)
       }
     }
   }, [isFetching, isSuccess, isLoading, isError, router.query])

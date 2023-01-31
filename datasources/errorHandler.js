@@ -1,5 +1,6 @@
 import toast from "@/utils/notification/toast";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
+import {isEmpty} from "@/utils/general";
 
 // import Router from "next/router";
 
@@ -26,7 +27,7 @@ export const handleFormApiResponse = (response) => {
 };
 
 export const handleApiError = (response) => {
-  const statusCode = response && response.originalStatus;
+  const statusCode = !isEmpty(response) ? response?.status ?? response?.originalStatus : "";
   if (statusCode === 500) {
     toast.error("خطايی در سرور رخ داده است. لطفا دوباره تلاش كنيد.");
   } else if (statusCode === 403) {

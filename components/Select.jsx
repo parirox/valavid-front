@@ -6,6 +6,7 @@ import {
 } from "react-icons/io5";
 import Router, {useRouter} from "next/router";
 import {isEmpty} from "@/utils/general";
+import Link from "next/link";
 
 export const options = [
   {
@@ -20,7 +21,7 @@ export const options = [
     route: "image",
     name: "تصویر",
     icon: <IoImageOutline className="text-2xl"/>,
-    unavailable: false,
+    unavailable: true,
   },
 ];
 
@@ -45,16 +46,19 @@ export default function Select() {
     <div className="rounded-full h-full w-full bg-accent text-white">
       <div className="flex flex-row gap-3 h-full">
         <div className="basis-2/12 py-1 h-full">
-          <Listbox value={selected} onChange={setSelected}>
+          <Listbox value={selected} disabled={options.filter(option=>!option.unavailable).length <= 1} onChange={setSelected}>
             <div className="border-l-[1px] border-secondary-200 relative px-2 h-full">
-              <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+              <Listbox.Button
+                as={Link}
+                href={`/products/${selected.route}`}
+                className="flex gap-3 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                 <span className="pointer-events-none flex items-center pr-2">
                   {selected.icon}
                 </span>
                 <span className="block truncate text-white">
                   {selected.name}
                 </span>
-                <IoCaretDown />
+                {options.filter(option=>!option.unavailable).length > 1 && <IoCaretDown />}
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -63,7 +67,7 @@ export default function Select() {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {options.map((item, itemIdx) => (
+                  {options.filter(option=>!option.unavailable).map((item, itemIdx) => (
                     <Listbox.Option
                       key={itemIdx}
                       className={({ active }) =>

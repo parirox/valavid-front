@@ -29,60 +29,9 @@ import {
   useRemoveFromCartMutation,
 } from "@/datasources/user/remote/UserSliceApi";
 import {handleApiError} from "@/datasources/errorHandler";
-import zarinpal from "@/public/images/zarinpal.png";
-import mellat from "@/public/images/mellat.png";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
 import toast from "@/utils/notification/toast";
-
-const data = [
-  {
-    id: 1,
-    type: "video",
-    title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-    price: {
-      main: 25000,
-      off: 12000,
-      percent: "40%",
-    },
-    media: {
-      alt: "natural",
-      src: "/videos/sample2.mp4",
-    },
-    extra_information: {
-      resolution: "4k",
-      codek: "prores",
-      ratio: "16:9",
-      file_type: "QuickTime",
-      frame_rate: "25 FPS",
-      time: "00:20",
-      file_size: "8.3 MB",
-    },
-  },
-  {
-    id: 2,
-    type: "image",
-    title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-    price: {
-      main: 50000,
-      off: 40000,
-      percent: "20%",
-    },
-    media: {
-      alt: "natural",
-      src: "https://placeimg.com/640/480/nature/1",
-    },
-    extra_information: {
-      resolution: "4k",
-      codek: "prores",
-      ratio: "16:9",
-      file_type: "QuickTime",
-      frame_rate: "25 FPS",
-      time: "00:20",
-      file_size: "8.3 MB",
-    },
-  },
-];
 
 export default function Cart() {
   const _cartItems = useSelector(cartItems);
@@ -92,7 +41,7 @@ export default function Cart() {
   const [offerCode, setOfferCode] = useState("");
 
   //->> cart endpoints
-  const [getCartDetailsByIds, {data2, isSuccess, isError, error}] =
+  const [getCartDetailsByIds, {data, isSuccess, isError, error}] =
     useGetCartDetailsByIdsMutation();
   const {
     data: cartData,
@@ -144,9 +93,9 @@ export default function Cart() {
     },
   ] = usePaymentMutation();
 
-  // useEffect(() => {
-  //   getCartDetailsByIds({ products: _cartItems.map((v) => v.id) })
-  // }, [])
+  useEffect(() => {
+    getCartDetailsByIds({ products: _cartItems.map((v) => v.id) })
+  }, [])
 
   // const total_price = useMemo(() => (
   //   _cartItems.map(product => (data.find(v => v.id === product.id).price.main)).reduce((a, b) => a + b, 0).toLocaleString()
@@ -303,7 +252,7 @@ export default function Cart() {
                                         {product.price.original.toLocaleString()}
                                       </span>
                                       <span className="bg-danger rounded-3xl w-12 px-2 py-1 text-lg text-center mr-2">
-                                        {product.price.percent}
+                                        %{product.price.percent}
                                       </span>
                                     </>
                                   )}
@@ -393,29 +342,6 @@ export default function Cart() {
                           setter={setPaymentGateway}
                         />
                       </div>
-
-                      {/* <div className="flex items-center text-secondary">
-                        <div
-                          onClick={() => setPaymentGateway("ZARINPAL")}
-                          className={`m-4 cursor-pointer p-4 ${
-                            paymentGateway === "ZARINPAL"
-                              ? "border border-primary rounded-[17px]"
-                              : ""
-                          }`}
-                        >
-                          <Image width={70} height={90} src={zarinpal} />
-                        </div>
-                        <div
-                          onClick={() => setPaymentGateway("MELLAT")}
-                          className={`m-4 cursor-pointer p-4 ${
-                            paymentGateway === "MELLAT"
-                              ? "border border-primary rounded-[17px]"
-                              : ""
-                          }`}
-                        >
-                          <Image width={90} height={90} src={mellat} />
-                        </div>
-                      </div> */}
                     </div>
                     <div className="basis-4/12">
                       <div className="flex flex-col text-gray gap-5">
