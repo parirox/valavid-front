@@ -30,28 +30,15 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
     data: favoritesData,
   } = useGetFavoritesQuery()
   const [addToFavorites, {
-    isSuccess: addFavoriteIsSuccess,
     isLoading: addFavoriteIsLoading,
-    error: addFavoriteError,
-    isError: addFavoriteIsError,
   }] = useAddToFavoritesMutation()
   const [removeFromFavorites, {
-    isSuccess: removeFavoriteIsSuccess,
     isLoading: removeFavoriteIsLoading,
-    error: removeFavoriteError,
-    isError: removeFavoriteIsError,
   }] = useRemoveFromFavoritesMutation()
 
   const myFavoritesIds = useMemo(() => {
     return favoritesData?.results.map(v => v.id) ?? []
   }, [favoritesData])
-
-  useEffect(() => {
-    if (addFavoriteIsSuccess) toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
-    if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
-    if (addFavoriteIsError) handleApiError(addFavoriteError)
-    if (removeFavoriteIsError) handleApiError(removeFavoriteError)
-  }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError, addFavoriteError, removeFavoriteError])
 
   function onMouseEnterHandler() {
     if (data.type === 'video') {
@@ -152,7 +139,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
             {data.type === 'video' ?
               <video ref={ref}
                      poster={data.media.cover}
-                     autoPlay={false} preload="auto" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+                     autoPlay={false} preload="metadata" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
                 <source src={data.media.src} type="video/mp4"/>
               </video>
               :

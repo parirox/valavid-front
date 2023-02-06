@@ -35,7 +35,7 @@ const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: f
 
 function FootageDetails({query}) {
   const dispatch = useDispatch();
-  const {data, isSuccess, isError,error} = useProductDetailsQuery(query);
+  const {data, isSuccess, isError, error, refetch} = useProductDetailsQuery(query);
 
   const _cartItems = useSelector(cartItems);
   const is_in_cart = useMemo(() => {
@@ -49,14 +49,10 @@ function FootageDetails({query}) {
   const [addToFavorites, {
     isSuccess: addFavoriteIsSuccess,
     isLoading: addFavoriteIsLoading,
-    error: addFavoriteError,
-    isError: addFavoriteIsError,
   }] = useAddToFavoritesMutation()
   const [removeFromFavorites, {
     isSuccess: removeFavoriteIsSuccess,
     isLoading: removeFavoriteIsLoading,
-    error: removeFavoriteError,
-    isError: removeFavoriteIsError,
   }] = useRemoveFromFavoritesMutation()
 
   const myFavoritesIds = useMemo(() => {
@@ -64,11 +60,8 @@ function FootageDetails({query}) {
   }, [favoritesData])
 
   useEffect(() => {
-    if (addFavoriteIsSuccess) toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
-    if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
-    if (addFavoriteIsError) handleApiError(addFavoriteError)
-    if (removeFavoriteIsError) handleApiError(removeFavoriteError)
-  }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError, addFavoriteError, removeFavoriteError])
+    if (addFavoriteIsSuccess || removeFavoriteIsSuccess) refetch()
+  }, [addFavoriteIsSuccess, removeFavoriteIsSuccess])
 
   if (isError) return <ErrorPage info={error}/>
 
@@ -119,7 +112,8 @@ function FootageDetails({query}) {
                       <Link href={`/profile/${data.publisher?.username}`} className="flex items-center gap-3">
                         <Avatar src={data.publisher?.profile_image} alt={data.publisher?.name}
                                 size={50}
-                                badge={<span className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
+                                badge={<span
+                                  className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
                         <span className="text-lg">{data.publisher?.name}</span>
                       </Link>
                     </div>
@@ -137,7 +131,8 @@ function FootageDetails({query}) {
                 </div>
                 <div className="basis-3/12">
                   <h1 className="text-3xl mb-6">{data.title}</h1>
-                  {data.devices && <div className="flex gap-3 mb-4 items-center"><MdCamera className={"text-2xl"}/> <span>{data.devices}</span></div>}
+                  {data.devices && <div className="flex gap-3 mb-4 items-center"><MdCamera className={"text-2xl"}/>
+                    <span>{data.devices}</span></div>}
                   <p className="text-secondary-300 leading-9 text-lg">
                     {data.description}
                   </p>
@@ -215,11 +210,12 @@ function FootageDetails({query}) {
                       </Transition>
                     </Popover.Panel>
                   </Popover>
-                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"><IoShareSocialOutline
-                    className="text-3xl"/></button>
+                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent">
+                    <IoShareSocialOutline
+                      className="text-3xl"/></button>
                   <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
                           onClick={() => {
-                            if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
+                            if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                               myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
                             }
                           }}>
@@ -237,17 +233,18 @@ function FootageDetails({query}) {
                     <span className="text-xs text-gray">تخفیف اشتراک</span>
                   </div>}
                   <div className="flex items-center gap-3">
-                    {data.price.original > 0 && <span className="line-through text-gray text-lg">{data.price.original}</span>}
-                    <span className="text-2xl">{!data.price.free ? `${data.price.pay_price} تومان`: 'رایگان' }</span>
+                    {data.price.original > 0 &&
+                      <span className="line-through text-gray text-lg">{data.price.original}</span>}
+                    <span className="text-2xl">{!data.price.free ? `${data.price.pay_price} تومان` : 'رایگان'}</span>
                   </div>
                 </div>
                 <div className="basis-3/12">
                   <div className="flex gap-3 h-20 items-stretch">
                     <ButtonIcon className="btn text-white py-4 px-10 rounded-2xl btn-primary-gradient"
-                            onClick={() => dispatch(addOrRemoveToCart(data))}
-                            icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
-                              <FaCartPlus
-                                className="text-3xl"/>}>
+                                onClick={() => dispatch(addOrRemoveToCart(data))}
+                                icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
+                                  <FaCartPlus
+                                    className="text-3xl"/>}>
                       {is_in_cart ? 'حذف از' : 'اضافه به'} سبد خرید
                     </ButtonIcon>
                   </div>
@@ -264,22 +261,24 @@ function FootageDetails({query}) {
               <span>بیشتر از {data.publisher?.name}</span>
             </div>
           )}
-                   end={<Button className="btn-accent text-secondary-300" link={`/profile/${data.publisher.username}`}>مشاهده پروفایل</Button>}
+                   end={<Button className="btn-accent text-secondary-300" link={`/profile/${data.publisher.username}`}>مشاهده
+                     پروفایل</Button>}
           />
           <div className="grid grid-cols-4 overflow-hidden mb-20 mt-10">
             {data.more_user_products.map((item, key) => (
-              <MainProductCard small key={key} data={item} link={`/products/${item.type}/${item.id}`}/>))}
+              <MainProductCard small key={item.id} data={item} link={`/products/${item.type}/${item.id}`}/>))}
           </div>
           <Divider start='مشابه ها'/>
           <section className="mb-40 mt-10">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
               {data.related_products.map((item, key) => (
-                  <MainProductCard key={key} className={(key === 3 ? 'row-span-2' : '')} link={`/products/${item.type}/${item.id}`} small data={item}/>
-               ))}
+                <MainProductCard key={item.id} className={(key === 3 ? 'row-span-2' : '')}
+                                 link={`/products/${item.type}/${item.id}`} small data={item}/>
+              ))}
             </div>
             <Button
               className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
-              link={`/products/${data.type}/?tags=${data.tags.slice(0,3).map((v, i) => (v.label)).join(",")}`}>
+              link={`/products/${data.type}/?tags=${data.tags.slice(0, 3).map((v, i) => (v.label)).join(",")}`}>
               بیشتر
             </Button>
           </section>

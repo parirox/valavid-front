@@ -1,6 +1,8 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {ApiAddress, ApiEndpoint, baseQuery} from '@/utils/api/api';
 import {HYDRATE} from 'next-redux-wrapper';
+import toast from "@/utils/notification/toast";
+import {handleApiError} from "@/datasources/errorHandler";
 
 export const userSliceApiTag = 'user_api';
 
@@ -115,11 +117,19 @@ const user_api = createApi({
                 method: 'GET',
             }),
             providesTags: (result, error, id) => [
-              {type: userSliceApiTag, id: 'Favorite' + id}
+                {type: userSliceApiTag, id: 'Favorite' + id}
             ],
             invalidatesTags: [
                 {type: userSliceApiTag, id: 'FavoritesList'}
-            ]
+            ],
+            transformResponse(baseQueryReturnValue, meta, arg) {
+                toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
+                return baseQueryReturnValue
+            },
+            transformErrorResponse(baseQueryReturnValue, meta, arg) {
+                handleApiError(baseQueryReturnValue)
+                return baseQueryReturnValue
+            }
         }),
         removeFromFavorites:build.mutation({
             query: (query) => ({
@@ -131,7 +141,15 @@ const user_api = createApi({
             ],
             invalidatesTags: [
                 {type: userSliceApiTag, id: 'FavoritesList'}
-            ]
+            ],
+            transformResponse(baseQueryReturnValue, meta, arg) {
+                toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
+                return baseQueryReturnValue
+            },
+            transformErrorResponse(baseQueryReturnValue, meta, arg) {
+                handleApiError(baseQueryReturnValue)
+                return baseQueryReturnValue
+            }
         }),
         //->> cart
         getCart:build.query({
