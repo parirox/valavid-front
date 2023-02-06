@@ -86,7 +86,7 @@ let tabs = [
   },
   {
     id: "TeamForm",
-    title: "ثبت تیم",
+    title: "ثبت تیم / شرکت",
     content: <TeamForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },

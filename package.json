@@ -38,6 +38,7 @@
     "react-infinite-scroll-hook": "^4.0.4",
     "react-multi-date-picker": "^3.3.4",
     "react-paginate": "^8.1.4",
+    "react-range-slider-input": "^3.0.7",
     "react-redux": "^8.0.5",
     "react-redux-loading-bar": "^5.0.4",
     "redux-devtools-extension": "^2.13.9",

@@ -73,7 +73,7 @@ function FootageDetails({query}) {
   if (isError) return <ErrorPage info={error}/>
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(wشindow.location.href);
     toast.success("لینک صفحه کپی شد!")
   }
 
@@ -125,7 +125,7 @@ function FootageDetails({query}) {
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>
                     <div className="flex-none">
-                      <span className="text-gray">ناشر اثر: </span>
+                      <span className="text-gray">فیلم بردار: </span>
                       <span className="text-success-100">{data.author?.name}</span>
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>

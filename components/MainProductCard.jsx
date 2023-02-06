@@ -55,14 +55,12 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
 
   function onMouseEnterHandler() {
     if (data.type === 'video') {
-      console.log("play the video")
       ref.current.play()
     }
   }
 
   function onMouseLeaveHandler() {
     if (data.type === 'video') {
-      console.log("pause")
       // ref.current.pause()
       ref.current.currentTime = 0
       ref.current.load()

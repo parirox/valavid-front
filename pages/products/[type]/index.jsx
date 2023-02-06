@@ -26,6 +26,8 @@ import ErrorPage from "../../ErrorPage";
 import {connect, useStore} from "react-redux";
 import NoContent from "@/components/NoContent";
 import Link from "next/link";
+import RangeSlider from "@/components/Form/elements/RangeSlider";
+import RangeInput from "@/components/Form/elements/RangeSlider";
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
@@ -55,10 +57,10 @@ function Products({query}) {
   const [filterChanged, setFilterChanged] = useState(false)
   const [filterState, setFilterState] = useState(true);
   const [formData, setFormData] = useState({
-    price: 0,
+    price: [],
     resolution: [],
     frame_rate: [],
-    duration: 0,
+    video_time: [],
     environment: [],
     color_theme: [],
     colors: [],
@@ -73,6 +75,7 @@ function Products({query}) {
     shutter_speed: []
   })
   const deferredQuery = useDeferredValue(formData);
+  const filter_watcher = useMemo(() => (JSON.stringify({...Object.fromEntries(Object.entries(deferredQuery).filter((v) => !isEmpty(v[1])))})), [deferredQuery])
 
   const setFormDataHandler = (field) => (value) => {
     if (!filterChanged) setFilterChanged(true)
@@ -97,12 +100,13 @@ function Products({query}) {
         newQuery.order = order
       }
       const removedEmptyObject = Object.fromEntries(Object.entries(newQuery).filter((v) => !isEmpty(v[1])))
+      setPage(1)
       router.replace({
         pathname: router.pathname,
-        query: removedEmptyObject
+        query: {...removedEmptyObject,page:1},
       }, undefined, {scroll: false})
     }
-  }, [deferredQuery, filterChanged, query, isFetching])
+  }, [ filter_watcher,filterChanged, isFetching])
 
   if (isError) return <ErrorPage info={error}/>
   return (
@@ -202,6 +206,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
-// export default Products;
-export default connect(state => state)(Products);
+
+export default Products;
 

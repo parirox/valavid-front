@@ -1,7 +1,6 @@
 import React from 'react';
 import CollapseElement from "@/components/Form/CollapseElement";
 import {ImPriceTag} from "react-icons/im";
-import RangeInput from "@/components/RangeInput";
 import CheckBoxButton from "@/components/Form/CheckBoxButton";
 import {IoMdSpeedometer} from "react-icons/io";
 import {IoSpeedometerSharp, IoTimeSharp} from "react-icons/io5";
@@ -10,13 +9,13 @@ import {FaLightbulb, FaPalette, FaUserFriends, FaVenusMars} from "react-icons/fa
 import CheckBoxColorButton from "@/components/Form/CheckBoxColorButton";
 import {TbAngle} from "react-icons/tb";
 import {AiOutlineRotateRight} from "react-icons/ai";
+import RangeInput from "@/components/Form/elements/RangeSlider";
 
 const ImageFilter = ({filterOptions, formData, setFormDataHandler}) => (
   <>
     <CollapseElement headTitle='قیمت' headIcon={<ImPriceTag className="text-2xl"/>}>
       <div className="pt-5 pb-10">
-        <RangeInput min={filterOptions.price[0]} max={filterOptions.price[1]} step={1000} state={formData.price}
-                    setState={setFormDataHandler('price')}></RangeInput>
+        <RangeInput min={filterOptions.price[0]}  max={filterOptions.price[1]} step={1000} defaultValue={formData.price} state={formData.price} setState={setFormDataHandler('price')}/>
       </div>
     </CollapseElement>
 

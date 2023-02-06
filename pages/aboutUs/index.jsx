@@ -42,23 +42,23 @@ export const InfoItemData = [
 ]
 const contactBoxes = [
   {
-    connectinoWay: 'موبایل',
-    value: "09154444444",
+    connectionWay: 'شماره تلفن',
+    value: "09018899554",
     icon: <BsTelephoneFill className="text-primary text-3xl" />
   },
   {
-    connectinoWay: 'تلگرام',
-    value: "09154444444",
+    connectionWay: 'آیدی تلگرام',
+    value: <a href={"https://t.me/valadmin"} target={"_blank"} rel={"noreferrer"}>@valadmin</a>,
     icon: <FaTelegramPlane className="text-primary text-3xl" />
   },
   {
-    connectinoWay: 'ایمیل',
-    value: "john.doe@mail.com",
+    connectionWay: 'ایمیل',
+    value: "valavid_official@yahoo.com",
     icon: <AiFillMail className="text-primary text-3xl" />
   },
   {
-    connectinoWay: 'مکان',
-    value: "خراسان رضوی، مشهد",
+    connectionWay: 'آدرس',
+    value: "تهران، چهارراه تئاتر شهر، نبش خ راضی، پلاک 1034",
     icon: <HiLocationMarker className="text-primary text-3xl" />
   },
 ]
@@ -74,13 +74,13 @@ export default function index() {
         با ما بیشتر آشنا شوید
       </CoverPage>
       <div className="relative h-[10rem] w-full">
-        <div className="absolute -top-[4.25rem] right-0 left-0 flex gap-14 max-w-[940px] items-center w-full m-auto">
-          {
-            InfoItemData.map((item,i) => (
-              <ReverseEffectInfoItem title={item.title} value={item.value} icon={item.icon} disable={item.value == null} className="basis-1/4" key={i}></ReverseEffectInfoItem>
-            ))
-          }
-        </div>
+        {/*<div className="absolute -top-[4.25rem] right-0 left-0 flex gap-14 max-w-[940px] items-center w-full m-auto">*/}
+        {/*  {*/}
+        {/*    InfoItemData.map((item,i) => (*/}
+        {/*      <ReverseEffectInfoItem title={item.title} value={item.value} icon={item.icon} disable={item.value == null} className="basis-1/4" key={i}></ReverseEffectInfoItem>*/}
+        {/*    ))*/}
+        {/*  }*/}
+        {/*</div>*/}
       </div>
       <div className="relative">
         <div className="flex container">
@@ -102,7 +102,7 @@ export default function index() {
             <div className="flex flex-wrap gap-6 w-[75rem] py-24">
               {
                 contactBoxes.map((box,i) => (
-                  <ContactUsBox value={box.value} connectionWay={box.connectinoWay} icon={box.icon} className="w-[calc(50%_-_1.5rem)]" key={i}></ContactUsBox>
+                  <ContactUsBox value={box.value} connectionWay={box.connectionWay} icon={box.icon} className="w-[calc(50%_-_1.5rem)]" key={i}></ContactUsBox>
                 ))
               }
             </div>
