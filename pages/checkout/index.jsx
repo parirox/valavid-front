@@ -337,12 +337,12 @@ export default function Cart() {
                           {`کد تخفیف ${checkOfferCodeData.discount_value}`}
                         </div>
                       )}
-                      <div className="mt-8">
+                      {cartData.paybox.pay_amount !== 0 && <div className="mt-8">
                         <GatewaysList
                           state={paymentGateway}
                           setter={setPaymentGateway}
                         />
-                      </div>
+                      </div>}
                     </div>
                     <div className="basis-4/12">
                       <div className="flex flex-col text-gray gap-5">

@@ -175,7 +175,8 @@ export default function Cart() {
                                           ),
                                         })
                                           .unwrap()
-                                          .then(() => {
+                                          .then((res) => {
+                                            setProducts(res.items)
                                             dispatch(removeFromCart(product.id));
                                           })
                                           .catch((err) => {

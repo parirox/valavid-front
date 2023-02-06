@@ -39,6 +39,8 @@ export default function Select() {
       setSearchValue(router.query?.tags);
       const selected_option = options.find(v=>v.route === router.query?.type);
       if(!isEmpty(selected_option))  setSelected(selected_option)
+    }else if(isEmpty(router.query?.tags) && !isEmpty(searchValue)){
+      setSearchValue("")
     }
   },[router.query])
 

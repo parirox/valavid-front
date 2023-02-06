@@ -113,21 +113,6 @@ function SellerProfile() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     if (data.is_seller) {
-  //       tabs.forEach((v) => {
-  //         v.id === 'SellerForm' ? v.title = 'اطلاعات فروشنده' : ''
-  //       })
-  //     }
-  //     if (data.is_team) {
-  //       tabs.forEach((v) => {
-  //         v.id === 'TeamForm' ? v.title = 'اطلاعات تیم' : ''
-  //       })
-  //     }
-  //   }
-  // }, [isSuccess]);
-
   useEffect(() => {
     if (router.isReady) {
       const tabId = !isEmpty(router.query.tab)

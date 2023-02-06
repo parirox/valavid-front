@@ -40,7 +40,7 @@ function BlogList() {
           handleApiError(err);
         });
     } else {
-      _toast.error("لطفا ایمیل خو را وارد کنید.");
+      _toast.error("لطفا ایمیل خود را وارد کنید.");
     }
   };
 
