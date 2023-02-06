@@ -14,7 +14,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {BsFolder2Open} from "react-icons/bs";
 import {FaChevronDown, FaMedal, FaStar} from "react-icons/fa";
 import {FiDownload, FiUpload} from "react-icons/fi";
@@ -80,13 +80,13 @@ let tabs = [
   },
   {
     id: "SellerForm",
-    title: "فروشنده شوید",
+    title: (data) => (data.is_seller ? 'اطلاعات فروشنده' : "فروشنده شوید"),
     content: <SellerForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
   {
     id: "TeamForm",
-    title: "ثبت تیم / شرکت",
+    title: (data) => (data.is_team ? 'اطلاعات تیم / شرکت' : "ثبت تیم / شرکت"),
     content: <TeamForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
@@ -102,7 +102,7 @@ function SellerProfile() {
   const aideCardInitialPosition = useRef();
 
   useEffect(() => {
-    if(isEmpty(aideCardInitialPosition.current)) aideCardInitialPosition.current = asideCard.current.getBoundingClientRect().top;
+    if (isEmpty(aideCardInitialPosition.current)) aideCardInitialPosition.current = asideCard.current.getBoundingClientRect().top;
     const onScroll = () => {
       const marginTop = 15
       if (parentAsideCard.current.getBoundingClientRect().top >= 0) asideCard.current.style.setProperty("top", scrollY - aideCardInitialPosition.current + "px")
@@ -113,12 +113,23 @@ function SellerProfile() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (data.is_seller) {
+  //       tabs.forEach((v) => {
+  //         v.id === 'SellerForm' ? v.title = 'اطلاعات فروشنده' : ''
+  //       })
+  //     }
+  //     if (data.is_team) {
+  //       tabs.forEach((v) => {
+  //         v.id === 'TeamForm' ? v.title = 'اطلاعات تیم' : ''
+  //       })
+  //     }
+  //   }
+  // }, [isSuccess]);
+
   useEffect(() => {
     if (router.isReady) {
-      if (isSuccess) {
-        // if(data.is_seller) tabs = tabs.forEach((v)=>v.id==='SellerForm'? v.title = 'اطلاعات فروشنده' : '' )
-        // if(data.is_team) tabs = tabs.forEach((v)=>v.id==='TeamForm'? v.title = 'اطلاعات تیم' : '' )
-      }
       const tabId = !isEmpty(router.query.tab)
         ? router.query.tab[0]
         : tabs[0].id;
@@ -312,7 +323,15 @@ function SellerProfile() {
                         tab?.className ? "px-5 py-2 " + tab?.className : ""
                       }
                     >
-                      {tab.title}
+                      {
+                        (() => {
+                          if (typeof tab.title === "function") {
+                            return isLoading ? <div className="animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">....</div> : tab.title(data)
+                          } else {
+                            return tab.title
+                          }
+                        })()
+                      }
                     </span>
                   </Tab>
                 ))}

@@ -27,7 +27,11 @@ export const handleFormApiResponse = (response) => {
 };
 
 export const handleApiError = (response) => {
-  const statusCode = !isEmpty(response) ? response?.status ?? response?.originalStatus : "";
+  let statusCode;
+  if(typeof response.status === "number") statusCode = response.status
+  else if(typeof response.originalStatus === "number") statusCode = response.originalStatus
+  else statusCode = ""
+
   if (statusCode === 500) {
     toast.error("خطايی در سرور رخ داده است. لطفا دوباره تلاش كنيد.");
   } else if (statusCode === 403) {

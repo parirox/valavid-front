@@ -33,7 +33,7 @@ const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
 
       <CollapseElement headTitle='زمان' headIcon={<IoTimeSharp className="text-2xl"/>}>
         {filterOptions?.video_time && <div className="pt-5 pb-10">
-          <RangeInput min={filterOptions.video_time[0]}  max={filterOptions.video_time[1]} step={1000} defaultValue={formData.video_time} state={formData.video_time} setState={setFormDataHandler('video_time')} unit="دقیقه"/>
+          <RangeInput min={filterOptions.video_time[0]}  max={filterOptions.video_time[1]} defaultValue={formData.video_time} state={formData.video_time} setState={setFormDataHandler('video_time')} unit="min"/>
         </div>}
       </CollapseElement>
 

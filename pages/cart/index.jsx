@@ -1,8 +1,5 @@
 import Button from "@/components/Button";
-import {
-  cartItems,
-  removeFromCart,
-} from "@/datasources/checkout/local/CheckoutSlice";
+import {cartItems, removeFromCart,} from "@/datasources/checkout/local/CheckoutSlice";
 import {useGetCartDetailsByIdsMutation} from "@/datasources/checkout/remote/CheckoutSliceApi";
 import {handleApiError} from "@/datasources/errorHandler";
 import {isEmpty} from "@/utils/general";
@@ -14,8 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {getCookie} from "cookies-next";
 import toast from "@/utils/notification/toast";
-import LoadingBar from "react-redux-loading-bar";
-import NextNProgress from "nextjs-progressbar";
+import Link from "next/link";
 
 
 export default function Cart() {
@@ -127,7 +123,7 @@ export default function Cart() {
                                 </div>
                                 <div className="basis-1/2 text-color3">
                                   <div className="flex flex-col justify-center h-full gap-3">
-                                    <div className="text-lg">{product.title}</div>
+                                    <Link href={`/products/${product.type}/${product.id}`} className="text-lg">{product.title}</Link>
                                     {product.extra_information?.length > 0 && (
                                       <div className="text-gray text-xs">
                                         {Object.entries(product.extra_information)

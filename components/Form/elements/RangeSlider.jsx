@@ -30,7 +30,7 @@ export default function RangeInput({
                    step={step}
                    defaultValue={defaultValue} value={value}/>
       <span className={"absolute left-3 bottom-5"}>
-        {typeof value?.[0] !== "undefined" ? (() => {
+        {typeof video_time !== "undefined" ? (() => {
           if (unit === "price") {
             if (value[0] === 0) {
               return "رایگان"
@@ -39,7 +39,7 @@ export default function RangeInput({
             }
           }
         })()
-          : ""
+          : value?.[0]?.toLocaleString() ?? ""
         }
         </span>
       <span className={"absolute right-3 bottom-5"}>{value?.[1]?.toLocaleString() ?? ""}</span>

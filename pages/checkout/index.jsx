@@ -32,6 +32,7 @@ import {handleApiError} from "@/datasources/errorHandler";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
 import toast from "@/utils/notification/toast";
+import Link from "next/link";
 
 export default function Cart() {
   const _cartItems = useSelector(cartItems);
@@ -229,7 +230,7 @@ export default function Cart() {
                               </div>
                               <div className="basis-1/2 text-color3">
                                 <div className="flex flex-col justify-center h-full gap-3">
-                                  <div className="text-lg">{product.title}</div>
+                                  <Link href={`/products/${product.type}/${product.id}`} className="text-lg">{product.title}</Link>
                                   <div className="text-gray text-xs">
                                     {/* {Object.entries(product.extra_information)
                                       .map((v) => v[1])

@@ -10,7 +10,7 @@ import {wrapper} from "@/datasources/store";
 import {Fragment, Popover, Transition} from '@headlessui/react';
 import Head from "next/head";
 import Image from "next/image";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {BsShieldFillCheck} from "react-icons/bs";
 import {CgFolderAdd} from "react-icons/cg";
 import {FaCartPlus} from "react-icons/fa";
@@ -35,13 +35,18 @@ const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: f
 
 function FootageDetails({query}) {
   const dispatch = useDispatch();
-  const {data, isSuccess, isError, error, refetch} = useProductDetailsQuery(query);
+  const {data, isSuccess, isError, error} = useProductDetailsQuery(query);
 
   const _cartItems = useSelector(cartItems);
   const is_in_cart = useMemo(() => {
     return checkInCart(_cartItems, data?.id)
   }, [data, _cartItems])
 
+  const [likeCount,setLikeCount] = useState(data?.like_count ?? 0)
+
+  useEffect(()=>{
+    if(isSuccess && (likeCount !== data?.like_count)) setLikeCount(data.like_count)
+  },[isSuccess])
   //->> favorite endpoints
   const {
     data: favoritesData,
@@ -58,10 +63,6 @@ function FootageDetails({query}) {
   const myFavoritesIds = useMemo(() => {
     return favoritesData?.results.map(v => v.id) ?? []
   }, [favoritesData])
-
-  useEffect(() => {
-    if (addFavoriteIsSuccess || removeFavoriteIsSuccess) refetch()
-  }, [addFavoriteIsSuccess, removeFavoriteIsSuccess])
 
   if (isError) return <ErrorPage info={error}/>
 
@@ -91,9 +92,9 @@ function FootageDetails({query}) {
                     <Image src={data.media.src} alt={data.media.alt} fill
                            className="full object-cover rounded-[2.6rem]"/>
                 }
-                <ButtonIcon icon={<IoHeart className={"text-3xl"}/>}
-                            className={"btn-ghost absolute top-8 right-8 flex-row-reverse justify-center gap-1 text-lg z-40"}>
-                  {data.like_count}
+                <ButtonIcon icon={<IoHeart className={"text-2xl"}/>}
+                            className={"btn-accent opacity-80 absolute top-14 right-8 flex-row-reverse justify-center text-lg gap-1 z-40"}>
+                  {likeCount}
                 </ButtonIcon>
               </div>
 
@@ -216,7 +217,11 @@ function FootageDetails({query}) {
                   <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
                           onClick={() => {
                             if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
-                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
+                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res)=>{
+                                setLikeCount(res.like_count)
+                              }) : addToFavorites({id: data.id}).unwrap().then((res)=>{
+                                setLikeCount(res.like_count)
+                              })
                             }
                           }}>
                     {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
