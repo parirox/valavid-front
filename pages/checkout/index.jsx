@@ -92,25 +92,25 @@ export default function Cart() {
   const [offerCode, setOfferCode] = useState("");
 
   //->> cart endpoints
-  const [getCartDetailsByIds, {data2, isSuccess, isError, error}] =
-    useGetCartDetailsByIdsMutation();
-  const {
-    data: cartData,
-    isSuccess: cartIsSuccess,
-    error: cartError,
-    isError: cartIsError,
-    isLoading: cartIsLoading,
-  } = useGetCartQuery();
-  const [
-    addToCart,
-    {
-      data: addCartData,
-      isSuccess: addCartIsSuccess,
-      error: addCartError,
-      isError: addCartIsError,
-      isLoading: addCartIsLoading,
-    },
-  ] = useAddToCartMutation();
+  const [getCartDetailsByIds, { data, isSuccess, isError, error }] =
+  useGetCartDetailsByIdsMutation();
+  // const {
+  //   data,
+  //   isSuccess: cartIsSuccess,
+  //   error: cartError,
+  //   isError: cartIsError,
+  //   isLoading: cartIsLoading,
+  // } = useGetCartQuery();
+  // const [
+  //   addToCart,
+  //   {
+  //     data: addCartData,
+  //     isSuccess: addCartIsSuccess,
+  //     error: addCartError,
+  //     isError: addCartIsError,
+  //     isLoading: addCartIsLoading,
+  //   },
+  // ] = useAddToCartMutation();
   // const [
   //   removeFromCart,
   //   {
@@ -144,25 +144,14 @@ export default function Cart() {
     },
   ] = usePaymentMutation();
 
-  // useEffect(() => {
-  //   getCartDetailsByIds({ products: _cartItems.map((v) => v.id) })
-  // }, [])
+  useEffect(() => {
+    // if (!isEmpty(_cartItems))
+      getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
+  }, []);
 
   // const total_price = useMemo(() => (
   //   _cartItems.map(product => (data.find(v => v.id === product.id).price.main)).reduce((a, b) => a + b, 0).toLocaleString()
   // ), [_cartItems])
-
-  const total_off_price = useMemo(
-    () =>
-      cartData &&
-      _cartItems
-        .map(
-          (product) => cartData.items.find((v) => v.id === product.id).price.off
-        )
-        .reduce((a, b) => a + b, 0)
-        .toLocaleString(),
-    [cartData, _cartItems]
-  );
 
   const setOfferCodeHandler = () => {
     if(isEmpty(offerCode)) return;
@@ -210,6 +199,7 @@ export default function Cart() {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">
+        {console.log('ccc',data)}
         {(() => {
           if (isEmpty(_cartItems)) {
             return (
@@ -238,7 +228,7 @@ export default function Cart() {
           // }
           // else if (!isSuccess) {
           return (
-            cartData && (
+            data && (
               <div className="w-4/5">
                 <div className="flex justify-start text-sm text-gray p-5">
                   سبد خرید شما ( {_cartItems.length} مورد )
@@ -246,9 +236,10 @@ export default function Cart() {
                 <div>
                   <div className="bg-secondary overflow-hidden px-5 rounded-t-3xl divide-y divide-secondary-400">
                     {_cartItems.map((cart, k) => {
-                      const product = cartData.items.find(
+                      const product = data.items.find(
                         (v) => v.id === cart.id
                       );
+                      if (isEmpty(product)) return <></>;
                       return (
                         <div
                           key={k}
@@ -425,7 +416,7 @@ export default function Cart() {
                             {checkOfferIsSuccess ? (
                               <>{checkOfferCodeData.total.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.total.toLocaleString()}</>
+                              <>{data.paybox.total.toLocaleString()}</>
                             )}
                           </span>
                         </div>
@@ -435,7 +426,7 @@ export default function Cart() {
                             {checkOfferIsSuccess ? (
                               <>{checkOfferCodeData.tax.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.tax.toLocaleString()}</>
+                              <>{data.paybox.tax.toLocaleString()}</>
                             )}
                           </span>
                         </div>
@@ -445,7 +436,7 @@ export default function Cart() {
                             {checkOfferIsSuccess ? (
                               <>{checkOfferCodeData.off.toLocaleString()}</>
                             ) : (
-                              <>{cartData.paybox.off}</>
+                              <>{data.paybox.off}</>
                             )}
                           </span>
                         </div>
@@ -458,7 +449,7 @@ export default function Cart() {
                               </>
                             ) : (
                               <>
-                                {cartData.paybox.user_profit.toLocaleString()}
+                                {data.paybox.user_profit.toLocaleString()}
                               </>
                             )}
                           </span>
@@ -472,7 +463,7 @@ export default function Cart() {
                                 {checkOfferCodeData.pay_amount.toLocaleString()}
                               </>
                             ) : (
-                              <>{cartData.paybox.pay_amount.toLocaleString()}</>
+                              <>{data.paybox.pay_amount.toLocaleString()}</>
                             )}
                           </span>
                         </div>

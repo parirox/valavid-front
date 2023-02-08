@@ -14,6 +14,7 @@ import Authentication from "@/components/auth/Authentication";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
 import _toast from "@/utils/notification/toast";
+import { IoClose } from "react-icons/io5";
 
 const Index = () => {
   const [selectedTab, setSelectedTab] = useState("login");
@@ -55,6 +56,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
+      <IoClose
+        onClick={() => router.back()}
+        className="w-8 h-8 absolute top-4 left-4 cursor-pointer"
+      />
       <div className="flex relative">
         <div className="min-w-[300px] h-[460px] bg-[#F2F2F3] w-100 mx-4 sm:mx-0 sm:w-[40.188rem] rounded-[23px] lg:rounded-tl-[0] lg:rounded-bl-[0] p-3">
           {(selectedTab === "login" || selectedTab === "signup") && (

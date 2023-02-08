@@ -3,7 +3,6 @@ import MenuBlogs from "@/components/MenuBlogs";
 import blog_api, {
   GetBlogCategories,
   GetBlogData,
-  useAddMembershipMutation,
   useGetBlogCategoriesQuery,
   useGetBlogDataMutation,
 } from "@/datasources/blog/remote/BlogSliceApi";
@@ -15,6 +14,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import _toast from "@/utils/notification/toast";
 import { handleApiError } from "@/datasources/errorHandler";
+import { IoMailOutline } from "react-icons/io5";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSubmitNewsletterMutation } from "@/datasources/pages/remote/PageSliceApi";
+import toast from "@/utils/notification/toast";
 
 function BlogList() {
   const [membershipEmail, setMembershipEmail] = useState("");
@@ -25,23 +30,42 @@ function BlogList() {
   } = useGetBlogCategoriesQuery();
   const [getBlogData, { data: blogsData, isSuccess, isError }] =
     useGetBlogDataMutation();
-  const [addMembership] = useAddMembershipMutation();
 
-  const handleAddMemberShip = () => {
-    if (membershipEmail) {
-      addMembership({
-        email: membershipEmail,
-      })
-        .unwrap()
-        .then((res) => {
-          _toast.success("درخواست شما با موفقیت انجام شد.");
-        })
-        .catch((err) => {
-          handleApiError(err);
-        });
-    } else {
-      _toast.error("لطفا ایمیل خو را وارد کنید.");
+  const [submitNewsletter] = useSubmitNewsletterMutation();
+  const formSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("ایمیل را وارد کنید")
+      .email("ایمیل معتبر نمی باشد."),
+  });
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+    },
+    resolver: yupResolver(formSchema),
+  });
+
+  const onSubmit = async (data) => {
+    let isValid = await trigger(["email"]);
+    if (!isValid) {
+      toast.error(errors.email.message);
+      return;
     }
+    submitNewsletter(data)
+      .unwrap()
+      .then((data) => {
+        toast.success("با موفقیت ثبت نام شدید!");
+        reset();
+      })
+      .catch((e) => {
+        handleApiError(e);
+      });
   };
 
   useEffect(() => {
@@ -59,21 +83,37 @@ function BlogList() {
         </Head>
         <div className="container flex gap-16 pt-16 pb-80">
           <div className="basis-1/3">
-            <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
-              <input
-                type="email"
-                placeholder="ایمیل شما"
-                className="input w-full pr-10 py-3 text-secondary flex justify-center items-center h-full"
-                value={membershipEmail}
-                onChange={(e) => setMembershipEmail(e.target.value)}
-              />
-              <button
-                onClick={() => handleAddMemberShip()}
-                className="bg-secondary-300 absolute left-1 top-0 h-[3.7rem] rounded-[1.6rem] w-[4.2rem] m-auto bottom-0 px-2 text-center"
-              >
-                عضویت
-              </button>
+            <div className="col-span-3 flex flex-col gap-3 items-end text-right">
+              <span className="text-2xl text-secondary block w-full">
+                اشتراک خبرنامه
+              </span>
+              <div className="form-control w-full">
+                <label className="block label mb-7">
+                  <span className="text-[#90999F] text-lg">
+                    عضو خبرنامه ما شوید و از تازه ترین خبرها به روز رسانی‌ها و
+                    تخفیف های ویژه سایت با خبر شوید
+                  </span>
+                </label>
+                <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
+                  <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center px-3">
+                    <IoMailOutline className="text-2xl text-[#90999F]" />
+                  </div>
+                  <input
+                    {...register("email")}
+                    type="text"
+                    placeholder="ایمیل شما"
+                    className="input w-full pr-10 py-3 text-secondary flex justify-center items-center h-full"
+                  />
+                  <button
+                    onClick={handleSubmit(onSubmit)}
+                    className="bg-secondary-300 absolute left-1 top-0 h-[3.7rem] rounded-[1.6rem] w-[4.2rem] m-auto bottom-0 px-2 text-center"
+                  >
+                    عضویت
+                  </button>
+                </div>
+              </div>
             </div>
+
             {blogCategories && (
               <MenuBlogs
                 getBlogData={getBlogData}

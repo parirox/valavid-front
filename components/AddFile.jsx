@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 
 const AddFile = ({ handleSelectFile }) => {
   const onDrop = useCallback((acceptedFiles) => {
-    handleSelectFile(acceptedFiles[0]);
+    handleSelectFile(acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -19,7 +19,7 @@ const AddFile = ({ handleSelectFile }) => {
         })}
       >
         {/* <div {...getRootProps()}> */}
-        <input accept="video/*,image/*" {...getInputProps()} />
+        <input multiple accept="video/*,image/*" {...getInputProps()} />
         {isDragActive && (
           <div className="bg-[#6b728078] flex absolute w-full h-full top-0 right-0"></div>
         )}
@@ -31,8 +31,9 @@ const AddFile = ({ handleSelectFile }) => {
           </span>
           <input
             onChange={(e) => {
-              handleSelectFile(e.target.files[0]);
+              handleSelectFile(e.target.files);
             }}
+            multiple
             onClick={(e) => (e.target.value = null)}
             id="file-input"
             type="file"

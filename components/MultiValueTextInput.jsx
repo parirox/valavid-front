@@ -2,6 +2,7 @@ import { useGetProductTagsMutation } from "@/datasources/product/remote/ProductS
 import { useOutsideAlerter } from "hooks/ClickOutside";
 import React, { useState, useEffect } from "react";
 import { isEmpty } from "@/utils/general";
+import { IoClose, IoTrash } from "react-icons/io5";
 
 const MultiValueTextInput = ({
   label,
@@ -32,6 +33,12 @@ const MultiValueTextInput = ({
     setActiveInput(null);
   });
 
+  const handleRemoveKey = (index) => {
+    let adaptedValues = values;
+    adaptedValues.splice(index, 1);
+    setValues(level, adaptedValues, true);
+  };
+
   useEffect(() => {
     if (!isEmpty(inputValue) && inputValue.length > 2) {
       getProductTags({ search: inputValue })
@@ -52,9 +59,13 @@ const MultiValueTextInput = ({
           {values.map((value, index) => (
             <span
               key={index}
-              className="bg-accent rounded-full px-4 py-1 m-1 whitespace-nowrap"
+              className="bg-accent rounded-full px-4 py-1 m-1 whitespace-nowrap flex items-center justify-between"
             >
               {value}
+              <IoClose
+                onClick={() => handleRemoveKey(index)}
+                className="mr-2 cursor-pointer hover:bg-slate-500 rounded-full p-1 w-5 h-5"
+              />
             </span>
           ))}
         </div>

@@ -75,6 +75,16 @@ const product_api = createApi({
         { type: productSliceApiTag, id: "ProductDetails" },
       ],
     }),
+    uploadProduct: build.mutation({
+      query: (payload) => ({
+        url: ApiAddress(ApiEndpoint.product.account.upload, payload),
+        body: payload,
+        method: "POST",
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "Upload" },
+      ],
+    }),
     addProduct: build.mutation({
       query: (payload) => ({
         url: ApiAddress(ApiEndpoint.product.account.add, payload),
@@ -113,6 +123,16 @@ const product_api = createApi({
         { type: productSliceApiTag, id: "Delete" },
       ],
     }),
+    editAccountProduct: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.account.edit, query[0]),
+        method: "PATCH",
+        body: query[1],
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "Edit" },
+      ],
+    }),
   }),
 });
 
@@ -122,10 +142,12 @@ export const {
   useGetProductListFilterQuery,
   useGetCollectionDetailsQuery,
   useProductDetailsQuery,
-  useAddProductMutation,
+  useUploadProductMutation,
   useGetAccountProductListMutation,
   useGetProductTagsMutation,
-  useDeleteAccountProductMutation
+  useDeleteAccountProductMutation,
+  useEditAccountProductMutation,
+  useAddProductMutation
 } = product_api;
 
 // export endpoints for use in SSR
@@ -134,10 +156,12 @@ export const {
   GetProductListFilter,
   GetCollectionDetails,
   ProductDetails,
-  addProduct,
+  uploadProduct,
   getAccountProductList,
   getProductTags,
-  deleteAccountProduct
+  deleteAccountProduct,
+  editAccountProduct,
+  addProduct
 } = product_api.endpoints;
 
 export default product_api;

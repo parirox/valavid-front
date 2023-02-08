@@ -2,18 +2,27 @@ import ProductCard from "@/components/ProductCard";
 import FreeReleaseCard from "./FreeReleaseCard";
 import PricingCard from "./PricingCard";
 import React, { useState } from "react";
+import Button from "@/components/Button";
 
-const Release = ({ productInfo, handleAddProduct }) => {
+const Release = ({ productInfo, handleAddProduct, setActiveStep }) => {
   return (
     <div>
       <ProductCard product={productInfo.file} description={productInfo.translations['fa']?.description || ""} />
       <p className="text-secondary bg-color8 rounded-[22px] h-[55px] flex items-center justify-center w-fit px-[2rem] mx-auto my-[4rem]">
-        نحوه انتشار محصول خو را انتخاب کنید.
+        نحوه انتشار محصول خود را انتخاب کنید.
       </p>
       <div className="flex justify-center">
         <FreeReleaseCard handleSubmit={handleAddProduct} />
         <PricingCard handleSubmit={handleAddProduct} />
       </div>
+      <div className="flex items-center justify-end mt-4">
+        <Button
+          onClick={() => setActiveStep((prev) => prev - 1)}
+          className="w-[20rem] h-[4rem] btn-accent block mr-4"
+        >
+          مرحله قبل
+        </Button>
+        </div>
     </div>
   );
 };

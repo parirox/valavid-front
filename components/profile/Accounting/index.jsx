@@ -13,6 +13,7 @@ import Withdrawal from "./Withdrawal";
 import moment from "jalali-moment";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
+import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 
 const inventory = 2500000;
 const AccountingCardData = [
@@ -49,8 +50,14 @@ const Accounting = () => {
   const [modal, setModal] = useState(null);
   const { data, isFetching, isSuccess, isLoading, isError, error } =
     useGetAccountingListQuery();
-  const [cancelWithdrawal, { data: t, isSuccess: d, isError: g, error: l }] =
+  const [cancelWithdrawal, { data2, isSuccess: d, isError: g, error: l }] =
     useCancelWithdrawalMutation();
+
+  const {
+    data: profileData,
+    isSuccess: profileIsSuccess,
+    isLoading: profileIsLoading,
+  } = useGetProfileDetailsQuery();
 
   const handleCancelWithdrawal = (id) => {
     cancelWithdrawal({ id })
@@ -141,12 +148,17 @@ const Accounting = () => {
           >
             واریز به کیف پول
           </Button>
-          <Button
-            onClick={() => setModal("withdrawal")}
-            className={"btn-primary py-4 px-7 rounded-full"}
-          >
-            برداشت از کیف پول
-          </Button>
+          {
+            profileData && profileData.is_seller && (
+              <Button
+              onClick={() => setModal("withdrawal")}
+              className={"btn-primary py-4 px-7 rounded-full"}
+            >
+              برداشت از کیف پول
+            </Button>
+            )
+          }
+         
         </div>
         <div className="flex gap-2 items-center text-lg">
           <p className="text-xl opacity-80">موجودی :</p>

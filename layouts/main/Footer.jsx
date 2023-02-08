@@ -65,7 +65,7 @@ const Footer = ({ styleMode }) => {
                                 <Link href={'#'} className="text-[#90999F] text-lg">قوانین و مقررات</Link>
                             </div>
                         </div>
-                        <div className="col-span-3 flex flex-col gap-3 items-end text-right">
+                        {/* <div className="col-span-3 flex flex-col gap-3 items-end text-right">
                             <span className="text-2xl block w-full">اشتراک خبرنامه</span>
                             <div className="form-control w-full">
                                 <label className="block label mb-7">
@@ -81,7 +81,7 @@ const Footer = ({ styleMode }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="copyright py-5 flex justify-between">
                         <div className="flex-none flex items-center gap-3">
@@ -115,7 +115,7 @@ const Footer = ({ styleMode }) => {
                             <Link href={'/faq'} className="text-[#90999F] text-lg">پرسش های متداول</Link>
                         </div>
                     </div>
-                    <div className="col-span-3 flex flex-col gap-3 items-end text-right">
+                    {/* <div className="col-span-3 flex flex-col gap-3 items-end text-right">
                         <span className="text-2xl block w-full mb-3">اشتراک خبرنامه</span>
                         <div className="form-control w-full">
                             <div className="p-1 border border-accent rounded-xl">
@@ -128,7 +128,7 @@ const Footer = ({ styleMode }) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="copyright py-5 flex justify-between">
                     <div className="flex-none flex items-center gap-3">
