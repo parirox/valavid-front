@@ -46,7 +46,7 @@ export default function RangeInput(props) {
             <div className="absolute -top-12 z-20 min-w-[4rem] h-12">
               <div className="relative h-full flex justify-center px-2 items-center">
                 <Image src={BorderValue} alt="" fill sizes="" className="object-fill w-full h-full"></Image>
-                <p className="text-secondary-300 font-bold" ref={showValue}>رایگان</p>
+                <p className="text-secondary-300 font-bold" ref={showValue}>{unit !== 'دقیقه' && 'رایگان'}</p>
               </div>
             </div>
           </div>

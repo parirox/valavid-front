@@ -1,7 +1,6 @@
 import React from 'react';
 import CollapseElement from "@/components/Form/CollapseElement";
 import {ImPriceTag} from "react-icons/im";
-import RangeInput from "@/components/RangeInput";
 import CheckBoxButton from "@/components/Form/CheckBoxButton";
 import {IoMdSpeedometer} from "react-icons/io";
 import {IoSpeedometerSharp, IoTimeSharp} from "react-icons/io5";
@@ -11,17 +10,14 @@ import CheckBoxColorButton from "@/components/Form/CheckBoxColorButton";
 import {TbAngle} from "react-icons/tb";
 import {AiOutlineRotateRight} from "react-icons/ai";
 import {MdOutlineZoomOutMap} from "react-icons/md";
-import Location from "@/components/profile/Products/AddProduct/Location";
-import CitySelect from "@/components/profile/Forms/CitySelect";
+import RangeInput from "@/components/Form/elements/RangeSlider";
 
 const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
   return (
     <>
       <CollapseElement headTitle='قیمت' headIcon={<ImPriceTag className="text-2xl"/>}>
         <div className="pt-5 pb-10">
-          <RangeInput min={filterOptions.price[0]} max={filterOptions.price[1]}
-                      step={1000} state={formData.price}
-                      setState={setFormDataHandler('price')}></RangeInput>
+          <RangeInput min={filterOptions.price[0]}  max={filterOptions.price[1]} step={1000} defaultValue={formData.price} state={formData.price} setState={setFormDataHandler('price')}/>
         </div>
       </CollapseElement>
 
@@ -36,9 +32,8 @@ const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
       </CollapseElement>
 
       <CollapseElement headTitle='زمان' headIcon={<IoTimeSharp className="text-2xl"/>}>
-        {filterOptions?.duration && <div className="pt-5 pb-10">
-          <RangeInput min={filterOptions.duration[0] ?? 0} max={filterOptions.duration[1] ?? 0} unit="دقیقه" step={1}
-                      state={formData.duration} setState={setFormDataHandler('duration')}></RangeInput>
+        {filterOptions?.video_time && <div className="pt-5 pb-10">
+          <RangeInput min={filterOptions.video_time[0]}  max={filterOptions.video_time[1]} defaultValue={formData.video_time} state={formData.video_time} setState={setFormDataHandler('video_time')} unit="min"/>
         </div>}
       </CollapseElement>
 

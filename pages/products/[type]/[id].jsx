@@ -10,7 +10,7 @@ import {wrapper} from "@/datasources/store";
 import {Fragment, Popover, Transition} from '@headlessui/react';
 import Head from "next/head";
 import Image from "next/image";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {BsShieldFillCheck} from "react-icons/bs";
 import {CgFolderAdd} from "react-icons/cg";
 import {FaCartPlus} from "react-icons/fa";
@@ -29,18 +29,24 @@ import {
   useRemoveFromFavoritesMutation
 } from "@/datasources/user/remote/UserSliceApi";
 import ErrorPage from "../../ErrorPage";
+import Link from "next/link";
 
 const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
 
 function FootageDetails({query}) {
   const dispatch = useDispatch();
-  const {data, isSuccess, isError,error} = useProductDetailsQuery(query);
+  const {data, isSuccess, isError, error} = useProductDetailsQuery(query);
 
   const _cartItems = useSelector(cartItems);
   const is_in_cart = useMemo(() => {
     return checkInCart(_cartItems, data?.id)
   }, [data, _cartItems])
 
+  const [likeCount,setLikeCount] = useState(data?.like_count ?? 0)
+
+  useEffect(()=>{
+    if(isSuccess && (likeCount !== data?.like_count)) setLikeCount(data.like_count)
+  },[isSuccess])
   //->> favorite endpoints
   const {
     data: favoritesData,
@@ -48,31 +54,20 @@ function FootageDetails({query}) {
   const [addToFavorites, {
     isSuccess: addFavoriteIsSuccess,
     isLoading: addFavoriteIsLoading,
-    error: addFavoriteError,
-    isError: addFavoriteIsError,
   }] = useAddToFavoritesMutation()
   const [removeFromFavorites, {
     isSuccess: removeFavoriteIsSuccess,
     isLoading: removeFavoriteIsLoading,
-    error: removeFavoriteError,
-    isError: removeFavoriteIsError,
   }] = useRemoveFromFavoritesMutation()
 
   const myFavoritesIds = useMemo(() => {
     return favoritesData?.results.map(v => v.id) ?? []
   }, [favoritesData])
 
-  useEffect(() => {
-    if (addFavoriteIsSuccess) toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
-    if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
-    if (addFavoriteIsError) handleApiError(addFavoriteError)
-    if (removeFavoriteIsError) handleApiError(removeFavoriteError)
-  }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError, addFavoriteError, removeFavoriteError])
-
   if (isError) return <ErrorPage info={error}/>
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(wشindow.location.href);
     toast.success("لینک صفحه کپی شد!")
   }
 
@@ -97,9 +92,9 @@ function FootageDetails({query}) {
                     <Image src={data.media.src} alt={data.media.alt} fill
                            className="full object-cover rounded-[2.6rem]"/>
                 }
-                <ButtonIcon icon={<IoHeart className={"text-3xl"}/>}
-                            className={"btn-ghost absolute top-8 right-8 flex-row-reverse justify-center gap-1 text-lg z-40"}>
-                  {data.like_count}
+                <ButtonIcon icon={<IoHeart className={"text-2xl"}/>}
+                            className={"btn-accent opacity-80 absolute top-14 right-8 flex-row-reverse justify-center text-lg gap-1 z-40"}>
+                  {likeCount}
                 </ButtonIcon>
               </div>
 
@@ -115,17 +110,18 @@ function FootageDetails({query}) {
                 <div className="basis-1/12 h-full">
                   <div className="flex justify-between items-center">
                     <div className="flex-none">
-                      <div className="flex items-center gap-3">
-                        <Avatar src={data.author?.profile_image} alt={data.author?.name}
+                      <Link href={`/profile/${data.publisher?.username}`} className="flex items-center gap-3">
+                        <Avatar src={data.publisher?.profile_image} alt={data.publisher?.name}
                                 size={50}
-                                badge={<span className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
-                        <span className="text-lg">{data.author?.name}</span>
-                      </div>
+                                badge={<span
+                                  className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
+                        <span className="text-lg">{data.publisher?.name}</span>
+                      </Link>
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>
                     <div className="flex-none">
-                      <span className="text-gray">ناشر اثر: </span>
-                      <span className="text-success-100">{data.publisher?.name}</span>
+                      <span className="text-gray">فیلم بردار: </span>
+                      <span className="text-success-100">{data.author?.name}</span>
                     </div>
                     <div className="flex-none border-l border-gray p-2"></div>
                     <div className="flex-none text-gray">
@@ -136,7 +132,8 @@ function FootageDetails({query}) {
                 </div>
                 <div className="basis-3/12">
                   <h1 className="text-3xl mb-6">{data.title}</h1>
-                  {data.devices && <div className="flex gap-3 mb-4 items-center"><MdCamera className={"text-2xl"}/> <span>{data.devices}</span></div>}
+                  {data.devices && <div className="flex gap-3 mb-4 items-center"><MdCamera className={"text-2xl"}/>
+                    <span>{data.devices}</span></div>}
                   <p className="text-secondary-300 leading-9 text-lg">
                     {data.description}
                   </p>
@@ -214,18 +211,23 @@ function FootageDetails({query}) {
                       </Transition>
                     </Popover.Panel>
                   </Popover>
-                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"><IoShareSocialOutline
-                    className="text-3xl"/></button>
-                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
+                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent">
+                    <IoShareSocialOutline
+                      className="text-3xl"/></button>
+                  <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
                           onClick={() => {
-                            if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
-                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
+                            if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
+                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res)=>{
+                                setLikeCount(res.like_count)
+                              }) : addToFavorites({id: data.id}).unwrap().then((res)=>{
+                                setLikeCount(res.like_count)
+                              })
                             }
                           }}>
                     {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                       <IoHeartOutline/>}
                   </button>
-                  <button className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
+                  <button title={"اضافه کردن به مجموعه"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
                           onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
                     <CgFolderAdd className="text-3xl"/>
                   </button>
@@ -236,20 +238,18 @@ function FootageDetails({query}) {
                     <span className="text-xs text-gray">تخفیف اشتراک</span>
                   </div>}
                   <div className="flex items-center gap-3">
-                    {data.price.original > 0 && <span className="line-through text-gray text-lg">{data.price.original}</span>}
-                    <span className="text-2xl">{!data.price.free ? `${data.price.pay_price} تومان`: 'رایگان' }</span>
+                    {data.price.original > 0 &&
+                      <span className="line-through text-gray text-lg">{data.price.original}</span>}
+                    <span className="text-2xl">{!data.price.free ? `${data.price.pay_price} تومان` : 'رایگان'}</span>
                   </div>
                 </div>
                 <div className="basis-3/12">
                   <div className="flex gap-3 h-20 items-stretch">
                     <ButtonIcon className="btn text-white py-4 px-10 rounded-2xl btn-primary-gradient"
-                            onClick={() => dispatch(addOrRemoveToCart({
-                              id: data.id,
-                              price: data.price.pay_price
-                            }))}
-                            icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
-                              <FaCartPlus
-                                className="text-3xl"/>}>
+                                onClick={() => dispatch(addOrRemoveToCart(data))}
+                                icon={is_in_cart ? <MdRemoveShoppingCart className="text-3xl"/> :
+                                  <FaCartPlus
+                                    className="text-3xl"/>}>
                       {is_in_cart ? 'حذف از' : 'اضافه به'} سبد خرید
                     </ButtonIcon>
                   </div>
@@ -266,22 +266,24 @@ function FootageDetails({query}) {
               <span>بیشتر از {data.publisher?.name}</span>
             </div>
           )}
-                   end={<Button className="btn-accent text-secondary-300" link={`/profile/${data.publisher.username}`}>مشاهده پروفایل</Button>}
+                   end={<Button className="btn-accent text-secondary-300" link={`/profile/${data.publisher.username}`}>مشاهده
+                     پروفایل</Button>}
           />
           <div className="grid grid-cols-4 overflow-hidden mb-20 mt-10">
             {data.more_user_products.map((item, key) => (
-              <MainProductCard small key={key} data={item} link={`/products/${item.type}/${item.id}`}/>))}
+              <MainProductCard small key={item.id} data={item} link={`/products/${item.type}/${item.id}`}/>))}
           </div>
           <Divider start='مشابه ها'/>
           <section className="mb-40 mt-10">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
               {data.related_products.map((item, key) => (
-                  <MainProductCard key={key} className={(key === 3 ? 'row-span-2' : '')} link={`/products/${item.type}/${item.id}`} small data={item}/>
-               ))}
+                <MainProductCard key={item.id} className={(key === 3 ? 'row-span-2' : '')}
+                                 link={`/products/${item.type}/${item.id}`} small data={item}/>
+              ))}
             </div>
             <Button
               className={"h-[4.6rem] w-52 rounded-3xl btn-circle mx-auto flex mt-20 text-[1.5rem] font-light btn-ghost"}
-              link={`/products/${data.type}/?tags=${data.tags.slice(0,3).map((v, i) => (v.label)).join(",")}`}>
+              link={`/products/${data.type}/?tags=${data.tags.slice(0, 3).map((v, i) => (v.label)).join(",")}`}>
               بیشتر
             </Button>
           </section>

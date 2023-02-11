@@ -29,60 +29,10 @@ import {
   useRemoveFromCartMutation,
 } from "@/datasources/user/remote/UserSliceApi";
 import {handleApiError} from "@/datasources/errorHandler";
-import zarinpal from "@/public/images/zarinpal.png";
-import mellat from "@/public/images/mellat.png";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
 import toast from "@/utils/notification/toast";
-
-const data = [
-  {
-    id: 1,
-    type: "video",
-    title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-    price: {
-      main: 25000,
-      off: 12000,
-      percent: "40%",
-    },
-    media: {
-      alt: "natural",
-      src: "/videos/sample2.mp4",
-    },
-    extra_information: {
-      resolution: "4k",
-      codek: "prores",
-      ratio: "16:9",
-      file_type: "QuickTime",
-      frame_rate: "25 FPS",
-      time: "00:20",
-      file_size: "8.3 MB",
-    },
-  },
-  {
-    id: 2,
-    type: "image",
-    title: "مقبره بزرگ زیبای شب در شهر اصفهان",
-    price: {
-      main: 50000,
-      off: 40000,
-      percent: "20%",
-    },
-    media: {
-      alt: "natural",
-      src: "https://placeimg.com/640/480/nature/1",
-    },
-    extra_information: {
-      resolution: "4k",
-      codek: "prores",
-      ratio: "16:9",
-      file_type: "QuickTime",
-      frame_rate: "25 FPS",
-      time: "00:20",
-      file_size: "8.3 MB",
-    },
-  },
-];
+import Link from "next/link";
 
 export default function Cart() {
   const _cartItems = useSelector(cartItems);
@@ -111,6 +61,25 @@ export default function Cart() {
   //     isLoading: addCartIsLoading,
   //   },
   // ] = useAddToCartMutation();
+  const [getCartDetailsByIds, {data, isSuccess, isError, error}] =
+    useGetCartDetailsByIdsMutation();
+  const {
+    data: cartData,
+    isSuccess: cartIsSuccess,
+    error: cartError,
+    isError: cartIsError,
+    isLoading: cartIsLoading,
+  } = useGetCartQuery();
+  const [
+    addToCart,
+    {
+      data: addCartData,
+      isSuccess: addCartIsSuccess,
+      error: addCartError,
+      isError: addCartIsError,
+      isLoading: addCartIsLoading,
+    },
+  ] = useAddToCartMutation();
   // const [
   //   removeFromCart,
   //   {
@@ -148,6 +117,9 @@ export default function Cart() {
     // if (!isEmpty(_cartItems))
       getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
   }, []);
+  useEffect(() => {
+    getCartDetailsByIds({ products: _cartItems.map((v) => v.id) })
+  }, [])
 
   // const total_price = useMemo(() => (
   //   _cartItems.map(product => (data.find(v => v.id === product.id).price.main)).reduce((a, b) => a + b, 0).toLocaleString()
@@ -271,7 +243,7 @@ export default function Cart() {
                               </div>
                               <div className="basis-1/2 text-color3">
                                 <div className="flex flex-col justify-center h-full gap-3">
-                                  <div className="text-lg">{product.title}</div>
+                                  <Link href={`/products/${product.type}/${product.id}`} className="text-lg">{product.title}</Link>
                                   <div className="text-gray text-xs">
                                     {/* {Object.entries(product.extra_information)
                                       .map((v) => v[1])
@@ -294,7 +266,7 @@ export default function Cart() {
                                         {product.price.original.toLocaleString()}
                                       </span>
                                       <span className="bg-danger rounded-3xl w-12 px-2 py-1 text-lg text-center mr-2">
-                                        {product.price.percent}
+                                        %{product.price.percent}
                                       </span>
                                     </>
                                   )}
@@ -378,35 +350,12 @@ export default function Cart() {
                           {`کد تخفیف ${checkOfferCodeData.discount_value}`}
                         </div>
                       )}
-                      <div className="mt-8">
+                      {cartData.paybox.pay_amount !== 0 && <div className="mt-8">
                         <GatewaysList
                           state={paymentGateway}
                           setter={setPaymentGateway}
                         />
-                      </div>
-
-                      {/* <div className="flex items-center text-secondary">
-                        <div
-                          onClick={() => setPaymentGateway("ZARINPAL")}
-                          className={`m-4 cursor-pointer p-4 ${
-                            paymentGateway === "ZARINPAL"
-                              ? "border border-primary rounded-[17px]"
-                              : ""
-                          }`}
-                        >
-                          <Image width={70} height={90} src={zarinpal} />
-                        </div>
-                        <div
-                          onClick={() => setPaymentGateway("MELLAT")}
-                          className={`m-4 cursor-pointer p-4 ${
-                            paymentGateway === "MELLAT"
-                              ? "border border-primary rounded-[17px]"
-                              : ""
-                          }`}
-                        >
-                          <Image width={90} height={90} src={mellat} />
-                        </div>
-                      </div> */}
+                      </div>}
                     </div>
                     <div className="basis-4/12">
                       <div className="flex flex-col text-gray gap-5">

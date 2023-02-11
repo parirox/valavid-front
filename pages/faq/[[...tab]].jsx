@@ -2,7 +2,7 @@ import {Disclosure, Tab} from "@headlessui/react";
 import Head from "next/head";
 import Image from "next/image";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useDeferredValue, useEffect, useState} from "react";
 import {FiSearch} from "react-icons/fi";
 import {IoIosArrowDown} from "react-icons/io";
 import {isEmpty} from "@/utils/general";
@@ -13,14 +13,17 @@ function Faq({query}) {
   const {data, isSuccess, isError, isLoading} = useGetFaqQuery()
 
   const router = useRouter();
+  const [searchValue, setSearchValue] = useState("");
+  const searchValueDeferred = useDeferredValue(searchValue);
+
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [tabId, setTabId] = useState(null);
-  ;
+
   const [targetTab, setTargetTab] = useState(null);
 
   useEffect(() => {
     if (isSuccess) {
-      !isEmpty(query.tab)
+      !isEmpty(query?.tab)
         ? setTabId(query.tab[0])
         : setTabId(data[0]?.id);
       setTargetTab(data.findIndex((tab) => tab.id === tabId))
@@ -47,11 +50,12 @@ function Faq({query}) {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="container flex flex-col items-center relative pb-[25rem]">
-        <Image src={'/images/faq_QuestionsPic.png'} className="mx-auto" alt="" width={320} height={220}></Image>
+        <Image src={'/images/faq_QuestionsPic.png'} className="mx-auto" alt="faq" width={320} height={220}></Image>
         <h3 className="pt-8">چطور می توانیم کمکتان کنیم ؟</h3>
         <p className="text-secondary-100 pt-2">اگر موضوع موردنظرتان را در پایین پیدا نکردید سوال خود را بنویسید</p>
         <div className="relative w-[34rem] h-12 mt-16 mb-20">
-          <input type="text" className="w-full h-full rounded-full px-8 text-black" placeholder="سوال شما"/>
+          <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)}
+           className="w-full h-full rounded-full px-8 text-black" placeholder="سوال شما"/>
           <FiSearch className="absolute text-black text-2xl top-1/2 -translate-y-1/2 left-4"></FiSearch>
         </div>
         <div className="basis-3/4 overflow-hidden relative">
@@ -83,8 +87,8 @@ function Faq({query}) {
                   <Tab.Panel key={k}>{
                     <div className="mx-auto w-[75rem] min-w-[10rem] pt-16">
                       {
-                        tab.items?.map((faq, i) => (
-                          <div className={`${i == tab.items?.length - 1 ? '' : 'border-b border-secondary-400'} py-6`}
+                        tab.items?.filter(q=> q.question.includes(searchValueDeferred) || q.answer.includes(searchValueDeferred)).map((faq, i) => (
+                          <div className={`${i === tab.items?.length - 1 ? '' : 'border-b border-secondary-400'} py-6`}
                                key={i}>
                             <Disclosure>
                               {({open}) => (
@@ -96,7 +100,7 @@ function Faq({query}) {
                                       className={`text-2xl text-secondary-200 mr-auto transition-all duration-500 ${open ? 'rotate-180' : 'rotate-0'}`}/>
                                   </Disclosure.Button>
                                   <Disclosure.Panel>
-                                    <p className="px-3 pt-8 pb-5 text-secondary-300">
+                                    <p className="px-3 pt-8 pb-5 text-secondary-300 text-justify">
                                       {faq.answer}
                                     </p>
                                   </Disclosure.Panel>
@@ -119,17 +123,14 @@ function Faq({query}) {
   )
 }
 
-// todo: you have to prefetch data with next SSG methods
-export const getServerSideProps = wrapper.getServerSideProps(
+Faq.getInitialProps = wrapper.getInitialPageProps(
   (store) => async (context) => {
-
-    const query = {...context.params}
     store.dispatch(GetFaq.initiate())
     await Promise.all(store.dispatch(page_api.util.getRunningQueriesThunk()))
 
     return {
       props: {
-        query,
+        query:context.query,
       },
     };
   }

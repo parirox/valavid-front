@@ -89,9 +89,9 @@ const Footer = ({ styleMode }) => {
                             <span className="text-sm text-[#F2F4F4]"> تمام حقوق محفوظ است و هرگونه استفاده غیر قانونی از مطالب پیگرد قانونی دارد</span>
                         </div>
                         <div className="flex-none flex flex-row gap-6 text-3xl justify-end">
-                            <Link href={'https://instagram.com/valavid'}><FaInstagram /></Link>
+                            <Link href={'https://instagram.com/valavid.ir'}><FaInstagram /></Link>
                             <Link href={'https://youtube.com/valavid'}><FaYoutube /></Link>
-                            <Link href={'https://t.me/valavid'}><FaTelegramPlane /></Link>
+                            <Link href={'https://t.me/valavid_ir'}><FaTelegramPlane /></Link>
                         </div>
                     </div>
                 </div>
@@ -136,9 +136,9 @@ const Footer = ({ styleMode }) => {
                     <span className="text-sm text-[#F2F4F4]"> تمام حقوق محفوظ است و هرگونه استفاده غیر قانونی از مطالب پیگرد قانونی دارد</span>
                     </div>
                     <div className="flex-none flex flex-row gap-6 text-3xl justify-end">
-                        <Link href={'https://instagram.com/valavid'}><FaInstagram/></Link>
+                        <Link href={'https://instagram.com/valavid.ir'}><FaInstagram/></Link>
                         <Link href={'https://youtube.com/valavid'}><FaYoutube/></Link>
-                        <Link href={'https://t.me/valavid'}><FaTelegramPlane/></Link>
+                        <Link href={'https://t.me/valavid_ir'}><FaTelegramPlane/></Link>
                     </div>
                 </div>
             </div>

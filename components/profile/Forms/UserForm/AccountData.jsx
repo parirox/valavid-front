@@ -107,11 +107,11 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
     }
 
     Promise.all([handleAccount(),handleMedia()]).then((res)=>{
-      reset()
+      resetForm()
     })
   };
 
-  const reset = () => {
+  const resetForm = () => {
     setFormDisable(true)
     setAlertMessage("")
     resetMedia(defaultMediaValues)
@@ -122,8 +122,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
     <FormSection title={"اطلاعات حساب"} isFormDisable={isFormDisable}
                  setFormDisable={setFormDisable}
                  handleSubmit={handleSubmit(onSubmit)}
-                 alertMessage={alertMessage}
-                 reset={reset}>
+                 alertMessage={alertMessage}>
       <RowInput label='نام کاربری'>
         <Input name='username' control={controlAccount} disabled/>
       </RowInput>

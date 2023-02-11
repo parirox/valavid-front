@@ -1,3 +1,8 @@
+
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -32,6 +37,12 @@ const links = [
 const Navbar = ({ styleMode }) => {
   const router = useRouter();
   return (
+    <nav className={classNames('w-full flex gap-12 navbarItem font-bold',{'text-secondary':styleMode === 'blog'})}>
+        {
+          links.map((page, index) => (
+            <Link href={page.href} className={`${styleMode === 'blog' ? 'text-secondary' : ''} ${router?.pathname === page.href ? 'active' : ''}`} key={index}>{page.title}</Link>
+          ))
+        }
     <nav
       className={`w-full flex gap-12 navbarItem text-base ${
         styleMode === "blog" ? "text-secondary" : ""

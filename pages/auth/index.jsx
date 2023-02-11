@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
 import _toast from "@/utils/notification/toast";
 import { IoClose } from "react-icons/io5";
+import {isEmpty} from "@/utils/general";
 
 const Index = () => {
   const [selectedTab, setSelectedTab] = useState("login");
@@ -49,7 +50,12 @@ const Index = () => {
       .then((response) => {
         _toast.success("ثبت نام با موفقیت انجام شد");
         setCookie("valavid_token", response.token);
-        router.push("/profile/me");
+
+        if(!isEmpty(router.query?.callback)){
+          router.push(router.query.callback);
+        }else{
+          router.push("/profile/me");
+        }
       })
       .catch((error) => handleApiError(error));
   };

@@ -1,29 +1,29 @@
-import { isEmpty } from "@/utils/general";
+import {isEmpty} from "@/utils/general";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { wrapper } from "@/datasources/store";
-import payment_api, {
-  CheckTransaction,
-  useCheckTransactionQuery,
-} from "@/datasources/payment/remote/PaymentSliceApi";
-import { TbFaceIdError } from "react-icons/tb";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import {useRouter} from "next/router";
+import React, {useEffect, useState} from "react";
+import {wrapper} from "@/datasources/store";
+import {useCheckTransactionQuery,} from "@/datasources/payment/remote/PaymentSliceApi";
 import Button from "@/components/Button";
-import { form_fields } from "@/utils/form/messages";
-import { emptyCart } from "@/datasources/checkout/local/CheckoutSlice";
+import {emptyCart} from "@/datasources/checkout/local/CheckoutSlice";
+import SuccessErrorLoading from "@/components/SuccessErrorLoading";
+import classNames from "classnames";
+import {useDispatch} from "react-redux";
 
-function CheckTransactionPage({ query }) {
+function CheckTransactionPage({query}) {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [callToAction, setCallToAction] = useState({
     link: "",
     text: "",
   });
+  const {data, isSuccess, isError, error, isFetching, isLoading} =
+    useCheckTransactionQuery(query.tc, {skip: (query?.free ?? true)});
 
-  const { data, isSuccess, isError, error, isFetching, isLoading } =
-    useCheckTransactionQuery(query.tc);
+  const [loadingState, setLoadingState] = useState({
+    isSuccess, isError, isLoading
+  });
 
   useEffect(() => {
     if (!isFetching) {
@@ -36,56 +36,49 @@ function CheckTransactionPage({ query }) {
     }
   }, [router, isFetching]);
 
-  const subscriptionHandler = async () => {
+  const subscriptionHandler = () => {
     if (isSuccess) {
-      setCallToAction({ link: "/profile/me", text: "پروفایل من" });
+      setCallToAction({link: "/profile/me", text: "پروفایل من"});
     } else {
-      setCallToAction({ link: "/plans", text: "خرید مجدد اشتراک" });
+      setCallToAction({link: "/plans", text: "خرید مجدد اشتراک"});
     }
   };
-  const productHandler = async () => {
-    if (isSuccess) {
-      setCallToAction({ link: "/profile/me/Downloads", text: "دانلود های من" });
+  const productHandler = () => {
+    if (isSuccess || !!query?.free) {
+      if (!!query?.free) setLoadingState((prevState) => ({...prevState, isSuccess: true, isLoading: false}))
+      setCallToAction({link: "/profile/me/Downloads", text: "دانلود های من"});
       dispatch(emptyCart());
     } else {
-      setCallToAction({ link: "/checkout", text: "برو به سبد خرید" });
+      setCallToAction({link: "/checkout", text: "برو به سبد خرید"});
+    }
+  };
+  const walletHandler = () => {
+    if (isSuccess) {
+      setCallToAction({link: "/profile/me/Accounting", text: "حساب من"});
     }
   };
 
-  const walletHandler = async () => {
-    if (isSuccess) {
-      setCallToAction({ link: "/profile/me/Accounting", text: "حساب من" });
-    }
-  };
 
   return (
     <>
       <Head>
-        <title>والاوید | بررسی پرداخت</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>والاوید | بررسی خرید</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center min-h-screen">
         <div className="container relative h-1/2 w-2/3 rounded-t-3xl bg-secondary overflow-hidden p-10">
           <div className="flex justify-center items-center flex-col full p-10">
-            {isLoading && <h3>بررسی پرداخت</h3>}
-            {isError && <TbFaceIdError className={"text-9xl text-danger"} />}
-            {isSuccess && (
-              <IoMdCheckmarkCircleOutline className={"text-9xl text-success"} />
-            )}
+            <h3
+              className={classNames("h-10 mb-10", {"animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black": isLoading})}>
+              {isLoading && (query?.free ? "بررسی اطلاعات" : "بررسی پرداخت")}
+              {!isLoading && "خرید شما با موفقیت انجام شد."}
+            </h3>
+            <SuccessErrorLoading {...loadingState}/>
             <div className="full flex flex-col gap-5 justify-center items-center mt-4">
-              {isLoading && (
-                <>
-                  <span>لطفا صبر نمایید...</span>
-                  <AiOutlineLoading3Quarters
-                    className={"animate-spin text-7xl"}
-                  />
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-10"></span>
-                </>
-              )}
               {isSuccess && (
                 <>
                   <div className="text-xl my-3">
-                    پرداخت شما با موفقیت انجام شد!
+                    {query?.free ? "عملیات خرید با موفقیت انجام شد!" : "پرداخت شما با موفقیت انجام شد!"}
                   </div>
                 </>
               )}
@@ -130,10 +123,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       };
     }
     const query = context.query;
-    store.dispatch(CheckTransaction.initiate(query.tc));
-    await Promise.all(
-      store.dispatch(payment_api.util.getRunningQueriesThunk())
-    );
     return {
       props: {
         query,

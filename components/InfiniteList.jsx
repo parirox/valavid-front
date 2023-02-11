@@ -1,26 +1,15 @@
 import useInfiniteScroll from 'react-infinite-scroll-hook';
-import product_api, {
-  GetVideosList,
-  GetVideosListScroll, productSliceApiTag,
-  useGetVideosListScrollQuery
-} from "@/datasources/product/remote/ProductSliceApi";
-import {Fragment, useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {wrapper} from "@/datasources/store";
-import {useDispatch} from "react-redux";
-import Pagination from "@/components/Pagination";
-import dynamic from 'next/dynamic'
 
-const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false}) // disable ssr
 
-function InfiniteList({className, query, items, isFetching, isLoading, loadingContent, isError, children}) {
+function InfiniteList({className, query,page, items, isFetching, isLoading, loadingContent, isError, children}) {
   const router = useRouter()
   const loadMore = () => {
     if (!isFetching) {
       router.replace({
-          query: {...query, page: query.page + 1}
+          query: {...query, page: parseInt(page) + 1}
         },
-        undefined, {scroll: false}
+        undefined, {scroll: false, shallow: true}
       )
     }
   }
@@ -30,7 +19,7 @@ function InfiniteList({className, query, items, isFetching, isLoading, loadingCo
     hasNextPage: !!items.next,
     onLoadMore: loadMore,
     disabled: isError,
-    rootMargin: '0px 0px 400px 0px',
+    rootMargin: '800px 0px 0px 0px',
   });
 
   return (

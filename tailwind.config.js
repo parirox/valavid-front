@@ -26,6 +26,21 @@ module.exports = {
       sans: ["IRANSans", "vazir", "sans-serif"],
     },
     extend: {
+      animation: {
+        text: 'text 5s ease infinite',
+      },
+      keyframes: {
+        text: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center',
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center',
+          },
+        },
+      },
       boxShadow: {
         '3xl': '8px 11px 23px 0px rgb(0 0 0 / 4%)',
         '4xl': '6px 4px 15px 0px rgb(0 0 0 / 9%)',

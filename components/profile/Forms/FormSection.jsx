@@ -4,7 +4,7 @@ import {MdEdit} from "react-icons/md";
 import {IoClose} from "react-icons/io5";
 import Button from "@/components/Button";
 
-function FormSection({isFormDisable, setFormDisable, handleSubmit, reset = ()=>{}, title, alertMessage, children}) {
+function FormSection({isFormDisable, setFormDisable, handleSubmit, title, alertMessage, children}) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="w-full flex items-center gap-5">

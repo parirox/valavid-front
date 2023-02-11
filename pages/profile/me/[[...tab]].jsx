@@ -14,7 +14,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {BsFolder2Open} from "react-icons/bs";
 import {FaChevronDown, FaMedal, FaStar} from "react-icons/fa";
 import {FiDownload, FiUpload} from "react-icons/fi";
@@ -80,13 +80,13 @@ let tabs = [
   },
   {
     id: "SellerForm",
-    title: "فروشنده شوید",
+    title: (data) => (data.is_seller ? 'اطلاعات فروشنده' : "فروشنده شوید"),
     content: <SellerForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
   {
     id: "TeamForm",
-    title: "ثبت تیم",
+    title: (data) => (data.is_team ? 'اطلاعات تیم / شرکت' : "ثبت تیم / شرکت"),
     content: <TeamForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
@@ -99,31 +99,22 @@ function SellerProfile() {
 
   const parentAsideCard = useRef();
   const asideCard = useRef();
+  const aideCardInitialPosition = useRef();
 
   useEffect(() => {
+    if (isEmpty(aideCardInitialPosition.current)) aideCardInitialPosition.current = asideCard.current.getBoundingClientRect().top;
     const onScroll = () => {
       const marginTop = 15
-      if(asideCard.current.getBoundingClientRect().top <= marginTop ){
-        if(parentAsideCard.current.getBoundingClientRect().top >= marginTop){
-          asideCard.current.style.setProperty("top",(-parentAsideCard.current.getBoundingClientRect().top)+marginTop+"px")
-        }else{
-          asideCard.current.style.setProperty("top",(-parentAsideCard.current.getBoundingClientRect().top)+marginTop+"px")
-        }
-      }else{
-        asideCard.current.style.removeProperty("top")
-      }
+      if (parentAsideCard.current.getBoundingClientRect().top >= 0) asideCard.current.style.setProperty("top", scrollY - aideCardInitialPosition.current + "px")
+      else asideCard.current.style.setProperty("top", -parentAsideCard.current.getBoundingClientRect().top + marginTop + "px")
     };
     window.removeEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, {passive: true});
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
     if (router.isReady) {
-      if(isSuccess) {
-        // if(data.is_seller) tabs = tabs.forEach((v)=>v.id==='SellerForm'? v.title = 'اطلاعات فروشنده' : '' )
-        // if(data.is_team) tabs = tabs.forEach((v)=>v.id==='TeamForm'? v.title = 'اطلاعات تیم' : '' )
-      }
       const tabId = !isEmpty(router.query.tab)
         ? router.query.tab[0]
         : tabs[0].id;
@@ -160,8 +151,9 @@ function SellerProfile() {
         />
       </div>
       <div ref={parentAsideCard} className="flex w-full px-10 gap-8 items-start">
-        <aside ref={asideCard} className={"basis-1/4 rounded-2xl bg-secondary-light transition-400-linear relative -top-52"}>
-          {isLoading && <ProfileCardLoader/>}
+        <aside ref={asideCard}
+               className={"basis-1/4 rounded-2xl bg-secondary-light transition-400-linear relative -top-52"}>
+          {isLoading && <div className={"p-10"}><ProfileCardLoader/></div>}
           {isSuccess &&
             <div className="grid grid-cols-1 grid-rows-2 gap-10 relative p-10">
               <span className="absolute left-10 top-10">
@@ -181,10 +173,11 @@ function SellerProfile() {
                         }
                 />
                 <div className="text-4xl">{data?.first_name ? `${data.first_name} ${data.last_name}` : data.email}</div>
-                <div className="flex items-end gap-2 text-color8">
-                  <IoLocationOutline className="text-3xl"/>{" "}
-                  <span>{[data.info?.location?.country, data.info?.location?.state, data.info?.location?.city].filter(v => (!isEmpty(v))).join("، ")}</span>
-                </div>
+                {!isEmpty(data.info?.location?.country) || !isEmpty(data.info?.location?.state) || !isEmpty(data.info?.location?.city) &&
+                  <div className="flex items-end gap-2 text-color8">
+                    <IoLocationOutline className="text-3xl"/>{" "}
+                    <span>{[data.info?.location?.country, data.info?.location?.state, data.info?.location?.city].filter(v => (!isEmpty(v))).join("، ")}</span>
+                  </div>}
                 <div className="text-color8 px-10 text-center ">
                   {data.slogan}
                 </div>
@@ -194,7 +187,7 @@ function SellerProfile() {
                 </div>
               </div>
               <div className="flex items-center flex-col gap-5 text-lg justify-end">
-                { data.has_active_subscription ?
+                {data.has_active_subscription ?
                   <div className="relative w-full cursor-default">
                     <div
                       className="bg-primary w-full peer rounded-2xl flex justify-between py-4 px-8 items-center hover:rounded-b-none">
@@ -230,18 +223,20 @@ function SellerProfile() {
                   </div>
                   :
                   <div className="relative w-full cursor-default">
-                    <div className="bg-accent w-full peer rounded-2xl flex justify-between py-4 px-8 items-center hover:rounded-b-none">
+                    <div
+                      className="bg-accent w-full peer rounded-2xl flex justify-between py-4 px-8 items-center hover:rounded-b-none">
                       <span className="flex gap-2 items-center">
                         <CiStar className="text-4xl"/>
                         <span className="text-xl">اشتراک ندارید</span>
                       </span>
                       <span className="flex gap-2 items-center text-color3">
-                        <Button link={"/plans"} className={"bg-gradient-to-tr from-[#C4C1FF] to-white to-white text-primary px-10"}>خرید اشتراک</Button>
+                        <Button link={"/plans"}
+                                className={"bg-gradient-to-tr from-[#C4C1FF] to-white to-white text-primary px-10"}>خرید اشتراک</Button>
                       </span>
                     </div>
                   </div>
                 }
-                { !data?.is_seller ?
+                {!data?.is_seller ?
                   <div className="w-full bg-accent rounded-2xl p-8 flex">
                     <div className="basis-4/6">
                       <div className="mb-2 text-xl">فروشنده شوید</div>
@@ -282,14 +277,14 @@ function SellerProfile() {
                     </div>
                   </div>
                 }
-                { !data?.is_team && <div className="w-full bg-accent rounded-2xl p-8 flex items-center gap-3">
+                {!data?.is_team && <div className="w-full bg-accent rounded-2xl p-8 flex items-center gap-3">
                   <MdGroupAdd className="text-primary text-4xl"/>
                   <Link href={`/profile/me/TeamForm`}>
                   <span className="text-lg">
                     تغییر حساب کاربری به شخصیت حقوقی
                   </span>
                   </Link>
-                </div> }
+                </div>}
               </div>
             </div>
           }
@@ -313,7 +308,15 @@ function SellerProfile() {
                         tab?.className ? "px-5 py-2 " + tab?.className : ""
                       }
                     >
-                      {tab.title}
+                      {
+                        (() => {
+                          if (typeof tab.title === "function") {
+                            return isLoading ? <div className="animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">....</div> : tab.title(data)
+                          } else {
+                            return tab.title
+                          }
+                        })()
+                      }
                     </span>
                   </Tab>
                 ))}

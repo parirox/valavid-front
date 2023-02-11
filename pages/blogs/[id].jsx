@@ -106,6 +106,7 @@ function SingleBlog() {
               {blog.tags.map((tag, index) => (
                 <Fragment key={index}>
                   <Chip
+                    href={`/blogs/?tag=${tag.title}`}
                     className="bg-gray text-white rounded-2xl text-sm"
                     content={tag.title}
                   ></Chip>
@@ -120,7 +121,7 @@ function SingleBlog() {
                   key={k}
                   className="w-[calc(33.32%_-_1.34rem)] bg-white rounded-2xl shadow-md"
                 >
-                  <div className="w-100 h-52 relative">
+                  <div className="w-100 h-52 relative overflow-hidden">
                     <Image
                       alt={""}
                       src="https://placeimg.com/640/480/nature/11"
@@ -128,15 +129,15 @@ function SingleBlog() {
                       fill
                       sizes="33vw"
                     ></Image>
-                    <div className="flex absolute bottom-4 right-4 gap-1">
-                      <Chip
-                        className="bg-[#00101C] text-white rounded-2xl text-xs"
-                        content={blog.title}
-                      ></Chip>
-                      <Chip
-                        className="bg-[#00101C] text-white rounded-2xl text-xs"
-                        content={blog.description}
-                      ></Chip>
+                    <div className="flex absolute z-10 bottom-4 right-4 gap-1">
+                      {item.tags.slice(0,3).map((tag,k)=>(
+                        <Chip
+                          key={k}
+                          href={`/blogs/?tag=${tag.title}`}
+                          className="bg-[#00101C] text-white rounded-2xl text-xs"
+                          content={tag.title}
+                        />
+                      ))}
                     </div>
                   </div>
                   <div className="pt-4 flex gap-16 px-4">

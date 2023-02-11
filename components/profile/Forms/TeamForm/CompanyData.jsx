@@ -51,6 +51,7 @@ function CompanyData({defaultValues}) {
       fetchUpdateUser(formData).unwrap().then(_ => {
         const res_msg = getFormSuccessMessage(data)
         toast.success(res_msg)
+        resetForm()
       }).catch(e => {
         handleApiError(e)
         setAlertMessage(e.message)
@@ -69,8 +70,7 @@ function CompanyData({defaultValues}) {
     <FormSection title={"اطلاعات شرکت"} isFormDisable={isFormDisable}
                  setFormDisable={setFormDisable}
                  handleSubmit={handleSubmit(onSubmit)}
-                 alertMessage={alertMessage}
-                 reset={resetForm}>
+                 alertMessage={alertMessage}>
       <RowInput label='نام شرکت'>
         <Input name='team.company_name' control={control} disabled={isFormDisable}/>
       </RowInput>

@@ -66,6 +66,16 @@ function BlogList() {
       .catch((e) => {
         handleApiError(e);
       });
+        .unwrap()
+        .then((res) => {
+          _toast.success("درخواست شما با موفقیت انجام شد.");
+        })
+        .catch((err) => {
+          handleApiError(err);
+        });
+    } else {
+      _toast.error("لطفا ایمیل خود را وارد کنید.");
+    }
   };
 
   useEffect(() => {

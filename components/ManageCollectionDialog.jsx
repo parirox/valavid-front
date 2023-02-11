@@ -94,10 +94,10 @@ export default function ManageCollectionDialog({...rest}) {
             className="bg-white w-full flex gap-8 rounded-3xl text-center p-10">
         <div className="relative basis-2/6 rounded-tr-3xl rounded-br-3xl overflow-hidden">
           {footage_details?.type === "video" ?
-            (<video autoPlay={false} preload='metadata' className="full object-cover">
+            (<video autoPlay={false} preload='metadata' className="full">
               <source src={footage_details.media.src} type="video/mp4"/>
             </video>) : (
-              <Image src={footage_details.media.src} fill alt={footage_details.media.alt} className="object-cover"/>)}
+              <Image src={footage_details.media.src} fill alt={footage_details.media.alt}/>)}
         </div>
         <div className="basis-4/6">
           <header className="flex justify-between mb-5">

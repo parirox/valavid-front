@@ -145,7 +145,7 @@ const Header = ({ data, styleMode }) => {
       <header className={"bg-white py-7 box-shadow relative"}>
         <div className="flex items-center gap-4 container px-2 h-[45px]">
           <div className="basis-1/12 relative h-11 min-w-[100px]">
-            <Image alt={"valavid icon"} src={ValavidIcon} fill sizes=""></Image>
+            <Link href={"/"}><Image alt={"valavid icon"} src={ValavidIcon} fill sizes=""></Image></Link>
           </div>
           <div className="basis-5/12 mr-16">
             <Navbar styleMode={styleMode} />
@@ -181,7 +181,9 @@ const Header = ({ data, styleMode }) => {
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
         <div className="flex items-center gap-4 px-24 h-[45px]">
-          <div className="basis-1/12 text-white">Valavid</div>
+          <div className="basis-1/12 text-white">
+            <Link href={"/"}>Valavid</Link>
+          </div>
           <div className="basis-5/12">
             <Navbar styleMode={styleMode} />
           </div>
@@ -191,7 +193,6 @@ const Header = ({ data, styleMode }) => {
                 <Select />
               </div>
               {renderProfileBtn()}
-              {isLogedin && (
                 <div className="basis-1/12">
                   <ButtonIcon
                     link={"/cart"}
@@ -203,7 +204,6 @@ const Header = ({ data, styleMode }) => {
                     </span>
                   </ButtonIcon>
                 </div>
-              )}
             </div>
           </div>
         </div>

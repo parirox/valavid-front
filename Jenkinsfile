@@ -1,7 +1,7 @@
 pipeline {
     environment {
         develop_server = '5.9.198.231'
-        production_server = "5.9.198.231"
+        production_server = "185.206.93.109"
         project_name = "valavid-front"
         version = "master"
 		gitBranch = "origin/master"
@@ -46,15 +46,15 @@ pipeline {
 
                         withCredentials([usernamePassword(credentialsId: 'develop_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                             sh 'sshpass -p $PASSWORD ssh $develop_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && git pull"'
-                            sh 'sshpass -p $PASSWORD ssh $develop_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose  up -d --build"'
+                            sh 'sshpass -p $PASSWORD ssh $develop_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && docker compose up -d --build"'
                         }
                     }
 
-                    if(gitBranch=="origin/master"){
+                    if(gitBranch=="origin/main"){
 
-                        withCredentials([usernamePassword(credentialsId: 'najmpro', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && git pull"'
-                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /root/projects/$project_name && DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml up -d --build"'
+                        withCredentials([usernamePassword(credentialsId: 'valavid_production_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /projects/valavid-frontend && git pull"'
+                            sh 'sshpass -p $PASSWORD ssh $USERNAME@$production_server -o StrictHostKeyChecking=no "cd /projects/valavid-frontend && docker compose up -d --build"'
                         }
 
                     }

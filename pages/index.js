@@ -12,8 +12,9 @@ import Head from "next/head";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import ErrorPage from "./ErrorPage";
 import React from "react";
+import {getCookie} from "cookies-next";
 
-function Home() {
+function Home({isLoggedIn}) {
   const { data, isSuccess, isError, error } = useGetHomeDataQuery();
 
   if (isError) return <ErrorPage info={error}/>
@@ -23,6 +24,7 @@ function Home() {
       <>
         <Head>
           <title>والاوید | صفحه ی اصلی</title>
+          <meta name="description" content="بانک فوتیج ایران" />
         </Head>
         <FirstSection video={data?.video} tags={data.tags} />
         {/* modal */}
@@ -33,7 +35,7 @@ function Home() {
         <Blog data={data.blogs} />
         <SubscribeBanner />
         <TopSellers data={data?.top_sellers} />
-        <BecomeASeller />
+        <BecomeASeller isLoggedIn={isLoggedIn} />
       </>
     );
 }
@@ -44,9 +46,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     store.dispatch(GetHomeData.initiate());
     await Promise.all(store.dispatch(page_api.util.getRunningQueriesThunk()));
+    const isLoggedIn = !!getCookie("valavid_token")
     return {
       props: {
         // protected: true,
+        isLoggedIn
       },
     };
   }

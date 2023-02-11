@@ -30,28 +30,15 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
     data: favoritesData,
   } = useGetFavoritesQuery()
   const [addToFavorites, {
-    isSuccess: addFavoriteIsSuccess,
     isLoading: addFavoriteIsLoading,
-    error: addFavoriteError,
-    isError: addFavoriteIsError,
   }] = useAddToFavoritesMutation()
   const [removeFromFavorites, {
-    isSuccess: removeFavoriteIsSuccess,
     isLoading: removeFavoriteIsLoading,
-    error: removeFavoriteError,
-    isError: removeFavoriteIsError,
   }] = useRemoveFromFavoritesMutation()
 
   const myFavoritesIds = useMemo(() => {
     return favoritesData?.results.map(v => v.id) ?? []
   }, [favoritesData])
-
-  useEffect(() => {
-    if (addFavoriteIsSuccess) toast.success("با موفقیت به لیست علاقه مندی های شما اضافه شد!")
-    if (removeFavoriteIsSuccess) toast.info("محصول از لیست علاقه مندی های شما حذف شد.")
-    if (addFavoriteIsError) handleApiError(addFavoriteError)
-    if (removeFavoriteIsError) handleApiError(removeFavoriteError)
-  }, [addFavoriteIsSuccess, addFavoriteIsError, removeFavoriteIsSuccess, removeFavoriteIsError, addFavoriteError, removeFavoriteError])
 
   function onMouseEnterHandler() {
     if (data.type === 'video') {
@@ -61,7 +48,9 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
 
   function onMouseLeaveHandler() {
     if (data.type === 'video') {
-      ref.current.pause()
+      // ref.current.pause()
+      ref.current.currentTime = 0
+      ref.current.load()
     }
   }
 
@@ -81,7 +70,7 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
                     <div className="flex gap-3 text-2xl">
-                      <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                      <Badge title={"لایک کردن"} className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => {
                                if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                                  myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
@@ -90,12 +79,12 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                         {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                           <IoHeartOutline/>}
                       </Badge>
-                      <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                      <Badge title={"اضافه کردن به مجموعه"} className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
                         <IoFolderOpenOutline/>
                       </Badge>
                       <Badge className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
-                             onClick={() => dispatch(addOrRemoveToCart({id: data.id, price: data.price.pay_price}))}>
+                             onClick={() => dispatch(addOrRemoveToCart(data))}>
                         {checkInCart(_cartItems, data.id) ? <MdRemoveShoppingCart/> : <FaCartPlus/>}
                       </Badge>
                     </div>
@@ -148,7 +137,9 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
             </div>}
             <Link href={link} className="absolute inset-0 z-40"></Link>
             {data.type === 'video' ?
-              <video ref={ref} autoPlay={false} preload="metadata" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+              <video ref={ref}
+                     poster={data.media.cover}
+                     autoPlay={false} preload="metadata" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
                 <source src={data.media.src} type="video/mp4"/>
               </video>
               :

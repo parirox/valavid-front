@@ -2,8 +2,8 @@ import {useGetPublisherAchievementsQuery} from "@/datasources/user/remote/UserSl
 import NoContent from "@/components/NoContent";
 import MedalBox from "@/components/MedalBox";
 
-const Achievements = () => {
-    const {data, isSuccess} = useGetPublisherAchievementsQuery()
+const Achievements = (query) => {
+    const {data, isSuccess} = useGetPublisherAchievementsQuery(query)
     if (!isSuccess) return <></>
     return (
       <div className="flex gap-12 flex-wrap pt-20">

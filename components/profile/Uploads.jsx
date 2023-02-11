@@ -4,69 +4,6 @@ import UploadCard from "../UploadCard/UploadCard";
 import { useSelector } from "react-redux";
 import UnCompletedUploadCard from "../UploadCard/UnCompletedUploadCard";
 
-const UploadsData = [
-  {
-    cover: "https://placeimg.com/192/192/people",
-    title: null,
-    address: "image3.jpg",
-    status: 0,
-    downloadUrl: "https://placeimg.com/192/192/people",
-    price: null,
-    date: null,
-    likes: 22,
-    views: 1002,
-    purchases: 2342,
-  },
-  {
-    cover: "https://placeimg.com/192/192/people",
-    title: "سی و سه پل اصفهان",
-    address: "image3.jpg",
-    status: 1,
-    downloadUrl: "https://placeimg.com/192/192/people",
-    price: null,
-    date: null,
-    likes: 22,
-    views: 1002,
-    purchases: 2342,
-  },
-  {
-    cover: "https://placeimg.com/192/192/people",
-    title: "سی و سه پل اصفهان",
-    address: "image3.jpg",
-    status: 2,
-    downloadUrl: "https://placeimg.com/192/192/people",
-    price: 255000,
-    date: "1401/12/23",
-    likes: 22,
-    views: 1002,
-    purchases: 2342,
-  },
-  {
-    cover: "https://placeimg.com/192/192/people",
-    title: "سی و سه پل اصفهان",
-    address: "image3.jpg",
-    status: 2,
-    downloadUrl: "https://placeimg.com/192/192/people",
-    price: 255000,
-    date: "1401/12/23",
-    likes: 22,
-    views: 1002,
-    purchases: 2342,
-  },
-  {
-    cover: "https://placeimg.com/192/192/people",
-    title: "سی و سه پل اصفهان",
-    address: "image3.jpg",
-    status: 2,
-    downloadUrl: "https://placeimg.com/192/192/people",
-    price: 255000,
-    date: "1401/12/23",
-    likes: 22,
-    views: 1002,
-    purchases: 2342,
-  },
-];
-
 const Uploads = ({ getAccountProductList, products, setProduct }) => {
   const uncompletedProducts = useSelector(uncompletedProductItems);
 

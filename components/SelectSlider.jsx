@@ -9,23 +9,8 @@ import {
   IoCheckmark
 } from "react-icons/io5";
 import Router from "next/router";
-
-export const options = [
-  {
-    id: 1,
-    route: "video",
-    name: "ویدئو",
-    icon: <IoVideocamOutline className="text-2xl"/>,
-    unavailable: false,
-  },
-  {
-    id: 2,
-    route: "image",
-    name: "تصویر",
-    icon: <IoImageOutline className="text-2xl"/>,
-    unavailable: false,
-  },
-];
+import {options} from "@/components/Select"
+import Link from "next/link";
 
 export default function SelectSlider({value = ""}) {
   const [searchValue, setSearchValue] = useState("");
@@ -43,9 +28,11 @@ export default function SelectSlider({value = ""}) {
     <div className="rounded-full h-full w-full bg-white text-gray-800">
       <div className="flex flex-row gap-3 h-full">
         <div className="basis-2/12 py-3 h-full">
-          <Listbox value={selected} onChange={setSelected}>
+          <Listbox value={selected} disabled={options.filter(option=>!option.unavailable).length <= 1} onChange={setSelected}>
             <div className="border-l-[1px] border-[#D6DADC] relative px-2 h-full">
               <Listbox.Button
+                as={Link}
+                href={`/products/${selected.route}`}
                 className="flex gap-2 items-center content-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm text-accent">
                 <span className="basis-1/4 pointer-events-none flex items-center pr-2">
                   {selected.icon}
@@ -53,7 +40,7 @@ export default function SelectSlider({value = ""}) {
                 <span className="basis-2/4 block truncate text-center">
                   {selected.name}
                 </span>
-                <IoCaretDown/>
+                {options.filter(option=>!option.unavailable).length > 1 && <IoCaretDown />}
               </Listbox.Button>
               <Transition
                 as={Fragment}
@@ -63,7 +50,7 @@ export default function SelectSlider({value = ""}) {
               >
                 <Listbox.Options
                   className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-accent  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {options.map((item, itemIdx) => (
+                  {options.filter(option=>!option.unavailable).map((item, itemIdx) => (
                     <Listbox.Option
                       key={itemIdx}
                       className={({active}) =>

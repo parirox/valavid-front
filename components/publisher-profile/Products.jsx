@@ -3,8 +3,8 @@ import MainProductCard from "@/components/MainProductCard";
 import NoContent from "@/components/NoContent";
 
 
-const Products = () => {
-  const {data, isSuccess, isError, isLoading} = useGetPublisherProductQuery()
+const Products = (query) => {
+  const {data, isSuccess} = useGetPublisherProductQuery(query)
 
   if (!isSuccess) return <></>
   return (

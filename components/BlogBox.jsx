@@ -50,6 +50,7 @@ export default function BlogBox(props) {
         <div className="flex flex-wrap w-100">
           {tags.map((tag, index) => (
             <Chip
+              href={`/blogs/?tag=${tag.title}`}
               className={"bg-[#EFEFEF] text-black text-xs font-thin m-1"}
               content={tag.title}
               key={index}

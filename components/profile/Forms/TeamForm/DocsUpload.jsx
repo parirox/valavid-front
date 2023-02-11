@@ -51,6 +51,7 @@ function DocsUpload({defaultValues}) {
       fetchUpdateUser(formData).unwrap().then(_ => {
         const res_msg = getFormSuccessMessage(data)
         toast.success(res_msg)
+        resetForm()
       }).catch(e => {
         handleApiError(e)
         setAlertMessage(e.message)
@@ -73,10 +74,10 @@ function DocsUpload({defaultValues}) {
       <RowInput label='تصویر کارت ملی /پاسپورت' required>
         <FileInput name="team.national_card" disabled={isFormDisable} hookFormControl={control}/>
       </RowInput>
-      <RowInput label='شماره شبا' required helperText={'(باید به نام صاحب حساب باشد)'}>
+      <RowInput label='شماره شبا' required helperText={'(باید به نام مدیرعامل باشد)'}>
         <Input name='team.bank_shaba' className={"w-1/3"} control={control} disabled={isFormDisable}/>
       </RowInput>
-      <RowInput label='شماره حساب' required helperText={'(باید به نام صاحب حساب باشد)'}>
+      <RowInput label='شماره حساب' required helperText={'(باید به نام مدیرعامل باشد)'}>
         <Input name='team.bank_account' className={"w-1/3"} control={control} disabled={isFormDisable}/>
       </RowInput>
     </FormSection>
