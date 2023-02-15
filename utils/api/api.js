@@ -24,6 +24,7 @@ export const ApiEndpoint = {
       productTags: "/tags/",
     },
     details: "/products/:id/",
+    report: "/report/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",

@@ -19,8 +19,8 @@ import InfiniteList from "@/components/InfiniteList";
 import {isEmpty} from "@/utils/general";
 import dynamic from 'next/dynamic'
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
-import VideoFilter from "@/components/products/VideoFilter";
-import ImageFilter from "@/components/products/ImageFilter";
+import VideoFilter from "@/components/products/filter/VideoFilter";
+import ImageFilter from "@/components/products/filter/ImageFilter";
 import MainProductCard from "@/components/MainProductCard";
 import ErrorPage from "../../ErrorPage";
 import {connect, useStore} from "react-redux";

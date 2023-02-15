@@ -19,8 +19,9 @@ import {
 import toast from "@/utils/notification/toast";
 import {handleApiError} from "@/datasources/errorHandler";
 import {isEmpty} from "@/utils/general";
+import classNames from "classnames";
 
-const MainProductCard = ({data,small, className, link = '#'}) => {
+const MainProductCard = ({data, small, className, link = '#'}) => {
   const _cartItems = useSelector(cartItems);
   const dispatch = useDispatch();
   const ref = useRef()
@@ -55,8 +56,8 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
   }
 
   return (
-    <div className={className}>
-      <div className={`group/popularCard relative ${small ? 'h-[250px]' :'h-[300px]'}`} onMouseEnter={onMouseEnterHandler}
+    <div className={classNames(className, {'h-[250px]': (small && isEmpty(className)), 'h-[300px]': (!small && isEmpty(className))})}>
+      <div className={classNames("group/popularCard relative h-full")} onMouseEnter={onMouseEnterHandler}
            onMouseLeave={onMouseLeaveHandler}>
         <div
           className="hidden group-hover/popularCard:block border-[1px] rounded-[3.35rem] w-full h-full z-30 absolute border-white">
@@ -65,21 +66,24 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
         </div>
         <div className="w-full h-full p-3">
           <div className="relative w-full h-full rounded-[2.6rem] overflow-hidden">
-            <div className="absolute top-12 right-10 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            <div
+              className="absolute top-12 right-10 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto">
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
                     <div className="flex gap-3 text-2xl">
-                      <Badge title={"لایک کردن"} className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                      <Badge title={"لایک کردن"}
+                             className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => {
-                               if(!addFavoriteIsLoading && !removeFavoriteIsLoading) {
+                               if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                                  myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}) : addToFavorites({id: data.id})
                                }
                              }}>
                         {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                           <IoHeartOutline/>}
                       </Badge>
-                      <Badge title={"اضافه کردن به مجموعه"} className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
+                      <Badge title={"اضافه کردن به مجموعه"}
+                             className='bg-[#00000088] rounded-2xl cursor-pointer hover:bg-white hover:text-primary'
                              onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
                         <IoFolderOpenOutline/>
                       </Badge>
@@ -92,19 +96,22 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                 </div>
               </div>
             </div>
-            <div className="absolute top-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            <div
+              className="absolute top-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto">
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
                     <div className="flex gap-3 justify-center items-center">
-                      <Badge className='bg-primary rounded-2xl'><span dir="ltr">{data.price.free ? "رایگان" : (data?.price.pay_price/10).toLocaleString()}</span></Badge>
+                      <Badge className='bg-primary rounded-2xl'><span
+                        dir="ltr">{data.price.free ? "رایگان" : (data?.price.pay_price / 10).toLocaleString()}</span></Badge>
                       <Badge className='bg-primary rounded-2xl  text-2xl'><IoVideocamOutline/></Badge>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            {data.author && <div className="absolute bottom-[5.5rem] left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            {data.author && <div
+              className="absolute bottom-[5.5rem] left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto text-black">
                 <div className="relative z-50 flex gap-3 justify-end items-center mb-3">
                   <div className="flex items-center basis rounded-3xl bg-white py-2 px-3">
@@ -117,7 +124,8 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
                 </div>
               </div>
             </div>}
-            <div className="absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+            <div
+              className="absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto text-black">
                 <div className="flex gap-3 justify-end">
                   <div className="flex-none rounded-3xl bg-white py-2 px-3">
@@ -131,7 +139,8 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
               </div>
             </div>
             {data.type === 'video' && <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 z-30">
-              <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
+              <div
+                className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
                 <FaPlay className='h-full w-full'/>
               </div>
             </div>}
@@ -139,7 +148,8 @@ const MainProductCard = ({data,small, className, link = '#'}) => {
             {data.type === 'video' ?
               <video ref={ref}
                      poster={data.media.cover}
-                     autoPlay={false} preload="metadata" muted loop className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+                     autoPlay={false} preload="metadata" muted loop
+                     className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
                 <source src={data.media.src} type="video/mp4"/>
               </video>
               :
