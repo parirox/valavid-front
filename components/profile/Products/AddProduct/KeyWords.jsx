@@ -73,7 +73,7 @@ const KeyWords = ({
 
   return (
     <>
-      <p className="text-secondary bg-color8 rounded-[22px] h-[55px] flex items-center justify-center w-fit px-[2rem] mx-auto my-4">
+      <p className="text-secondary bg-color8 rounded-[22px] h-[55px] flex items-center justify-center w-fit px-[2rem] mx-auto mt-4 mb-10">
         کلیدواژه های مرتبط با محصول خود را به ترتیب بنویسید.(کلیدواژه مناسب منجر
         به پیدا کردن سریعتر محصول شما میشود.)
       </p>

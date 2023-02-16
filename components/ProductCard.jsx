@@ -26,7 +26,7 @@ const ProductCard = ({ product, description }) => {
 
       <div className="flex flex-col items-start justify-between">
         <p className="mx-4 mt-4 text-secondary">{description}</p>
-        <div className="text-secondary-300 mx-4">
+        <div className="text-secondary-300 mx-4 hidden sm:block">
           <span>{product.name}</span>
           <span className="mx-[4rem]">|</span>
           <span>{product.size}</span>

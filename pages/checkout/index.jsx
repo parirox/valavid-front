@@ -61,25 +61,6 @@ export default function Cart() {
   //     isLoading: addCartIsLoading,
   //   },
   // ] = useAddToCartMutation();
-  const [getCartDetailsByIds, {data, isSuccess, isError, error}] =
-    useGetCartDetailsByIdsMutation();
-  const {
-    data: cartData,
-    isSuccess: cartIsSuccess,
-    error: cartError,
-    isError: cartIsError,
-    isLoading: cartIsLoading,
-  } = useGetCartQuery();
-  const [
-    addToCart,
-    {
-      data: addCartData,
-      isSuccess: addCartIsSuccess,
-      error: addCartError,
-      isError: addCartIsError,
-      isLoading: addCartIsLoading,
-    },
-  ] = useAddToCartMutation();
   // const [
   //   removeFromCart,
   //   {
@@ -117,9 +98,6 @@ export default function Cart() {
     // if (!isEmpty(_cartItems))
       getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
   }, []);
-  useEffect(() => {
-    getCartDetailsByIds({ products: _cartItems.map((v) => v.id) })
-  }, [])
 
   // const total_price = useMemo(() => (
   //   _cartItems.map(product => (data.find(v => v.id === product.id).price.main)).reduce((a, b) => a + b, 0).toLocaleString()

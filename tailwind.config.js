@@ -8,15 +8,15 @@ module.exports = {
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      sm: '576px',
+      md: '768px',
+      lg: '992px',
+      xl: '1200px',
+      '2xl': '1400px'
+    },
     container: {
       center: true,
-      screens: {
-        sm: '540px',
-        md: '720px',
-        lg: '960px',
-        xl: '1140px',
-        '2xl': '1320px'
-      },
       padding: {
         DEFAULT: '1.25rem',
         sm: '0.75rem'

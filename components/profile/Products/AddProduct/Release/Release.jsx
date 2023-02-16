@@ -11,7 +11,7 @@ const Release = ({ productInfo, handleAddProduct, setActiveStep }) => {
       <p className="text-secondary bg-color8 rounded-[22px] h-[55px] flex items-center justify-center w-fit px-[2rem] mx-auto my-[4rem]">
         نحوه انتشار محصول خود را انتخاب کنید.
       </p>
-      <div className="flex justify-center">
+      <div className="flex justify-center flex-col sm:flex-row">
         <FreeReleaseCard handleSubmit={handleAddProduct} />
         <PricingCard handleSubmit={handleAddProduct} />
       </div>
