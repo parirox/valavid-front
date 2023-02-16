@@ -1,16 +1,11 @@
 import {Listbox, Transition} from "@headlessui/react";
-import {CheckIcon} from "@heroicons/react/20/solid";
 import {Fragment, useEffect, useState} from "react";
-import {
-  IoCaretDown,
-  IoImageOutline,
-  IoSearchOutline,
-  IoVideocamOutline,
-  IoCheckmark
-} from "react-icons/io5";
+import {IoCaretDown, IoCheckmark, IoSearchOutline} from "react-icons/io5";
 import Router from "next/router";
 import {options} from "@/components/Select"
 import Link from "next/link";
+import {isEmpty} from "@/utils/general";
+import toast from "@/utils/notification/toast";
 
 export default function SelectSlider({value = ""}) {
   const [searchValue, setSearchValue] = useState("");
@@ -21,6 +16,10 @@ export default function SelectSlider({value = ""}) {
   }, [value])
 
   async function searchHandler() {
+    if(isEmpty(searchValue)){
+      toast.info("چند کاراکتری وارد نمایید!")
+      return;
+    }
     await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
   }
 
@@ -92,6 +91,7 @@ export default function SelectSlider({value = ""}) {
             type="text"
             name="search"
             value={searchValue}
+            onKeyDown={e=>e.key==="Enter" ? searchHandler() : ""}
             onChange={event => setSearchValue(event.target.value)}
             id="search-header"
           />

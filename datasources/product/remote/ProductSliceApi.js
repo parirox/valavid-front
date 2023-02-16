@@ -66,6 +66,16 @@ const product_api = createApi({
         { type: productSliceApiTag, id: "CollectionDetails" },
       ],
     }),
+    Report: build.mutation({
+      query: (body) => ({
+        url: ApiAddress(ApiEndpoint.product.report),
+        method: "POST",
+        body
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "ProductReport" },
+      ],
+    }),
     ProductDetails: build.query({
       query: (query) => ({
         url: ApiAddress(ApiEndpoint.product.details, query),
@@ -141,6 +151,7 @@ export const {
   useGetProductListScrollQuery,
   useGetProductListFilterQuery,
   useGetCollectionDetailsQuery,
+  useReportMutation,
   useProductDetailsQuery,
   useUploadProductMutation,
   useGetAccountProductListMutation,

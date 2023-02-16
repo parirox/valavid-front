@@ -31,7 +31,10 @@
     }
     .btn-accent {
         @apply text-white bg-accent hover:bg-[#54626D];
-    } 
+    }
+    .btn-danger {
+        @apply text-white bg-danger hover:bg-danger-100;
+    }
     .btn-ghost {
         @apply text-white border bg-transparent  border-[#e4e7e91a] hover:bg-[#e4e7e91a] hover:border-[#e3e6e800] !important;
     }

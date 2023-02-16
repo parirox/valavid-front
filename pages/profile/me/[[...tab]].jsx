@@ -245,7 +245,7 @@ function SellerProfile() {
                       </div>
                       <Button
                         className="btn-primary-gradient px-12 py-3"
-                        link={`/profile/me/SellerForm`}
+                        link={`/becomeASeller`}
                       >
                         فروشنده شوید
                       </Button>

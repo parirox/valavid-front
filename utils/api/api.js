@@ -26,6 +26,7 @@ export const ApiEndpoint = {
       edit:"/account/products/:id/"
     },
     details: "/products/:id/",
+    report: "/report/",
     get: "/products/:query",
     filter: "/products/filter-values/:query",
     collection: "/collections/:id/",

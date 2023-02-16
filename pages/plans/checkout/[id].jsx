@@ -103,16 +103,12 @@ function PlanCheckout({query}) {
                         <div className="flex flex-col justify-around items-end h-full ">
                           <div className="text-xs text-color3 mb-4">قیمت (تومان)</div>
                           <div className="flex gap-4 flex-row-reverse items-center">
-                            {/*{ (false) && <span className="text-xl text-color3 line-through"></span>}*/}
-                            {/*{ (false) && <span*/}
-                            {/*  className="bg-danger rounded-3xl w-12 px-2 py-1 text-lg text-center mr-2">درصد تخفیف</span>*/}
-                            {/*}*/}
                             <span className="text-3xl text-color6">{(data.price/10).toLocaleString()}</span>
                           </div>
                         </div>
                         <div className="flex h-full">
                           <div className="text-gray p-1 cursor-pointer">
-                            {/*<IoTrashOutline className="text-3xl"/>*/}
+
                           </div>
                         </div>
                       </div>
@@ -125,46 +121,10 @@ function PlanCheckout({query}) {
                   <div className="flex flex-col">
                     <h5 className="flex-initial text-white text-start text-lg mb-3">درگاه پرداخت</h5>
                     <GatewaysList state={paymentGateway} setter={setPaymentGateway}/>
-                {/*    <div className="basis-1/2">*/}
-                {/*      <div className="form-control w-full">*/}
-                {/*        <div className="p-1 border border-accent rounded-xl">*/}
-                {/*          <div className="relative">*/}
-                {/*            <input type="text" value={offerCode}*/}
-                {/*                   onChange={(e) => setOfferCode(e.target.value)} placeholder="- - - - - -"*/}
-                {/*                   className="input w-full pl-16 pr-3 py-3 peer"/>*/}
-                {/*            <button onClick={setOfferCodeHandler}*/}
-                {/*                    className="btn btn-primary absolute left-0 top-0 h-full rounded-xl px-10 text-sm peer-placeholder-shown:btn-accent">*/}
-                {/*              ثبت کد*/}
-                {/*              {checkOfferIsLoading && <AiOutlineLoading3Quarters className="animate-spin"/>}*/}
-                {/*            </button>*/}
-                {/*          </div>*/}
-                {/*        </div>*/}
-                {/*      </div>*/}
-                {/*    </div>*/}
-                {/*    {checkOfferIsSuccess && <div className="basis-1/2 text-success flex gap-2 mr-3 items-center">*/}
-                {/*      <span className="text-2xl"><IoCheckmarkCircleSharp/></span>*/}
-                {/*      <span className="text-sm">کد تخفیف با موفقیت اعمال شد.</span>*/}
-                {/*    </div>}*/}
-                {/*  </div>*/}
-                {/*  {checkOfferIsSuccess && <div className="text-color6 text-sm p-4">*/}
-                {/*    کد تخفیف 5 درصدی*/}
                   </div>
                 </div>
                 <div className="basis-4/12">
                   <div className="flex flex-col text-gray gap-5">
-                    {/*<div className="flex justify-between items-center">*/}
-                    {/*  <span>جمع کل:</span>*/}
-                    {/*  <span className="text-lg">قیمت نهایی</span>*/}
-                    {/*</div>*/}
-                    {/*<div className="flex justify-between items-center">*/}
-                    {/*  <span>تخفیفات محصولات:</span>*/}
-                    {/*  <span className="text-lg">تخفیف محصول</span>*/}
-                    {/*</div>*/}
-                    {/*<div className="mb-2 flex justify-between items-center">*/}
-                    {/*  <span>سود شما از خرید:</span>*/}
-                    {/*  <span className="text-lg">میزان تخفیف</span>*/}
-                    {/*</div>*/}
-                    {/*<Divider/>*/}
                     <div className="mt-2 flex justify-between items-center text-color6">
                       <span>قابل پرداخت:</span>
                       <span className="text-2xl">{(data.price/10).toLocaleString()} تومان</span>

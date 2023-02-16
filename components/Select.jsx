@@ -1,12 +1,11 @@
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import {Listbox, Transition} from "@headlessui/react";
+import {CheckIcon} from "@heroicons/react/20/solid";
 import {Fragment, useEffect, useState} from "react";
-import {
-  IoCaretDown, IoImageOutline, IoSearchOutline, IoVideocamOutline
-} from "react-icons/io5";
+import {IoCaretDown, IoImageOutline, IoSearchOutline, IoVideocamOutline} from "react-icons/io5";
 import Router, {useRouter} from "next/router";
 import {isEmpty} from "@/utils/general";
 import Link from "next/link";
+import toast from "@/utils/notification/toast";
 
 export const options = [
   {
@@ -31,6 +30,10 @@ export default function Select() {
   const [selected, setSelected] = useState(options[0]);
 
   async function searchHandler() {
+    if(isEmpty(searchValue)){
+      toast.info("چند کاراکتری وارد نمایید!")
+      return;
+    }
     await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
   }
 
@@ -113,6 +116,7 @@ export default function Select() {
             placeholder="جستجوی عبارت ..."
             type="text"
             value={searchValue}
+            onKeyDown={e=>e.key==="Enter" ? searchHandler() : ""}
             onChange={event => setSearchValue(event.target.value)}
             id="search-header"
           />

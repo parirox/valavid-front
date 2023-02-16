@@ -1,4 +1,5 @@
 export const form_change_fields_success_message = " با موفقیت تغییر یافت."
+export const form_change_fields_error_message = " را بررسی نمایید."
 export const form_fields = {
   username: 'نام کاربری',
   first_name: 'نام',
@@ -16,8 +17,11 @@ export const form_fields = {
   subject: 'موضوع',
   address: 'آدرس',
   message: 'پیام',
+  description: 'توضیحات',
   zarinpal: 'زرین پال',
   mellat: 'بانک ملت',
+  product: 'محصول',
+  report_type: 'نوع گزارش',
 }
 
 export const form_messages = {
@@ -28,11 +32,14 @@ export const form_messages = {
   email: ':field معتبر نمی باشد',
 }
 
-export function getFormError({field, type, val}){
+export function getFormError({field, type, val}) {
   const field_name = form_fields?.[field] ?? field
-  return form_messages?.[type].replace(":field",field_name).replace(":value",val)
+  return form_messages?.[type].replace(":field", field_name).replace(":value", val)
 }
-export function getFormSuccessMessage(data){
-  return Object.entries(data).map((v)=>(form_fields[v[0]])).join("، ").concat(form_change_fields_success_message)
 
+export function getFormSuccessMessage(data) {
+  return Object.entries(data).map((v) => (form_fields[v[0]])).join("، ").concat(form_change_fields_success_message)
+}
+export function getFormErrorMessage(data) {
+  return Object.entries(data).map(([key,value]) => value.message).join("\n\n")
 }
