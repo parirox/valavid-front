@@ -159,11 +159,11 @@ export default function UnCompletedUploadCard({
             </dir>
           </div>
         </div>
-        {!file.path && (
+        {/* {!file.path && (
           <LoadingBar
             className={"bg-primary h-1 w-10 z-[100] absolute bottom-0"}
           />
-        )}
+        )} */}
       </div>
     </>
   );

@@ -54,7 +54,7 @@ function BlogList() {
   const onSubmit = async (data) => {
     let isValid = await trigger(["email"]);
     if (!isValid) {
-      toast.error(errors.email.message);
+      _toast.error(errors.email.message);
       return;
     }
     submitNewsletter(data)
@@ -65,18 +65,8 @@ function BlogList() {
       })
       .catch((e) => {
         handleApiError(e);
-      });
-        .unwrap()
-        .then((res) => {
-          _toast.success("درخواست شما با موفقیت انجام شد.");
-        })
-        .catch((err) => {
-          handleApiError(err);
-        });
-    } else {
-      _toast.error("لطفا ایمیل خود را وارد کنید.");
+      })
     }
-  };
 
   useEffect(() => {
     getBlogData();

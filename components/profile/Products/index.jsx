@@ -255,6 +255,28 @@ const Products = () => {
       setContent("steps");
       setActiveStep(1);
     }
+    if(!isOpen){
+      setActiveStep(1);
+      setProductInfo({
+        title: "",
+        description: "",
+        translations: {
+          fa: {},
+          en: {},
+          ar: {},
+          fr: {},
+          tr: {},
+        },
+        country: "",
+        state: "",
+        city: "",
+        tags_level_1: [],
+        tags_level_2: [],
+        tags_level_3: [],
+        file: null,
+        publish_type: null,
+      });
+    }
   }, [isOpen]);
 
   useEffect(() => {
