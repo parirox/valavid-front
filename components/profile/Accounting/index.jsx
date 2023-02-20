@@ -157,12 +157,12 @@ const Accounting = () => {
               برداشت از کیف پول
             </Button>
             )
-          }
+           } 
          
         </div>
         <div className="flex gap-2 items-center text-lg">
           <p className="text-xl opacity-80">موجودی :</p>
-          <p className="text-2xl">{inventory}</p>
+          <p className="text-2xl">{profileData.wallet_value}</p>
           <span className="">تومان</span>
         </div>
       </div>

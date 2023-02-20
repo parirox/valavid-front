@@ -61,8 +61,6 @@ export default function Cart() {
   //     isLoading: addCartIsLoading,
   //   },
   // ] = useAddToCartMutation();
-  const [getCartDetailsByIds, {data, isSuccess, isError, error}] =
-    useGetCartDetailsByIdsMutation();
   const {
     data: cartData,
     isSuccess: cartIsSuccess,
@@ -144,7 +142,7 @@ export default function Cart() {
   };
 
   const handlePayment = () => {
-    if (!paymentGateway) {
+    if (!paymentGateway && cartData.paybox.pay_amount !== 0) {
       _toast.error("لطفا درگاه پرداخت را انتخاب کنید.");
     } else {
       let data = {bank: paymentGateway};

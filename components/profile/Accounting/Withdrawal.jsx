@@ -5,10 +5,18 @@ import Button from "@/components/Button";
 import { useWithdrawalMutation } from "@/datasources/Accounting/remote/AccountingSliceApi";
 import _toast from "@/utils/notification/toast";
 import { handleApiError } from "@/datasources/errorHandler";
-import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
+import {
+  useGetProfileDetailsQuery,
+  useUpdateUserInformationMutation,
+} from "@/datasources/user/remote/UserSliceApi";
 
 const Withdrawal = ({ isOpen, setIsOpen }) => {
   const [amount, setAmount] = useState(0);
+  const [isFormDisable, setFormDisable] = useState(true);
+  const [sellerInfo, setSellerInfo] = useState({
+    bank_shaba: null,
+    bank_account: null,
+  });
   const [withdrawal, { data, isSuccess, isError, error }] =
     useWithdrawalMutation();
   const {
@@ -16,6 +24,7 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
     isSuccess: profileIsSuccess,
     isLoading: profileIsLoading,
   } = useGetProfileDetailsQuery();
+  const [updateUserData] = useUpdateUserInformationMutation();
   const handleWithdrawal = () => {
     withdrawal({
       amount,
@@ -30,6 +39,26 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
       });
   };
 
+  const handleEditSellerInfo = () => {
+    let sellerData = {};
+    if (sellerInfo.bank_account) {
+      sellerData.bank_account = sellerInfo.bank_account;
+    }
+    if (sellerInfo.bank_shaba) {
+      sellerData.bank_shaba = sellerInfo.bank_shaba;
+    }
+
+    updateUserData({ seller: sellerData })
+      .unwrap()
+      .then((res) => {
+        _toast.success("تغییرات با موفقیت اعمال شد.");
+        setFormDisable(true);
+      })
+      .catch((err) => {
+        handleApiError(err);
+      });
+  };
+
   return (
     <Modal
       isOpen={isOpen ?? false}
@@ -37,7 +66,7 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
       background="bg-[#F8F8F8]"
     >
       <div className="p-4">
-        {console.log('dddd',profileData)}
+        {console.log("dddd", profileData)}
         <h4 className="text-secondary-300 text-start">برداشت وجه</h4>
         <div className="flex items-center">
           <div className="flex flex-col">
@@ -46,8 +75,9 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
             </h5>
             <div className="h-[176px] w-[400px] rounded-[23px] border border-secondary-300 py-4 px-[3rem] flex items-center justify-center">
               <RangeInput
-                min={100000}
-                max={1000000}
+                min={0}
+                max={profileData.wallet_value}
+                start={0}
                 step={10}
                 state={[]}
                 setState={setAmount}
@@ -59,18 +89,62 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
               <h5 className="text-secondary text-start mt-[3rem] mb-[2rem]">
                 شماره حساب بانک مقصد
               </h5>
-              <a className="text-primary">تغییر شماره حساب</a>
+              {isFormDisable ? (
+                <a
+                  onClick={() => setFormDisable(false)}
+                  className="text-primary cursor-pointer"
+                >
+                  تغییر شماره حساب
+                </a>
+              ) : (
+                <a
+                  onClick={() => handleEditSellerInfo(false)}
+                  className="text-primary cursor-pointer"
+                >
+                  ذخیره تغییرات
+                </a>
+              )}
             </div>
             <div className="bg-color8 h-[176px] w-[400px] rounded-[23px] p-[2.5rem] flex flex-col items-start justify-between text-secondary">
               <h6>بانک ملی</h6>
               <div className="w-full">
                 <div className="flex items-center justify-between w-full my-[2rem]">
                   <span>شماره حساب:</span>
-                  <span>1111111111111</span>
+                  {isFormDisable ? (
+                    <span>{profileData.seller.bank_account}</span>
+                  ) : (
+                    <input
+                      onChange={(e) =>
+                        setSellerInfo((prev) => {
+                          return {
+                            ...prev,
+                            bank_account: e.target.value,
+                          };
+                        })
+                      }
+                      className="ltr"
+                      defaultValue={profileData.seller.bank_account}
+                    />
+                  )}
                 </div>
                 <div className="flex items-center justify-between w-full ">
                   <span>شماره شبا:</span>
-                  <span>1111111111111</span>
+                  {isFormDisable ? (
+                    <span>{profileData.seller.bank_shaba}</span>
+                  ) : (
+                    <input
+                      onChange={(e) =>
+                        setSellerInfo((prev) => {
+                          return {
+                            ...prev,
+                            bank_shaba: e.target.value,
+                          };
+                        })
+                      }
+                      className="ltr"
+                      defaultValue={profileData.seller.bank_shaba}
+                    />
+                  )}
                 </div>
               </div>
             </div>
