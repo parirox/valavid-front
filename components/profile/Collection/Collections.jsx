@@ -25,7 +25,7 @@ const Collections = () => {
         <IoAdd className="text-2xl"/>
         <span>ایجاد مجموعه جدید</span>
       </Button>
-      <div className="grid grid-cols-3 gap-10 gap-x-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 gap-x-14">
         {data.results.map((collection, k) => (
           <div className="min-h-6" key={k}>
             <CollectionGalleryCard

@@ -102,12 +102,12 @@ const Tickets = () => {
                     }
                 </div>
             </div>}
-            <Modal small isOpen={isOpen ?? false} setIsOpen={setIsOpen}>
+            <Modal customHeight="w-full md:w-8/12 lg:w-6/12" small isOpen={isOpen ?? false} setIsOpen={setIsOpen}>
                 <form onSubmit={handleSubmit(createTicket)} className="p-2">
                     <p className="opacity-50 text-accent w-full text-start px-3 text-xl">ایجاد تیکت</p>
                     <div className="pb-8">
-                        <div className="flex pt-16 gap-x-3 justify-between">
-                            <div className="relative basis-4/12">
+                        <div className="flex flex-col sm:flex-row gap-y-14 sm:gap-y-0 pt-16 gap-x-3 justify-between">
+                            <div className="relative basis-5/12">
                                 <label htmlFor="subjectInput" className="text-accent absolute -top-9">موضوع</label>
                                 <input type="text" id="subjectInput" className="bg-color8 text-secondary px-4 h-14 w-full rounded-[1.2rem] border-none active:border-none focus:border-none"
                                 {...register('subject')} />

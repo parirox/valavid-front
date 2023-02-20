@@ -84,7 +84,7 @@ const Uploads = ({ getAccountProductList, products, setProduct }) => {
               id={upload.id}
               cover={
                 upload.path
-                  ? `${process.env.NEXT_PUBLIC_BASE_API_URL + upload.path}`
+                  ? `${upload.path}`
                   : upload.localSrc
               }
               fileType={upload.fileType || null}

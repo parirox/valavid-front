@@ -20,7 +20,7 @@ const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHa
           {/* first div */}
           {index === 0 && (
             <>
-              <span className="absolute right-8 top-8 w-auto z-20 bg-primary rounded-xl p-2">{label}</span>
+              <span className="absolute right-8 top-8 w-auto max-w-[12rem] z-20 bg-primary rounded-xl p-2">{label}</span>
               <span className="absolute left-8 top-8 w-10 h-10 z-20 bg-primary rounded-2xl p-3 text-center">{icon}</span>
               {is_published !== null &&
                 <span className={`absolute bottom-8 left-8 flex items-center gap-3 z-20 rounded-2xl px-5 py-2 text-center  ${is_published ? "bg-white text-primary" : "backdrop-blur bg-white/20 text-white"}`}>
