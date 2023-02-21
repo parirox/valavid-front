@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   web:
-    container_name: valavid_front
+    container_name: gereh_front
     ports:
       - 9011:3000
 #      - 9012:9012
