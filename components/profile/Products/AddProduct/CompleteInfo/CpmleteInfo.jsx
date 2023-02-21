@@ -4,7 +4,12 @@ import LangInfo from "./LangInfo";
 import Button from "@/components/Button";
 import _toast from "@/utils/notification/toast";
 
-const CompleteInfo = ({ handleCompleteStep, productInfo, setProductInfo }) => {
+const CompleteInfo = ({
+  handleCompleteStep,
+  productInfo,
+  setProductInfo,
+  activeStep,
+}) => {
   const handleChangeTranlations = (translation, name, value) => {
     setProductInfo((prev) => {
       return {
@@ -18,7 +23,6 @@ const CompleteInfo = ({ handleCompleteStep, productInfo, setProductInfo }) => {
         },
       };
     });
-    console.log(productInfo);
   };
 
   const handleClick = () => {
@@ -55,21 +59,34 @@ const CompleteInfo = ({ handleCompleteStep, productInfo, setProductInfo }) => {
 
   return (
     <div>
-      {productInfo.file && <ProductCard product={productInfo.file} description={productInfo.translations['fa']?.description || ""} />}
+      {productInfo.file && (
+        <ProductCard
+          product={productInfo.file}
+          description={productInfo.translations["fa"]?.description || ""}
+        />
+      )}
       <LangInfo
         translations={productInfo.translations}
         handleChangeTranlations={handleChangeTranlations}
       />
-        <p className="text-[#EF4345] text-start mt-[2rem]">
-          با نوشتن اطلاعات محصول به زبان های مختلف کاربر های سایر زبان ها هم
-          اطلاعات شما را میبینند.
-        </p>
+      <p className="text-[#EF4345] text-start mt-[2rem]">
+        با نوشتن اطلاعات محصول به زبان های مختلف کاربر های سایر زبان ها هم
+        اطلاعات شما را میبینند.
+      </p>
+      <div className="flex items-center justify-end mt-4">
         <Button
           onClick={() => handleClick()}
-          className="w-[20rem] h-[4rem] btn-primary mt-4 block mr-auto"
+          className="w-[20rem] h-[4rem] mt-4 block mr-4 btn-accent"
+        >
+          مرحله قبل
+        </Button>
+        <Button
+          onClick={() => handleClick()}
+          className="w-[20rem] h-[4rem] btn-primary mt-4 block mr-4"
         >
           مرحله بعد
         </Button>
+      </div>
     </div>
   );
 };

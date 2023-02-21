@@ -9,7 +9,7 @@ const PricingCard = ({ handleSubmit }) => {
         <PricingIcon className="my-[0.7rem]" />
         <span className="text-primary">قیمت گذاری</span>
         <p className="text-secondary-light p-4 my-4 text-center">
-          انتشار پس از قیمت گذاری محصول شما توسط هوش مصنوعی و کسب درامد.
+          انتشار پس از قیمت گذاری محصول شما توسط کارشناسان و کسب درامد.
         </p>
         <Button
           onClick={() => handleSubmit("NonFree")}

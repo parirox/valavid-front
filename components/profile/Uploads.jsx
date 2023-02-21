@@ -1,7 +1,12 @@
+import { uncompletedProductItems } from "@/datasources/user/local/UserSlice";
 import SortTabs from "../SortTabs";
-import UploadCard from "../UploadCard";
+import UploadCard from "../UploadCard/UploadCard";
+import { useSelector } from "react-redux";
+import UnCompletedUploadCard from "../UploadCard/UnCompletedUploadCard";
 
-const Uploads = ({ getAccountProductList, products }) => {
+const Uploads = ({ getAccountProductList, products, setProduct }) => {
+  const uncompletedProducts = useSelector(uncompletedProductItems);
+
   return (
     <div className="pb-72">
       <SortTabs
@@ -9,6 +14,22 @@ const Uploads = ({ getAccountProductList, products }) => {
         className={"pt-7"}
       ></SortTabs>
       <div className="flex flex-col gap-6 pt-8">
+        {uncompletedProducts &&
+          uncompletedProducts.map((upload, index) => (
+            <UnCompletedUploadCard
+              key={index}
+              id={upload.id}
+              cover={
+                upload.path
+                  ? `${upload.path}`
+                  : upload.localSrc
+              }
+              fileType={upload.fileType || null}
+              file={upload}
+              getAccountProductList={getAccountProductList}
+              setProduct={setProduct}
+            ></UnCompletedUploadCard>
+          ))}
         {products &&
           products.results.map((upload, index) => (
             <UploadCard

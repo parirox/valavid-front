@@ -19,7 +19,7 @@ import {
 } from "@/utils/form/messages";
 
 
-function AccountData({defaultMediaValues, defaultAccountValues}) {
+function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValues}) {
   const [fetchUpdateUserData] = useUpdateUserInformationMutation();
   const [fetchChangePassword] = useChangePasswordMutation();
 
@@ -43,7 +43,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
   const formSchemaAccount = Yup.object().shape({
     password: Yup.string(),
     password_confirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], getFormError({field:'password_confirmation',type:'required'}))
+      .oneOf([Yup.ref('password'), null], getFormError({field: 'password_confirmation', type: 'required'}))
   });
 
   const {
@@ -65,13 +65,26 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
     resolver: yupResolver(formSchemaAccount)
   });
 
+  const {
+    control: controlSlogan,
+    getValues: getValuesSlogan,
+    trigger: triggerSlogan,
+    reset: resetSlogan,
+    formState: {dirtyFields: dirtyFieldsSlogan}
+  } = useForm({
+    mode: "onSubmit",
+    defaultValues: {
+      ...defaultSloganValues
+    },
+  });
 
-  const handleMedia = () => new Promise((resolve, reject) =>{
+
+  const handleMedia = () => new Promise((resolve, reject) => {
     // get only dirty values from form
     let data = dirtyValues(dirtyFieldsMedia, getValuesMedia())
     if (!isEmpty(data)) {
       const formData = jsonToFormData(data)
-      fetchUpdateUserData(formData).unwrap().then(_=> {
+      fetchUpdateUserData(formData).unwrap().then(_ => {
         const res_msg = getFormSuccessMessage(data)
         toast.success(res_msg)
         resolve()
@@ -80,23 +93,37 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
         setAlertMessage(e.message)
         reject()
       })
-    }
-    else resolve()
+    } else resolve()
   })
 
-  const handleAccount = () => new Promise((resolve, reject) =>{
+  const handleAccount = () => new Promise((resolve, reject) => {
     // get only dirty values from form
     let data = dirtyValues(dirtyFieldsAccount, getValuesAccount())
     if (!isEmpty(data)) {
-      fetchChangePassword(data).unwrap().then(_=> {
+      fetchChangePassword(data).unwrap().then(_ => {
         toast.success(form_fields.password.concat(form_change_fields_success_message))
         resolve()
       }).catch(e => {
         setAlertMessage(e.data.message)
         reject()
       })
-    }
-    else resolve()
+    } else resolve()
+  })
+
+  const handleSlogan = () => new Promise((resolve, reject) => {
+    // get only dirty values from form
+    let data = dirtyValues(dirtyFieldsSlogan, getValuesSlogan())
+    if (!isEmpty(data)) {
+      fetchUpdateUserData(data).unwrap().then(_ => {
+        const res_msg = getFormSuccessMessage(data)
+        toast.success(res_msg)
+        resolve()
+      }).catch(e => {
+        handleApiError(e)
+        setAlertMessage(e.message)
+        reject()
+      })
+    } else resolve()
   })
   const onSubmit = async () => {
     let isValidMedia = await triggerMedia()
@@ -106,7 +133,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
       return;
     }
 
-    Promise.all([handleAccount(),handleMedia()]).then((res)=>{
+    Promise.all([handleAccount(), handleSlogan(), handleMedia()]).then((res) => {
       resetForm()
     })
   };
@@ -116,6 +143,7 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
     setAlertMessage("")
     resetMedia(defaultMediaValues)
     resetAccount(defaultAccountValues)
+    resetAccount(defaultSloganValues)
   }
 
   return (
@@ -125,6 +153,9 @@ function AccountData({defaultMediaValues, defaultAccountValues}) {
                  alertMessage={alertMessage}>
       <RowInput label='نام کاربری'>
         <Input name='username' control={controlAccount} disabled/>
+      </RowInput>
+      <RowInput label='شعار من'>
+        <Input name='info.user_slogan' disabled={isFormDisable} control={controlSlogan}/>
       </RowInput>
       <RowInput label='تصویر پروفایل' required>
         <FileInput name="avatar" disabled={isFormDisable} hookFormControl={controlMedia}/>

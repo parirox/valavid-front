@@ -13,30 +13,30 @@ const LangInfo = ({ handleChangeTranlations, translations }) => {
       descriptionLabel: "توضیحات",
       language_code: "fa",
     },
-    {
-      label: "اطلاعات زبان انگلیسی",
-      titleLabel: "Product title",
-      descriptionLabel: "Description",
-      language_code: "en",
-    },
-    {
-      label: "اطلاعات زبان عربی",
-      titleLabel: "عنوان المنتج",
-      descriptionLabel: "وصف",
-      language_code: "ar",
-    },
-    {
-      label: "اطلاعات زبان فرانسوی",
-      titleLabel: "Titre du produit",
-      descriptionLabel: "La description",
-      language_code: "fr",
-    },
-    {
-      label: "اطلاعات زبان ترکی",
-      titleLabel: "Ürün başlığı",
-      descriptionLabel: "Açıklama",
-      language_code: "tr",
-    },
+    // {
+    //   label: "اطلاعات زبان انگلیسی",
+    //   titleLabel: "Product title",
+    //   descriptionLabel: "Description",
+    //   language_code: "en",
+    // },
+    // {
+    //   label: "اطلاعات زبان عربی",
+    //   titleLabel: "عنوان المنتج",
+    //   descriptionLabel: "وصف",
+    //   language_code: "ar",
+    // },
+    // {
+    //   label: "اطلاعات زبان فرانسوی",
+    //   titleLabel: "Titre du produit",
+    //   descriptionLabel: "La description",
+    //   language_code: "fr",
+    // },
+    // {
+    //   label: "اطلاعات زبان ترکی",
+    //   titleLabel: "Ürün başlığı",
+    //   descriptionLabel: "Açıklama",
+    //   language_code: "tr",
+    // },
   ];
 
   const renderInputs = (translation) => {

@@ -322,7 +322,7 @@ export const provinces_with_cities = {
   ],
 };
 
-const Location = ({ handleCompleteStep, setProduct, productInfo }) => {
+const Location = ({ handleCompleteStep, setProduct, productInfo, setActiveStep }) => {
   const [countryOptions, setCountryOptions] = useState([]);
   const [proviceOptions, setProviceOptions] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
@@ -385,44 +385,52 @@ const Location = ({ handleCompleteStep, setProduct, productInfo }) => {
       <p className="text-secondary bg-color8 rounded-[22px] h-[55px] flex items-center justify-center w-fit px-[2rem] mx-auto mt-[5rem] mb-[6rem]">
         موقعیت جفرافیایی محصول خود را در صورت نیاز انتخاب کنید.
       </p>
-     <div>
-     <div className="my-[2rem] relative">
-        <SelectBox
-          options={countryOptions}
-          selected={productInfo.country}
-          setSelected={(item) => {
-            setProduct("country", item);
-          }}
-          label="کشور"
-        />
+      <div>
+        <div className="my-[2rem] relative">
+          <SelectBox
+            options={countryOptions}
+            selected={productInfo.country}
+            setSelected={(item) => {
+              setProduct("country", item);
+            }}
+            label="کشور"
+          />
+        </div>
+        <div className="my-[2rem] relative">
+          <SelectBox
+            options={proviceOptions}
+            selected={productInfo.state}
+            setSelected={(item) => {
+              setProduct("state", item);
+            }}
+            label="استان"
+          />
+        </div>
+        <div className="my-[2rem] relative">
+          <SelectBox
+            options={cityOptions}
+            selected={productInfo.city}
+            setSelected={(item) => {
+              setProduct("city", item);
+            }}
+            label="شهر"
+          />
+        </div>
       </div>
-      <div className="my-[2rem] relative">
-        <SelectBox
-          options={proviceOptions}
-          selected={productInfo.state}
-          setSelected={(item) => {
-            setProduct("state", item);
-          }}
-          label="استان"
-        />
+      <div className="flex items-center justify-end mt-[13.5rem]">
+        <Button
+          onClick={() => setActiveStep((prev) => prev - 1)}
+          className="w-[20rem] h-[4rem] btn-accent block mr-4"
+        >
+          مرحله قبل
+        </Button>
+        <Button
+          onClick={() => handleClick()}
+          className="w-[20rem] h-[4rem] btn-primary block mr-4 "
+        >
+          مرحله بعد
+        </Button>
       </div>
-      <div className="my-[2rem] relative">
-        <SelectBox
-          options={cityOptions}
-          selected={productInfo.city}
-          setSelected={(item) => {
-            setProduct("city", item);
-          }}
-          label="شهر"
-        />
-      </div>
-     </div>
-      <Button
-        onClick={() => handleClick()}
-        className="w-[20rem] h-[4rem] btn-primary mt-[13.5rem] block mr-auto"
-      >
-        مرحله بعد
-      </Button>
     </div>
   );
 };

@@ -14,12 +14,21 @@ import Button from "@/components/Button";
 import {
   useAddProductMutation,
   useGetAccountProductListMutation,
+  useUploadProductMutation,
 } from "@/datasources/product/remote/ProductSliceApi";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoClose } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import {
+  addAccountProduct,
+  removeAccountProduct,
+  setAccountProductUploadUrl,
+} from "@/datasources/user/local/UserSlice";
+import { isFileImage, isFileVideo } from "@/utils/helpers/files";
+import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,8 +56,12 @@ const Products = () => {
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const [addProduct, { data, isSuccess }] = useAddProductMutation();
+  const [uploadProduct, { data, isSuccess }] = useUploadProductMutation();
+  const [addProduct, { data: addProductData, isSuccess: addProductIsSuccess }] =
+    useAddProductMutation();
+
   const [
     getAccountProductList,
     {
@@ -63,6 +76,12 @@ const Products = () => {
     ordering: router.query["order"] || "newest",
   });
 
+  const {
+    data: profileData,
+    isSuccess: profileIsSuccess,
+    isLoading: profileIsLoading,
+  } = useGetProfileDetailsQuery();
+
   useEffect(() => {
     getAccountProductList();
   }, [router.query]);
@@ -76,33 +95,39 @@ const Products = () => {
     });
   };
 
-  const handleSelectFile = (file) => {
-    if (file) {
-      if (productInfo.file && file.name === productInfo.file.name) {
-        setProduct("file", file);
+  const handleSelectFile = (files) => {
+    for (let i = 0; i < files.length; i++) {
+      let fileType = isFileImage(files[i])
+        ? "image"
+        : isFileVideo(files[i])
+        ? "video"
+        : null;
+      let id = Math.random();
+      if (fileType === "video" && !profileData.is_seller) {
+        _toast.error(
+          "برای انتشار فیلم اطلاعات بخش فروشنده شوید را تکمیل کنید."
+        );
       } else {
-        setProductInfo({
-          title: "",
-          description: "",
-          translations: {
-            fa: {},
-            en: {},
-            ar: {},
-            fr: {},
-            tr: {},
-          },
-          country: "",
-          state: "",
-          city: "",
-          tags_level_1: [],
-          tags_level_2: [],
-          tags_level_3: [],
-          file: file,
-          publish_type: null,
-        });
-        setActiveStep(1);
+        dispatch(
+          addAccountProduct({
+            product: {
+              id,
+              localSrc: URL.createObjectURL(files[i]),
+              fileType,
+            },
+          })
+        );
+        const formData = new FormData();
+        formData.append("files", files[i]);
+        uploadProduct(formData)
+          .unwrap()
+          .then((res) => {
+            dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
+          })
+          .catch((err) => {
+            handleApiError(err);
+          });
       }
-      setIsOpen(true);
     }
   };
 
@@ -122,6 +147,32 @@ const Products = () => {
   };
 
   const handleAddProduct = (publish_type) => {
+    // const formData = {};
+    // formData.title = productInfo.translations["fa"].title;
+    // formData.description = productInfo.translations["fa"].description;
+    // formData.translations = getApiTranslationsFormat(productInfo.translations);
+
+    // if (productInfo.country) {
+    //   formData.country = productInfo.country.value;
+    // }
+    // if (productInfo.state) {
+    //   formData.state = productInfo.state.value;
+    // }
+    // if (productInfo.city) {
+    //   formData.city = productInfo.city.value;
+    // }
+    // if (productInfo.tags_level_1) {
+    //   formData.tags_level_1 = productInfo.tags_level_1;
+    // }
+    // if (productInfo.tags_level_2) {
+    //   formData.tags_level_2 = productInfo.tags_level_2;
+    // }
+    // if (productInfo.tags_level_3) {
+    //   formData.tags_level_3 = productInfo.tags_level_3;
+    // }
+
+    // formData.publish_type = "free";
+    // formData.file = productInfo.file.path;
     const formData = new FormData();
     formData.append("title", productInfo.translations["fa"].title);
     formData.append("description", productInfo.translations["fa"].description);
@@ -133,19 +184,29 @@ const Products = () => {
       formData.append("country", productInfo.country.value);
     productInfo.state && formData.append("state", productInfo.state.value);
     productInfo.city && formData.append("city", productInfo.city.value);
-    productInfo.tags_level_1 &&
-      formData.append("tags_level_1", productInfo.tags_level_1);
-    productInfo.tags_level_2 &&
-      formData.append("tags_level_2", productInfo.tags_level_2);
-    productInfo.tags_level_3 &&
-      formData.append("tags_level_3", productInfo.tags_level_3);
-    productInfo.file && formData.append("file", productInfo.file);
+    formData.append("tags_level_1", JSON.stringify(productInfo.tags_level_1))
+    formData.append("tags_level_2", JSON.stringify(productInfo.tags_level_2))
+    formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3))
+    // if (productInfo.tags_level_1) {
+    //   for (var i = 0; i < productInfo.tags_level_1.length; i++) {
+    //     formData.append('tags_level_1[]', productInfo.tags_level_1[i]);
+    //   }
+    // }
+    // if (productInfo.tags_level_2) {
+    //   productInfo.tags_level_2.forEach((item) => formData.append("tags_level_2[]", item))
+    // }
+    // if (productInfo.tags_level_3) {
+    //   productInfo.tags_level_3.forEach((item) => formData.append("tags_level_3[]", item))
+    // }
+
     formData.append("publish_type", "free");
+    formData.append("file", productInfo.file.path);
 
     addProduct(formData)
       .unwrap()
       .then(() => {
         _toast.success("محصول با موفقیت اضافه شد.");
+        dispatch(removeAccountProduct({ id: productInfo.file.id }));
         getAccountProductList();
         setContent("success");
         setProductInfo({
@@ -184,6 +245,7 @@ const Products = () => {
           handleCompleteStep={() => setActiveStep(activeStep + 1)}
           productInfo={productInfo}
           setProductInfo={setProductInfo}
+          activeStep={activeStep}
         />
       ),
     },
@@ -193,6 +255,7 @@ const Products = () => {
         <KeyWords
           setProduct={setProduct}
           productInfo={productInfo}
+          setActiveStep={setActiveStep}
           handleCompleteStep={() => setActiveStep(activeStep + 1)}
         />
       ),
@@ -203,6 +266,7 @@ const Products = () => {
         <Location
           setProduct={setProduct}
           productInfo={productInfo}
+          setActiveStep={setActiveStep}
           handleCompleteStep={() => setActiveStep(activeStep + 1)}
         />
       ),
@@ -214,6 +278,7 @@ const Products = () => {
           handleAddProduct={handleAddProduct}
           productInfo={productInfo}
           setProduct={setProduct}
+          setActiveStep={setActiveStep}
           handleCompleteStep={() => setActiveStep(activeStep + 1)}
         />
       ),
@@ -225,7 +290,35 @@ const Products = () => {
       setContent("steps");
       setActiveStep(1);
     }
+    if (!isOpen) {
+      setActiveStep(1);
+      setProductInfo({
+        title: "",
+        description: "",
+        translations: {
+          fa: {},
+          en: {},
+          ar: {},
+          fr: {},
+          tr: {},
+        },
+        country: "",
+        state: "",
+        city: "",
+        tags_level_1: [],
+        tags_level_2: [],
+        tags_level_3: [],
+        file: null,
+        publish_type: null,
+      });
+    }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (productInfo.file) {
+      setIsOpen(true);
+    }
+  }, [productInfo.file]);
 
   return (
     <div>
@@ -235,6 +328,7 @@ const Products = () => {
         products={products}
         handleCompleteInfo={() => setIsOpen(true)}
         getAccountProductList={getAccountProductList}
+        setProduct={setProduct}
       />
       <Modal
         big={true}
@@ -266,9 +360,9 @@ const Products = () => {
                   درخواست انتشار محصول با موفقیت ثبت شد.
                 </p>
                 <ComputerIcon className="my-[4rem]" />
-                <Link href="/">
-                  <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block">
-                    رفتن به خانه
+                <Link href="/profile/me">
+                  <Button className="w-[20rem] h-[4rem] btn-primary mt-4 block mx-2">
+                    بازگشت به پروفایل
                   </Button>
                 </Link>
               </div>

@@ -302,8 +302,8 @@ function FootageDetails({query}) {
           <Divider start='مشابه ها'/>
           <section className="mb-40 mt-10">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
-              {data.related_products.slice(0,7).map((item, key) => (
-                <MainProductCard key={item.id} className={(key === 3 ? 'row-span-2' : '')}
+              {data.related_products.map((item, key) => (
+                <MainProductCard key={item.id}
                                  link={`/products/${item.type}/${item.id}`} small data={item}/>
               ))}
             </div>
