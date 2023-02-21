@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {isEmpty} from "@/utils/general";
 
 const _AutoCompleteLogic = ({ApiHook, onChange, field_key = "id", field_name = "title", children}) => {

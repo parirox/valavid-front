@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import _AutoCompleteLogic from "@/components/Form/elements/auto_complete/_AutoCompleteLogic";
 import {useSearchProductMutation} from "@/datasources/product/remote/ProductSliceApi";
 import {Combobox} from "@headlessui/react";
