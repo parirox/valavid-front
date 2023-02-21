@@ -20,9 +20,11 @@ export const ApiEndpoint = {
   product: {
     account: {
       add: "/account/products/",
+      upload:'/upload-tmp-media/',
       get: "/account/products/",
       delete: "/account/products/:id/",
       productTags: "/tags/",
+      edit:"/account/products/:id/"
     },
     details: "/products/:id/",
     report: "/report/",

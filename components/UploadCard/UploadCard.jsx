@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "./Button";
+import Button from "../Button";
 import { IoMdMore } from "react-icons/io";
 import { FiDownload } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
@@ -11,14 +11,15 @@ import { Fragment, useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Link from "next/link";
-import moment from "moment";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import Router from "next/router";
 import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useRouter } from "next/router";
 import { useDeleteAccountProductMutation } from "@/datasources/product/remote/ProductSliceApi";
 import _toast from "@/utils/notification/toast";
 import { handleApiError } from "@/datasources/errorHandler";
+import { dateFormat } from "@/utils/date/date";
+import EditCardName from "./EditCardName";
 
 export const actions = [
   {
@@ -46,7 +47,7 @@ export default function UploadCard({
   cover,
   title,
   address,
-  status = 0,
+  status = "pending",
   downloadUrl,
   price,
   date,
@@ -59,6 +60,8 @@ export default function UploadCard({
 }) {
   const [selected, setSelected] = useState(actions[0]);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   const router = useRouter();
 
@@ -80,6 +83,12 @@ export default function UploadCard({
 
   return (
     <>
+      <EditCardName
+        show={editModal}
+        showHandler={setEditModal}
+        id={id}
+        title={title}
+      />
       <Modal
         className="p-4"
         isOpen={deleteModal ? true : false}
@@ -106,7 +115,7 @@ export default function UploadCard({
       <div
         className={`flex flex-col gap-6 py-5 px-6 rounded-[2rem] ${className} 
       ${
-        status == 0
+        status == "approved"
           ? "bg-[#534cda14] border border-solid border-primary"
           : "bg-secondary border border-solid border-accent hover:bg-[#142531]"
       }`}
@@ -132,38 +141,48 @@ export default function UploadCard({
                 height={70}
               ></Image>
             )}
-            <div className="flex justify-between py-2 flex-col gap-3">
-              <h5
-                className={`${
-                  title == null || title == "" ? "text-[#4F5B62]" : "text-white"
-                }`}
+            {status === "approved" ? (
+              <Link
+                href={`/products/${
+                  isFileImage(cover) ? "image" : "video"
+                }/${id}`}
               >
-                {title || "بدون عنوان"}
-              </h5>
-              <p className="text-white">{address}</p>
-            </div>
+                <div className="flex justify-between py-2 flex-col gap-3">
+                  <h5
+                    className={`${
+                      title == null || title == ""
+                        ? "text-[#4F5B62]"
+                        : "text-white"
+                    }`}
+                  >
+                    {title || "بدون عنوان"}
+                  </h5>
+                  <p className="text-white">{address}</p>
+                </div>
+              </Link>
+            ) : (
+              <div className="flex justify-between py-2 flex-col gap-3">
+                <h5
+                  className={`${
+                    title == null || title == ""
+                      ? "text-[#4F5B62]"
+                      : "text-white"
+                  }`}
+                >
+                  {title || "بدون عنوان"}
+                </h5>
+                <p className="text-white">{address}</p>
+              </div>
+            )}
           </div>
           <div className="flex gap-6 items-center">
-            {status == 0 ? (
-              <div className="text-center mt-6">
-                <Button
-                  onClick={() => handleCompleteInfo && handleCompleteInfo()}
-                  className={"btn-primary text-lg px-6 py-3"}
-                  link={""}
-                >
-                  تکمیل اطلاعات
-                </Button>
-                <p className="text-xs opacity-60 pt-2">
-                  اطلاعات محصول را تکمیل کنید
-                </p>
-              </div>
-            ) : status == 1 ? (
+            {status == "pending" || status === "review" ? (
               <div className="text-center">
                 <div
                   className={"text-lg px-6 py-3 bg-secondary-600 rounded-xl"}
                   link={""}
                 >
-                  در حال برسی برای انتشار ...
+                  در انتظار بررسی ادمین...
                 </div>
               </div>
             ) : (
@@ -173,11 +192,11 @@ export default function UploadCard({
                   link={""}
                 >
                   منتشر شده
-                  {moment(date, "YYYY/MM/DD").locale("fa").format("YYYY/MM/DD")}
+                  {dateFormat(date)}
                 </div>
               </div>
             )}
-            {status != "pending" ? (
+            {status == "approved" ? (
               <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem]">
                 <Link download={true} href={downloadUrl}>
                   <FiDownload className="text-3xl absolute m-auto top-0 bottom-0 left-0 right-0"></FiDownload>
@@ -187,68 +206,81 @@ export default function UploadCard({
               ""
             )}
 
-            <Listbox
-              value={selected}
-              onChange={(option) => {
-                setSelected(option);
-                console.log(option);
-                if (option.id === 3) {
-                  setDeleteModal(id);
-                }
-                if (option.id === 1) {
-                  Router.push(downloadUrl);
-                }
-              }}
-            >
-              <div className="relative px-2 h-full">
-                <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-pointer rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                  <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem]">
-                    <IoMdMore className="text-4xl absolute m-auto top-0 bottom-0  left-0 right-0"></IoMdMore>
-                  </dir>
-                </Listbox.Button>
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute mt-2 z-50 left-5 max-h-60 w-40 overflow-auto rounded-md bg-secondary-200 text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {actions.map((action, actionIdx) => (
-                      <Listbox.Option
-                        key={actionIdx}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 mx-1 rounded-xl pl-10 pr-4 ${
-                            active ? "bg-[#717C84] text-white" : "text-gray-900"
-                          }`
-                        }
-                        value={action}
-                      >
-                        {({ selected }) => (
-                          <div className="flex items-center gap-2">
-                            {action.icon}
-                            <span
-                              className={`block truncate text-white ${
-                                selected ? "font-medium" : "font-normal"
-                              }`}
-                            >
-                              {action.name}
-                            </span>
-                            {selected ? (
-                              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                <CheckIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+            {status === "approved" ? (
+              <Listbox
+                value={selected}
+                onChange={(option) => {
+                  setSelected(option);
+                  if (option.id === 1) {
+                    Router.push(downloadUrl);
+                  }
+                  if (option.id === 2) {
+                    setEditModal(true);
+                  }
+                  if (option.id === 3) {
+                    setDeleteModal(id);
+                  }
+                }}
+              >
+                <div className="relative px-2 h-full">
+                  <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-pointer rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                    <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem]">
+                      <IoMdMore className="text-4xl absolute m-auto top-0 bottom-0  left-0 right-0"></IoMdMore>
+                    </dir>
+                  </Listbox.Button>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute mt-2 z-50 left-5 max-h-60 w-40 overflow-auto rounded-md bg-secondary-200 text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {actions.map((action, actionIdx) => (
+                        <Listbox.Option
+                          key={actionIdx}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 mx-1 rounded-xl pl-10 pr-4 ${
+                              active
+                                ? "bg-[#717C84] text-white"
+                                : "text-gray-900"
+                            }`
+                          }
+                          value={action}
+                        >
+                          {({ selected }) => (
+                            <div className="flex items-center gap-2">
+                              {action.icon}
+                              <span
+                                className={`block truncate text-white ${
+                                  selected ? "font-medium" : "font-normal"
+                                }`}
+                              >
+                                {action.name}
                               </span>
-                            ) : null}
-                          </div>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
+                              {selected ? (
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                  <CheckIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              ) : null}
+                            </div>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
+            ) : (
+              <dir
+                onClick={() => setDeleteModal(id)}
+                className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer"
+              >
+                <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
+              </dir>
+            )}
           </div>
         </div>
         {status == "approved" ? (

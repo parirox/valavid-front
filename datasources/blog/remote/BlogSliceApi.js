@@ -42,16 +42,6 @@ const blog_api = createApi({
         { type: blogSliceApiTag, id: "SingleBlog" },
       ],
     }),
-    AddMembership: build.mutation({
-        query: (payload) => ({
-          url: ApiAddress(ApiEndpoint.blog.addMember),
-          method: "POST",
-          body:payload
-        }),
-        providesTags: (result, error, id) => [
-          { type: blogSliceApiTag, id: "membership" },
-        ],
-      }),
   }),
 });
 
@@ -59,11 +49,10 @@ export const {
   useGetBlogDataMutation,
   useGetBlogCategoriesQuery,
   useGetSingleBlogQuery,
-  useAddMembershipMutation
 } = blog_api;
 
 // export endpoints for use in SSR
-export const { GetBlogData, GetBlogCategories, GetSingleBlog, AddMembership } =
+export const { GetBlogData, GetBlogCategories, GetSingleBlog } =
   blog_api.endpoints;
 
 export default blog_api;
