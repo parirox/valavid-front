@@ -173,6 +173,7 @@ function SellerProfile() {
                         }
                 />
                 <div className="text-4xl">{data?.first_name ? `${data.first_name} ${data.last_name}` : data.email}</div>
+                <span className="text-gray text-center">{data?.username}</span>
                 {!isEmpty(data.info?.location?.country) || !isEmpty(data.info?.location?.state) || !isEmpty(data.info?.location?.city) &&
                   <div className="flex items-end gap-2 text-color8">
                     <IoLocationOutline className="text-3xl"/>{" "}

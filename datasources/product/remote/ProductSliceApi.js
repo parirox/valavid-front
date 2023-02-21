@@ -56,6 +56,20 @@ const product_api = createApi({
         ];
       },
     }),
+    SearchProduct: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.get, {query:query}),
+        method: "GET",
+      }),
+      providesTags: (result, error, { query }) => {
+        return [
+          {
+            type: productSliceApiTag,
+            id: "ProductSearch-"+query,
+          },
+        ];
+      },
+    }),
     //->> collections
     GetCollectionDetails: build.query({
       query: (query) => ({
@@ -75,6 +89,20 @@ const product_api = createApi({
       providesTags: (result, error, id) => [
         { type: productSliceApiTag, id: "ProductReport" },
       ],
+    }),
+    SearchTags: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.tags, {query: query}),
+        method: "GET",
+      }),
+      providesTags: (result, error, {query}) => {
+        return [
+          {
+            type: productSliceApiTag,
+            id: "TagsSearch-" + query,
+          },
+        ];
+      },
     }),
     ProductDetails: build.query({
       query: (query) => ({
@@ -130,6 +158,8 @@ const product_api = createApi({
 export const {
   useGetProductListScrollQuery,
   useGetProductListFilterQuery,
+  useSearchProductMutation,
+  useSearchTagsMutation,
   useGetCollectionDetailsQuery,
   useReportMutation,
   useProductDetailsQuery,
@@ -145,10 +175,6 @@ export const {
   GetProductListFilter,
   GetCollectionDetails,
   ProductDetails,
-  addProduct,
-  getAccountProductList,
-  getProductTags,
-  deleteAccountProduct
 } = product_api.endpoints;
 
 export default product_api;

@@ -11,6 +11,7 @@ export const ApiEndpoint = {
     sendCode: "/account/auth/send-code/",
     resetPassword: "/account/auth/reset-password/",
   },
+  tags: "/tags/:query",
   cart: {
     detailsByIds: "/basket/",
     offerCode: "/check-discount/",
@@ -60,7 +61,8 @@ export const ApiEndpoint = {
   user: {
     profile: {
       forms: {
-        main: "/account/profile/",
+        main:
+          "/account/profile/",
         change_password: "/account/auth/change-password/",
       },
       details: "/account/profile/",
