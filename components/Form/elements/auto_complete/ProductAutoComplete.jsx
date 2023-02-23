@@ -4,6 +4,7 @@ import {useSearchProductMutation} from "@/datasources/product/remote/ProductSlic
 import {Combobox} from "@headlessui/react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import {CgArrowsV} from "react-icons/cg";
+import PropTypes from 'prop-types';
 
 const ProductAutoComplete = (props) => {
   return (
@@ -37,4 +38,10 @@ const ProductAutoComplete = (props) => {
   );
 };
 
+ProductAutoComplete.propTypes = {
+  // You can declare that a prop is a specific JS type. By default, these
+  // are all optional.
+  defaultValue: PropTypes.any,
+  onChange: PropTypes.func,
+}
 export default ProductAutoComplete;

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {isEmpty} from "@/utils/general";
 
-const _AutoCompleteLogic = ({ApiHook, onChange, field_key = "id", field_name = "title", children}) => {
+const _AutoCompleteLogic = ({ApiHook,defaultValue, onChange, field_name = "title", children}) => {
   const [fetch, {isLoading}] = ApiHook()
 
   const [items, setItems] = useState([])
@@ -42,8 +42,12 @@ const _AutoCompleteLogic = ({ApiHook, onChange, field_key = "id", field_name = "
   }, [inputValue])
 
   useEffect(() => {
-    onChange(selected[field_key])
+    onChange(selected)
   }, [selected])
+
+  useEffect(() => {
+    setInputValue(defaultValue)
+  }, [defaultValue])
 
   return children({isLoading, items, selected, setSelected, displayValue, setInputValue, $input});
 };

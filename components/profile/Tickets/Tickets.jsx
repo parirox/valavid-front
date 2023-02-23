@@ -125,7 +125,7 @@ const Tickets = () => {
                              field: {onChange, name, value},
                              fieldState: {error}
                            }) => (
-                    <ProductAutoComplete {...{value, onChange}} />
+                    <ProductAutoComplete defaultValue={value} onChange={(item)=>onChange(item.id)} />
                   )}/>
               </div>
             </div>

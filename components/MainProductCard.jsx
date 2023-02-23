@@ -125,13 +125,13 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>}
             <div
-              className="absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
-              <div className="basis-auto text-black">
+              className={classNames("absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100",{"right-10":small})}>
+              <div className="basis-auto text-black w-full overflow-hidden">
                 <div className="flex gap-3 justify-end">
-                  <div className="flex-none rounded-3xl bg-white py-2 px-3">
+                  <div className="flex-none rounded-3xl bg-white py-2 min-w-[auto] max-w-full">
                     <div className="flex items-center justify-center">
-                      <Link href={link}>
-                        <span>{data.title}</span>
+                      <Link href={link} className={"w-full px-5"}>
+                        <span className={"block truncate"}>{data.title}</span>
                       </Link>
                     </div>
                   </div>
@@ -139,8 +139,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>
             {data.type === 'video' && <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 z-30">
-              <div
-                className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
+              <div className="rounded-full w-16 h-16 pl-2 py-4 cursor-pointer bg-secondary opacity-50 group-hover/popularCard:bg-primary group-hover/popularCard:text-white text-3xl text-white text-center">
                 <FaPlay className='h-full w-full'/>
               </div>
             </div>}
