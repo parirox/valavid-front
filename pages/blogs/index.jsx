@@ -54,7 +54,7 @@ function BlogList() {
   const onSubmit = async (data) => {
     let isValid = await trigger(["email"]);
     if (!isValid) {
-      toast.error(errors.email.message);
+      _toast.error(errors.email.message);
       return;
     }
     submitNewsletter(data)

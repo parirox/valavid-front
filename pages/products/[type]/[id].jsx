@@ -14,7 +14,13 @@ import React, {useEffect, useMemo, useState} from "react";
 import {BsShieldFillCheck} from "react-icons/bs";
 import {CgFolderAdd} from "react-icons/cg";
 import {FaCartPlus} from "react-icons/fa";
-import {IoHeart, IoHeartOutline, IoInformationCircleOutline, IoShareSocialOutline} from "react-icons/io5";
+import {
+  IoHeart,
+  IoHeartOutline,
+  IoInformationCircleOutline,
+  IoShareSocialOutline,
+  IoWarningOutline
+} from "react-icons/io5";
 import {MdCamera, MdRemoveShoppingCart} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
 import dynamic from "next/dynamic";
@@ -22,7 +28,6 @@ import MainProductCard from "@/components/MainProductCard";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import {dateFormat} from "@/utils/date/date"
 import toast from "@/utils/notification/toast";
-import {handleApiError} from "@/datasources/errorHandler";
 import {
   useAddToFavoritesMutation,
   useGetFavoritesQuery,
@@ -30,6 +35,7 @@ import {
 } from "@/datasources/user/remote/UserSliceApi";
 import ErrorPage from "../../ErrorPage";
 import Link from "next/link";
+import ReportModal from "@/components/products/report/ReportModal";
 
 const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
 
@@ -42,21 +48,19 @@ function FootageDetails({query}) {
     return checkInCart(_cartItems, data?.id)
   }, [data, _cartItems])
 
-  const [likeCount,setLikeCount] = useState(data?.like_count ?? 0)
+  const [likeCount, setLikeCount] = useState(data?.like_count ?? 0)
 
-  useEffect(()=>{
-    if(isSuccess && (likeCount !== data?.like_count)) setLikeCount(data.like_count)
-  },[isSuccess])
+  useEffect(() => {
+    if (isSuccess && (likeCount !== data?.like_count)) setLikeCount(data.like_count)
+  }, [isSuccess])
   //->> favorite endpoints
   const {
     data: favoritesData,
   } = useGetFavoritesQuery()
   const [addToFavorites, {
-    isSuccess: addFavoriteIsSuccess,
     isLoading: addFavoriteIsLoading,
   }] = useAddToFavoritesMutation()
   const [removeFromFavorites, {
-    isSuccess: removeFavoriteIsSuccess,
     isLoading: removeFavoriteIsLoading,
   }] = useRemoveFromFavoritesMutation()
 
@@ -67,7 +71,7 @@ function FootageDetails({query}) {
   if (isError) return <ErrorPage info={error}/>
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(wشindow.location.href);
+    navigator.clipboard.writeText(window.location.href);
     toast.success("لینک صفحه کپی شد!")
   }
 
@@ -138,7 +142,7 @@ function FootageDetails({query}) {
                     {data.description}
                   </p>
                 </div>
-                <div className="basis-2/12 flex gap-3 h-full text-xl">
+                <div className="basis-2/12 flex gap-3 h-full text-xl relative">
                   <Popover className="relative">
                     <Popover.Button className="btn text-gray py-4 px-6 rounded-2xl btn-accent">
                       <IoInformationCircleOutline className="text-3xl"/>
@@ -211,15 +215,37 @@ function FootageDetails({query}) {
                       </Transition>
                     </Popover.Panel>
                   </Popover>
-                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent">
+                  <Popover>
+                    <Popover.Button className="btn text-gray py-4 px-6 rounded-2xl btn-accent">
+                      <IoWarningOutline className="text-3xl"/>
+                      <span className="ml-2">گزارش</span>
+                    </Popover.Button>
+                    <Popover.Panel
+                      className="absolute z-40 mt-3 w-screen max-w-sm right-0 transform px-7 py-10 lg:max-w-2xl bg-secondary rounded-3xl border border-accent">
+                      {({close}) => (
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-200"
+                          enterFrom="opacity-0 translate-y-1"
+                          enterTo="opacity-100 translate-y-0"
+                          leave="transition ease-in duration-150"
+                          leaveFrom="opacity-100 translate-y-0"
+                          leaveTo="opacity-0 translate-y-1"
+                        >
+                          <ReportModal close={close} product={data.id}/>
+                        </Transition>
+                      )}
+                    </Popover.Panel>
+                  </Popover>
+                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 mr-7 rounded-2xl btn-accent">
                     <IoShareSocialOutline
                       className="text-3xl"/></button>
                   <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
                           onClick={() => {
                             if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
-                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res)=>{
+                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res) => {
                                 setLikeCount(res.like_count)
-                              }) : addToFavorites({id: data.id}).unwrap().then((res)=>{
+                              }) : addToFavorites({id: data.id}).unwrap().then((res) => {
                                 setLikeCount(res.like_count)
                               })
                             }
@@ -276,7 +302,7 @@ function FootageDetails({query}) {
           <Divider start='مشابه ها'/>
           <section className="mb-40 mt-10">
             <div className="grid grid-cols-4 grid-rows-2 gap-4">
-              {data.related_products.map((item, key) => (
+              {data.related_products.slice(0,7).map((item, key) => (
                 <MainProductCard key={item.id} className={(key === 3 ? 'row-span-2' : '')}
                                  link={`/products/${item.type}/${item.id}`} small data={item}/>
               ))}

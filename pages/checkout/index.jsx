@@ -10,25 +10,25 @@ import {
   usePaymentMutation,
   useSetOfferCodeMutation,
 } from "@/datasources/checkout/remote/CheckoutSliceApi";
-import {isEmpty} from "@/utils/general";
+import { isEmpty } from "@/utils/general";
 import _toast from "@/utils/notification/toast";
 import Head from "next/head";
 import Image from "next/image";
-import {useEffect, useMemo, useState} from "react";
-import {AiOutlineLoading3Quarters} from "react-icons/ai";
+import { useEffect, useMemo, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   IoArrowBackOutline,
   IoCheckmarkCircleOutline,
   IoCheckmarkCircleSharp,
   IoTrashOutline,
 } from "react-icons/io5";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useAddToCartMutation,
   useGetCartQuery,
   useRemoveFromCartMutation,
 } from "@/datasources/user/remote/UserSliceApi";
-import {handleApiError} from "@/datasources/errorHandler";
+import { handleApiError } from "@/datasources/errorHandler";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
 import toast from "@/utils/notification/toast";
@@ -43,7 +43,7 @@ export default function Cart() {
 
   //->> cart endpoints
   const [getCartDetailsByIds, { data, isSuccess, isError, error }] =
-  useGetCartDetailsByIdsMutation();
+    useGetCartDetailsByIdsMutation();
   // const {
   //   data,
   //   isSuccess: cartIsSuccess,
@@ -61,6 +61,23 @@ export default function Cart() {
   //     isLoading: addCartIsLoading,
   //   },
   // ] = useAddToCartMutation();
+  const {
+    data: cartData,
+    isSuccess: cartIsSuccess,
+    error: cartError,
+    isError: cartIsError,
+    isLoading: cartIsLoading,
+  } = useGetCartQuery();
+  const [
+    addToCart,
+    {
+      data: addCartData,
+      isSuccess: addCartIsSuccess,
+      error: addCartError,
+      isError: addCartIsError,
+      isLoading: addCartIsLoading,
+    },
+  ] = useAddToCartMutation();
   // const [
   //   removeFromCart,
   //   {
@@ -96,7 +113,7 @@ export default function Cart() {
 
   useEffect(() => {
     // if (!isEmpty(_cartItems))
-      getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
+    getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
   }, []);
 
   // const total_price = useMemo(() => (
@@ -104,9 +121,9 @@ export default function Cart() {
   // ), [_cartItems])
 
   const setOfferCodeHandler = () => {
-    if(isEmpty(offerCode)) return;
+    if (isEmpty(offerCode)) return;
     if (!checkOfferIsLoading) {
-      checkOfferCode({code: offerCode})
+      checkOfferCode({ code: offerCode })
         .unwrap()
         .then((res) => {
           if (!res.result) {
@@ -122,14 +139,14 @@ export default function Cart() {
   };
 
   const handlePayment = () => {
-    if (!paymentGateway) {
+    if (!paymentGateway && cartData.paybox.pay_amount !== 0) {
       _toast.error("لطفا درگاه پرداخت را انتخاب کنید.");
     } else {
-      let data = {bank: paymentGateway};
+      let data = { bank: paymentGateway };
       if (offerCode) {
         data.discount_code = offerCode;
       }
-      payment({data})
+      payment({ data })
         .unwrap()
         .then((res) => {
           if (res.result) {
@@ -146,10 +163,10 @@ export default function Cart() {
     <>
       <Head>
         <title>والاوید | سبد خرید</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">
-        {console.log('ccc',data)}
+        {console.log("ccc", data)}
         {(() => {
           if (isEmpty(_cartItems)) {
             return (
@@ -186,9 +203,7 @@ export default function Cart() {
                 <div>
                   <div className="bg-secondary overflow-hidden px-5 rounded-t-3xl divide-y divide-secondary-400">
                     {_cartItems.map((cart, k) => {
-                      const product = data.items.find(
-                        (v) => v.id === cart.id
-                      );
+                      const product = data.items.find((v) => v.id === cart.id);
                       if (isEmpty(product)) return <></>;
                       return (
                         <div
@@ -221,7 +236,12 @@ export default function Cart() {
                               </div>
                               <div className="basis-1/2 text-color3">
                                 <div className="flex flex-col justify-center h-full gap-3">
-                                  <Link href={`/products/${product.type}/${product.id}`} className="text-lg">{product.title}</Link>
+                                  <Link
+                                    href={`/products/${product.type}/${product.id}`}
+                                    className="text-lg"
+                                  >
+                                    {product.title}
+                                  </Link>
                                   <div className="text-gray text-xs">
                                     {/* {Object.entries(product.extra_information)
                                       .map((v) => v[1])
@@ -276,7 +296,7 @@ export default function Cart() {
                                       });
                                   }}
                                 >
-                                  <IoTrashOutline className="text-3xl"/>
+                                  <IoTrashOutline className="text-3xl" />
                                 </div>
                               </div>
                             </div>
@@ -305,7 +325,7 @@ export default function Cart() {
                                 >
                                   ثبت کد
                                   {checkOfferIsLoading && (
-                                    <AiOutlineLoading3Quarters className="animate-spin"/>
+                                    <AiOutlineLoading3Quarters className="animate-spin" />
                                   )}
                                 </button>
                               </div>
@@ -315,7 +335,7 @@ export default function Cart() {
                         {checkOfferIsSuccess && (
                           <div className="basis-1/2 text-success flex gap-2 mr-3 items-center">
                             <span className="text-2xl">
-                              <IoCheckmarkCircleSharp/>
+                              <IoCheckmarkCircleSharp />
                             </span>
                             <span className="text-sm">
                               {checkOfferCodeData.message}
@@ -328,12 +348,14 @@ export default function Cart() {
                           {`کد تخفیف ${checkOfferCodeData.discount_value}`}
                         </div>
                       )}
-                      {cartData.paybox.pay_amount !== 0 && <div className="mt-8">
-                        <GatewaysList
-                          state={paymentGateway}
-                          setter={setPaymentGateway}
-                        />
-                      </div>}
+                      {cartData.paybox.pay_amount !== 0 && (
+                        <div className="mt-8">
+                          <GatewaysList
+                            state={paymentGateway}
+                            setter={setPaymentGateway}
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="basis-4/12">
                       <div className="flex flex-col text-gray gap-5">
@@ -375,13 +397,11 @@ export default function Cart() {
                                 {checkOfferCodeData.user_profit.toLocaleString()}
                               </>
                             ) : (
-                              <>
-                                {data.paybox.user_profit.toLocaleString()}
-                              </>
+                              <>{data.paybox.user_profit.toLocaleString()}</>
                             )}
                           </span>
                         </div>
-                        <Divider/>
+                        <Divider />
                         <div className="mt-2 flex justify-between items-center text-color6">
                           <span>قابل پرداخت:</span>
                           <span className="text-2xl">
@@ -406,7 +426,7 @@ export default function Cart() {
                   >
                     <span>پرداخت</span>
                     <span>
-                      <IoArrowBackOutline/>
+                      <IoArrowBackOutline />
                     </span>
                   </Button>
                 </div>

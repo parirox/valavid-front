@@ -33,9 +33,9 @@ function CitySelect({ value, setState, ...rest }, ref) {
   }, [countryState, stateState, cityState])
 
   return (
-    <div className="rounded-full h-full w-1/2 text-white">
-      <div className="flex flex-row gap-8 h-full">
-        <div className="basis-4/12 py-1 h-full">
+    <div className="rounded-full h-full w-full sm:w-1/2 text-white">
+      <div className="flex flex-col sm:flex-row gap-8 h-full">
+        <div className="w-full sm:basis-4/12 py-1 h-full">
           <Listbox value={countryState} onChange={setCountryState} disabled>
             <div className="input-secondary relative">
               <Listbox.Button className="flex gap-3 items-center justify-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -87,7 +87,7 @@ function CitySelect({ value, setState, ...rest }, ref) {
             </div>
           </Listbox>
         </div>
-        <div className="basis-4/12 py-1 h-full">
+        <div className="w-full sm:basis-4/12 py-1 h-full">
           <Listbox value={stateState} onChange={ChangeStateHandler} {...rest}>
             <div className="relative input-secondary">
               <Listbox.Button className="flex gap-3 items-center justify-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -139,7 +139,7 @@ function CitySelect({ value, setState, ...rest }, ref) {
             </div>
           </Listbox>
         </div>
-        <div className="basis-4/12 py-1 h-full">
+        <div className="w-full sm:basis-4/12 py-1 h-full">
           <Listbox value={cityState} onChange={ChangeCityHandler} {...rest}>
             <div className="input-secondary relative">
               <Listbox.Button className="flex gap-3 items-center justify-between h-full relative w-full cursor-default rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">

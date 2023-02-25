@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import classNames from "classnames";
+import { slide as Menu } from "react-burger-menu";
 
 const links = [
   {
@@ -29,32 +31,66 @@ const links = [
   },
 ];
 
-const Navbar = ({ styleMode }) => {
+const Navbar = ({ styleMode, showNav, setShowNav }) => {
   const router = useRouter();
   return (
-    <nav
-      className={`w-full flex gap-12 navbarItem text-base ${
-        styleMode === "blog" ? "text-secondary" : ""
-      }`}
-    >
-      {links.map((page, index) => (
-        <Link
-          href={page.href}
-          className={`${styleMode === "blog" ? "text-secondary" : ""} ${
-            router.pathname === "/blogs" && page.href === "/blogs"
-              ? "font-bold"
-              : ""
-          } ${
-            router?.pathname === page.href && router.pathname !== "/blogs"
-              ? "active"
-              : ""
-          }`}
-          key={index}
+    <>
+      <div className="">
+        <Menu
+          isOpen={showNav}
+          onOpen={() => setShowNav(true)}
+          onClose={() => setShowNav(false)}
+          right
+          width={"280px"}
         >
-          {page.title}
-        </Link>
-      ))}
-    </nav>
+          {links.map((page, index) => (
+            <Link
+              onClick={() => setShowNav(false)}
+              href={page.href}
+              className={`hover:bg-accent w-full py-6 px-8 whitespace-nowrap ${
+                styleMode === "blog" ? "text-secondary" : ""
+              } ${
+                router.pathname === "/blogs" && page.href === "/blogs"
+                  ? "font-bold"
+                  : ""
+              } ${
+                router?.pathname === page.href && router.pathname !== "/blogs"
+                  ? "active"
+                  : ""
+              }`}
+              key={index}
+            >
+              {page.title}
+            </Link>
+          ))}
+        </Menu>
+      </div>
+      <nav
+        className={`w-full gap-12 navbarItem text-base hidden lg:flex ${
+          styleMode === "blog" ? "text-secondary" : ""
+        }`}
+      >
+        {links.map((page, index) => (
+          <Link
+            href={page.href}
+            className={`whitespace-nowrap ${
+              styleMode === "blog" ? "text-secondary" : ""
+            } ${
+              router.pathname === "/blogs" && page.href === "/blogs"
+                ? "font-bold"
+                : ""
+            } ${
+              router?.pathname === page.href && router.pathname !== "/blogs"
+                ? "active"
+                : ""
+            }`}
+            key={index}
+          >
+            {page.title}
+          </Link>
+        ))}
+      </nav>
+    </>
   );
 };
 

@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import _toast from "@/utils/notification/toast";
 import { useDispatch } from "react-redux";
 import { removeAccountProduct } from "@/datasources/user/local/UserSlice";
-import NextNProgress from 'nextjs-progressbar';
 
 export const actions = [
   {
@@ -45,6 +44,8 @@ export default function UnCompletedUploadCard({
   file,
 }) {
   const [deleteModal, setDeleteModal] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleDeleteProduct = () => {
     setDeleteModal(false);
@@ -135,8 +136,8 @@ export default function UnCompletedUploadCard({
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>
             <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
-                اطلاعات محصول را تکمیل کنید
-              </p>
+              اطلاعات محصول را تکمیل کنید
+            </p>
           </div>
         </div>
         {/* {!file.path && (

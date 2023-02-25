@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import ProfileIcon from "@/public/icons/profile.svg";
 import Link from "next/link";
-import { FiDownload, FiUserCheck } from "react-icons/fi";
+import { FiDownload, FiUserCheck, FiMenu } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { RiFolderAddLine } from "react-icons/ri";
 import { Menu, Transition } from "@headlessui/react";
@@ -22,6 +22,7 @@ import { removeCookies } from "cookies-next";
 
 const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
+  const [showNav, setShowNav] = useState(false);
   const _cartItems = useSelector(cartItems);
 
   const [logoutUser, { data: logoutData, isSuccess }] = useLogoutUserMutation();
@@ -145,12 +146,23 @@ const Header = ({ data, styleMode }) => {
       <header className={"bg-white py-7 box-shadow relative"}>
         <div className="flex items-center gap-4 container px-2 h-[45px]">
           <div className="basis-1/12 relative h-11 min-w-[100px]">
-            <Link href={"/"}><Image alt={"valavid icon"} src={ValavidIcon} fill sizes=""></Image></Link>
+            <Link href={"/"}>
+              <Image
+                alt={"valavid icon"}
+                src={ValavidIcon}
+                fill
+                sizes=""
+              ></Image>
+            </Link>
           </div>
           <div className="basis-5/12 mr-16">
-            <Navbar styleMode={styleMode} />
+            <Navbar
+              showNav={showNav}
+              setShowNav={setShowNav}
+              styleMode={styleMode}
+            />
           </div>
-          <div className="basis-6/12 h-full">
+          <div className="lg:basis-6/12 h-full">
             <div className="flex flex-row justify-end gap-3 h-full">
               {renderProfileBtn()}
               {isLogedin && (
@@ -180,30 +192,40 @@ const Header = ({ data, styleMode }) => {
             : "py-7 bg-color12"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
-        <div className="flex items-center gap-4 px-24 h-[45px]">
-          <div className="basis-1/12 text-white">
+        <div className="flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-8 lg:px-24 h-[45px]">
+          <div className="basis-1/12 text-white hidden lg:flex">
             <Link href={"/"}>Valavid</Link>
           </div>
-          <div className="basis-5/12">
-            <Navbar styleMode={styleMode} />
+          <div
+            onClick={() => setShowNav(true)}
+            className="lg:hidden text-3xl cursor-pointer"
+          >
+            <FiMenu />
           </div>
-          <div className="basis-6/12 h-full">
+          <div className="basis-5/12">
+            <Navbar
+              showNav={showNav}
+              setShowNav={setShowNav}
+              styleMode={styleMode}
+            />
+          </div>
+          <div className="lg:basis-6/12 h-full">
             <div className="flex flex-row gap-3 h-full">
-              <div className="basis-9/12">
+              <div className="basis-9/12 hidden lg:flex">
                 <Select />
               </div>
               {renderProfileBtn()}
-                <div className="basis-1/12">
-                  <ButtonIcon
-                    link={"/cart"}
-                    className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
-                    icon={<BsCart2 className="text-white text-2xl mx-auto" />}
-                  >
-                    <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
-                      {_cartItems.length}
-                    </span>
-                  </ButtonIcon>
-                </div>
+              <div className="basis-1/12">
+                <ButtonIcon
+                  link={"/cart"}
+                  className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
+                  icon={<BsCart2 className="text-white text-2xl mx-auto" />}
+                >
+                  <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
+                    {_cartItems.length}
+                  </span>
+                </ButtonIcon>
+              </div>
             </div>
           </div>
         </div>

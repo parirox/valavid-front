@@ -40,25 +40,25 @@ const Footer = ({ styleMode }) => {
         return (
             <footer className="bg-secondary">
                 <div className="container">
-                    <div className="grid grid-cols-9 gap-10 pt-20 pb-12 border-b border-accent">
-                        <div className="col-span-2">
+                    <div className=" whitespace-nowrap grid grid-cols-2 sm:grid-cols-9 gap-10 pt-20 pb-12 border-b border-accent">
+                        <div className="col-span-4 sm:col-span-2 flex flex-col gap-3 items-center justify-center sm:block">
                             <span className="text-3xl font-bold">والاویــد</span>
                             <p className="text-lg mt-3">مرجع فوتیج های ایرانی</p>
                         </div>
-                        <div className="col-span-4 flex gap-20 flex-row">
-                            <div className="flex-initial flex flex-col gap-3">
+                        <div className="col-span-4 flex flex-col sm:flex-row gap-20">
+                            <div className="flex-initial flex items-center justify-center sm:items-start sm:justify-start flex-col gap-3">
                                 <span className="text-2xl">دسته بندی ها</span>
                                 <Link href={'/products/video'} className="text-[#90999F] text-lg">ویدئو ها</Link>
                                 <Link href={'/products/image'} className="text-[#90999F] text-lg">تصاویر</Link>
                                 {/*<Link href={'#'} className="text-[#90999F] text-lg">مجموعه ها</Link>*/}
                             </div>
-                            <div className="flex-initial flex flex-col gap-3">
+                            <div className="flex-initial flex items-center justify-center sm:items-start sm:justify-start flex-col gap-3">
                                 <span className="text-2xl">مطالب</span>
                                 <Link href={'/product/aboutUs'} className="text-[#90999F] text-lg">درباره ما</Link>
                                 <Link href={'/blogs'} className="text-[#90999F] text-lg">وبلاگ</Link>
                                 <Link href={'/publishers'} className="text-[#90999F] text-lg">تولید کنندگان</Link>
                             </div>
-                            <div className="flex-initial flex flex-col gap-3">
+                            <div className="flex-initial flex items-center justify-center sm:items-start sm:justify-start flex-col gap-3">
                                 <span className="text-2xl">سوالات</span>
                                 <Link href={'/faq'} className="text-[#90999F] text-lg">پرسش های متداول</Link>
                                 <Link href={'/plans'} className="text-[#90999F] text-lg">انواع اشتراک</Link>
@@ -83,7 +83,7 @@ const Footer = ({ styleMode }) => {
                             </div>
                         </div> */}
                     </div>
-                    <div className="copyright py-5 flex justify-between">
+                    <div className="copyright py-5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0 sm:justify-between">
                         <div className="flex-none flex items-center gap-3">
                             <FaCopyright />
                             <span className="text-sm text-[#F2F4F4]"> تمام حقوق محفوظ است و هرگونه استفاده غیر قانونی از مطالب پیگرد قانونی دارد</span>

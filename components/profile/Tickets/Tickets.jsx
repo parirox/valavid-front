@@ -85,13 +85,15 @@ const Tickets = () => {
     if (!isSuccess) return <></>
     return (
         <div className="pt-7 pb-20">
-            <Button className={'btn-primary py-4 px-12 rounded-full text-2xl'} onClick={() => setIsOpen(true)}>افزودن تیکت</Button>
+            <Button className={'btn-primary py-4 px-12 rounded-full'} onClick={() => setIsOpen(true)}>افزودن تیکت</Button>
             {ticket.length === 0 ? <NoContent/> :
             <div className="pt-10">
-                <div className="h-16 flex w-full">
-                    <div className="text-start pr-14 basis-1/4">موضوع</div>
-                    <div className="text-start basis-1/4">محصول</div>
-                    <div className="text-start basis-1/4">تاریخ</div>
+                <div className="h-16 flex-col md:flex-row w-full hidden sm:flex md:px-3">
+                <div className="flex basis-3/4">
+                    <div className="text-start pr-6 md:pr-14 basis-1/3 px-4">موضوع</div>
+                    <div className="text-start basis-1/3 px-4">محصول</div>
+                    <div className="text-start basis-1/3 px-4">تاریخ</div>
+                    </div>
                     <div className="text-start basis-1/4"></div>
                 </div>
                 <div className="flex flex-col gap-6">

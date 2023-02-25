@@ -98,19 +98,19 @@ const Accounting = () => {
           </div>
         );
         break;
-        case "redirect to bank":
-          return (
-            <div
-              className={
-                "text-xl w-full md:w-44 px-5 py-3 flex items-center justify-center gap-3  bg-primary rounded-2xl"
-              }
-              link={""}
-            >
-                هدایت به بانک
-            </div>
-          );
-          break;
-       
+      case "redirect to bank":
+        return (
+          <div
+            className={
+              "text-xl w-full md:w-44 px-5 py-3 flex items-center justify-center gap-3  bg-primary rounded-2xl"
+            }
+            link={""}
+          >
+            هدایت به بانک
+          </div>
+        );
+        break;
+
       case "pending":
         return (
           <div
@@ -172,18 +172,18 @@ const Accounting = () => {
           >
             واریز به کیف پول
           </Button>
-          {/* {profileData && profileData.is_seller && ( */}
+          {profileData && profileData.is_seller && (
             <Button
               onClick={() => setModal("withdrawal")}
               className={"btn-primary py-4 px-7 rounded-full"}
             >
               برداشت از کیف پول
             </Button>
-          {/* )} */}
+          )}
         </div>
         <div className="flex gap-2 items-center text-lg">
           <p className="text-xl opacity-80">موجودی :</p>
-          <p className="text-2xl">{inventory}</p>
+          <p className="text-2xl">{profileData && profileData.wallet_value}</p>
           <span className="">تومان</span>
         </div>
       </div>
@@ -191,16 +191,16 @@ const Accounting = () => {
         <div className="">
           <div className="h-16 hidden sm:flex w-full justify-between">
             <div className="flex-[5.25] flex sm:gap-2">
-            <div className="text-start pr-14 flex-[1.45]">تاریخ درخواست</div>
-            <div className="text-start flex-1">عنوان</div>
-            <div className="text-start flex-1">تاریخ انجام </div>
-            <div className="text-start flex-[1.5]">شماره تراکنش</div>
-            <div className="text-start flex-1">مبلغ</div>
+              <div className="text-start pr-14 flex-[1.45]">تاریخ درخواست</div>
+              <div className="text-start flex-1">عنوان</div>
+              <div className="text-start flex-1">تاریخ انجام </div>
+              <div className="text-start flex-[1.5]">شماره تراکنش</div>
+              <div className="text-start flex-1">مبلغ</div>
             </div>
-           <div className="md:flex-[3] flex sm:gap-2">
-           <div className="text-start flex-1 hidden md:block"></div>
-            <div className="text-center flex-[2] hidden md:block">وضعیت</div>
-           </div>
+            <div className="md:flex-[3] flex sm:gap-2">
+              <div className="text-start flex-1 hidden md:block"></div>
+              <div className="text-center flex-[2] hidden md:block">وضعیت</div>
+            </div>
           </div>
         </div>
         <div className="">
@@ -209,7 +209,9 @@ const Accounting = () => {
               <div className="relative flex flex-col md:flex-row" key={index}>
                 <div className="flex-col sm:flex-row flex flex-[5.25] sm:gap-2">
                   <div className="pt-8 pb-3 px-6 sm:px-0 sm:pt-10 sm:pb-10 sm:pr-14 flex-[1.45] flex items-center">
-                    <spna className="sm:hidden text-secondary-300 ml-6 w-[80px]">تاریخ درخواست</spna>
+                    <spna className="sm:hidden text-secondary-300 ml-6 w-[80px]">
+                      تاریخ درخواست
+                    </spna>
                     <span>
                       {moment(transaction.requested_at, "YYYY/MM/DD")
                         .locale("fa")
@@ -218,11 +220,15 @@ const Accounting = () => {
                     <div className="absolute border border-solid bg-secondary z-[-1] border-accent w-full h-[calc(100%_-_1.5rem)] m-auto left-0 right-0 rounded-[2rem] top-0 bottom-0"></div>
                   </div>
                   <div className="py-3 px-6 sm:px-0 sm:py-10 flex-1 flex items-center">
-                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">عنوان</span>
+                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">
+                      عنوان
+                    </span>
                     <span>{transaction.title}</span>
                   </div>
                   <div className="py-3 px-6 sm:px-0 sm:py-10 flex-1 flex items-center">
-                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">تاریخ انجام</span>
+                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">
+                      تاریخ انجام
+                    </span>
                     <span>
                       {/* {moment(transaction.paid_at, "YYYY/MM/DD")
                       .locale("fa")
@@ -231,11 +237,15 @@ const Accounting = () => {
                     </span>
                   </div>
                   <div className="py-3 px-6 sm:px-0 sm:py-10 flex-[1.5] flex items-center">
-                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">شماره تراکنش</span>
+                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">
+                      شماره تراکنش
+                    </span>
                     <span>{transaction.transaction}</span>
                   </div>
                   <div className="pt-3 pb-8 px-6 sm:px-0 sm:pt-10 sm:pb-10 flex-1 flex items-center">
-                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">مبلغ</span>
+                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">
+                      مبلغ
+                    </span>
                     <span>{transaction.amount}</span>
                   </div>
                 </div>

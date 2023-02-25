@@ -34,6 +34,7 @@ import { dateFormat } from "@/utils/date/date";
 import ProfileCardLoader from "@/components/skelton/ProfileCardLoader";
 import { CiStar } from "react-icons/ci";
 import Avatar from "@/components/Avatar";
+import LocationIcon from "@/public/icons/Location.svg";
 
 let tabs = [
   {
@@ -86,13 +87,15 @@ let tabs = [
   },
   {
     id: "SellerForm",
-    title: (data) => (data.is_seller ? "اطلاعات فروشنده" : "فروشنده شوید"),
+    title: (data) =>
+      data && data.is_seller ? "اطلاعات فروشنده" : "فروشنده شوید",
     content: <SellerForm />,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
   {
     id: "TeamForm",
-    title: (data) => (data.is_team ? "اطلاعات تیم / شرکت" : "ثبت تیم / شرکت"),
+    title: (data) =>
+      data && data.is_team ? "اطلاعات تیم / شرکت" : "ثبت تیم / شرکت",
     content: <TeamForm />,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
@@ -175,6 +178,54 @@ function SellerProfile() {
           className="object-cover"
           sizes={"100wv"}
         />
+        {isSuccess && (
+          <div className="xl:hidden px-8 flex items-center w-11/12 md:w-9/12 h-[132px] bg-secondary-light rounded-[22px] absolute left-0 right-0 mx-auto bottom-[-40px]">
+            <div className="flex items-center gap-6">
+              <div className="flex gap-6">
+                <Avatar
+                  src={data.avatar.src}
+                  alt={data.username}
+                  size={70}
+                  badge={
+                    <span className="rounded-full bg-white absolute right-[15%] top-[15%] translate-x-1/2 -translate-y-1/2 w-[21px] h-[21px] p-1 flex items-center justify-center text-success-100 text-3xl">
+                      <MdVerifiedUser />
+                    </span>
+                  }
+                />
+                <div className="flex flex-col justify-between">
+                  <div className="text-2xl">
+                    {data?.first_name
+                      ? `${data.first_name} ${data.last_name}`
+                      : data.email}
+                  </div>
+                  <div className="flex gap-6">
+                    <div className="flex gap-3">
+                      <LocationIcon />
+                      <span>
+                        {(data.info.location.country
+                          ? data.info.location.country + ","
+                          : "ایران") +
+                          (data.info.location.state &&
+                            data.info.location.state + ",") +
+                          (data.info.location.city &&
+                            data.info.location.city + ",")}
+                      </span>
+                    </div>
+                    <div className="text-gray px-10 text-center text-xl hidden sm:block">
+                      عضویت: {dateFormat(data.date_joined)}
+                    </div>
+                  </div>
+                </div>
+                <span className="absolute left-10 top-10">
+                <ButtonIcon
+                  icon={<MdEdit />}
+                  className="btn-accent text-2xl h-14 w-14"
+                />
+              </span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div
         ref={parentAsideCard}
@@ -304,19 +355,19 @@ function SellerProfile() {
                 )}
                 {!data?.is_seller ? (
                   <div className="w-full bg-accent rounded-2xl p-8 flex">
-                    <div className="basis-4/6">
+                    <div className="w-full 2xl:basis-4/6">
                       <div className="mb-2 text-xl">فروشنده شوید</div>
                       <div className="mb-6 text-gray">
                         اطلاعات ثبت نام خود را کامل کنید
                       </div>
                       <Button
                         className="btn-primary-gradient px-12 py-3"
-                        link={`/profile/me/SellerForm`}
+                        link={`/becomeASeller`}
                       >
                         فروشنده شوید
                       </Button>
                     </div>
-                    <div className="flex justify-between basis-2/6 relative">
+                    <div className="justify-between basis-2/6 relative hidden 2xl:flex">
                       <Image
                         src="/images/camera.png"
                         alt="be seller"
@@ -362,43 +413,45 @@ function SellerProfile() {
             </div>
           )}
         </aside>
-        <div className="basis-4/4 xl:basis-3/4 overflow-hidden relative">
+        <div className="basis-4/4 xl:basis-3/4 overflow-hidden relative mt-20 xl:mt-6">
           <div>
             {selectedIndex >= 0 && (
               <Tab.Group
                 selectedIndex={selectedIndex}
                 onChange={changeTabHandler}
               >
-                <Tab.List className="w-full h-20 flex relative">
-                  <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
-                  {tabs.map((tab, k) => (
-                    <Tab
-                      key={k}
-                      className="w-44 flex items-center gap-4 outline-0 border-b-[0.5rem] ui-not-selected:border-accent ui-not-selected:text-secondary-300 ui-selected:border-primary justify-center"
-                    >
-                      {tab?.icon}
-                      <span
-                        className={
-                          tab?.className ? "px-5 py-2 " + tab?.className : ""
-                        }
+                <div className="overflow-auto scrollbar-thin scrollbar-thumb-none inset-0">
+                  <Tab.List className="w-full h-20 flex relative min-w-[1000px]">
+                    <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
+                    {tabs.map((tab, k) => (
+                      <Tab
+                        key={k}
+                        className="whitespace-nowrap w-44 flex items-center gap-4 outline-0 border-b-[0.5rem] ui-not-selected:border-accent ui-not-selected:text-secondary-300 ui-selected:border-primary justify-center"
                       >
-                        {(() => {
-                          if (typeof tab.title === "function") {
-                            return isLoading ? (
-                              <div className="animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">
-                                ....
-                              </div>
-                            ) : (
-                              tab.title(data)
-                            );
-                          } else {
-                            return tab.title;
+                        {tab?.icon}
+                        <span
+                          className={
+                            tab?.className ? "px-5 py-2 " + tab?.className : ""
                           }
-                        })()}
-                      </span>
-                    </Tab>
-                  ))}
-                </Tab.List>
+                        >
+                          {(() => {
+                            if (typeof tab.title === "function") {
+                              return isLoading ? (
+                                <div className="animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">
+                                  ....
+                                </div>
+                              ) : (
+                                tab.title(data)
+                              );
+                            } else {
+                              return tab.title;
+                            }
+                          })()}
+                        </span>
+                      </Tab>
+                    ))}
+                  </Tab.List>
+                </div>
                 <Tab.Panels className="p-5">
                   {tabs.map((tab, k) => (
                     <Tab.Panel key={k}>{tab.content}</Tab.Panel>

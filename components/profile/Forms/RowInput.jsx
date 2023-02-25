@@ -1,8 +1,8 @@
 
-export default function RowInput({ label, required, error, helperText, children }) {
+export default function RowInput({ label, required, error, helperText, children, className }) {
     return (
-        <div className="flex items-center mb-10">
-            <div className="basis-1/6">
+        <div className={`flex flex-col sm:flex-row sm:items-center mb-10 ${className ? className : ''}`}>
+            <div className="basis-1/6 mb-4 sm:mb-0">
                 {required && <span className={`${error ? 'text-danger' : 'text-gray'} ml-1`}>*</span>}
                 <span>{label}</span>
             </div>

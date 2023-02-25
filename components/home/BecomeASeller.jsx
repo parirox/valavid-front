@@ -14,7 +14,7 @@ const BecomeASeller = ({isLoggedIn}) => {
               <p className="text-slate-200 text-xl">شما هم می توانید عضو شوید و تولیدات خود را به فروش برسانید</p>
               <div className="row-span-3 items-center flex">
                 <Button
-                  className="rounded-3xl text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-2xl w-1/4 h-20"
+                  className="rounded-3xl text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-2xl whitespace-nowrap w-full md:w-1/4 h-20"
                   link={isLoggedIn ? "/becomeASeller" : "/profile/me/SellerForm"}>فروشنده
                   شوید</Button>
               </div>
