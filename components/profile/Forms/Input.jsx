@@ -1,5 +1,6 @@
 import React from 'react';
 import {Controller} from "react-hook-form";
+import classNames from "classnames";
 
 function Input({disabled, className = "", type = "text", control, name}) {
   return (
@@ -11,7 +12,7 @@ function Input({disabled, className = "", type = "text", control, name}) {
           return (
             <>
               <input disabled={disabled} type={type}
-                     className={`input-secondary ${className} ${error && 'input-error'}`} onChange={onChange} name={name} value={value ?? ""} />
+                     className={classNames("input-secondary",{className:className,'input-error':error})} onChange={onChange} name={name} value={value ?? ""} />
               {error && <span className="text-gray px-3 mt-3 block">{error.message}</span>}
             </>
           )

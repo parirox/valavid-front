@@ -11,7 +11,7 @@ const UserForm = () => {
     <div className="mb-40">
       <div className="text-lg py-5">
         <GeneralData defaultValues={{
-          info:data.info,
+          info: data.info,
           first_name: data.first_name,
           last_name: data.last_name,
         }}/>
@@ -19,9 +19,16 @@ const UserForm = () => {
         <AccountData
           defaultMediaValues={{
             avatar: data.avatar?.src,
-            background_image: data.background_image?.src
+            background_image: data.background_image?.src,
           }}
-          defaultAccountValues={{username: data.username}}/>
+          defaultAccountValues={{
+            username: data.username,
+
+        }}
+          defaultSloganValues={{
+            info: {user_slogan: data.info.user_slogan}
+          }}
+        />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
-import { ApiAddress, ApiEndpoint, baseQuery } from "@/utils/api/api";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
+import {ApiAddress, ApiEndpoint, baseQuery} from "@/utils/api/api";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {HYDRATE} from "next-redux-wrapper";
 
 export const productSliceApiTag = "product_api";
 
@@ -56,6 +56,20 @@ const product_api = createApi({
         ];
       },
     }),
+    SearchProduct: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.get, {query:query}),
+        method: "GET",
+      }),
+      providesTags: (result, error, { query }) => {
+        return [
+          {
+            type: productSliceApiTag,
+            id: "ProductSearch-"+query,
+          },
+        ];
+      },
+    }),
     //->> collections
     GetCollectionDetails: build.query({
       query: (query) => ({
@@ -84,6 +98,20 @@ const product_api = createApi({
       providesTags: (result, error, id) => [
         { type: productSliceApiTag, id: "ProductReport" },
       ],
+    }),
+    SearchTags: build.mutation({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.tags, {query: query}),
+        method: "GET",
+      }),
+      providesTags: (result, error, {query}) => {
+        return [
+          {
+            type: productSliceApiTag,
+            id: "TagsSearch-" + query,
+          },
+        ];
+      },
     }),
     ProductDetails: build.query({
       query: (query) => ({
@@ -159,6 +187,8 @@ const product_api = createApi({
 export const {
   useGetProductListScrollQuery,
   useGetProductListFilterQuery,
+  useSearchProductMutation,
+  useSearchTagsMutation,
   useGetCollectionDetailsQuery,
   useReportMutation,
   useProductDetailsQuery,

@@ -12,20 +12,20 @@ const SubscribeBanner = () => {
                     <div className="text-3xl md:text-4xl pr-6 font-semibold">دسترسی به بیـش از 2500 فوتیـــج</div>
                     <div className="gap-5 flex flex-col">
                         <div className="flex items-center gap-5">
-                            <lgDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></lgDone>
-                            <p className="text-2xl">دسترسی به کلیه مطالب سایت</p>
+                            <MdDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></MdDone>
+                            <p className="text-2xl">خرید با تخفیف</p>
                         </div>
                         <div className="flex items-center gap-5">
-                            <lgDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></lgDone>
-                            <p className="text-2xl">دسترسی به کلیه مطالب سایت</p>
+                            <MdDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></MdDone>
+                            <p className="text-2xl">بسته های متنوع</p>
                         </div>
                         <div className="flex items-center gap-5">
-                            <lgDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></lgDone>
-                            <p className="text-2xl">دسترسی به کلیه مطالب سایت</p>
+                            <MdDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></MdDone>
+                            <p className="text-2xl">شامل تمامی محصولات سایت</p>
                         </div>
                         <div className="flex items-center gap-5">
-                            <lgDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></lgDone>
-                            <p className="text-2xl">دسترسی به کلیه مطالب سایت</p>
+                            <MdDone className='text-primary text-lg bg-white w-9 h-9 p-[0.4rem] rounded-full'></MdDone>
+                            <p className="text-2xl">ذخیره همیشگی دانلود ها</p>
                         </div>
                     </div>
                     <Button link={"/plans"} className="btn-primary text-primary text-[1.6rem] font-light bg-gradient-to-r from-white via-white to-[#9893F5] hover:to-[#E9E8FF] h-[5rem] w-full lg:w-[27rem] rounded-3xl">خرید اشتراک</Button>
