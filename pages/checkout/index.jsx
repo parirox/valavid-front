@@ -1,27 +1,19 @@
 import Button from "@/components/Button";
 import Divider from "@/components/Divider";
-import {
-  cartItems,
-  removeFromCart,
-} from "@/datasources/checkout/local/CheckoutSlice";
+import {cartItems,} from "@/datasources/checkout/local/CheckoutSlice";
 import {
   useCheckOfferCodeMutation,
   useGetCartDetailsByIdsMutation,
   usePaymentMutation,
-  useSetOfferCodeMutation,
 } from "@/datasources/checkout/remote/CheckoutSliceApi";
 import {isEmpty} from "@/utils/general";
 import _toast from "@/utils/notification/toast";
+import toast from "@/utils/notification/toast";
 import Head from "next/head";
 import Image from "next/image";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
-import {
-  IoArrowBackOutline,
-  IoCheckmarkCircleOutline,
-  IoCheckmarkCircleSharp,
-  IoTrashOutline,
-} from "react-icons/io5";
+import {IoArrowBackOutline, IoCheckmarkCircleSharp, IoTrashOutline,} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {
   useAddToCartMutation,
@@ -31,7 +23,6 @@ import {
 import {handleApiError} from "@/datasources/errorHandler";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
-import toast from "@/utils/notification/toast";
 import Link from "next/link";
 
 export default function Cart() {
@@ -42,52 +33,12 @@ export default function Cart() {
   const [offerCode, setOfferCode] = useState("");
 
   //->> cart endpoints
-  const [getCartDetailsByIds, { data, isSuccess, isError, error }] =
+  const [getCartDetailsByIds, { data }] =
   useGetCartDetailsByIdsMutation();
-  // const {
-  //   data,
-  //   isSuccess: cartIsSuccess,
-  //   error: cartError,
-  //   isError: cartIsError,
-  //   isLoading: cartIsLoading,
-  // } = useGetCartQuery();
-  // const [
-  //   addToCart,
-  //   {
-  //     data: addCartData,
-  //     isSuccess: addCartIsSuccess,
-  //     error: addCartError,
-  //     isError: addCartIsError,
-  //     isLoading: addCartIsLoading,
-  //   },
-  // ] = useAddToCartMutation();
-  const {
-    data: cartData,
-    isSuccess: cartIsSuccess,
-    error: cartError,
-    isError: cartIsError,
-    isLoading: cartIsLoading,
-  } = useGetCartQuery();
-  const [
-    addToCart,
-    {
-      data: addCartData,
-      isSuccess: addCartIsSuccess,
-      error: addCartError,
-      isError: addCartIsError,
-      isLoading: addCartIsLoading,
-    },
-  ] = useAddToCartMutation();
-  // const [
-  //   removeFromCart,
-  //   {
-  //     data: removeCartData,
-  //     isSuccess: removeCartIsSuccess,
-  //     error: removeCartError,
-  //     isError: removeCartIsError,
-  //     isLoading: removeCartIsLoading,
-  //   },
-  // ] = useRemoveFromCartMutation();
+
+  const {data: cartData} = useGetCartQuery();
+  const [addToCart] = useAddToCartMutation();
+  const [removeFromCart] = useRemoveFromCartMutation();
 
   const [
     checkOfferCode,
@@ -115,9 +66,6 @@ export default function Cart() {
     // if (!isEmpty(_cartItems))
       getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
   }, []);
-  useEffect(() => {
-    getCartDetailsByIds({ products: _cartItems.map((v) => v.id) })
-  }, [])
 
   // const total_price = useMemo(() => (
   //   _cartItems.map(product => (data.find(v => v.id === product.id).price.main)).reduce((a, b) => a + b, 0).toLocaleString()
@@ -169,7 +117,6 @@ export default function Cart() {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">
-        {console.log('ccc',data)}
         {(() => {
           if (isEmpty(_cartItems)) {
             return (

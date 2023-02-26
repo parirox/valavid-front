@@ -1,28 +1,15 @@
 import Image from "next/image";
 import Button from "../Button";
-import { IoMdMore } from "react-icons/io";
 import { FiDownload } from "react-icons/fi";
-import { FaRegHeart } from "react-icons/fa";
-import { CgEye } from "react-icons/cg";
-import { BiCart } from "react-icons/bi";
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/20/solid";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import Link from "next/link";
 import Modal from "../Modal";
-import Router from "next/router";
-import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useRouter } from "next/router";
-import { useDeleteAccountProductMutation } from "@/datasources/product/remote/ProductSliceApi";
 import _toast from "@/utils/notification/toast";
-import { handleApiError } from "@/datasources/errorHandler";
-import { dateFormat } from "@/utils/date/date";
-import EditCardName from "./EditCardName";
-import LoadingBar from "react-redux-loading-bar";
 import { useDispatch } from "react-redux";
 import { removeAccountProduct } from "@/datasources/user/local/UserSlice";
+import NextNProgress from 'nextjs-progressbar';
 
 export const actions = [
   {
@@ -57,19 +44,13 @@ export default function UnCompletedUploadCard({
   fileType,
   file,
 }) {
-  const [selected, setSelected] = useState(actions[0]);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleDeleteProduct = () => {
     setDeleteModal(false);
 
-    dispatch(removeAccountProduct({ id: file.id }))
-      _toast.success("محصول با موفقیت حذف شد.");
+    dispatch(removeAccountProduct({ id: file.id }));
+    _toast.success("محصول با موفقیت حذف شد.");
   };
 
   return (
@@ -100,11 +81,7 @@ export default function UnCompletedUploadCard({
       <div
         className={`relative flex flex-col gap-6 py-5 px-6 rounded-[2rem] bg-secondary border border-solid border-accent hover:bg-[#142531] ${className}`}
       >
-        <div className="flex justify-between gap-8">
-          {/* {
-            !file.path && ( */}
-          {/* )
-          } */}
+        <div className="flex justify-between gap-8 flex-col lg:flex-row">
           <div className="flex gap-6">
             {fileType === "video" && (
               <video
@@ -137,16 +114,16 @@ export default function UnCompletedUploadCard({
             </div>
           </div>
           <div className="flex gap-6 items-center">
-            <div className="text-center mt-6">
+            <div className="text-center lg:mt-6 flex-1 sm:flex-none">
               <Button
                 onClick={() => setProduct("file", file)}
-                className={"btn-primary text-lg px-6 py-3"}
+                className={"btn-primary text-lg px-6 py-3 w-full sm:w-auto"}
                 link={""}
                 disabled={!file.path}
               >
                 تکمیل اطلاعات
               </Button>
-              <p className="text-xs opacity-60 pt-2">
+              <p className="text-xs opacity-60 pt-2 hidden lg:block">
                 اطلاعات محصول را تکمیل کنید
               </p>
             </div>
@@ -157,6 +134,9 @@ export default function UnCompletedUploadCard({
             >
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>
+            <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
+                اطلاعات محصول را تکمیل کنید
+              </p>
           </div>
         </div>
         {/* {!file.path && (

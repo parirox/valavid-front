@@ -13,6 +13,7 @@ function Modal({
   containerClass,
   modalClass,
   rounded,
+  customHeight,
   ...props
 }) {
   function closeModal() {
@@ -47,7 +48,7 @@ function Modal({
             >
               <Dialog.Panel
                 className={`transform overflow-hidden  p-6 text-left align-middle shadow-xl transition-all ${
-                  small ? "w-6/12" : big ? "w-full" : "w-8/12"
+                  customHeight ? customHeight : small ? "w-6/12" : big ? "w-full" : "w-8/12"
                 } ${background ? background : "bg-white"} ${modalClass ? modalClass : ""} ${rounded ? rounded : "rounded-2xl"}`}
               >
                 {title && (

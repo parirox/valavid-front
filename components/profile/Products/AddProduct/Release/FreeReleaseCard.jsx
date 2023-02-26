@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 
 const FreeReleaseCard = ({ handleSubmit }) => {
   return (
-    <div className="h-[300px] w-[400px] shadow-4xl bg-color9 rounded-[23px] m-4 px-[2rem] py-[1rem] flex items-center">
+    <div className="h-[300px] w-full sm:w-[400px] shadow-4xl bg-color9 rounded-[23px] mb-4 sm:m-4 px-[2rem] py-[1rem] flex items-center justify-center">
       <div className="flex items-center flex-col justify-center">
         <FreeIcon />
         <span className="text-[#42C950] mt-0">انتشار رایگان</span>

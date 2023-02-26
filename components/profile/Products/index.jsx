@@ -345,7 +345,7 @@ const Products = () => {
             className="absolute w-8 h-8 text-black left-0 cursor-pointer"
           />
           <CloudIcon className="absolute bottom-[17rem] right-0 z-[-1]" />
-          <div className="w-[900px] max-w-[900px] flex flex-cols gap-7 rounded-3xl text-center p-5 min-h-[70vh] h-[765px] justify-center">
+          <div className="w-full max-w-[900px] flex flex-cols gap-7 rounded-3xl text-center pt-10 md:pt-5 p-5 min-h-[70vh] justify-center">
             {content === "steps" && (
               <Stepper
                 activeStep={activeStep}

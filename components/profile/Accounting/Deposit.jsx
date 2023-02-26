@@ -59,6 +59,7 @@ const Deposit = ({ isOpen, setIsOpen }) => {
       isOpen={isOpen ?? false}
       setIsOpen={setIsOpen}
       background="bg-[#F8F8F8]"
+      customHeight="w-full md:basis-3/4"
     >
       <div className="p-4">
         <h4 className="text-secondary-300 text-start">واریز وجه</h4>
@@ -66,12 +67,16 @@ const Deposit = ({ isOpen, setIsOpen }) => {
           مبلغ واریز
         </h5>
 
-        <div className="flex items-start">
-          <RadioGroup value={amount} onChange={(item) => setAmount(item)}>
+        <div className="flex-col lg:flex-row items-start flex gap-4">
+          <RadioGroup
+            className="flex-1 w-full"
+            value={amount}
+            onChange={(item) => setAmount(item)}
+          >
             <div className="grid grid-cols-2 grid-row-2 gap-2">
               {options.map((option, index) => (
                 <RadioGroup.Option
-                  className="bg-color8 w-[245px] h-[63px] rounded-[23px] p-4 flex items-center cursor-pointer"
+                  className="bg-color8 h-[63px] rounded-[23px] p-4 flex items-center cursor-pointer"
                   value={option.value}
                   key={index}
                 >
@@ -98,17 +103,19 @@ const Deposit = ({ isOpen, setIsOpen }) => {
               ))}
             </div>
           </RadioGroup>
-          <div className="border border-secondary-300 rounded-[23px] h-[80px] w-[400px] mx-4 p-3 flex items-center">
-            <div className="text-secondary border-l border-secondary-300 h-[80%] pl-4 flex items-center">
-              مبلغ دلخواه(ریال)
+          <div className="flex-[1.1] w-full">
+            <div className="border border-secondary-300 rounded-[23px] w-full xl:w-3/4 h-[80px] lg:mx-4 p-3 flex items-center">
+              <div className="text-secondary border-l border-secondary-300 h-[80%] pl-4 flex items-center">
+                مبلغ دلخواه(ریال)
+              </div>
+              <input
+                placeholder="مبلغ خود را ایجا وارد کنید."
+                type="number"
+                className="flex-1 text-secondary-300 border-none outline-none ltr bg-[#F8F8F8]"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
             </div>
-            <input
-              placeholder="مبلغ خود را ایجا وارد کنید."
-              type="number"
-              className="flex-1 text-secondary-300 border-none outline-none ltr bg-[#F8F8F8]"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
           </div>
         </div>
         <h5 className="text-secondary text-start mt-[3rem] mb-3">درگاه</h5>

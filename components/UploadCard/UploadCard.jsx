@@ -81,6 +81,40 @@ export default function UploadCard({
       });
   };
 
+  const renderApprovedActions = () => {
+    return (
+      <>
+        <div
+          className={
+            "text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl flex-1 sm:flex-none"
+          }
+          link={""}
+        >
+          <CgEye className="text-2xl"></CgEye>
+          {views}
+        </div>
+        <div
+          className={
+            "text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl flex-1 sm:flex-none"
+          }
+          link={""}
+        >
+          <FaRegHeart className="text-xl"></FaRegHeart>
+          {purchases}
+        </div>
+        <div
+          className={
+            "text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl flex-1 sm:flex-none"
+          }
+          link={""}
+        >
+          <BiCart className="text-2xl"></BiCart>
+          {likes}
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       <EditCardName
@@ -113,15 +147,15 @@ export default function UploadCard({
         </div>
       </Modal>
       <div
-        className={`flex flex-col gap-6 py-5 px-6 rounded-[2rem] ${className} 
+        className={`flex flex-col lg:gap-6 py-5 px-6 rounded-[2rem] ${className} 
       ${
         status == "approved"
           ? "bg-[#534cda14] border border-solid border-primary"
           : "bg-secondary border border-solid border-accent hover:bg-[#142531]"
       }`}
       >
-        <div className="flex justify-between gap-8">
-          <div className="flex gap-6">
+        <div className="flex justify-between gap-6 lg:gap-8 flex-col lg:flex-row">
+          <div className="flex gap-6 flex-1">
             {isFileVideo(cover) && (
               <video
                 loop
@@ -146,10 +180,11 @@ export default function UploadCard({
                 href={`/products/${
                   isFileImage(cover) ? "image" : "video"
                 }/${id}`}
+                className="flex-1 overflow-hidden"
               >
                 <div className="flex justify-between py-2 flex-col gap-3">
                   <h5
-                    className={`${
+                    className={`overflow-hidden whitespace-nowrap w-full text-ellipsis ${
                       title == null || title == ""
                         ? "text-[#4F5B62]"
                         : "text-white"
@@ -175,20 +210,36 @@ export default function UploadCard({
               </div>
             )}
           </div>
-          <div className="flex gap-6 items-center">
-            {status == "pending" || status === "review" ? (
-              <div className="text-center">
+          {status === "approved" && (
+            <div className="gap-4 sm:gap-6 flex lg:hidden flex-1">
+              {renderApprovedActions()}
+            </div>
+          )}
+          {status === "approved" && (
+            <div className="text-2xl flex sm:hidden items-center mr-auto whitespace-nowrap">
+              قیمت <span>(تومان) :</span>
+              <span className="text-3xl px-3">{price}</span>
+            </div>
+          )}
+          <div className="flex gap-6 items-center mt-6">
+            {(status == "pending" || status === "review") && (
+              <div className="text-center flex-1 sm:flex-none">
                 <div
-                  className={"text-lg px-6 py-3 bg-secondary-600 rounded-xl"}
+                  className={
+                    "text-lg px-6 py-3 bg-secondary-600 rounded-xl w-full"
+                  }
                   link={""}
                 >
                   در انتظار بررسی ادمین...
                 </div>
               </div>
-            ) : (
-              <div className="text-center">
+            )}
+            {status === "approved" && (
+              <div className="text-center flex items-center justify-between flex-1 sm:flex-none">
                 <div
-                  className={"text-lg px-6 py-3 bg-secondary-600 rounded-xl"}
+                  className={
+                    "text-lg px-6 py-3 bg-secondary-600 rounded-xl w-full"
+                  }
                   link={""}
                 >
                   منتشر شده
@@ -196,8 +247,37 @@ export default function UploadCard({
                 </div>
               </div>
             )}
+            {status === "rejected" && (
+              <div className="flex gap-6 items-center flex-1">
+                <div className="text-center lg:mt-6 flex-1 sm:flex-none">
+                  <Button
+                    // onClick={() => setProduct("file", file)}
+                    className={
+                      "btn-primary bg-error text-lg px-6 py-3 w-full sm:w-auto w-full"
+                    }
+                    link={""}
+                    disabled={true}
+                  >
+                    محصول رد شده
+                  </Button>
+                  <p className="text-xs text-error opacity-60 pt-2 hidden lg:block">
+                    نام محصول مناسب نیست-کیفیت نامناسب
+                  </p>
+                </div>
+
+                <dir
+                  onClick={() => setDeleteModal(id)}
+                  className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer m-0"
+                >
+                  <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
+                </dir>
+                <p className="text-md text-error opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
+                  نام محصول مناسب نیست-کیفیت نامناسب
+                </p>
+              </div>
+            )}
             {status == "approved" ? (
-              <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem]">
+              <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
                 <Link download={true} href={downloadUrl}>
                   <FiDownload className="text-3xl absolute m-auto top-0 bottom-0 left-0 right-0"></FiDownload>
                 </Link>
@@ -224,7 +304,7 @@ export default function UploadCard({
               >
                 <div className="relative px-2 h-full">
                   <Listbox.Button className="flex gap-3 items-center content-between h-full relative w-full cursor-pointer rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                    <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem]">
+                    <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
                       <IoMdMore className="text-4xl absolute m-auto top-0 bottom-0  left-0 right-0"></IoMdMore>
                     </dir>
                   </Listbox.Button>
@@ -273,48 +353,30 @@ export default function UploadCard({
                   </Transition>
                 </div>
               </Listbox>
-            ) : (
+            ) : status !== "rejected" ? (
               <dir
                 onClick={() => setDeleteModal(id)}
-                className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer"
+                className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer m-0"
               >
                 <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
               </dir>
+            ) : (
+              ""
+            )}
+            {status === "approved" && (
+              <div className="text-2xl hidden sm:flex lg:hidden items-center mr-auto whitespace-nowrap">
+                قیمت <span>(تومان) :</span>
+                <span className="text-3xl px-3">{price}</span>
+              </div>
             )}
           </div>
         </div>
         {status == "approved" ? (
           <div className="flex justify-between">
-            <div className="flex gap-6">
-              <div
-                className={
-                  "text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl"
-                }
-                link={""}
-              >
-                <CgEye className="text-2xl"></CgEye>
-                {views}
-              </div>
-              <div
-                className={
-                  "text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl"
-                }
-                link={""}
-              >
-                <FaRegHeart className="text-xl"></FaRegHeart>
-                {purchases}
-              </div>
-              <div
-                className={
-                  "text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl"
-                }
-                link={""}
-              >
-                <BiCart className="text-2xl"></BiCart>
-                {likes}
-              </div>
+            <div className="gap-4 sm:gap-6 hidden lg:flex">
+              {renderApprovedActions()}
             </div>
-            <div className="text-2xl flex items-center">
+            <div className="text-2xl items-center hidden lg:flex whitespace-nowrap">
               قیمت <span>(تومان) :</span>
               <span className="text-3xl px-3">{price}</span>
             </div>

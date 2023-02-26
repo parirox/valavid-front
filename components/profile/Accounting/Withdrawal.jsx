@@ -17,12 +17,10 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
     bank_shaba: null,
     bank_account: null,
   });
-  const [withdrawal, { data, isSuccess, isError, error }] =
+  const [withdrawal] =
     useWithdrawalMutation();
   const {
     data: profileData,
-    isSuccess: profileIsSuccess,
-    isLoading: profileIsLoading,
   } = useGetProfileDetailsQuery();
   const [updateUserData] = useUpdateUserInformationMutation();
   const handleWithdrawal = () => {
@@ -64,16 +62,16 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
       isOpen={isOpen ?? false}
       setIsOpen={setIsOpen}
       background="bg-[#F8F8F8]"
+      customHeight="w-full lg:basis-3/4"
     >
       <div className="p-4">
-        {console.log("dddd", profileData)}
         <h4 className="text-secondary-300 text-start">برداشت وجه</h4>
-        <div className="flex items-center">
-          <div className="flex flex-col">
+        <div className="flex-col md:flex-row flex items-center gap-4">
+          <div className="flex flex-col flex-1 w-full">
             <h5 className="text-secondary text-start mt-[3rem] mb-[2rem]">
               مبلغ برداشت
             </h5>
-            <div className="h-[176px] w-[400px] rounded-[23px] border border-secondary-300 py-4 px-[3rem] flex items-center justify-center">
+            <div className="h-[176px] w-full rounded-[23px] border border-secondary-300 py-4 px-[3rem] flex items-center justify-center">
               <RangeInput
                 min={0}
                 max={profileData.wallet_value}
@@ -84,7 +82,7 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
               ></RangeInput>
             </div>
           </div>
-          <div className="flex flex-col mr-4">
+          <div className="flex flex-col flex-1 w-full">
             <div className="flex items-baseline justify-between">
               <h5 className="text-secondary text-start mt-[3rem] mb-[2rem]">
                 شماره حساب بانک مقصد
@@ -105,7 +103,7 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
                 </a>
               )}
             </div>
-            <div className="bg-color8 h-[176px] w-[400px] rounded-[23px] p-[2.5rem] flex flex-col items-start justify-between text-secondary">
+            <div className="bg-color8 h-[176px] w-full rounded-[23px] p-[2.5rem] flex flex-col items-start justify-between text-secondary">
               <h6>بانک ملی</h6>
               <div className="w-full">
                 <div className="flex items-center justify-between w-full my-[2rem]">
