@@ -28,6 +28,7 @@ import {dateFormat} from "@/utils/date/date";
 import ProfileCardLoader from "@/components/skelton/ProfileCardLoader";
 import {CiStar} from "react-icons/ci";
 import Avatar from "@/components/Avatar";
+import {withAuthSSR} from "../../../HOC/withAuthSSR";
 
 let tabs = [
   {
@@ -80,13 +81,13 @@ let tabs = [
   },
   {
     id: "SellerForm",
-    title: (data) => (data.is_seller ? 'اطلاعات فروشنده' : "فروشنده شوید"),
+    title: (data) => (data?.is_seller ? 'اطلاعات فروشنده' : "فروشنده شوید"),
     content: <SellerForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
   {
     id: "TeamForm",
-    title: (data) => (data.is_team ? 'اطلاعات تیم / شرکت' : "ثبت تیم / شرکت"),
+    title: (data) => (data?.is_team ? 'اطلاعات تیم / شرکت' : "ثبت تیم / شرکت"),
     content: <TeamForm/>,
     className: "rounded-2xl bg-primary text-color6 text-sm",
   },
@@ -312,7 +313,8 @@ function SellerProfile() {
                       {
                         (() => {
                           if (typeof tab.title === "function") {
-                            return isLoading ? <div className="animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">....</div> : tab.title(data)
+                            return isLoading ? <div
+                              className="animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black">....</div> : tab.title(data)
                           } else {
                             return tab.title
                           }

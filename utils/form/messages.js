@@ -30,6 +30,7 @@ export const form_messages = {
   min: ':field حداقل می بایست :value کاراکتر باشد.',
   max: ':field حداکثر می بایست :value کاراکتر باشد.',
   email: ':field معتبر نمی باشد',
+  matches: ':field صحیح نمی باشد',
 }
 
 export function getFormError({field, type, val}) {

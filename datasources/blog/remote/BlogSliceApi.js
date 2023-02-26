@@ -1,11 +1,11 @@
-import { ApiAddress, ApiEndpoint, baseQuery } from "@/utils/api/api";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { HYDRATE } from "next-redux-wrapper";
+import {ApiAddress, ApiEndpoint, baseQuery} from "@/utils/api/api";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {HYDRATE} from "next-redux-wrapper";
 
 export const blogSliceApiTag = "blog_api";
 
 const blog_api = createApi({
-  extractRehydrationInfo(action, { reducerPath }) {
+  extractRehydrationInfo(action, {reducerPath}) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];
     }
@@ -14,14 +14,13 @@ const blog_api = createApi({
   baseQuery,
   tagTypes: [blogSliceApiTag],
   endpoints: (build) => ({
-    GetBlogData: build.mutation({
+    GetBlogData: build.query({
       query: (query) => ({
-        url: ApiAddress(ApiEndpoint.blog.get, query),
+        url: ApiAddress(ApiEndpoint.blog.get, {query: {tag: "", ...query}}),
         method: "GET",
-        params: query && query,
       }),
       providesTags: (result, error, id) => [
-        { type: blogSliceApiTag, id: "Blog" },
+        {type: blogSliceApiTag, id: "Blog"},
       ],
     }),
     GetBlogCategories: build.query({
@@ -30,7 +29,7 @@ const blog_api = createApi({
         method: "GET",
       }),
       providesTags: (result, error, id) => [
-        { type: blogSliceApiTag, id: "Categories" },
+        {type: blogSliceApiTag, id: "Categories"},
       ],
     }),
     GetSingleBlog: build.query({
@@ -39,20 +38,20 @@ const blog_api = createApi({
         method: "GET",
       }),
       providesTags: (result, error, id) => [
-        { type: blogSliceApiTag, id: "SingleBlog" },
+        {type: blogSliceApiTag, id: "SingleBlog"},
       ],
     }),
   }),
 });
 
 export const {
-  useGetBlogDataMutation,
+  useGetBlogDataQuery,
   useGetBlogCategoriesQuery,
   useGetSingleBlogQuery,
 } = blog_api;
 
 // export endpoints for use in SSR
-export const { GetBlogData, GetBlogCategories, GetSingleBlog } =
+export const {GetBlogData, GetBlogCategories, GetSingleBlog} =
   blog_api.endpoints;
 
 export default blog_api;

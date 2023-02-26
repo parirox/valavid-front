@@ -13,16 +13,16 @@ import {wrapper} from "@/datasources/store";
 import ErrorPage from "../../ErrorPage";
 import {CiStar} from "react-icons/ci";
 import toast from "@/utils/notification/toast";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import {isEmpty} from "@/utils/general";
 import GatewaysList from "@/components/GatewaysList";
 import payment_api, {GetGatewaysList} from "@/datasources/payment/remote/PaymentSliceApi";
+import {getCookie} from "cookies-next";
 
 function PlanCheckout({query}) {
+  const router = useRouter();
 
   const [paymentGateway, setPaymentGateway] = useState(null);
-  const [offerCode, setOfferCode] = useState("")
-
   const {
     data,
     isSuccess,
@@ -34,32 +34,26 @@ function PlanCheckout({query}) {
     isLoading:isLoadingPayPlan,
   }] = usePayThePlanMutation();
 
-  const [checkOfferCode, {
-    data: checkOfferCodeData,
-    isLoading: checkOfferIsLoading,
-    isSuccess: checkOfferIsSuccess,
-    isError: checkOfferIsError,
-    error: checkOfferCodeError
-  }] = useCheckOfferCodeMutation()
-
-  const setOfferCodeHandler = () => {
-    if (!checkOfferIsLoading) {
-      checkOfferCode({code: offerCode})
-    }
-  }
-
 
   if(isError) return <ErrorPage info={error}/>
 
-  const paymentHandler = ()=>{
-    if(isLoadingPayPlan) return;
+  const paymentHandler = async () => {
+
+    const accessToken = getCookie("valavid_token");
+
+    if (!accessToken) {
+      await Router.replace("/auth?callback="+router.asPath);
+      return null;
+    }
+
+    if (isLoadingPayPlan) return;
     payThePlan({
       subscription: data.id,
       bank: paymentGateway,
     }).unwrap().then(async (res) => {
-      if(isEmpty(res.payment_url)) toast.error("انتقال به بانک با خطا مواجه شد لطفا دوباره سعی کنید!")
+      if (isEmpty(res.payment_url)) toast.error("انتقال به بانک با خطا مواجه شد لطفا دوباره سعی کنید!")
       else await Router.push(res.payment_url)
-    }).catch(err=>{
+    }).catch(err => {
       toast.error("انتقال به بانک با خطا مواجه شد لطفا دوباره سعی کنید!")
     })
   }

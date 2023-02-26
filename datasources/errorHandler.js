@@ -27,6 +27,7 @@ export const handleFormApiResponse = (response) => {
 };
 
 export const handleApiError = (response) => {
+  console.log({response})
   let statusCode;
   if(typeof response.status === "number") statusCode = response.status
   else if(typeof response.originalStatus === "number") statusCode = response.originalStatus

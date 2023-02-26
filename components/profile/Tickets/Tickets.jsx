@@ -139,7 +139,7 @@ const Tickets = () => {
                   <div className={"text-secondary-300 absolute bottom-5 left-7 right-0 text-left"}>
                     <span className={""}>
                       <span className={"ml-2"}>{watch('attachment')?.[0]?.name}</span>
-                      {watch('attachment') && <img
+                      {watch('attachment')?.length && <img
                         className={"w-auto h-10 rounded-xl mr-auto inline-block align-middle object-cover shadow mx-5 aspect-square"}
                         src={window.URL.createObjectURL(watch('attachment')?.[0])}/>}
                     </span>

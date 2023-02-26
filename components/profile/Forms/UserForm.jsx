@@ -2,11 +2,14 @@ import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
 import GeneralData from "@/components/profile/Forms/UserForm/GeneralData";
 import AccountData from "@/components/profile/Forms/UserForm/AccountData";
 import {useGetProfileDetailsQuery} from "@/datasources/user/remote/UserSliceApi";
+import {useEffect} from "react";
 
 
 const UserForm = () => {
   const {data, isSuccess, isError, error} = useGetProfileDetailsQuery();
+
   if (!isSuccess) return <></>
+
   return (
     <div className="mb-40">
       <div className="text-lg py-5">

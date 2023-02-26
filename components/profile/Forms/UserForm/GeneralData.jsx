@@ -17,7 +17,7 @@ import {dirtyValues} from "@/utils/form/useform";
 import {
   form_change_fields_success_message,
   form_fields,
-  getFormError,
+  getFormError, getFormErrorMessage,
   getFormSuccessMessage
 } from "@/utils/form/messages";
 import {isEmpty} from "@/utils/general";
@@ -49,6 +49,10 @@ function GeneralData({defaultValues}) {
         .required(getFormError({field: 'gender', type: 'choose'})),
       national_code: Yup.string()
         .required(getFormError({field: 'national_code', type: 'required'}))
+        .matches(
+          /^(?!(\d)\1{9})\d{10}$/,
+          getFormError({field: 'national_code', type: 'matches'})
+        ),
     })
   });
 
@@ -68,9 +72,12 @@ function GeneralData({defaultValues}) {
       updateUserData(data).unwrap().then(_ => {
         toast.success("ثبت شد!")
         resetForm()
-      }).catch(e => {
-        handleApiError({first_name: e.first_name, last_name: e.last_name, info: e.info})
-        setAlertMessage(e.message)
+      }).catch(({status,data}) => {
+        if(status === 400){
+          setAlertMessage("اطلاعات ورودی را دوباره بررسی نمایید.")
+        }else{
+          handleApiError({status})
+        }
       })
     }
   };
@@ -78,7 +85,7 @@ function GeneralData({defaultValues}) {
   const resetForm = () => {
     setFormDisable(true)
     setAlertMessage("")
-    reset(defaultValues)
+    // reset(defaultValues)
   }
 
   return (

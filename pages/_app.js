@@ -9,13 +9,15 @@ import {persistStore} from "redux-persist";
 import {SessionProvider} from "next-auth/react";
 import NextNProgress from 'nextjs-progressbar';
 
-function App({Component, ...rest}) {
+function App({Component, router, ...rest}) {
+
   const {
     store,
     props: {
-      pageProps: { session, ...pageProps },
+      pageProps: {session, ...pageProps},
     },
   } = wrapper.useWrappedStore(rest);
+
   const persistor = persistStore(store, {}, function () {
     persistor.persist();
   });

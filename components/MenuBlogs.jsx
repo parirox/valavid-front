@@ -1,13 +1,16 @@
-import { Disclosure } from "@headlessui/react";
-import { IoIosArrowDown } from "react-icons/io";
+import {Disclosure} from "@headlessui/react";
+import {IoIosArrowDown} from "react-icons/io";
 import Chip from "./Chip";
+import Router, {useRouter} from "next/router";
+import Link from "next/link";
 
 export default function MenuBlogs({
-  getBlogData,
-  menuBlogsData,
-  className,
-  ...rest
-}) {
+                                    menuBlogsData,
+                                    className,
+                                    ...rest
+                                  }) {
+  const router = useRouter()
+
   return (
     <div
       className={`bg-[#ECECEC] text-secondary p-5 rounded-[2rem] ${className}`}
@@ -22,9 +25,10 @@ export default function MenuBlogs({
             }`}
           >
             <Disclosure>
-              {({ open }) => (
+              {({open}) => (
                 <>
-                  <Disclosure.Button className="flex flex-row py-1 items-center justify-start w-full gap-3 cursor-pointer">
+                  <Disclosure.Button
+                    className="flex flex-row py-1 items-center justify-start w-full gap-3 cursor-pointer">
                     {subject.children.length !== 0 ? (
                       <IoIosArrowDown
                         className={`rotate-90 transition-all duration-100 text-2xl font-thin text-accent ${
@@ -34,17 +38,17 @@ export default function MenuBlogs({
                     ) : (
                       ""
                     )}
-                    <p
-                      onClick={() =>
-                        // subject.children.length === 0 &&
-                        getBlogData({ category: subject.name })
-                      }
+                    <Link
+                      scroll={false} href={{
+                      pathname: router.pathname,
+                      query: {...router.query, category: subject.name}
+                    }}
                       className={`text-[1.1rem] font-thin text-secondary ${
                         subject.children.length === 0 ? "pr-9" : ""
                       }`}
                     >
                       {subject.name}
-                    </p>
+                    </Link>
                     <Chip
                       href={"#" + subject.id}
                       content={subject.blog_count}
@@ -54,15 +58,16 @@ export default function MenuBlogs({
                   {subject.children.length !== 0 ? (
                     <Disclosure.Panel className="px-6 pt-8 pb-4 text-sm flex flex-col gap-8">
                       {subject.children.map((child, index) => (
-                        <p
-                          onClick={() =>
-                            getBlogData({ category: subject.name })
-                          }
+                        <Link
+                          scroll={false} href={{
+                          pathname: router.pathname,
+                          query: {...router.query, category: child.name}
+                        }}
                           className="text-[1.1rem] font-thin text-secondary pr-9 cursor-pointer"
                           key={index}
                         >
                           {child.name}
-                        </p>
+                        </Link>
                       ))}
                     </Disclosure.Panel>
                   ) : (

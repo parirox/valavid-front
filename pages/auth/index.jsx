@@ -1,20 +1,17 @@
 import Login from "@/components/auth/Login";
 import Flower from "../../public/icons/Flower.svg";
 import clsx from "clsx";
-import { useState } from "react";
+import {useState} from "react";
 import PasswordRecovery from "@/components/auth/PasswordRecovery";
 import SignUp from "@/components/auth/SignUpForm";
-import {
-  createValidMobileNumber,
-  isPersionMobileNumber,
-} from "@/utils/helpers/form";
-import { useSignupUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
-import { handleApiError } from "@/datasources/errorHandler";
+import {createValidMobileNumber, isPersionMobileNumber,} from "@/utils/helpers/form";
+import {useSignupUserMutation} from "@/datasources/auth/remote/AuthSliceApi";
+import {handleApiError} from "@/datasources/errorHandler";
 import Authentication from "@/components/auth/Authentication";
-import { useRouter } from "next/router";
-import { setCookie } from "cookies-next";
+import {useRouter} from "next/router";
+import {setCookie} from "cookies-next";
 import _toast from "@/utils/notification/toast";
-import { IoClose } from "react-icons/io5";
+import {IoClose, IoHome} from "react-icons/io5";
 import {isEmpty} from "@/utils/general";
 
 const Index = () => {
@@ -29,8 +26,7 @@ const Index = () => {
     repeated_password: "",
   });
 
-  const [signupUser, { data, isSuccess, isError, error }] =
-    useSignupUserMutation();
+  const [signupUser] = useSignupUserMutation();
 
   const router = useRouter();
 
@@ -62,9 +58,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <IoClose
-        onClick={() => router.back()}
-        className="w-8 h-8 absolute top-4 left-4 cursor-pointer"
+      <IoHome
+        onClick={async () => await router.push("/")}
+        className="w-8 h-8 absolute top-8 left-8 cursor-pointer"
       />
       <div className="flex relative">
         <div className="min-w-[300px] h-[460px] bg-[#F2F2F3] w-100 mx-4 sm:mx-0 sm:w-[40.188rem] rounded-[23px] lg:rounded-tl-[0] lg:rounded-bl-[0] p-3">

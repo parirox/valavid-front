@@ -4,32 +4,28 @@ import blog_api, {
   GetBlogCategories,
   GetBlogData,
   useGetBlogCategoriesQuery,
-  useGetBlogDataMutation,
+  useGetBlogDataQuery,
 } from "@/datasources/blog/remote/BlogSliceApi";
 import Head from "next/head";
 import Link from "next/link";
 import Error404 from "../404";
-import { wrapper } from "@/datasources/store";
-import { useEffect } from "react";
-import { useState } from "react";
+import {wrapper} from "@/datasources/store";
+import {Fragment, useState} from "react";
 import _toast from "@/utils/notification/toast";
-import { handleApiError } from "@/datasources/errorHandler";
-import { IoMailOutline } from "react-icons/io5";
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useSubmitNewsletterMutation } from "@/datasources/pages/remote/PageSliceApi";
 import toast from "@/utils/notification/toast";
+import {handleApiError} from "@/datasources/errorHandler";
+import {IoMailOutline} from "react-icons/io5";
+import {useForm} from "react-hook-form";
+import * as Yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useSubmitNewsletterMutation} from "@/datasources/pages/remote/PageSliceApi";
 
-function BlogList() {
-  const [membershipEmail, setMembershipEmail] = useState("");
+function BlogList({query}) {
   const {
     data: blogCategories,
-    isSuccess: CategoriesSuccess,
-    isError: CategoriesError,
   } = useGetBlogCategoriesQuery();
-  const [getBlogData, { data: blogsData, isSuccess, isError }] =
-    useGetBlogDataMutation();
+  const {data: blogsData, isSuccess, isError} =
+    useGetBlogDataQuery(query);
 
   const [submitNewsletter] = useSubmitNewsletterMutation();
   const formSchema = Yup.object().shape({
@@ -42,7 +38,7 @@ function BlogList() {
     handleSubmit,
     trigger,
     reset,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -66,20 +62,16 @@ function BlogList() {
       .catch((e) => {
         handleApiError(e);
       })
-    }
+  }
 
-  useEffect(() => {
-    getBlogData();
-  }, []);
-
-  if (isError) return <Error404 />;
+  if (isError) return <Error404/>;
 
   if (isSuccess)
     return (
       <>
         <Head>
           <title>Valavid | Blog list</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
         <div className="container flex gap-16 pt-16 pb-80">
           <div className="basis-1/3">
@@ -96,7 +88,7 @@ function BlogList() {
                 </label>
                 <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
                   <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center px-3">
-                    <IoMailOutline className="text-2xl text-[#90999F]" />
+                    <IoMailOutline className="text-2xl text-[#90999F]"/>
                   </div>
                   <input
                     {...register("email")}
@@ -113,32 +105,27 @@ function BlogList() {
                 </div>
               </div>
             </div>
-
-            {blogCategories && (
-              <MenuBlogs
-                getBlogData={getBlogData}
-                menuBlogsData={blogCategories}
-              ></MenuBlogs>
-            )}
+            {blogCategories && <MenuBlogs menuBlogsData={blogCategories}/>}
           </div>
           <div className="basis-2/3">
-            <Link href={`/blogs/${blogsData.results[0].id}`}>
-              <BlogBox
-                className="mb-5"
-                row
-                title={blogsData.results[0].title}
-                description={blogsData.results[0].description}
-                tags={blogsData.results[0].tags || []}
-                image={blogsData.results[0].media}
-                date={blogsData.results[0].date}
-              ></BlogBox>
-            </Link>
+            <BlogBox
+              key={blogsData.results[0].id}
+              id={blogsData.results[0].id}
+              className="mb-5"
+              row
+              title={blogsData.results[0].title}
+              description={blogsData.results[0].description}
+              tags={blogsData.results[0].tags || []}
+              image={blogsData.results[0].media}
+              date={blogsData.results[0].date}
+            />
             <div className="flex gap-5 w-100">
               <div className="w-100 basis-1/2">
                 {blogsData.results.map((blog, index) => (
-                  <Link href={`/blogs/${blog.id}`} key={blog + index}>
-                    {index % 2 != 0 && index != 0 ? (
+                  <Fragment key={blog.id}>
+                    {index % 2 !== 0 && index !== 0 && (
                       <BlogBox
+                        id={blog.id}
                         className={"mb-5"}
                         row={false}
                         title={blog.title}
@@ -146,17 +133,15 @@ function BlogList() {
                         tags={blog.tags || []}
                         image={blog.media}
                         date={blog.date}
-                      ></BlogBox>
-                    ) : (
-                      ""
+                      />
                     )}
-                  </Link>
+                  </Fragment>
                 ))}
               </div>
               <div className="w-100 basis-1/2">
                 {blogsData.results.map((blog, index) => (
-                  <Link href={`/blogs/${blog.id}`} key={blog + index}>
-                    {index % 2 == 0 && index != 0 ? (
+                  <Fragment key={blog.id}>
+                    {index % 2 === 0 && index !== 0 && (
                       <BlogBox
                         className={"mb-5"}
                         row={false}
@@ -166,10 +151,8 @@ function BlogList() {
                         image={blog.media}
                         date={blog.date}
                       ></BlogBox>
-                    ) : (
-                      ""
                     )}
-                  </Link>
+                  </Fragment>
                 ))}
               </div>
             </div>
@@ -183,11 +166,13 @@ BlogList.styleMode = "blog";
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    store.dispatch(GetBlogData.initiate());
+    const query = {...context.query}
+    store.dispatch(GetBlogData.initiate(query));
     store.dispatch(GetBlogCategories.initiate());
     await Promise.all(store.dispatch(blog_api.util.getRunningQueriesThunk()));
     return {
       props: {
+        query,
         protected: true,
       },
     };

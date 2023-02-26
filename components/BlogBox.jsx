@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Chip from "./Chip";
-import { IoCalendarClearOutline } from "react-icons/io5";
+import {IoCalendarClearOutline} from "react-icons/io5";
 import moment from "jalali-moment";
+import Link from "next/link";
+import classNames from "classnames";
 
 export default function BlogBox(props) {
   const {
@@ -12,14 +14,16 @@ export default function BlogBox(props) {
     description,
     tags,
     date,
+    id,
     ...rest
   } = props;
   return (
     <div
-      className={`group bg-white min-h-[300px] p-3 rounded-[29px] box-shadow flex ${className} ${
-        row ? "flex-row-reverse w-100" : "flex-col"
-      }`}
-    >
+      className={classNames(`relative group bg-white min-h-[300px] p-3 rounded-[29px] box-shadow flex ${className}`, {
+        "flex-row-reverse w-100": row,
+        "flex-col": !row
+      })}>
+      <Link href={`/blogs/${id}`} className={"absolute inset-0"}></Link>
       <div
         className={`relative overflow-hidden rounded-[2rem] ${
           row ? "w-7/12 h-100" : "w-100 min-h-[20rem]"
@@ -28,7 +32,7 @@ export default function BlogBox(props) {
         <Chip
           content={moment(date, "YYYY/MM/DD").locale("fa").format("YYYY/MM/DD")}
           className="bg-[#0000009a] absolute top-3 left-3 flex-row-reverse text-[0.95rem] z-10 py-[0.2rem] px-[0.7rem] gap-[0.4rem]"
-          icon={<IoCalendarClearOutline className="text-[1.1rem]" />}
+          icon={<IoCalendarClearOutline className="text-[1.1rem]"/>}
         ></Chip>
         <Image
           alt={image.alt}

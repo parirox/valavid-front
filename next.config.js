@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    scrollRestoration: true,
+  },
   output: 'standalone',
   reactStrictMode: true,
   swcMinify: true,

@@ -91,7 +91,7 @@ export const ApiEndpoint = {
     details_or_send_message: "/tickets/:id/",
   },
   blog: {
-    get: "/blogs/",
+    get: "/blogs/:query",
     categories: "/blogs/categories/",
     singleBlog: "/blogs/:id/",
     addMember: "/newsletter/"

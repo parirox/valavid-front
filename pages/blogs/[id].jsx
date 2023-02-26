@@ -7,8 +7,7 @@ import {IoCalendarClearOutline} from "react-icons/io5";
 import {useRouter} from "next/router";
 import {wrapper} from "@/datasources/store";
 import moment from "jalali-moment";
-import styles from "../../styles/blog.module.css";
-import Error404 from "../404";
+import styles from "@/styles/blog.module.css";
 import Link from "next/link";
 import ErrorPage from "../ErrorPage";
 import {Fragment} from "react";
@@ -22,14 +21,14 @@ function SingleBlog() {
     error,
   } = useGetSingleBlogQuery(router.query);
 
-  if (isError) return <ErrorPage info={error} />;
+  if (isError) return <ErrorPage info={error}/>;
 
   if (isSuccess)
     return (
       <div>
         <Head>
-          <title>Valavid | {blog.title} </title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>Valavid | {blog?.title} </title>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
         <div className="container pb-96 pt-16">
           <div className="max-w-[820px] mx-auto text-start">
@@ -60,45 +59,10 @@ function SingleBlog() {
             <p className="py-10 border-b border-secondary-300 text-start text-lg leading-9 text-secondary-200">
               {blog.title}
             </p>
-            {/* <div className="text-[1.4rem] text-secondary py-8">
-            16 فوتیج با کیفیت با موضوع عید نوروز
-          </div>
-          <p className="leading-9 pb-8 text-secondary-200">
-
-            اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است. سومین
-            شهر پرجمعیت ایران پس از تهران و مشهد اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان
-            اصفهان و نیز شهرستان اصفهان است. سومین شهر پرجمعیت ایران پس از تهران و مشهد است
-
-            اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است. سومین
-            شهر پرجمعیت ایران پس از تهران و مشهد اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان
-            اصفهان و نیز شهرستان اصفهان است. سومین شهر پرجمعیت ایران پس از تهران و مشهد است
-
-            اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است. سومین
-            شهر پرجمعیت ایران پس از تهران و مشهد اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان
-            اصفهان و نیز شهرستان اصفهان است. سومین شهر پرجمعیت ایران پس از تهران و مشهد است
-
-          </p>
-          <Image alt={""} src='https://placeimg.com/640/480/nature/11' className="h-64 rounded-[2.75rem]" width={320}
-                 height={100}></Image>
-          <p className="leading-9 pb-8 pt-12 text-secondary-200">
-
-            اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است. سومین
-            شهر پرجمعیت ایران پس از تهران و مشهد اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان
-            اصفهان و نیز شهرستان اصفهان است. سومین شهر پرجمعیت ایران پس از تهران و مشهد است
-
-            اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است. سومین
-            شهر پرجمعیت ایران پس از تهران و مشهد اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان
-            اصفهان و نیز شهرستان اصفهان است. سومین شهر پرجمعیت ایران پس از تهران و مشهد است
-
-            اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان اصفهان و نیز شهرستان اصفهان است. سومین
-            شهر پرجمعیت ایران پس از تهران و مشهد اِصفَهان شهری تاریخی و گردشگری در مرکز ایران است. این شهر مرکز استان
-            اصفهان و نیز شهرستان اصفهان است. سومین شهر پرجمعیت ایران پس از تهران و مشهد است
-
-          </p> */}
             {
               <div
                 className={styles.blog}
-                dangerouslySetInnerHTML={{ __html: blog.content }}
+                dangerouslySetInnerHTML={{__html: blog.content}}
               />
             }
             <div className="flex pt-8 pb-16 gap-6 items-center text-lg text-secondary">
@@ -116,33 +80,33 @@ function SingleBlog() {
             <p className="pb-8 pt-12 text-secondary-200">مشابه</p>
             <div className="flex flex-wrap gap-8">
               {blog.similar.map((item, k) => (
-                <Link
-                href={`/blogs/${item.id}`}
-                  key={k}
-                  className="w-[calc(33.32%_-_1.34rem)] bg-white rounded-2xl shadow-md"
-                >
+                <div className="relative w-[calc(33.32%_-_1.34rem)] bg-white rounded-2xl shadow-md" key={k}>
+                  <Link
+                    className={"absolute inset-0 z-20"}
+                    href={`/blogs/${item.id}`}
+                    key={k}
+                  ></Link>
                   <div className="w-100 h-52 relative overflow-hidden">
                     <Image
-                      alt={""}
-                      src="https://placeimg.com/640/480/nature/11"
+                      alt={item.media.alt}
+                      src={item.media.src}
                       className="z-10 rounded-t-2xl"
                       fill
                       sizes="33vw"
-                    ></Image>
-                    <div className="flex absolute z-10 bottom-4 right-4 gap-1">
-                      {item.tags.slice(0,3).map((tag,k)=>(
-                        <Chip
-                          key={k}
-                          href={`/blogs/?tag=${tag.title}`}
-                          className="bg-[#00101C] text-white rounded-2xl text-xs"
-                          content={tag.title}
-                        />
+                    />
+                    <div className="flex absolute z-30 bottom-4 right-4 gap-1">
+                      {item.tags.slice(0, 3).map((tag, k) => (
+                        <Link key={k}
+                              className={"btn min-h-0 border-none rounded-full flex items-center gap-3 px-4 py-2 bg-[#00101C] text-white rounded-2xl text-xs"}
+                              href={`/blogs/?tag=${tag.title}`}>
+                          {tag.title}
+                        </Link>
                       ))}
                     </div>
                   </div>
                   <div className="pt-4 flex gap-16 px-4">
                     <div className="flex gap-2 text-sm items-center text-secondary-300">
-                      <BsFillPencilFill className={""}></BsFillPencilFill>
+                      <BsFillPencilFill/>
                       {blog.author}
                     </div>
                     <div className="flex gap-1 text-sm text-secondary-300">
@@ -155,7 +119,7 @@ function SingleBlog() {
                   <h4 className="text-black px-4 pt-4 pb-11">
                     {item.title}
                   </h4>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -168,6 +132,7 @@ SingleBlog.styleMode = "blog";
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
+    console.log(context.params)
     store.dispatch(GetSingleBlog.initiate(context.params));
     await Promise.all(store.dispatch(blog_api.util.getRunningQueriesThunk()));
     return {
