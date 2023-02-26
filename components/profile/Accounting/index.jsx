@@ -209,7 +209,7 @@ const Accounting = () => {
               <div className="relative flex flex-col md:flex-row" key={index}>
                 <div className="flex-col sm:flex-row flex flex-[5.25] sm:gap-2">
                   <div className="pt-8 pb-3 px-6 sm:px-0 sm:pt-10 sm:pb-10 sm:pr-14 flex-[1.45] flex items-center">
-                    <spna className="sm:hidden text-secondary-300 ml-6 w-[80px]">تاریخ درخواست</spna>
+                    <span className="sm:hidden text-secondary-300 ml-6 w-[80px]">تاریخ درخواست</span>
                     <span>
                       {moment(transaction.requested_at, "YYYY/MM/DD")
                         .locale("fa")

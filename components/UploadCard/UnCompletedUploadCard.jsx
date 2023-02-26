@@ -97,7 +97,7 @@ export default function UnCompletedUploadCard({
               <Image
                 src={cover}
                 alt=""
-                className="rounded-lg w-[12rem] h-28"
+                className="rounded-lg w-[12rem] h-28 object-contain"
                 width={140}
                 height={70}
               ></Image>
