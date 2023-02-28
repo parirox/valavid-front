@@ -196,7 +196,7 @@ export default function Cart() {
           // else if (!isSuccess) {
           return (
             data && (
-              <div className="w-4/5">
+              <div className="w-full md:w-4/5">
                 <div className="flex justify-start text-sm text-gray p-5">
                   سبد خرید شما ( {_cartItems.length} مورد )
                 </div>
@@ -208,10 +208,10 @@ export default function Cart() {
                       return (
                         <div
                           key={k}
-                          className="flex justify-between items-center py-5 px-4"
+                          className="flex flex-col md:flex-row md:justify-between items-center py-5 px-4"
                         >
-                          <div className="basis-2/4">
-                            <div className="flex gap-5">
+                          <div className="w-full md:basis-2/4">
+                            <div className="flex gap-5 w-full md:w-auto">
                               <div className="basis-1/4 relative h-28">
                                 {product.type === "video" ? (
                                   <video
@@ -251,8 +251,8 @@ export default function Cart() {
                               </div>
                             </div>
                           </div>
-                          <div className="flex-initial">
-                            <div className="flex gap-14 items-end">
+                          <div className="flex-initial w-full md:w-auto mt-6 md:mt-0">
+                            <div className="flex gap-14 items-end w-full md:w-auto justify-between">
                               <div className="flex flex-col justify-around items-end h-full ">
                                 <div className="text-xs text-color3 mb-4">
                                   قیمت (تومان)
@@ -305,8 +305,8 @@ export default function Cart() {
                       );
                     })}
                   </div>
-                  <div className="bg-secondary-600 flex justify-end items-center gap-5 px-10 py-8 rounded-b-3xl">
-                    <div className="basis-8/12">
+                  <div className="bg-secondary-600 flex flex-col md:flex-row justify-end items-center gap-5 px-10 py-8 rounded-b-3xl">
+                    <div className="w-full md:basis-8/12 order-2 md:order-1">
                       <div className="flex">
                         <div className="basis-1/2">
                           <div className="form-control w-full">
@@ -357,7 +357,7 @@ export default function Cart() {
                         </div>
                       )}
                     </div>
-                    <div className="basis-4/12">
+                    <div className="w-full md:basis-4/12 order-1 md:order-2">
                       <div className="flex flex-col text-gray gap-5">
                         <div className="flex justify-between items-center">
                           <span>جمع کل:</span>
@@ -418,7 +418,7 @@ export default function Cart() {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end mt-10">
+                <div className="flex justify-end mt-10 mb-10">
                   <Button
                     // link={"/checkout/"}
                     className="btn-primary-gradient pr-20 pl-16 py-5 text-2xl"

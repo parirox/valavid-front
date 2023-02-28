@@ -19,6 +19,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
 import Router from "next/router";
 import { removeCookies } from "cookies-next";
+import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 
 const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
@@ -26,6 +27,11 @@ const Header = ({ data, styleMode }) => {
   const _cartItems = useSelector(cartItems);
 
   const [logoutUser, { data: logoutData, isSuccess }] = useLogoutUserMutation();
+  const {
+    data: profileData,
+    isSuccess: profileIsSuccess,
+    isLoading: profileIsLoading,
+  } = useGetProfileDetailsQuery();
 
   useEffect(() => {
     let token = getCookie("valavid_token");
@@ -160,6 +166,7 @@ const Header = ({ data, styleMode }) => {
               showNav={showNav}
               setShowNav={setShowNav}
               styleMode={styleMode}
+              profileData={isLogedin && profileIsSuccess ? profileData : null}
             />
           </div>
           <div className="lg:basis-6/12 h-full">
@@ -207,6 +214,7 @@ const Header = ({ data, styleMode }) => {
               showNav={showNav}
               setShowNav={setShowNav}
               styleMode={styleMode}
+              profileData={isLogedin && profileIsSuccess ? profileData : null}
             />
           </div>
           <div className="lg:basis-6/12 h-full">

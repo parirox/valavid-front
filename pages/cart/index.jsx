@@ -80,7 +80,7 @@ export default function Cart() {
                 );
               }
               return (
-                <div className="w-4/5">
+                <div className="w-full md:w-4/5">
                   <div className="flex justify-start items-center text-sm text-gray p-5">
                     سبد خرید شما ( {_cartItems.length} مورد )
                     {isLoading &&
@@ -95,10 +95,10 @@ export default function Cart() {
                         return (
                           <div
                             key={key}
-                            className="flex justify-between items-center py-5 px-4"
+                            className="flex flex-col md:flex-row justify-between py-5 px-4"
                           >
-                            <div className="basis-2/4">
-                              <div className="flex gap-5">
+                            <div className="w-full md:basis-2/4">
+                              <div className="flex gap-5 w-full md:w-auto">
                                 <div className="basis-1/4 relative h-28">
                                   {product.type === "video" ? (
                                     <video
@@ -135,8 +135,8 @@ export default function Cart() {
                                 </div>
                               </div>
                             </div>
-                            <div className="flex-initial">
-                              <div className="flex gap-14 items-end">
+                            <div className="flex-initial w-full md:w-auto mt-6 md:mt-0">
+                              <div className="flex gap-14 items-end w-full md:w-auto justify-between">
                                 <div className="flex flex-col justify-around items-end h-full ">
                                   <div className="text-xs text-color3 mb-4">
                                     قیمت (تومان)
