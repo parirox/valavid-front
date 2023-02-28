@@ -9,7 +9,7 @@ const TopSellers = ({data = []}) => {
     return (
         <div className="container mb-40">
             <SectionTitleDivider title="برترین فروشندگان" ></SectionTitleDivider>
-            <div className="flex items-center gap-x-2 h-[27rem]">
+            <div className="flex items-center gap-x-2 h-[27rem] overflow-auto hide-scrollbar">
                 {
                     data.map((item, i) => (
                         <Fragment key={i}>
@@ -27,7 +27,7 @@ const TopSellers = ({data = []}) => {
                                         <span>تولید {item.produce_count}</span>
                                     </div>
                                     <div className="flex-1 w-full h-full">
-                                        <Button link={`/profile/${item.username}/products`} className='btn-primary-gradient text-xl w-full h-full opacity-0 transition-all group-hover/topSellerCard:opacity-100'>
+                                        <Button link={`/profile/${item.username}/products`} className='text-center whitespace-nowrap btn-primary-gradient text-xl w-full h-full opacity-0 transition-all group-hover/topSellerCard:opacity-100'>
                                             مشاهدات تولیدات
                                         </Button>
                                     </div>

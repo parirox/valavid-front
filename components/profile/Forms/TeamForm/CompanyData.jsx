@@ -78,7 +78,7 @@ function CompanyData({defaultValues}) {
         <Input name='team.company_address' control={control} disabled={isFormDisable}/>
       </RowInput>
       <RowInput label='تعداد کارمندان'>
-        <Input name='team.company_employees_count' className={'w-auto'} type="number" control={control} disabled={isFormDisable}/>
+        <Input name='team.company_employees_count' className={'w-full sm:w-auto'} type="number" control={control} disabled={isFormDisable}/>
       </RowInput>
       <RowInput label='اساسنامه' required>
         <FileInput name="team.company_document" disabled={isFormDisable} hookFormControl={control}/>

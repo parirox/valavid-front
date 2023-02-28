@@ -9,7 +9,7 @@ const AddFile = ({ handleSelectFile }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className="p-3 rounded-3xl h-80 border-2 border-dashed border-secondary-200 overflow-hidden relative">
+    <div className="mt-8 p-3 rounded-3xl h-80 border-2 border-dashed border-secondary-200 overflow-hidden relative">
       <div
         className="rounded-3xl h-full bg-[#13222D] flex items-center justify-center"
         {...getRootProps({

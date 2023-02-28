@@ -74,8 +74,8 @@ function ContactData({defaultValues}) {
       <RowInput label='تلفن' required helperText={'(باید به نام صاحب حساب باشد)'}>
         <Input name='team.bank_owner_phone' control={control} disabled={isFormDisable}/>
       </RowInput>
-      <RowInput label='شبکه های اجتماعی'>
-        <div className="grid grid-cols-2 gap-10">
+      <RowInput className="pt-8 sm:pt-0" label='شبکه های اجتماعی'>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           <Controller
             control={control}
             name="info.socials"

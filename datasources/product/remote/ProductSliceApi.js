@@ -80,6 +80,15 @@ const product_api = createApi({
         { type: productSliceApiTag, id: "CollectionDetails" },
       ],
     }),
+    GetDevices: build.query({
+      query: (query) => ({
+        url: ApiAddress(ApiEndpoint.product.devices, query),
+        method: "GET",
+      }),
+      providesTags: (result, error, id) => [
+        { type: productSliceApiTag, id: "devices" },
+      ],
+    }),
     Report: build.mutation({
       query: (body) => ({
         url: ApiAddress(ApiEndpoint.product.report),
@@ -188,7 +197,8 @@ export const {
   useGetProductTagsMutation,
   useDeleteAccountProductMutation,
   useEditAccountProductMutation,
-  useAddProductMutation
+  useAddProductMutation,
+  useGetDevicesQuery
 } = product_api;
 
 // export endpoints for use in SSR
@@ -202,7 +212,8 @@ export const {
   getProductTags,
   deleteAccountProduct,
   editAccountProduct,
-  addProduct
+  addProduct,
+  GetDevices
 } = product_api.endpoints;
 
 export default product_api;

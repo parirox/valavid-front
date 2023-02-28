@@ -29,6 +29,7 @@ import {
 } from "@/datasources/user/local/UserSlice";
 import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
+import Device from "./AddProduct/Device";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,8 @@ const Products = () => {
     tags_level_1: [],
     tags_level_2: [],
     tags_level_3: [],
+    device: null,
+    lens: null,
     file: null,
     publish_type: null,
   });
@@ -122,6 +125,8 @@ const Products = () => {
         uploadProduct(formData)
           .unwrap()
           .then((res) => {
+        console.log('address',res.data)
+
             dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
           })
           .catch((err) => {
@@ -147,32 +152,6 @@ const Products = () => {
   };
 
   const handleAddProduct = (publish_type) => {
-    // const formData = {};
-    // formData.title = productInfo.translations["fa"].title;
-    // formData.description = productInfo.translations["fa"].description;
-    // formData.translations = getApiTranslationsFormat(productInfo.translations);
-
-    // if (productInfo.country) {
-    //   formData.country = productInfo.country.value;
-    // }
-    // if (productInfo.state) {
-    //   formData.state = productInfo.state.value;
-    // }
-    // if (productInfo.city) {
-    //   formData.city = productInfo.city.value;
-    // }
-    // if (productInfo.tags_level_1) {
-    //   formData.tags_level_1 = productInfo.tags_level_1;
-    // }
-    // if (productInfo.tags_level_2) {
-    //   formData.tags_level_2 = productInfo.tags_level_2;
-    // }
-    // if (productInfo.tags_level_3) {
-    //   formData.tags_level_3 = productInfo.tags_level_3;
-    // }
-
-    // formData.publish_type = "free";
-    // formData.file = productInfo.file.path;
     const formData = new FormData();
     formData.append("title", productInfo.translations["fa"].title);
     formData.append("description", productInfo.translations["fa"].description);
@@ -184,21 +163,11 @@ const Products = () => {
       formData.append("country", productInfo.country.value);
     productInfo.state && formData.append("state", productInfo.state.value);
     productInfo.city && formData.append("city", productInfo.city.value);
-    formData.append("tags_level_1", JSON.stringify(productInfo.tags_level_1))
-    formData.append("tags_level_2", JSON.stringify(productInfo.tags_level_2))
-    formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3))
-    // if (productInfo.tags_level_1) {
-    //   for (var i = 0; i < productInfo.tags_level_1.length; i++) {
-    //     formData.append('tags_level_1[]', productInfo.tags_level_1[i]);
-    //   }
-    // }
-    // if (productInfo.tags_level_2) {
-    //   productInfo.tags_level_2.forEach((item) => formData.append("tags_level_2[]", item))
-    // }
-    // if (productInfo.tags_level_3) {
-    //   productInfo.tags_level_3.forEach((item) => formData.append("tags_level_3[]", item))
-    // }
-
+    formData.append("tags_level_1", JSON.stringify(productInfo.tags_level_1));
+    formData.append("tags_level_2", JSON.stringify(productInfo.tags_level_2));
+    formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3));
+    productInfo.device && formData.append("device", JSON.stringify(productInfo.device));
+    productInfo.lens && formData.append("lens", JSON.stringify(productInfo.lens));
     formData.append("publish_type", "free");
     formData.append("file", productInfo.file.path);
 
@@ -225,6 +194,8 @@ const Products = () => {
           tags_level_1: [],
           tags_level_2: [],
           tags_level_3: [],
+          device: null,
+          lens: null,
           file: null,
           publish_type: null,
         });
@@ -272,6 +243,17 @@ const Products = () => {
       ),
     },
     {
+      label: "دستگاه",
+      content: (
+        <Device
+          setProduct={setProduct}
+          productInfo={productInfo}
+          setActiveStep={setActiveStep}
+          handleCompleteStep={() => setActiveStep(activeStep + 1)}
+        />
+      ),
+    },
+    {
       label: "انتشار",
       content: (
         <Release
@@ -308,6 +290,8 @@ const Products = () => {
         tags_level_1: [],
         tags_level_2: [],
         tags_level_3: [],
+        device: null,
+        lens: null,
         file: null,
         publish_type: null,
       });

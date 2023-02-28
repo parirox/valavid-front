@@ -48,10 +48,10 @@ export default function DownloadCard({className, id, type, media, mediaLink, tit
         <p className="text-lg pl-3">قیمت <span className="text-xs opacity-80">(تومان)</span>:</p>
         <p className="text-xl">{price !== 0 ? price.toLocaleString() : 'رایگان'}</p>
       </div>
-      <div className="flex h-16 absolute bottom-8 gap-3 w-fit left-0 right-0 mx-auto">
+      <div className="flex h-16 absolute bottom-8 gap-3 left-0 right-0 mx-auto w-full px-8">
         <Button link={`${BASE_API_URL}/account/downloads/${id}/`}
-                className="btn-primary px-14 py-4 rounded-full">دانلود</Button>
-        <Button link={`/products/${type}/${id}`} className="btn-ghost px-14 py-4 rounded-full">اطلاعات بیشتر</Button>
+                className="btn-primary py-4 rounded-full flex-1">دانلود</Button>
+        <Button link={`/products/${type}/${id}`} className="btn-ghost py-4 rounded-full flex-1 text-center">اطلاعات بیشتر</Button>
       </div>
     </div>
   )

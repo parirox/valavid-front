@@ -47,6 +47,7 @@ module.exports = {
       },
       backgroundImage: {
         'hero-pattern': "linear-gradient(0deg, rgba(83,76,218,0.8) 0%, rgba(174,170,255,0.8) 100%),url('../public/icons/LoginImage.jpg')",
+        'menu-pattern': "#F8F8F8,url('../public/icons/valavidLogo.png')",
      },
       typography: (theme) => ({
         DEFAULT: {
