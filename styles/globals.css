@@ -46,7 +46,7 @@
   }
   /* animations */
   .transition-400-linear {
-    @apply transition-all duration-[400ms] ease-in-out;
+    @apply: transition-all duration-[400ms] ease-in-out;
   }
   /* alert */
   .alert {

@@ -17,7 +17,7 @@ export default function CheckBoxButton({data = {}, options, setOptions, error, m
           {Object.entries(data).map(([key, value]) => {
             return (
               <Listbox.Option key={key} value={key}
-                              className={classNames('w-fit cursor-pointer flex justify-center items-center min-w-[5.5rem] px-4 py-2 rounded-xl border ui-selected:text-primary ui-selected:bg-white ui-selected:font-bold ui-selected:border-secondary-400 ui-not-selected:border-secondary-400 ui-not-selected:text-secondary-300',
+                              className={classNames('w-fit cursor-pointer flex justify-center items-center min-w-[5.5rem] px-4 py-2 rounded-xl border ui-selected:text-primary ui-selected:bg-white ui-selected:font-bold ui-selected:border-secondary-400 ui-not-selected:border-secondary-400 ui-not-selected:text-secondary-400 lg:ui-not-selected:text-secondary-300',
                                 {
                                   '!border-danger': !!error
                                 })}>

@@ -14,9 +14,9 @@ function ErrorPage({info}) {
         <div className="h-[500px] w-[620px] relative">
           <Image src={'/images/treePic404.png'} alt="" fill sizes=""></Image>
         </div>
-        <div className="absolute text-[12rem] mt-28 mx-auto right-0 left-0 font-bold text-center">
-          {info?.status ?? info?.originalStatus ?? ""}
-          <Button className={`text-xl w-64 mx-auto h-[4rem] -mt-7 rounded-xl transition-all bg-gradient-to-r from-[#9D99F8] to-[#534CDA]`} link={'/'}>
+        <div className="absolute text-3xl lg:text-[10rem] mt-28 mx-auto right-0 left-0 font-bold text-center">
+          <span className={"mb-20 block"}>{info?.status ?? info?.originalStatus ?? ""}</span>
+          <Button className={`text-xl w-64 mx-auto h-[4rem] rounded-xl transition-all bg-gradient-to-r from-[#9D99F8] to-[#534CDA]`} link={'/'}>
             بازگشت به خانه
           </Button>
         </div>

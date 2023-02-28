@@ -67,7 +67,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
         <div className="w-full h-full p-3">
           <div className="relative w-full h-full rounded-[2.6rem] overflow-hidden">
             <div
-              className="absolute top-12 right-10 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+              className="absolute top-10 right-7 z-50 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto">
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
@@ -97,7 +97,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>
             <div
-              className="absolute top-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+              className="absolute top-10 left-7 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto">
                 <div className="flex p-1 gap-3 justify-between">
                   <div className="basis-auto">
@@ -111,7 +111,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>
             {data.author && <div
-              className="absolute bottom-[5.5rem] left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
+              className="absolute bottom-[5.5rem] left-7 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100">
               <div className="basis-auto text-black">
                 <div className="relative z-50 flex gap-3 justify-end items-center mb-3">
                   <div className="flex items-center basis rounded-3xl bg-white py-2 px-3">
@@ -125,7 +125,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>}
             <div
-              className={classNames("absolute bottom-12 left-10 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100",{"right-10":small})}>
+              className={classNames("absolute bottom-12 left-7 z-30 transition-400-linear opacity-0 group-hover/popularCard:opacity-100",{"right-10":small})}>
               <div className="basis-auto text-black w-full overflow-hidden">
                 <div className="flex gap-3 justify-end">
                   <div className="flex-none rounded-3xl bg-white py-2 min-w-[auto] max-w-full">
