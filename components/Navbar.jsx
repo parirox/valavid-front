@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import Link from 'next/link';
-import {useRouter} from 'next/router';
-import classNames from "classnames";
-=======
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -11,7 +6,6 @@ import { slide as Menu } from "react-burger-menu";
 import ValavidLogo from "@/public/icons/valavidLogo.svg";
 import Image from "next/image";
 import Avatar from "./Avatar";
->>>>>>> dedf656295ad8b4db4747e6d111d1bacda952f70
 
 const links = [
   {
@@ -40,25 +34,6 @@ const links = [
   },
 ];
 
-<<<<<<< HEAD
-const Navbar = ({styleMode}) => {
-  const router = useRouter();
-  return (
-    <nav className={classNames('w-full flex gap-12 navbarItem font-bold', {'text-secondary': styleMode === 'blog'})}>
-      {links.map((page, index) => (
-        <Link
-          href={page.href}
-          className={classNames("", {
-            "text-secondary": styleMode === "blog",
-            "font-bold": router.pathname === "/blogs" && page.href === "/blogs",
-            "active": router?.pathname === page.href && router.pathname !== "/blogs"
-          })}
-          key={index}>
-          {page.title}
-        </Link>
-      ))}
-    </nav>
-=======
 const profileLinks = [
   {
     title: "اطلاعات کاربری",
@@ -182,7 +157,6 @@ const Navbar = ({ styleMode, showNav, setShowNav, profileData }) => {
         ))}
       </nav>
     </>
->>>>>>> dedf656295ad8b4db4747e6d111d1bacda952f70
   );
 };
 
