@@ -1,4 +1,4 @@
-import AutoSelect from "@/components/autoSelect";
+import AutoSelect from "@/components/AutoSelect";
 import Button from "@/components/Button";
 import { useGetDevicesQuery } from "@/datasources/product/remote/ProductSliceApi";
 import React, { useState } from "react";
