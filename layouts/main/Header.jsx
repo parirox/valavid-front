@@ -212,7 +212,7 @@ const Header = ({ data, styleMode }) => {
           >
             <FiMenu />
           </div>
-          <div className="basis-5/12">
+          <div className="basis-5/12 xl:basis-6/12 xl:mr-16">
             <Navbar
               showNav={showNav}
               setShowNav={setShowNav}
