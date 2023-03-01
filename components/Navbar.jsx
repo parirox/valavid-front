@@ -1,10 +1,7 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import classNames from "classnames";
-import { slide as Menu } from "react-burger-menu";
-import ValavidLogo from "@/public/icons/valavidLogo.svg";
-import Image from "next/image";
+import {useRouter} from "next/router";
+import {slide as Menu} from "react-burger-menu";
+import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 import Avatar from "./Avatar";
 
 const links = [
