@@ -20,7 +20,7 @@ import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
 import Router from "next/router";
 import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
-import ValavidLogo from "@/public/icons/ValavidLogo.svg";
+import ValavidLogo from "@/public/icons/ValavidLogoWhite.svg";
 
 const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
@@ -200,9 +200,10 @@ const Header = ({ data, styleMode }) => {
             : "py-7 bg-color12"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
-        <div className="flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-8 lg:px-24 h-[45px]">
+        <div className="flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-24 h-[45px]">
           <div className="basis-1/12 text-white hidden lg:flex">
-            <Link href={"/"}>              <ValavidLogo />
+            <Link href={"/"}>
+              <ValavidLogo />
             </Link>
           </div>
           <div
@@ -221,11 +222,11 @@ const Header = ({ data, styleMode }) => {
           </div>
           <div className="lg:basis-6/12 h-full">
             <div className="flex flex-row gap-3 h-full">
-              <div className="basis-9/12 hidden lg:flex">
+              <div className="flex-auto hidden lg:flex">
                 <Select />
               </div>
               {renderProfileBtn()}
-              <div className="basis-1/12">
+              <div className="flex-initial">
                 <ButtonIcon
                   link={"/cart"}
                   className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
