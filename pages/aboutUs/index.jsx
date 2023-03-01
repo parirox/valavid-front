@@ -85,7 +85,7 @@ export default function index() {
       <div className="relative">
         <div className="flex container">
           <div className="">
-            <Image src={ValavidIcon} width={140}></Image>
+            <Image alt={"valavid logo"} src={ValavidIcon} width={140}></Image>
             <p className="max-w-[62rem] text-lg text-justify leading-[3.5rem]">
               والاوید پلتفرم اشتراک گذاری فوتیج یا تکه ویدئو های مورد نیاز فیلمسازه. اینجا تعدادی زیادی از فیلمبردارها و فیلمسازانی که چشم‌شان به ایران دوخته شده، گرد هم جمع شده‌اند تا با اشتراک گذاشتن هنر و تجربیاتشون، زاویه نگاه‌شونو به دیگران نشان بدهند. اهالی والاوید اولین کتابخانه تصویری ایران رو که با همکاری یک تیم کوچک چند نفره در سال 1396 تاسیس شده بود، حالا به بزرگترین بانک جامع آرشیو تکه ویدئو از ایران تبدیل کرده‌اند. پلتفرمی که از خلاقیت حمایت می‌کنه تا محصولات رسانه ای با کیفیت بیشتری تولید بشه و فیلمسازان بیشتری بتونن داستان های بهتری روایت کنن.
               داستان والاوید از مشکلات فیلمسازی در ایران شروع میشه. البته که بعضی از این مشکلات در همه جای دنیا وجود داره اما بعضی کشورها مسائل منحصر به فرد خودشون رو دارن. مثلا یکی از مهمترین مسأله های ما در ایران مصیبت مجوز گرفتن است. مصیبتی که میتونه چنان دیواری بلندی دور تیم بکشه که هر فیلمسازی رو از ادامه مسیرش منصرف کنه. مثلا میدونستید با مجوز ناجی هنر در مدت محدودی که در نامه درج شده، تنها از سطح شهر میتونید فیلمبرداری کنید ولی از پارک‌ها یا ایستگاه های اتوبوس نه! برای تصویربرداری از پارک باید نامه ناجی هنر رو ببرید روابط عمومی شهرداری استان که بعد ارجاع بشه به واحد رسانه که بعد 10 روز کاری ارجاع بشه به شهرداری منطقه که بعد از طی مراحلی مثل تعهدنامه و ضمانت ارجاع بشه به مدیر پارک که تازه اگه تا اون زمان مجوز ناجی هنر تموم نشده باشه بتونید تصویربرداری کنید. قشنگ نیست؟!
@@ -95,7 +95,7 @@ export default function index() {
             </p>
           </div>
           <div className="absolute z-[-1] top-0 left-5">
-            <Image src={Pictures} className="" width={850} height={250}></Image>
+            <Image alt={"about us valavid background"} src={Pictures} className="" width={850} height={250}></Image>
             <div className="bg-gradient-to-r from-secondary-500 via-[#00101c5a] to-secondary-500 w-full h-full absolute top-0 left-0 z-1 opacity-75"></div>
             <div className="bg-gradient-to-b from-secondary-500 via-[#00101c5a] to-secondary-500 w-full h-full absolute top-0 left-0 z-1 opacity-75"></div>
           </div>
@@ -111,11 +111,11 @@ export default function index() {
               }
             </div>
            <Link href={'/faq'}>
-           <Image src={PhonePic} className="h-[16rem] w-[25rem]"></Image>
+              <Image alt={"faq background valavid"} src={PhonePic} className="h-[16rem] w-[25rem]"></Image>
            </Link>
           </div>
           <div className="pt-10 pb-44">
-            <Image src={LocationMap} className="h-[220px] w-full object-cover rounded-[2rem]"></Image>
+            <Image alt={"آدرس والاوید روی نقشه"} src={LocationMap} className="h-[220px] w-full object-cover rounded-[2rem]"></Image>
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
 import Router from "next/router";
 import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
+import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 
 const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
@@ -201,7 +202,8 @@ const Header = ({ data, styleMode }) => {
       >
         <div className="flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-8 lg:px-24 h-[45px]">
           <div className="basis-1/12 text-white hidden lg:flex">
-            <Link href={"/"}>Valavid</Link>
+            <Link href={"/"}>              <ValavidLogo />
+            </Link>
           </div>
           <div
             onClick={() => setShowNav(true)}

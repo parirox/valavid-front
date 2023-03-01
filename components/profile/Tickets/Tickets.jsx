@@ -187,7 +187,6 @@ const Tickets = () => {
                   توضیحات
                 </label>
                 <div className={"relative w-full"}>
-<<<<<<< HEAD
                     <textarea id="productInput"
                               className="bg-white text-secondary p-4 pb-16 min-h-[14rem] max-h-[16rem] h-56 w-full rounded-[.7rem] border-1 border-secondary-300 border-solid active:border-primary focus:border-primary"
                               {...register('message')} />
@@ -205,25 +204,6 @@ const Tickets = () => {
                     <input type="file" id="attachmentId" className="hidden w-0 h-0"
                            {...register('attachment')} />
                   </div>
-=======
-                  <textarea
-                    id="productInput"
-                    className="bg-white text-secondary p-4 min-h-[14rem] max-h-[16rem] h-56 w-full rounded-[.7rem] border-1 border-secondary-300 border-solid active:border-primary focus:border-primary"
-                    {...register("message")}
-                  />
-                  <label
-                    htmlFor="attachmentId"
-                    className="text-secondary-300 absolute bottom-7 left-7 rotate-45 text-3xl"
-                  >
-                    <IoAttach />
-                  </label>
-                  <input
-                    type="file"
-                    id="attachmentId"
-                    className="opacity-0 w-0 h-0"
-                    {...register("attachment")}
-                  />
->>>>>>> dedf656295ad8b4db4747e6d111d1bacda952f70
                 </div>
               </div>
             </div>
