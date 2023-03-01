@@ -291,8 +291,7 @@ function FootageDetails({query}) {
                         className="rounded-full bg-white absolute -right-3 -top-3 p-2 text-success-100 text-xl"><BsShieldFillCheck/></span>}/>
               <span>بیشتر از {data.publisher?.name}</span>
             </div>
-          )}
-                   end={<Button className="btn-accent text-secondary-300" link={`/profile/${data.publisher.username}`}>مشاهده
+          )} end={<Button className="btn-accent text-secondary-300" link={`/profile/${data.publisher?.username}`}>مشاهده
                      پروفایل</Button>}
           />
           <div className="grid grid-cols-4 overflow-hidden mb-20 mt-10">
