@@ -3,6 +3,7 @@ import {useSearchTagsMutation} from "@/datasources/product/remote/ProductSliceAp
 import {Combobox, Transition} from "@headlessui/react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import _AutoCompleteLogic from "@/components/Form/elements/auto_complete/_AutoCompleteLogic";
+import classNames from "classnames";
 
 const TagAutoComplete = (props) => {
   return (
@@ -33,11 +34,10 @@ const TagAutoComplete = (props) => {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Combobox.Options
-                    className="absolute -right-2 top-2 z-[60] flex flex-wrap w-full text-white"
-                  >
+                    className={classNames("absolute right-0 top-2 left-0 z-[60] backdrop-blur flex flex-wrap gap-3 rounded-lg bg-secondary-400/80 w-full text-white",{"p-3":items.length})}>
                     {items.map((val, index) => (
                       <Combobox.Option
-                        className="btn rounded-none shadow-xl min-h-0 shadow-inner border-none p-7 cursor-pointer flex items-center gap-3 btn-primary font-bold h-[24px]"
+                        className="btn rounded-full shadow-xl min-h-0 shadow-inner border-none p-5 cursor-pointer flex items-center gap-3 btn-accent font-bold h-[24px]"
                         key={index} value={val}>
                         {val.title}
                       </Combobox.Option>

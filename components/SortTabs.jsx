@@ -42,7 +42,7 @@ export default function SortTabs({className, count}) {
 
   return (
     <div
-      className={`w-full flex gap-8 h-20 mt-4 mx-auto items-center lg:justify-between justify-end relative ${className}`}>
+      className={classNames(`w-full flex gap-8 h-20 mt-4 mx-auto items-center lg:justify-between justify-end relative ${className}`)}>
       <div className="flex items-center text-xl gap-2 min-w-[10rem] hidden">
         <BsSortDown className='text-3xl'></BsSortDown>
         مرتب سازی :
@@ -78,7 +78,7 @@ export default function SortTabs({className, count}) {
                   <Link scroll={false} href={{
                     pathname: router.pathname,
                     query: {...router.query, order: sortTab.query}
-                  }} className={classNames("p-2 group flex justify-between w-full items-center rounded-md px-3 py-3 text-base text-color6", {'text-primary': (router.query?.order ?? "newest") === sortTab.query})} key={key}>
+                  }} className={classNames("p-2 group flex justify-between w-full items-center rounded-md px-3 py-3 text-base text-color6", {'text-white bg-primary': (router.query?.order ?? "newest") === sortTab.query})} key={key}>
                     <span>{sortTab.title}</span>
                     {sortTab.query === router.query?.order &&
                         <CheckIcon

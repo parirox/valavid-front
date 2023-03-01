@@ -27,10 +27,11 @@ import classNames from "classnames";
 import ButtonIcon from "@/components/ButtonIcon";
 import {getCurrentBreakpoint} from "@/utils/tailwind/breakpoint";
 import Button from "@/components/Button";
+import { parse } from 'next-useragent'
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
-function Products({query}) {
+function Products({query,agent}) {
     const router = useRouter()
     const firstPage = useMemo(() => (query.page), [])
     const [page, setPage] = useState(parseInt(query.page))
@@ -49,7 +50,7 @@ function Products({query}) {
 
 
     const [filterChanged, setFilterChanged] = useState(false)
-    const [filterState, setFilterState] = useState(true);
+    const [filterState, setFilterState] = useState(agent?.isDesktop ?? true);
     const [formData, setFormData] = useState({
         price: [],
         resolution: [],
@@ -100,6 +101,7 @@ function Products({query}) {
             }, undefined, {scroll: false})
         }
     }, [filter_watcher, filterChanged, isFetching])
+
     useEffect(() => {
         if(["xs", "sm", "md"].includes(getCurrentBreakpoint())){
             setFilterState(false)
@@ -177,7 +179,7 @@ function Products({query}) {
                         فیلترها
                     </ButtonIcon>
                     <SortTabs count={data?.count}
-                              className={classNames("border-b border-solid border-secondary-400 lg:pr-52")}></SortTabs>
+                              className={classNames("border-b border-solid border-secondary-400 transition-400-linear",{"":filterState,"sm:pr-52":!filterState})}></SortTabs>
                 </div>
                 {isSuccess && <>
                     {data?.count === 0 && <NoContent/>}
@@ -241,6 +243,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     return {
         props: {
             query,
+            agent: parse(context.req.headers['user-agent'])
         }
     };
 });
