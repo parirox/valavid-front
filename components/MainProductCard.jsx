@@ -148,13 +148,13 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               <video ref={ref}
                      poster={data.media.cover}
                      autoPlay={false} preload="metadata" muted loop
-                     className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20 hover:autoPlay">
+                     className="absolute inset-0 h-full w-full object-cover transition-400-linear group-hover/popularCard:scale-110 z-20 hover:autoPlay">
                 <source src={data.media.src} type="video/mp4"/>
               </video>
               :
               <Image
                 src={data.media.src}
-                className="object-cover transition-400-linear group-hover/popularCard:scale-110 rounded-[2.6rem] z-20"
+                className="object-cover transition-400-linear group-hover/popularCard:scale-110 z-20"
                 fill
                 sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"
                 alt={data.media.alt}

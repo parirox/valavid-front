@@ -184,7 +184,7 @@ function Products({query,agent}) {
                 {isSuccess && <>
                     {data?.count === 0 && <NoContent/>}
                     {firstPage === 1 ? <InfiniteList
-                    className={classNames("grid gap-2 py-16", {
+                    className={classNames("grid gap-x-6 gap-y-8 py-16", {
                         'grid-cols-1 md:grid-cols-2 xl:grid-cols-3': filterState,
                         'md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4': !filterState
                     })}
@@ -201,7 +201,7 @@ function Products({query,agent}) {
                                                     data={item}/>
                         }}
                     </InfiniteList> : <div
-                    className={classNames("grid gap-2 py-16", {
+                    className={classNames("grid gap-x-6 gap-y-8 py-16", {
                         'grid-cols-1 md:grid-cols-2 xl:grid-cols-3': filterState,
                         'md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4': !filterState
                     })}>
@@ -215,7 +215,7 @@ function Products({query,agent}) {
                         <Pagination totalCount={data.count} currentPage={page} itemsPerPage={30}/>}
                     </div>
                 </>}
-                {isLoading && <div className={classNames("grid gap-2 gap-10 py-16", {
+                {isLoading && <div className={classNames("grid gap-x-6 gap-y-8 gap-10 py-16", {
                     'grid-cols-1 md:grid-cols-2 xl:grid-cols-3': filterState,
                     'md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4': !filterState
                 })}>

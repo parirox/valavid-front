@@ -14,17 +14,18 @@ const FirstSection = ({video, tags}) => {
       loop
       muted
       autoPlay
+      poster={"/images/valavid-intro-placeholder.webp"}
       preload={"metadata"}
       controls={false}
       className={"bg-primary/50 bg-blend-overlay mix-blend-overlay object-cover w-full"}
       >
-        <source src={"/videos/valavid-intro.mp4"} />
+        <source src={"/videos/valavid-intro.mp4#t=0.4,16"} />
       </video>
         <div className="bg-color2/60 absolute inset-0"></div>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-4/5 sm:w-3/5 xl:w-2/5 overflow-hidden flex flex-col items-center justify-center text-center gap-5">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl mb-4">والاوید بانک فوتیج ایران</h1>
-          <h5 className="text-lg sm:text-xl md:text-2xl">آلبوم کوچکی از زیبایی ها و فرهنگ های ایران عزیز</h5>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl mb-3">والاوید بانک فوتیج ایران</h1>
+          <h5 className="text-lg sm:text-xl md:text-xl text-color3 mb-3">آلبوم کوچکی از زیبایی ها و فرهنگ های ایران عزیز</h5>
           <div className={"w-full"}>
             <SelectSlider value={searchValue}/>
           </div>
