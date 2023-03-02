@@ -81,10 +81,10 @@ function FootageDetails({query}) {
         <Head>
           <title>والاوید | {data.title}</title>
         </Head>
-        <div className="container mt-20">
+        <div className="container mt-10 xl:mt-20">
           <ManageCollectionDialog/>
-          <div className="flex gap-24 flex-col md:flex-row md:items-stretch mb-32">
-            <div className="basis-full md:basis-7/12">
+          <div className="flex 2xl:gap-24 gap-16 flex-col xl:flex-row md:items-stretch mb-32">
+            <div className="basis-full lg:basis-7/12">
               <div className="relative w-full h-50">
                 {
                   data.type === "video" ?
@@ -109,7 +109,7 @@ function FootageDetails({query}) {
                 ))}
               </div>
             </div>
-            <div className="basis-full md:basis-5/12">
+            <div className="basis-full lg:basis-5/12">
               <div className="flex flex-col h-full gap-6">
                 <div className="basis-1/12 h-full">
                   <div className="flex justify-between items-center">
@@ -142,7 +142,7 @@ function FootageDetails({query}) {
                     {data.description}
                   </p>
                 </div>
-                <div className="basis-2/12 flex gap-3 h-full text-xl relative">
+                <div className="basis-2/12 flex gap-3 flex-wrap xl:flex-nowrap h-full text-xl relative">
                   <Popover className="relative">
                     <Popover.Button className="btn text-gray py-4 px-6 rounded-2xl btn-accent">
                       <IoInformationCircleOutline className="text-3xl"/>
@@ -237,26 +237,28 @@ function FootageDetails({query}) {
                       )}
                     </Popover.Panel>
                   </Popover>
-                  <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 mr-7 rounded-2xl btn-accent">
-                    <IoShareSocialOutline
-                      className="text-3xl"/></button>
-                  <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
-                          onClick={() => {
-                            if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
-                              myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res) => {
-                                setLikeCount(res.like_count)
-                              }) : addToFavorites({id: data.id}).unwrap().then((res) => {
-                                setLikeCount(res.like_count)
-                              })
-                            }
-                          }}>
-                    {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
+                  <div className={"flex gap-3 xl:mr-7"}>
+                    <button onClick={copyToClipboard} className="btn text-gray w-16 h-16 rounded-2xl btn-accent">
+                      <IoShareSocialOutline className="text-3xl"/>
+                    </button>
+                    <button title={"لایک کردن"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent text-3xl"
+                            onClick={() => {
+                              if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
+                                myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res) => {
+                                  setLikeCount(res.like_count)
+                                }) : addToFavorites({id: data.id}).unwrap().then((res) => {
+                                  setLikeCount(res.like_count)
+                                })
+                              }
+                            }}>
+                      {myFavoritesIds.includes(data.id) ? <IoHeart className={"text-danger"}/> :
                       <IoHeartOutline/>}
-                  </button>
-                  <button title={"اضافه کردن به مجموعه"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
-                          onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
-                    <CgFolderAdd className="text-3xl"/>
-                  </button>
+                    </button>
+                    <button title={"اضافه کردن به مجموعه"} className="btn text-gray w-16 h-16 rounded-2xl btn-accent"
+                            onClick={() => dispatch(setModalCollectionTo({active: true, footage_details: data}))}>
+                      <CgFolderAdd className="text-3xl"/>
+                    </button>
+                  </div>
                 </div>
                 <div className="basis-3/12">
                   {data.price?.off > 0 && <div className="flex items-center gap-3 mb-4">
