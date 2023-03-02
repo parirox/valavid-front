@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import classNames from "classnames";
 
 function Modal({
   isOpen,
@@ -36,7 +37,7 @@ function Modal({
         </Transition.Child>
 
         <div className="scrollbar-thin scrollbar-thumb-primary fixed inset-0 overflow-y-auto">
-          <div className={`flex min-h-full items-center justify-center p-4 text-center ${containerClass ? containerClass : ""}`}>
+          <div className={`flex min-h-full items-center justify-center md:p-4 text-center ${containerClass ? containerClass : ""}`}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -47,10 +48,9 @@ function Modal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`transform overflow-hidden  p-6 text-left align-middle shadow-xl transition-all ${
-                  customHeight ? customHeight : small ? "w-6/12" : big ? "w-full" : "w-8/12"
-                } ${background ? background : "bg-white"} ${modalClass ? modalClass : ""} ${rounded ? rounded : "rounded-2xl"}`}
-              >
+                className={
+                  classNames(`transform overflow-hidden p-1 md:p-6 text-left align-middle shadow-xl transition-all ${modalClass} ${rounded ? rounded : "rounded-2xl"} ${background ? background : "bg-white"} ${customHeight ? customHeight : (small ? "2xl:w-6/12 md:w-7/12 w-11/12" : big ? "w-full" : "2xl:w-8/12 md:w-9/12 w-11/12")}`)
+              }>
                 {title && (
                   <Dialog.Title
                     as="h3"

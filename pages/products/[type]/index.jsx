@@ -170,7 +170,7 @@ function Products({query,agent}) {
                     </div>
                 </div>
             </aside>
-            <div className="basis-full overflow-hidden px-10 transition-all pb-[10rem]">
+            <div className="basis-full overflow-hidden sm:px-10 px-5 transition-all pb-[10rem]">
                 <div>
                     <ButtonIcon
                     onClick={changePositionState}
