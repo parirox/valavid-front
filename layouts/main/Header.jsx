@@ -17,7 +17,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiFolderAddLine } from "react-icons/ri";
 import { Menu, Transition } from "@headlessui/react";
 import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import ValavidLogo from "@/public/icons/ValavidLogoWhite.svg";
@@ -26,7 +26,7 @@ const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const _cartItems = useSelector(cartItems);
-
+  const router = useRouter()
   const [logoutUser, { data: logoutData, isSuccess }] = useLogoutUserMutation();
   const {
     data: profileData,
@@ -196,7 +196,7 @@ const Header = ({ data, styleMode }) => {
       <header
         className={`${
           styleMode === "main"
-            ? "absolute top-[45px] inset-x-0 z-[1] bg-[#00000044]"
+            ? "absolute top-[45px] inset-x-0 z-[1]"
             : "py-7 bg-secondary-600"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
@@ -223,7 +223,9 @@ const Header = ({ data, styleMode }) => {
           <div className="lg:basis-6/12 h-full">
             <div className="flex flex-row gap-3 h-full">
               <div className="flex-auto hidden lg:flex">
-                <Select />
+                {
+                  router.asPath !== "/" && <Select />
+                }
               </div>
               {renderProfileBtn()}
               <div className="flex-initial">

@@ -9,17 +9,18 @@ import React, {useState} from "react";
 const FirstSection = ({video, tags}) => {
   const [searchValue, setSearchValue] = useState("")
   return (
-    <div className={"relative h-[800px] z-0 overflow-hidden"}>
+    <div className={"relative h-screen z-0 overflow-hidden"}>
       <video
       loop
       muted
       autoPlay
       preload={"metadata"}
       controls={false}
-      className={"object-cover w-full"}
+      className={"bg-primary/50 bg-blend-overlay mix-blend-overlay object-cover w-full"}
       >
-        <source src={"/videos/valavid-intro-main.mp4"} />
+        <source src={"/videos/valavid-intro.mp4"} />
       </video>
+        <div className="bg-color2/60 absolute inset-0"></div>
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-4/5 sm:w-3/5 xl:w-2/5 overflow-hidden flex flex-col items-center justify-center text-center gap-5">
           <h1 className="text-3xl sm:text-4xl md:text-5xl mb-4">والاوید بانک فوتیج ایران</h1>
@@ -29,7 +30,7 @@ const FirstSection = ({video, tags}) => {
           </div>
           <div className="flex gap-3 flex-wrap items-center w-full">
             <span className={"inline-block text-color3"}>برترین جستجوها: </span>
-            {tags.slice(0,5).map((v, i) => (
+            {tags.filter(({title})=>(!title.includes("["))).slice(0,5).map((v, i) => (
               <Chip href={`/products/video/?tags=${v.title}`} key={i} className={"btn-glass font-bold h-[24px]"}
                     content={v.title} icon={<IoSearchOutline/>}/>
             ))}
