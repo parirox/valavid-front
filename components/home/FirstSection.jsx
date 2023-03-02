@@ -16,7 +16,6 @@ const FirstSection = ({video, tags}) => {
       autoPlay
       preload={"metadata"}
       controls={false}
-      placeholder={""}
       className={"object-cover w-full"}
       >
         <source src={"/videos/valavid-intro-main.mp4"} />
