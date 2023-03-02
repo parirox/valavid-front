@@ -197,7 +197,7 @@ const Header = ({ data, styleMode }) => {
         className={`${
           styleMode === "main"
             ? "absolute top-[45px] inset-x-0 z-[1] bg-[#00000044]"
-            : "py-7 bg-color12"
+            : "py-7 bg-secondary-600"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
         <div className="flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-24 h-[45px]">
