@@ -15,6 +15,7 @@ import {BsShieldFillCheck} from "react-icons/bs";
 import {CgFolderAdd} from "react-icons/cg";
 import {FaCartPlus} from "react-icons/fa";
 import {
+    IoClose,
     IoHeart,
     IoHeartOutline,
     IoInformationCircleOutline,
@@ -80,22 +81,23 @@ function FootageDetails({query}) {
             <Head>
                 <title>والاوید | {data.title}</title>
             </Head>
-            <div className="sm:container mt-10 px-8 xl:mt-20">
+            <div className="mt-10 px-4 sm:container xl:mt-20">
                 <ManageCollectionDialog/>
                 <div className="mb-32 flex flex-col gap-6 md:items-stretch lg:flex-row lg:gap-16 2xl:gap-24">
                     <div className="basis-full md:basis-6/12">
                         <div className="relative w-full h-50">
-                            {data.type === "video" ? <video disablePictureInPicture
+                            {data.type === "video" ? <video key={data.id} disablePictureInPicture
                                                             controlsList="nofullscreen nodownload noremoteplayback noplaybackrate no"
                                                             autoPlay={false} preload='metadata' controls loop
                                                             className="object-cover full rounded-[2.6rem]">
                                 <source src={data.media.src} type="video/mp4"/>
                             </video> : <Image src={data.media.src} alt={data.media.alt} fill
                                               className="object-cover full rounded-[2.6rem]"/>}
-                            <ButtonIcon icon={<IoHeart className={"text-2xl"}/>}
-                                        className={"btn-accent opacity-80 absolute top-14 right-8 flex-row-reverse justify-center text-lg gap-1 z-40"}>
+                            {!likeCount && <ButtonIcon icon={<IoHeart className={"sm:text-2xl"}/>}
+                                        className={"btn-accent opacity-80 absolute sm:top-14 top-5 py-1 px-3 sm:right-8 right-5 flex-row-reverse justify-center text-lg gap-1 z-40"}>
                                 {likeCount}
                             </ButtonIcon>
+                            }
                         </div>
                         <div className="mt-6 hidden flex-wrap justify-start gap-3 lg:flex">
                             {data.tags.map((v, i) => (<Chip href={`/products/${data.type}/?tags=${v.label}`} key={i}
@@ -104,7 +106,7 @@ function FootageDetails({query}) {
                         </div>
                     </div>
                     <div className="basis-full md:basis-6/12">
-                        <div className="flex h-full flex-col gap-6">
+                        <div className="flex h-full flex-col gap-10 sm:gap-6">
                             <div className="h-full basis-1/12">
                                 <Divider
                                 className={"md:!justify-around lg:!justify-between"}
@@ -120,11 +122,11 @@ function FootageDetails({query}) {
                                              <span className="text-gray">فیلم بردار: </span>
                                              <span className="text-success-100">{data.author?.name}</span>
                                          </div>}
-                                         end={<div className="flex-none text-gray hidden sm:block">
+                                         end={<div className="hidden flex-none text-gray sm:block">
                                              <span>تاریخ بارگزاری: </span>
                                              <span>{dateFormat(data.created_at)}</span>
                                          </div>}
-                                         dividerLine={<div className={"w-[1px] h-5 bg-secondary-100"}></div>}
+                                         dividerLine={<div className={"w-[1px] h-5 bg-secondary-100 hidden sm:block"}></div>}
                                 />
                             </div>
                             <div className="basis-3/12">
@@ -132,13 +134,12 @@ function FootageDetails({query}) {
                                 {data.devices &&
                                 <div className="mb-4 flex items-center gap-3"><MdCamera className={"text-2xl"}/>
                                     <span>{data.devices}</span></div>}
-                                <p className="text-lg leading-9 text-secondary-300">
+                                <p className="text-lg leading-9 text-secondary-300 max-sm:hidden">
                                     {data.description}
                                 </p>
                             </div>
                             <div className="basis-3/12">
-                                <div
-                                className="relative flex sm:h-16 flex-wrap justify-between gap-3 text-xl lg:justify-start xl:flex-nowrap">
+                                <div className="relative flex flex-wrap gap-3 text-xl sm:h-16 lg:justify-start xl:flex-nowrap max-sm:justify-center">
                                     <div className={"flex gap-3"}>
                                         <Popover>
                                             <Popover.Button
@@ -147,17 +148,27 @@ function FootageDetails({query}) {
                                                 <span className="ml-2">اطلاعات بیشتر</span>
                                             </Popover.Button>
                                             <Popover.Panel
-                                            className="absolute right-0 z-40 mt-3 max-w-3xl rounded-3xl border p-7 bg-secondary border-accent">
+                                            className="fixed max-sm:inset-2 z-50 mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-3xl rounded-3xl">
+                                                {({close,open}) => (
                                                 <Transition
-                                                as={Fragment}
-                                                enter="transition ease-out duration-200"
-                                                enterFrom="opacity-0 translate-y-1"
-                                                enterTo="opacity-100 translate-y-0"
-                                                leave="transition ease-in duration-150"
-                                                leaveFrom="opacity-100 translate-y-0"
-                                                leaveTo="opacity-0 translate-y-1"
+                                                show={open}
+                                                appear
+                                                enter="transition duration-300 ease-out"
+                                                enterFrom="transform scale-95 opacity-0"
+                                                enterTo="transform scale-100 opacity-100"
+                                                leave="transition duration-150 ease-out"
+                                                leaveFrom="transform scale-100 opacity-100"
+                                                leaveTo="transform scale-95 opacity-0"
                                                 >
-                                                    <ul className="grid grid-cols-4 p-3 grid-row-2 min-w-40 min-h-40">
+
+                                                    <div className="mb-3 flex flex-wrap justify-between sm:hidden">
+                                                        <span className='text-lg text-gray'>اطلاعات بیشتر</span>
+                                                        <IoClose onClick={close} className={"text-secondary-300 text-2xl"}/>
+                                                        <p className="my-16 basis-full">
+                                                            {data.description}
+                                                        </p>
+                                                    </div>
+                                                    <ul className="grid md:grid-cols-4 grid-cols-3 p-3 min-w-40 min-h-40">
                                                         {data.extra_information?.resolution &&
                                                         <li className="mb-3 flex flex-col gap-2">
                                                             <span className='text-lg text-gray'>رزولوشن</span>
@@ -204,9 +215,9 @@ function FootageDetails({query}) {
                                                         </li>}
                                                     </ul>
                                                     <ul
-                                                    className="grid grid-cols-5 place-items-center rounded-3xl p-4 bg-accent grid-row-2 min-w-40 min-h-40">
+                                                    className="grid md:grid-cols-5 sm:grid-cols-4 grid-cols-3 place-items-center rounded-3xl p-4 bg-accent grid-row-2 min-w-40 min-h-40">
                                                         {data.extra_information.rates.filter(v => (!!v.rate)).map((rate, key) => (
-                                                        <li key={key} className="mb-5 flex flex-col gap-2">
+                                                        <li key={key} className="mb-5 flex flex-col flex-wrap gap-2">
                                                                 <span className="mx-auto mb-2 block h-20 w-20">
                                                                     <RatePieChart data={rate}/>
                                                                 </span>
@@ -214,30 +225,34 @@ function FootageDetails({query}) {
                                                         </li>))}
                                                     </ul>
                                                 </Transition>
+                                                )}
                                             </Popover.Panel>
                                         </Popover>
                                         <Popover>
                                             <Popover.Button className="h-full rounded-2xl border-2 px-5 btn text-gray btn-secondary-300 border-accent">
                                                 <IoWarningOutline className="text-3xl"/>
-                                                <span className="ml-2">گزارش</span>
+                                                <span className="ml-2 hidden sm:inline-block">گزارش</span>
                                             </Popover.Button>
                                             <Popover.Panel
-                                            className="absolute right-0 z-40 mt-3 max-w-2xl rounded-3xl border px-7 py-10 bg-secondary border-accent">
-                                                {({close}) => (<Transition
-                                                as={Fragment}
-                                                enter="transition ease-out duration-200"
-                                                enterFrom="opacity-0 translate-y-1"
-                                                enterTo="opacity-100 translate-y-0"
-                                                leave="transition ease-in duration-150"
-                                                leaveFrom="opacity-100 translate-y-0"
-                                                leaveTo="opacity-0 translate-y-1"
+                                            className="fixed max-sm:inset-0 max-sm:top-auto z-50 mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-2xl sm:rounded-3xl">
+                                                {({close,open}) => (
+                                                <Transition
+                                                show={open}
+                                                appear
+                                                enter="transition duration-300 ease-out"
+                                                enterFrom="transform scale-95 opacity-0"
+                                                enterTo="transform scale-100 opacity-100"
+                                                leave="transition duration-150 ease-out"
+                                                leaveFrom="transform scale-100 opacity-100"
+                                                leaveTo="transform scale-95 opacity-0"
                                                 >
                                                     <ReportModal close={close} product={data.id}/>
-                                                </Transition>)}
+                                                </Transition>
+                                                )}
                                             </Popover.Panel>
                                         </Popover>
                                     </div>
-                                    <div className={"flex gap-3 xl:mr-7 lg:mr-0 mr-7"}>
+                                    <div className={"flex gap-3 xl:mr-7 lg:mr-0 sm:mr-7"}>
                                         <button onClick={copyToClipboard}
                                                 className="aspect-square h-full rounded-2xl btn text-gray btn-accent">
                                             <IoShareSocialOutline className="text-3xl"/>
@@ -299,7 +314,7 @@ function FootageDetails({query}) {
                             badge={<span
                             className="absolute -top-3 -right-3 rounded-full bg-white p-2 text-xl text-success-100"><BsShieldFillCheck/></span>}/>
                     <span>بیشتر از {data.publisher?.name}</span>
-                </div>)} end={<Button className="btn-accent text-secondary-300"
+                </div>)} end={<Button className="btn-accent text-secondary-300 max-sm:px-3"
                                       link={`/profile/${data.publisher?.username}`}>مشاهده
                     پروفایل</Button>}
                 />

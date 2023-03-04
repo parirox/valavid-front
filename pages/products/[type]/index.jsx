@@ -48,7 +48,6 @@ function Products({query,agent}) {
         error: filterError,
     } = useGetProductListFilterQuery({query: {type: query.type}});
 
-
     const [filterChanged, setFilterChanged] = useState(false)
     const [filterState, setFilterState] = useState(agent?.isDesktop ?? true);
     const [formData, setFormData] = useState({

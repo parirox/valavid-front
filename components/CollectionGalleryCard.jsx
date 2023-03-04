@@ -35,7 +35,7 @@ const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHa
           {index === 3 && (
             <span className="absolute inset-0 flex items-center justify-center text-4xl z-20 ">
               <span className="text-slate-50" dir="ltr">
-                {total_count.length > 4 &&  "+" + total_count-4}
+                {total_count > 4 && `+${total_count-4}`}
               </span>
             </span>
           )}

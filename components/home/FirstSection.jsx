@@ -17,7 +17,7 @@ const FirstSection = ({video, tags}) => {
       poster={"/images/valavid-intro-placeholder.webp"}
       preload={"metadata"}
       controls={false}
-      className={"bg-primary/50 bg-blend-overlay mix-blend-overlay object-cover w-full"}
+      className={"bg-primary/50 bg-blend-overlay mix-blend-overlay object-cover full"}
       >
         <source src={"/videos/valavid-intro.mp4#t=0.4,16"} />
       </video>

@@ -58,7 +58,7 @@ export const ApiEndpoint = {
   publisher: {
     profile: "/publishers/:username/",
     collection: "/publishers/:username/collections/",
-    product: "/publishers/:username/products/",
+    product: "/publishers/:username/products/?page=:page",
     achievements: "/publishers/:username/achievements/",
   },
   user: {

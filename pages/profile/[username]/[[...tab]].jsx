@@ -52,7 +52,6 @@ function Profile({query, targetTab}) {
   const aideCardInitialPosition = useRef();
 
   useEffect(() => {
-    console.log(asideCard?.current)
     if (!isEmpty(asideCard.current)) {
       if (isEmpty(aideCardInitialPosition?.current)) aideCardInitialPosition.current = asideCard.current.getBoundingClientRect().top;
       const onScroll = () => {
@@ -179,7 +178,7 @@ function Profile({query, targetTab}) {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
 
-    const query = {...context.params}
+    const query = {...context.query}
     const tabId = !isEmpty(query.tab)
       ? query.tab[0]
       : tabs[1].id;
@@ -192,7 +191,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         store.dispatch(GetPublisherAchievements.initiate(context.params))
         break;
       case "Products":
-        store.dispatch(GetPublisherProduct.initiate(context.params))
+        store.dispatch(GetPublisherProduct.initiate({...context.query}))
         break;
       case "Collections":
         store.dispatch(GetPublisherCollection.initiate(context.params))
