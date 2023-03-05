@@ -94,7 +94,7 @@ function FootageDetails({query}) {
                             </video> : <Image src={data.media.src} alt={data.media.alt} fill
                                               className="object-cover full rounded-[2.6rem]"/>}
                             {!likeCount && <ButtonIcon icon={<IoHeart className={"sm:text-2xl"}/>}
-                                        className={"btn-accent opacity-80 absolute sm:top-14 top-5 py-1 px-3 sm:right-8 right-5 flex-row-reverse justify-center text-lg gap-1 z-40"}>
+                                                       className={"btn-accent opacity-80 absolute sm:top-14 top-5 py-1 px-3 sm:right-8 right-5 flex-row-reverse justify-center text-lg gap-1 z-40"}>
                                 {likeCount}
                             </ButtonIcon>
                             }
@@ -111,22 +111,22 @@ function FootageDetails({query}) {
                                 <Divider
                                 className={"md:!justify-around lg:!justify-between"}
                                 start={<Link href={`/profile/${data.publisher?.username}`}
-                                                      className="flex items-center gap-3">
+                                             className="flex items-center gap-3">
                                     <Avatar src={data.publisher?.profile_image} alt={data.publisher?.name}
                                             size={50}
                                             badge={<span
                                             className="absolute -top-3 -right-3 rounded-full bg-white p-2 text-xl text-success-100"><BsShieldFillCheck/></span>}/>
                                     <span className="text-lg">{data.publisher?.name}</span>
                                 </Link>}
-                                         middle={<div className="flex-none">
-                                             <span className="text-gray">فیلم بردار: </span>
-                                             <span className="text-success-100">{data.author?.name}</span>
-                                         </div>}
-                                         end={<div className="hidden flex-none text-gray sm:block">
-                                             <span>تاریخ بارگزاری: </span>
-                                             <span>{dateFormat(data.created_at)}</span>
-                                         </div>}
-                                         dividerLine={<div className={"w-[1px] h-5 bg-secondary-100 hidden sm:block"}></div>}
+                                middle={<div className="flex-none">
+                                    <span className="text-gray">فیلم بردار: </span>
+                                    <span className="text-success-100">{data.author?.name}</span>
+                                </div>}
+                                end={<div className="hidden flex-none text-gray sm:block">
+                                    <span>تاریخ بارگزاری: </span>
+                                    <span>{dateFormat(data.created_at)}</span>
+                                </div>}
+                                dividerLine={<div className={"w-[1px] h-5 bg-secondary-100 hidden sm:block"}></div>}
                                 />
                             </div>
                             <div className="basis-3/12">
@@ -139,7 +139,8 @@ function FootageDetails({query}) {
                                 </p>
                             </div>
                             <div className="basis-3/12">
-                                <div className="relative flex flex-wrap gap-3 text-xl sm:h-16 lg:justify-start xl:flex-nowrap max-sm:justify-center">
+                                <div
+                                className="relative flex flex-wrap gap-3 text-xl sm:h-16 lg:justify-start xl:flex-nowrap max-sm:justify-center">
                                     <div className={"flex gap-3"}>
                                         <Popover>
                                             <Popover.Button
@@ -148,8 +149,8 @@ function FootageDetails({query}) {
                                                 <span className="ml-2">اطلاعات بیشتر</span>
                                             </Popover.Button>
                                             <Popover.Panel
-                                            className="fixed max-sm:inset-2 z-50 mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-3xl rounded-3xl">
-                                                {({close,open}) => (
+                                            className="fixed max-sm:inset-2 z-50 sm:mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-3xl rounded-3xl">
+                                                {({close, open}) => (
                                                 <Transition
                                                 show={open}
                                                 appear
@@ -160,15 +161,16 @@ function FootageDetails({query}) {
                                                 leaveFrom="transform scale-100 opacity-100"
                                                 leaveTo="transform scale-95 opacity-0"
                                                 >
-
                                                     <div className="mb-3 flex flex-wrap justify-between sm:hidden">
                                                         <span className='text-lg text-gray'>اطلاعات بیشتر</span>
-                                                        <IoClose onClick={close} className={"text-secondary-300 text-2xl"}/>
+                                                        <IoClose onClick={close}
+                                                                 className={"text-secondary-300 text-2xl"}/>
                                                         <p className="my-16 basis-full">
                                                             {data.description}
                                                         </p>
                                                     </div>
-                                                    <ul className="grid md:grid-cols-4 grid-cols-3 p-3 min-w-40 min-h-40">
+                                                    <ul
+                                                    className="grid md:grid-cols-4 grid-cols-3 p-3 min-w-40 min-h-40">
                                                         {data.extra_information?.resolution &&
                                                         <li className="mb-3 flex flex-col gap-2">
                                                             <span className='text-lg text-gray'>رزولوشن</span>
@@ -229,13 +231,14 @@ function FootageDetails({query}) {
                                             </Popover.Panel>
                                         </Popover>
                                         <Popover>
-                                            <Popover.Button className="h-full rounded-2xl border-2 px-5 btn text-gray btn-secondary-300 border-accent">
+                                            <Popover.Button
+                                            className="h-full rounded-2xl border-2 px-5 btn text-gray btn-secondary-300 border-accent">
                                                 <IoWarningOutline className="text-3xl"/>
                                                 <span className="ml-2 hidden sm:inline-block">گزارش</span>
                                             </Popover.Button>
                                             <Popover.Panel
-                                            className="fixed max-sm:inset-0 max-sm:top-auto z-50 mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-2xl sm:rounded-3xl">
-                                                {({close,open}) => (
+                                            className="fixed max-sm:inset-2 z-50 sm:mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-2xl rounded-3xl">
+                                                {({close, open}) => (
                                                 <Transition
                                                 show={open}
                                                 appear
