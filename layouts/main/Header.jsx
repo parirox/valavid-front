@@ -17,7 +17,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiFolderAddLine } from "react-icons/ri";
 import { Menu, Transition } from "@headlessui/react";
 import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import { IoSearchOutline } from "react-icons/io5";
@@ -29,7 +29,7 @@ const Header = ({ data, styleMode }) => {
   const [showNav, setShowNav] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   const _cartItems = useSelector(cartItems);
-
+  const router = useRouter()
   const [logoutUser, { data: logoutData, isSuccess }] = useLogoutUserMutation();
   const {
     data: profileData,
@@ -202,8 +202,8 @@ const Header = ({ data, styleMode }) => {
       <header
         className={`${
           styleMode === "main"
-            ? "absolute top-[45px] inset-x-0 z-[1] bg-[#00000044]"
-            : "py-7 bg-color12"
+            ? "absolute top-[45px] inset-x-0 z-[1]"
+            : "py-7 bg-secondary-600"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
         {

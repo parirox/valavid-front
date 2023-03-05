@@ -53,7 +53,11 @@ const ReportModal = (props) => {
               }}
             />
 
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-4">
+              <Button className={"btn-ghost text-left px-10 sm:hidden"} onClick={props.close}>
+                بستن
+                {isLoading && <AiOutlineLoading3Quarters className={"animate-spin"}/>}
+              </Button>
               <Button className={"btn-danger text-left px-10"} onClick={submit}>
                 ثبت
                 {isLoading && <AiOutlineLoading3Quarters className={"animate-spin"}/>}
