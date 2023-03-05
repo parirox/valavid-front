@@ -20,11 +20,14 @@ import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
 import Router from "next/router";
 import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
-import ValavidLogo from "@/public/icons/ValavidLogoWhite.svg";
+import { IoSearchOutline } from "react-icons/io5";
+import ValavidLogo from "@/public/icons/ValavidLogo.svg";
+import {IoClose} from "react-icons/io5";
 
 const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
   const [showNav, setShowNav] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
   const _cartItems = useSelector(cartItems);
 
   const [logoutUser, { data: logoutData, isSuccess }] = useLogoutUserMutation();
@@ -135,13 +138,16 @@ const Header = ({ data, styleMode }) => {
       );
     } else {
       return (
-        <div className="basis-2/12">
+        <div className="lg:basis-2/12">
           <Button
-            className={"rounded-full full btn-primary min-w-[130px]"}
+            className={"rounded-full full btn-primary min-w-[130px] hidden lg:flex items-center justify-center"}
             link={"/auth"}
             icon={<IoPerson className="text-lg" />}
           >
             عضویت / ورود
+          </Button>
+          <Button link={"/auth"} className="[&>svg>path]:fill-white lg:hidden rounded-full bg-primary h-full w-[4rem] h-[4rem] relative flex items-center justify-center">
+            <ProfileIcon />
           </Button>
         </div>
       );
@@ -200,46 +206,56 @@ const Header = ({ data, styleMode }) => {
             : "py-7 bg-color12"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
-        <div className="flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-24 h-[45px]">
-          <div className="basis-1/12 text-white hidden lg:flex">
-            <Link href={"/"}>
+        {
+          showSelect ? (
+            <div className="flex items-center gap-4 px-6">
+              <IoClose className="text-3xl cursor-pointer" onClick={()=>setShowSelect(false)}/>
+              <Select/>
+
+            </div>
+          ) :(
+            <div className="relative flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-8 lg:px-24 h-[45px]">
+            <div className="lg:basis-1/12 text-white hidden lg:flex">
+              <Link href={"/"}>Valavid</Link>
+            </div>
+            <div className="lg:hidden flex items-center gap-6 text-3xl cursor-pointer">
+              <FiMenu onClick={() => setShowNav(true)} />
+              <IoSearchOutline onClick={() => setShowSelect(true)} />
+            </div>
+            <div className="mx-auto absolute left-0 right-0 w-fit lg:hidden [&>svg>g>path]:fill-white [&>svg>g>circle]:fill-white">
               <ValavidLogo />
-            </Link>
-          </div>
-          <div
-            onClick={() => setShowNav(true)}
-            className="lg:hidden text-3xl cursor-pointer"
-          >
-            <FiMenu />
-          </div>
-          <div className="basis-5/12 xl:basis-6/12 xl:mr-16">
-            <Navbar
-              showNav={showNav}
-              setShowNav={setShowNav}
-              styleMode={styleMode}
-              profileData={isLogedin && profileIsSuccess ? profileData : null}
-            />
-          </div>
-          <div className="lg:basis-6/12 h-full">
-            <div className="flex flex-row gap-3 h-full">
-              <div className="flex-auto hidden lg:flex">
-                <Select />
-              </div>
-              {renderProfileBtn()}
-              <div className="flex-initial">
-                <ButtonIcon
-                  link={"/cart"}
-                  className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
-                  icon={<BsCart2 className="text-white text-2xl mx-auto" />}
-                >
-                  <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
-                    {_cartItems.length}
-                  </span>
-                </ButtonIcon>
+            </div>
+            <div className="lg:basis-5/12">
+              <Navbar
+                showNav={showNav}
+                setShowNav={setShowNav}
+                styleMode={styleMode}
+                profileData={isLogedin && profileIsSuccess ? profileData : null}
+              />
+            </div>
+            <div className="lg:basis-6/12 h-full">
+              <div className="flex flex-row gap-3 h-full">
+                <div className="basis-9/12 hidden lg:flex">
+                  <Select />
+                </div>
+                {renderProfileBtn()}
+                <div className="basis-1/12">
+                  <ButtonIcon
+                    link={"/cart"}
+                    className="rounded-full bg-accent h-full w-[4rem] h-[4rem] relative"
+                    icon={<BsCart2 className="text-white text-2xl mx-auto" />}
+                  >
+                    <span className="absolute right-0 top-0 bg-primary rounded-full w-5 h-5 text-center">
+                      {_cartItems.length}
+                    </span>
+                  </ButtonIcon>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          )
+        }
+       
       </header>
     );
   }

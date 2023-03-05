@@ -168,7 +168,7 @@ const Products = () => {
     formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3));
     productInfo.device && formData.append("device", JSON.stringify(productInfo.device));
     productInfo.lens && formData.append("lens", JSON.stringify(productInfo.lens));
-    formData.append("publish_type", "free");
+    formData.append("publish_type", publish_type);
     formData.append("file", productInfo.file.path);
 
     addProduct(formData)

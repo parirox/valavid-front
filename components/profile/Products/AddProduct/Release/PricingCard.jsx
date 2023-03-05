@@ -12,7 +12,7 @@ const PricingCard = ({ handleSubmit }) => {
           انتشار پس از قیمت گذاری محصول شما توسط کارشناسان و کسب درامد.
         </p>
         <Button
-          onClick={() => handleSubmit("NonFree")}
+          onClick={() => handleSubmit("nonfree")}
           className="w-[100%] h-[4rem] rounded-[20px] btn-primary mt-4 block"
         >
           قیمت گذاری و انتشار

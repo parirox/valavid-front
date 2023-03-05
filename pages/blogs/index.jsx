@@ -74,7 +74,7 @@ function BlogList({query}) {
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
         <div className="container flex gap-16 pt-16 pb-80">
-          <div className="basis-1/3">
+          <div className="hidden lg:block basis-1/3">
             <div className="col-span-3 flex flex-col gap-3 items-end text-right">
               <span className="text-2xl text-secondary block w-full">
                 اشتراک خبرنامه
@@ -107,20 +107,20 @@ function BlogList({query}) {
             </div>
             {blogCategories && <MenuBlogs menuBlogsData={blogCategories}/>}
           </div>
-          <div className="basis-2/3">
-            <BlogBox
-              key={blogsData.results[0].id}
-              id={blogsData.results[0].id}
-              className="mb-5"
-              row
-              title={blogsData.results[0].title}
-              description={blogsData.results[0].description}
-              tags={blogsData.results[0].tags || []}
-              image={blogsData.results[0].media}
-              date={blogsData.results[0].date}
-            />
-            <div className="flex gap-5 w-100">
-              <div className="w-100 basis-1/2">
+          <div className="lg:basis-2/3">
+            <Link href={`/blogs/${blogsData.results[0].id}`}>
+              <BlogBox
+                className="mb-5"
+                row
+                title={blogsData.results[0].title}
+                description={blogsData.results[0].description}
+                tags={blogsData.results[0].tags || []}
+                image={blogsData.results[0].media}
+                date={blogsData.results[0].date}
+              ></BlogBox>
+            </Link>
+            <div className="flex flex-col sm:flex-row gap-5 w-100">
+              <div className="w-full sm:basis-1/2">
                 {blogsData.results.map((blog, index) => (
                   <Fragment key={blog.id}>
                     {index % 2 !== 0 && index !== 0 && (
@@ -138,7 +138,7 @@ function BlogList({query}) {
                   </Fragment>
                 ))}
               </div>
-              <div className="w-100 basis-1/2">
+              <div className="w-full sm:basis-1/2">
                 {blogsData.results.map((blog, index) => (
                   <Fragment key={blog.id}>
                     {index % 2 === 0 && index !== 0 && (
