@@ -35,10 +35,10 @@ function App({Component, router, ...rest}) {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                     />
-                    <meta name="theme-color" content={fullConfig.theme.colors["secondary-500"]}/>
-                    <meta name="msapplication-navbutton-color" content={fullConfig.theme.colors["secondary-500"]}/>
+                    <meta name="theme-color" content={"00101C"}/>
+                    <meta name="msapplication-navbutton-color" content={"00101C"}/>
                     <meta name="apple-mobile-web-app-status-bar-style"
-                          content={fullConfig.theme.colors["secondary-500"]}/>
+                          content={"00101C"}/>
                 </Head>
                 <Toaster/>
                 <NextNProgress color="#534CDA"/>
