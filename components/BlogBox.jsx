@@ -17,12 +17,12 @@ export default function BlogBox(props) {
   return (
     <div
       className={`group bg-white min-h-[300px] p-3 rounded-[29px] box-shadow flex ${className} ${
-        row ? "flex-row-reverse w-100" : "flex-col"
+        row ? "w-100 flex-col md:flex-row-reverse" : "flex-col"
       }`}
     >
       <div
         className={`relative overflow-hidden rounded-[2rem] ${
-          row ? "w-7/12 h-100" : "w-100 min-h-[20rem]"
+          row ? "md:w-7/12 min-h-[20rem] sm:min-h-[30rem] md:h-100" : "w-100 min-h-[20rem]"
         }`}
       >
         <Chip
@@ -38,9 +38,9 @@ export default function BlogBox(props) {
           sizes={"33vw"}
         ></Image>
       </div>
-      <div className={`p-5 ${row ? "w-5/12" : "w-100"}`}>
+      <div className={`p-5 ${row ? "w-full md:w-5/12" : "w-100"}`}>
         <h4
-          className={`text-black font-semibold text-[1.6rem] group-hover:text-primary transition-all w-100 pb-7 ${
+          className={`text-black font-semibold leading-10 text-xl lg:text-[1.6rem] group-hover:text-primary transition-all w-100 pb-7 ${
             row ? "pt-1" : "pt-4"
           }`}
         >

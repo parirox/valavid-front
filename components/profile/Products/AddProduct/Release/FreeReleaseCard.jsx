@@ -13,7 +13,7 @@ const FreeReleaseCard = ({ handleSubmit }) => {
           از ان استفاده کنند.
         </p>
         <Button
-          onClick={() => handleSubmit("Free")}
+          onClick={() => handleSubmit("free")}
           className="w-[100%] h-[4rem] rounded-[20px] bg-[#42C950] mt-4 block"
         >
           انتشار رایگان

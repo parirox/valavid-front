@@ -82,7 +82,7 @@ function BlogList() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
         <div className="container flex gap-16 pt-16 pb-80">
-          <div className="basis-1/3">
+          <div className="hidden lg:block basis-1/3">
             <div className="col-span-3 flex flex-col gap-3 items-end text-right">
               <span className="text-2xl text-secondary block w-full">
                 اشتراک خبرنامه
@@ -121,7 +121,7 @@ function BlogList() {
               ></MenuBlogs>
             )}
           </div>
-          <div className="basis-2/3">
+          <div className="lg:basis-2/3">
             <Link href={`/blogs/${blogsData.results[0].id}`}>
               <BlogBox
                 className="mb-5"
@@ -133,8 +133,8 @@ function BlogList() {
                 date={blogsData.results[0].date}
               ></BlogBox>
             </Link>
-            <div className="flex gap-5 w-100">
-              <div className="w-100 basis-1/2">
+            <div className="flex flex-col sm:flex-row gap-5 w-100">
+              <div className="w-full sm:basis-1/2">
                 {blogsData.results.map((blog, index) => (
                   <Link href={`/blogs/${blog.id}`} key={blog + index}>
                     {index % 2 != 0 && index != 0 ? (
@@ -153,7 +153,7 @@ function BlogList() {
                   </Link>
                 ))}
               </div>
-              <div className="w-100 basis-1/2">
+              <div className="w-full sm:basis-1/2">
                 {blogsData.results.map((blog, index) => (
                   <Link href={`/blogs/${blog.id}`} key={blog + index}>
                     {index % 2 == 0 && index != 0 ? (

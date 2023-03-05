@@ -36,7 +36,7 @@ function SingleBlog() {
             <Image
               src={blog.media.src}
               alt={blog.media.alt}
-              className="z-10 w-100 h-[450px] mx-auto rounded-md"
+              className="z-10 w-100 h-[350px] sm:h-[450px] mx-auto rounded-md"
               width={1000}
               height={200}
             ></Image>
@@ -101,7 +101,7 @@ function SingleBlog() {
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               />
             }
-            <div className="flex pt-8 pb-16 gap-6 items-center text-lg text-secondary">
+            <div className="flex pt-8 pb-16 gap-6 items-center text-lg text-secondary flex-wrap whitespace-nowrap">
               کلید واژه ها:
               {blog.tags.map((tag, index) => (
                 <Fragment key={index}>
@@ -114,12 +114,12 @@ function SingleBlog() {
               ))}
             </div>
             <p className="pb-8 pt-12 text-secondary-200">مشابه</p>
-            <div className="flex flex-wrap gap-8">
+            <div className="flex gap-8 overflow-auto hide-scrollbar">
               {blog.similar.map((item, k) => (
                 <Link
                 href={`/blogs/${item.id}`}
                   key={k}
-                  className="w-[calc(33.32%_-_1.34rem)] bg-white rounded-2xl shadow-md"
+                  className="w-[calc(33.32%_-_1.34rem)] bg-white rounded-2xl shadow-md min-w-[250px]"
                 >
                   <div className="w-100 h-52 relative overflow-hidden">
                     <Image
@@ -152,7 +152,7 @@ function SingleBlog() {
                       {moment(item.date, "YYYY/MM/DD").locale("fa").format("YYYY/MM/DD")}
                     </div>
                   </div>
-                  <h4 className="text-black px-4 pt-4 pb-11">
+                  <h4 className="text-black px-4 pt-4 pb-11 text-xl lg:text-2xl leading-10">
                     {item.title}
                   </h4>
                 </Link>
