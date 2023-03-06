@@ -18,11 +18,8 @@ import { RiFolderAddLine } from "react-icons/ri";
 import { Menu, Transition } from "@headlessui/react";
 import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
 import Router, { useRouter } from "next/router";
-import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
-import { IoSearchOutline } from "react-icons/io5";
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
-import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { setShowSearch, showSearch } from "@/datasources/blog/local/BlogSlice";
 
