@@ -43,7 +43,7 @@ const Password = ({
           <span>بازگشت</span>
         </div>
       </div>
-      <div className="m-4 flex flex-col mt-[7rem]">
+      <div className="m-4 flex flex-col mt-[3rem]">
         <p className="mb-3 text-[14px] text-[#303D47]">
           رمز عبور جدید خود را وارد کنید.
         </p>

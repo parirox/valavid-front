@@ -10,7 +10,8 @@ import {
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { setCookie } from "cookies-next";
-import {isEmpty} from "@/utils/general";
+import { isEmpty } from "@/utils/general";
+import Avatar from "@/public/images/Avatar.svg";
 
 const Login = ({ setSelectedTab }) => {
   const { data: session } = useSession();
@@ -42,10 +43,9 @@ const Login = ({ setSelectedTab }) => {
       .unwrap()
       .then((response) => {
         setCookie("valavid_token", response.token);
-        if(!isEmpty(router.query?.callback)){
+        if (!isEmpty(router.query?.callback)) {
           router.push(router.query.callback);
-        }
-        else{
+        } else {
           router.push("/profile/me");
         }
       })
@@ -54,7 +54,10 @@ const Login = ({ setSelectedTab }) => {
       });
   };
   return (
-    <div className="flex flex-col mt-[4rem]">
+    <div className="flex flex-col mt-[2rem]">
+      <div className="mx-auto mb-[1rem] flex items-center justify-center bg-black rounded-full pt-[1rem] pl-[2px] w-[6rem] h-[6rem] bg-[#D6DADC]">
+      <Avatar />
+      </div>
       <TextInput
         name="username"
         type="text"
@@ -81,7 +84,7 @@ const Login = ({ setSelectedTab }) => {
           ورود
         </button>
         <button
-          onClick={() => signIn('google')}
+          onClick={() => signIn("google")}
           className="border border-secondary-300 flex items-center justify-center text-[#54626C] mx-4 mt-1 h-[4.063rem] rounded-[1.438rem]"
         >
           <span>ورود با حساب گوگل</span>

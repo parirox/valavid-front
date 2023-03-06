@@ -82,7 +82,7 @@ const SignUpForm = ({ signupData, setSignupData, setSelectedTab }) => {
     }
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-[2rem]">
       <div className="flex flex-wrap">
         {inputs.map((input, index) => (
           <div className="w-[50%]" key={index}>

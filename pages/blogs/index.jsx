@@ -9,23 +9,22 @@ import blog_api, {
 import Head from "next/head";
 import Link from "next/link";
 import Error404 from "../404";
-import {wrapper} from "@/datasources/store";
-import {Fragment, useState} from "react";
+import { wrapper } from "@/datasources/store";
+import { Fragment, useState } from "react";
 import _toast from "@/utils/notification/toast";
 import toast from "@/utils/notification/toast";
-import {handleApiError} from "@/datasources/errorHandler";
-import {IoMailOutline} from "react-icons/io5";
-import {useForm} from "react-hook-form";
+import { handleApiError } from "@/datasources/errorHandler";
+import { IoMailOutline } from "react-icons/io5";
+import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {useSubmitNewsletterMutation} from "@/datasources/pages/remote/PageSliceApi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSubmitNewsletterMutation } from "@/datasources/pages/remote/PageSliceApi";
+import { showSearch } from "@/datasources/blog/local/BlogSlice";
+import { useSelector } from "react-redux";
 
-function BlogList({query}) {
-  const {
-    data: blogCategories,
-  } = useGetBlogCategoriesQuery();
-  const {data: blogsData, isSuccess, isError} =
-    useGetBlogDataQuery(query);
+function BlogList({ query }) {
+  const { data: blogCategories } = useGetBlogCategoriesQuery();
+  const { data: blogsData, isSuccess, isError } = useGetBlogDataQuery(query);
 
   const [submitNewsletter] = useSubmitNewsletterMutation();
   const formSchema = Yup.object().shape({
@@ -38,7 +37,7 @@ function BlogList({query}) {
     handleSubmit,
     trigger,
     reset,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -46,6 +45,8 @@ function BlogList({query}) {
     },
     resolver: yupResolver(formSchema),
   });
+
+  const _showSearch = useSelector(showSearch)
 
   const onSubmit = async (data) => {
     let isValid = await trigger(["email"]);
@@ -61,20 +62,21 @@ function BlogList({query}) {
       })
       .catch((e) => {
         handleApiError(e);
-      })
-  }
+      });
+  };
 
-  if (isError) return <Error404/>;
+  if (isError) return <Error404 />;
 
   if (isSuccess)
     return (
       <>
         <Head>
           <title>Valavid | Blog list</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-        <div className="container flex gap-16 pt-16 pb-80">
-          <div className="hidden lg:block basis-1/3">
+        <div className="container flex flex-col lg:flex-row gap-16 pt-16 pb-80">
+          {console.log('showww',_showSearch)}
+          <div className={`basis-1/3 ${_showSearch ? "block" : "hidden lg:block"}`}>
             <div className="col-span-3 flex flex-col gap-3 items-end text-right">
               <span className="text-2xl text-secondary block w-full">
                 اشتراک خبرنامه
@@ -88,7 +90,7 @@ function BlogList({query}) {
                 </label>
                 <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
                   <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center px-3">
-                    <IoMailOutline className="text-2xl text-[#90999F]"/>
+                    <IoMailOutline className="text-2xl text-[#90999F]" />
                   </div>
                   <input
                     {...register("email")}
@@ -105,7 +107,7 @@ function BlogList({query}) {
                 </div>
               </div>
             </div>
-            {blogCategories && <MenuBlogs menuBlogsData={blogCategories}/>}
+            {blogCategories && <MenuBlogs menuBlogsData={blogCategories} />}
           </div>
           <div className="lg:basis-2/3">
             <Link href={`/blogs/${blogsData.results[0].id}`}>
@@ -166,7 +168,7 @@ BlogList.styleMode = "blog";
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const query = {...context.query}
+    const query = { ...context.query };
     store.dispatch(GetBlogData.initiate(query));
     store.dispatch(GetBlogCategories.initiate());
     await Promise.all(store.dispatch(blog_api.util.getRunningQueriesThunk()));

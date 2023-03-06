@@ -17,25 +17,29 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiFolderAddLine } from "react-icons/ri";
 import { Menu, Transition } from "@headlessui/react";
 import { useLogoutUserMutation } from "@/datasources/auth/remote/AuthSliceApi";
-import Router, {useRouter} from "next/router";
+import Router, { useRouter } from "next/router";
 import { removeCookies } from "cookies-next";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import { IoSearchOutline } from "react-icons/io5";
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
-import {IoClose} from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { setShowSearch, showSearch } from "@/datasources/blog/local/BlogSlice";
 
 const Header = ({ data, styleMode }) => {
   const [isLogedin, setIsLogedIn] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   const _cartItems = useSelector(cartItems);
-  const router = useRouter()
+  const router = useRouter();
   const [logoutUser, { data: logoutData, isSuccess }] = useLogoutUserMutation();
   const {
     data: profileData,
     isSuccess: profileIsSuccess,
     isLoading: profileIsLoading,
   } = useGetProfileDetailsQuery();
+  const dispatch = useDispatch();
+  const _showSearch = useSelector(showSearch);
 
   useEffect(() => {
     let token = getCookie("valavid_token");
@@ -139,16 +143,44 @@ const Header = ({ data, styleMode }) => {
     } else {
       return (
         <div className="lg:basis-2/12">
-          <Button
-            className={"rounded-full full btn-primary min-w-[130px] hidden lg:flex items-center justify-center"}
-            link={"/auth"}
-            icon={<IoPerson className="text-lg" />}
-          >
-            عضویت / ورود
-          </Button>
-          <Button link={"/auth"} className="[&>svg>path]:fill-white lg:hidden rounded-full bg-primary h-full w-[4rem] h-[4rem] relative flex items-center justify-center">
-            <ProfileIcon />
-          </Button>
+          {styleMode === "blog" ? (
+            <>
+              <Button
+                className={
+                  "[&>svg>path]:fill-white rounded-full full btn-primary bg-success-100  min-w-[130px] hidden lg:flex items-center justify-center"
+                }
+                link={"/auth"}
+                icon={<IoPerson className="text-lg" />}
+              >
+                <ProfileIcon className="text-white" />
+                عضویت / ورود
+              </Button>
+              <Button
+                link={"/auth"}
+                className="[&>svg>path]:fill-white lg:hidden rounded-full bg-success-100 h-full w-[4rem] h-[4rem] relative flex items-center justify-center"
+              >
+                <ProfileIcon />
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                className={
+                  "rounded-full full btn-primary min-w-[130px] hidden lg:flex items-center justify-center"
+                }
+                link={"/auth"}
+                icon={<IoPerson className="text-lg" />}
+              >
+                عضویت / ورود
+              </Button>
+              <Button
+                link={"/auth"}
+                className="[&>svg>path]:fill-white lg:hidden rounded-full bg-primary h-full w-[4rem] h-[4rem] relative flex items-center justify-center"
+              >
+                <ProfileIcon />
+              </Button>
+            </>
+          )}
         </div>
       );
     }
@@ -157,8 +189,15 @@ const Header = ({ data, styleMode }) => {
   if (styleMode === "blog") {
     return (
       <header className={"bg-white py-7 box-shadow relative"}>
-        <div className="flex items-center gap-4 container px-2 h-[45px]">
-          <div className="basis-1/12 relative h-11 min-w-[100px]">
+        <div className="flex items-center justify-between gap-4 px-6 lg:container lg:px-2 h-[45px] relative">
+          <div className="lg:hidden flex items-center gap-6 text-3xl cursor-pointer">
+            <FiMenu className="text-black" onClick={() => setShowNav(true)} />
+            <IoSearchOutline
+              className="text-black"
+              onClick={() => dispatch(setShowSearch(!_showSearch))}
+            />
+          </div>
+          <div className="absolute lg:relative left-0 right-0 mx-auto w-fit basis-1/12 h-11 min-w-[100px]">
             <Link href={"/"}>
               <Image
                 alt={"valavid icon"}
@@ -206,15 +245,16 @@ const Header = ({ data, styleMode }) => {
             : "py-7 bg-secondary-600"
         } ${styleMode == "404" ? "hidden" : ""}`}
       >
-        {
-          showSelect ? (
-            <div className="flex items-center gap-4 px-6">
-              <IoClose className="text-3xl cursor-pointer" onClick={()=>setShowSelect(false)}/>
-              <Select/>
-
-            </div>
-          ) :(
-            <div className="relative flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-8 lg:px-24 h-[45px]">
+        {showSelect ? (
+          <div className="flex items-center gap-4 px-6">
+            <IoClose
+              className="text-3xl cursor-pointer"
+              onClick={() => setShowSelect(false)}
+            />
+            <Select />
+          </div>
+        ) : (
+          <div className="relative flex items-center justify-between w-full gap-4 px-4 sm:px-6 lg:px-8 lg:px-24 h-[45px]">
             <div className="lg:basis-1/12 text-white hidden lg:flex">
               <Link href={"/"}>Valavid</Link>
             </div>
@@ -253,9 +293,7 @@ const Header = ({ data, styleMode }) => {
               </div>
             </div>
           </div>
-          )
-        }
-       
+        )}
       </header>
     );
   }

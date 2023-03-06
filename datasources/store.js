@@ -21,6 +21,7 @@ import configSlice from "@/datasources/config/local/ConfigSlice";
 import userSlice from "@/datasources/user/local/UserSlice";
 import userSliceApi, {userSliceApiTag,} from "@/datasources/user/remote/UserSliceApi";
 //-->> blog slices
+import blogSlice from "@/datasources/blog/local/BlogSlice";
 import blogSliceApi, {blogSliceApiTag} from "./blog/remote/BlogSliceApi";
 //-->> plan slices
 import planSliceApi, {planSliceApiTag} from '@/datasources/plans/remote/PlansSliceApi';
@@ -57,6 +58,7 @@ let reducers = combineReducers({
   accounting: accountingSlice,
   [accountingSliceApiTag]: accountingSliceApi.reducer,
   //->> blog
+  blog: blogSlice,
   [blogSliceApiTag]: blogSliceApi.reducer,
   //->> config
   config: configSlice,
