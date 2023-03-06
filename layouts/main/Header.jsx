@@ -1,15 +1,15 @@
 import ButtonIcon from "@/components/ButtonIcon";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
-import { IoPerson } from "react-icons/io5";
-import { BsCart2 } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { cartItems } from "@/datasources/checkout/local/CheckoutSlice";
+import {IoClose, IoPerson, IoSearchOutline} from "react-icons/io5";
+import {BsCart2} from "react-icons/bs";
+import {useSelector} from "react-redux";
+import {cartItems} from "@/datasources/checkout/local/CheckoutSlice";
 import Image from "next/image";
 import Button from "@/components/Button";
 import ValavidIcon from "@/public/icons/VALAVID_blogPage.png";
-import { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
+import {useEffect, useState} from "react";
+import {getCookie, removeCookies} from "cookies-next";
 import ProfileIcon from "@/public/icons/profile.svg";
 import Link from "next/link";
 import { FiDownload, FiUserCheck, FiMenu } from "react-icons/fi";
@@ -41,70 +41,61 @@ const Header = ({ data, styleMode }) => {
   const dispatch = useDispatch();
   const _showSearch = useSelector(showSearch);
 
-  useEffect(() => {
-    let token = getCookie("valavid_token");
-    if (token) {
-      setIsLogedIn(true);
-    }
-  }, []);
-
-  const handleLogoutUser = () => {
-    logoutUser()
-      .unwrap()
-      .then((response) => {
-        if (response.result) {
-          Router.push("/auth");
-          removeCookies("valavid_token");
+    useEffect(() => {
+        let token = getCookie("valavid_token");
+        if (token) {
+            setIsLogedIn(true);
         }
-      });
-  };
+    }, []);
 
-  const profileLinks = [
-    {
-      icon: (
-        <FiDownload className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
-      ),
-      link: "/profile/me/Downloads",
-      title: "دانلودها",
-    },
-    {
-      icon: (
-        <RiFolderAddLine className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
-      ),
-      link: "/profile/me/Collections",
-      title: "کالکشن ها",
-    },
-    {
-      icon: (
-        <FaRegHeart className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
-      ),
-      link: "/profile/me/Favorites",
-      title: "علاقه مندی ها",
-    },
-    // {
-    //   icon: (
-    //     <FiUserCheck className="text-secondary-300 w-[1.5rem] h-[1.5rem] ml-3" />
-    //   ),
-    //   link: "",
-    //   title: "دنبال شده ها",
-    // },
-  ];
+    const handleLogoutUser = () => {
+        logoutUser()
+        .unwrap()
+        .then((response) => {
+            if (response.result) {
+                router.push("/auth");
+                removeCookies("valavid_token");
+            }
+        });
+    };
 
-  const renderProfileBtn = () => {
-    if (isLogedin) {
-      return (
-        <Menu className="relative" as="div">
-          <Menu.Button className="rounded-full bg-white h-full w-[4rem] h-[4rem] relative flex items-center justify-center">
-            <ProfileIcon />
-          </Menu.Button>
-          <Transition>
-            <Menu.Items>
-              <div className="absolute top-[65px] left-[-9px] z-30">
-                <div className="w-full h-full relative">
-                  <div className="w-[200px] bg-[#1D2830] border border-accent rounded-[14px]">
-                    <div className="w-[1.3rem] h-[1.3rem] bg-white rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent" />
-                    {/* <Menu.Item>
-                      <span className="text-start block text-color8 m-4">
+    const profileLinks = [{
+        icon: (<FiDownload className="ml-3 text-secondary-300 w-[1.5rem] h-[1.5rem]"/>),
+        link: "/profile/me/Downloads",
+        title: "دانلودها",
+    }, {
+        icon: (<RiFolderAddLine className="ml-3 text-secondary-300 w-[1.5rem] h-[1.5rem]"/>),
+        link: "/profile/me/Collections",
+        title: "کالکشن ها",
+    }, {
+        icon: (<FaRegHeart className="ml-3 text-secondary-300 w-[1.5rem] h-[1.5rem]"/>),
+        link: "/profile/me/Favorites",
+        title: "علاقه مندی ها",
+    }, // {
+        //   icon: (
+        //     <FiUserCheck className="ml-3 text-secondary-300 w-[1.5rem] h-[1.5rem]" />
+        //   ),
+        //   link: "",
+        //   title: "دنبال شده ها",
+        // },
+    ];
+
+    const renderProfileBtn = () => {
+        if (isLogedin) {
+            return (<Menu className="relative" as="div">
+                <Menu.Button
+                className="relative flex h-full items-center justify-center rounded-full bg-white w-[4rem] h-[4rem]">
+                    <ProfileIcon/>
+                </Menu.Button>
+                <Transition>
+                    <Menu.Items>
+                        <div className="absolute z-30 top-[65px] left-[-9px]">
+                            <div className="relative h-full w-full">
+                                <div className="w-[200px] bg-[#1D2830] border border-accent rounded-[14px]">
+                                    <div
+                                    className="w-[1.3rem] h-[1.3rem] bg-white rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent"/>
+                                    {/* <Menu.Item>
+                      <span className="m-4 block text-start text-color8">
                         <Link href="/profile">سجاد قهرمانی</Link>
                       </span>
                     </Menu.Item> */}

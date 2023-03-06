@@ -8,7 +8,7 @@ export default function BecomeASellerBox({ className }) {
   return (
     <div className={`relative bg-secondary opacity-95 w-[28rem] pb-12 mt-28 px-[2rem] rounded-[2rem] ${className}`}>
       <div className="h-[10rem]">
-        <Image src={'/images/pink-camera.png'} className="absolute block -top-28 left-0 right-6 object-cover mx-auto" alt="" width={300} height={300} />
+        <Image src={'/images/camera.png'} className="absolute block -top-28 left-0 right-6 object-cover mx-auto" alt="در والاوید فروشنده شوید" width={300} height={300} />
       </div>
       <p className="text-sm pt-12">
         برخی مزایایی که با تبدیل به فروشنده شدن بهره می برید

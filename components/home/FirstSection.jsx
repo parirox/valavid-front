@@ -23,7 +23,7 @@ const FirstSection = ({video, tags}) => {
       </video>
         <div className="bg-color2/60 absolute inset-0"></div>
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-4/5 sm:w-3/5 xl:w-2/5 overflow-hidden flex flex-col items-center justify-center text-center gap-5">
+        <div className="max-sm:mx-3 w-full sm:w-3/5 xl:w-2/5 overflow-hidden flex flex-col items-center justify-center text-center gap-5">
           <h1 className="text-3xl sm:text-4xl md:text-5xl mb-3">والاوید بانک فوتیج ایران</h1>
           <h5 className="text-lg sm:text-xl md:text-xl text-color3 mb-3">آلبوم کوچکی از زیبایی ها و فرهنگ های ایران عزیز</h5>
           <div className={"w-full"}>

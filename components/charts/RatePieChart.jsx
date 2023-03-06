@@ -4,6 +4,7 @@ import { RingProgress } from '@ant-design/plots';
 const RatePieChart = ({data}) => {
     const config = {
       autoFit: true,
+        circle:false,
       percent: Math.ceil(data.rate*100/data.total)/100,
       color: ['#55DBCB','rgba(85,219,203,0.30)'],
       statistic: {

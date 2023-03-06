@@ -12,6 +12,7 @@ const nextConfig = {
       "placeimg.com",
       //->> main host domains
       "vala.nwhco.ir",
+      "files.valavid.ir",
       "s3.ir-thr-at1.arvanstorage.com",
     ],
   },
