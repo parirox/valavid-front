@@ -149,7 +149,7 @@ function FootageDetails({query}) {
                                                 <span className="ml-2">اطلاعات بیشتر</span>
                                             </Popover.Button>
                                             <Popover.Panel
-                                            className="fixed max-sm:inset-2 z-50 sm:mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-3xl rounded-3xl">
+                                            className="fixed max-sm:inset-3 z-[80] sm:mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-3xl rounded-3xl">
                                                 {({close, open}) => (
                                                 <Transition
                                                 show={open}
@@ -237,7 +237,7 @@ function FootageDetails({query}) {
                                                 <span className="ml-2 hidden sm:inline-block">گزارش</span>
                                             </Popover.Button>
                                             <Popover.Panel
-                                            className="fixed max-sm:inset-2 z-50 sm:mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-2xl rounded-3xl">
+                                            className="fixed max-sm:inset-3 z-[80] sm:mt-3 rounded-t-3xl border px-7 py-10 bg-secondary border-accent sm:absolute sm:right-0 sm:max-w-2xl rounded-3xl">
                                                 {({close, open}) => (
                                                 <Transition
                                                 show={open}

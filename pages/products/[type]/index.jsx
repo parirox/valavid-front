@@ -143,7 +143,7 @@ function Products({query,agent}) {
                      "height-auto opacity-1 z-[70]": filterState,
                  })}></div>
             <aside
-            className={classNames("bg-white lg:bg-secondary-light lg:text-white text-color7 py-6 h-auto lg:h-screen top-0 right-0 left-0 bottom-0 z-[80] lg:z-30 lg:sticky m-10 lg:m-0 lg:rounded-none rounded-3xl animate-in fade-in", {
+            className={classNames("bg-white lg:bg-secondary-light lg:text-white text-color7 py-6 h-auto lg:h-screen inset-3 z-[80] lg:z-30 lg:sticky lg:m-0 lg:rounded-none rounded-3xl animate-in zoom-in-95", {
                 'xl:basis-1/4 basis-4/12 fixed': filterState,
                 "hidden lg:block": !filterState,
             })}>
@@ -173,7 +173,7 @@ function Products({query,agent}) {
                 <div>
                     <ButtonIcon
                     onClick={changePositionState}
-                    className={classNames("h-14 w-40 rounded-2xl text-xl font-light bg-secondary-400 mx-7 absolute right-3 top-7 z-40")}
+                    className={classNames("h-14 w-40 rounded-2xl text-xl font-light bg-secondary-400 sm:mx-7 absolute right-3 top-7 z-40")}
                     icon={<TiFilter className="text-[2.1rem]"/>}>
                         فیلترها
                     </ButtonIcon>

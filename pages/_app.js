@@ -41,7 +41,9 @@ function App({Component, router, ...rest}) {
                           content="#00101C"/>
                 </Head>
                 <Toaster/>
-                <NextNProgress color="#534CDA"/>
+                <NextNProgress options={{
+                    showSpinner:false
+                }} color="#534CDA"/>
                 <SessionProvider session={session}>
                     <Component {...pageProps} />
                 </SessionProvider>
