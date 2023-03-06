@@ -1,12 +1,14 @@
 import Rhomboid from '@/public/icons/FillRhomboidSmall.svg';
-export default function SectionTitleDivider({ title }) {
-  return (
+import {GiDiamonds} from "react-icons/gi";
+
+export default function SectionTitleDivider({title}) {
+    return (
     <div className="w-full items-center flex pb-10 md:pb-20">
-      <div className="border-b border-solid border-gray-700 basis-full"></div>
-      <Rhomboid className="w-9"></Rhomboid>
-      <h2 className="flex justify-center text-[1.75rem] min-w-fit px-14">{title}</h2>
-      <Rhomboid className="w-9"></Rhomboid>
-      <div className="border-b border-solid border-gray-700 basis-full"></div>
+        <div className="border-b border-solid border-secondary-100 basis-full relative"></div>
+        <GiDiamonds className="text-5xl text-secondary-100 top-[0.5px] -right-1 z-50 relative"/>
+        <h2 className="flex justify-center text-2xl min-w-fit px-6">{title}</h2>
+        <GiDiamonds className="text-5xl text-secondary-100 top-[0.5px] -left-1 z-50 relative"/>
+        <div className="border-b border-solid border-secondary-100 basis-full"></div>
     </div>
-  )
+    )
 }

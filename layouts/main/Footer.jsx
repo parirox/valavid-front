@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSubmitNewsletterMutation } from "@/datasources/pages/remote/PageSliceApi";
 import toast from "@/utils/notification/toast";
 import { handleApiError } from "@/datasources/errorHandler";
+import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 
 const Footer = ({ styleMode }) => {
   const [submitNewsletter] = useSubmitNewsletterMutation();
@@ -55,9 +56,14 @@ const Footer = ({ styleMode }) => {
     return (
       <footer className="bg-secondary">
         <div className="container">
-          <div className=" whitespace-nowrap grid grid-cols-2 sm:grid-cols-9 lg:grid-cols-9 gap-10 pt-20 pb-12 border-b border-accent">
-            <div className="col-span-2 flex flex-col gap-3 sm:block">
-              <span className="text-3xl font-bold">والاویــد</span>
+          <div className="max-md:text-center whitespace-nowrap grid grid-cols-1 sm:grid-cols-9 lg:grid-cols-9 gap-10 pt-20 pb-12 border-b border-accent">
+            <div className="col-span-9 lg:col-span-2 flex flex-col gap-3 sm:block">
+              <span className="text-3xl font-bold md:block hidden">والاویــد</span>
+              <div className="text-3xl font-bold md:hidden">
+                    <Link href={"/"} className={"[&>svg>g>path]:fill-white [&>svg]:m-auto"}>
+                        <ValavidLogo/>
+                    </Link>
+              </div>
               <p className="text-lg mt-3">مرجع فوتیج های ایرانی</p>
             </div>
             <div className="col-span-9 flex-col gap-3 items-end text-right flex lg:hidden">
@@ -76,7 +82,7 @@ const Footer = ({ styleMode }) => {
                 کلیک ساده آپلود کنید و والاویدی شوید.
               </p>
             </div>
-            <div className="col-span-9 lg:col-span-4 flex flex-col justify-between sm:flex-row gap-20">
+            <div className="hidden md:flex md:col-span-9 lg:col-span-4  flex-col justify-between sm:flex-row gap-20">
               <div className="flex-initial flex sm:items-start sm:justify-start flex-col gap-3">
                 <span className="text-2xl">دسته بندی ها</span>
                 <Link
@@ -121,7 +127,7 @@ const Footer = ({ styleMode }) => {
                 </Link>
               </div>
             </div>
-            <div className="col-span-3 flex-col gap-3 items-end text-right hidden lg:flex">
+            <div className="sm:col-span-3 flex-col gap-3 items-end text-right hidden lg:flex">
               <p
                 className={
                   "text-justify text-gray text-lg leading-8 whitespace-pre-line"

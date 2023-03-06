@@ -1,7 +1,7 @@
 import ButtonIcon from "@/components/ButtonIcon";
 import Navbar from "@/components/Navbar";
 import Select from "@/components/Select";
-import {IoPerson} from "react-icons/io5";
+import {IoClose, IoPerson, IoSearchOutline} from "react-icons/io5";
 import {BsCart2} from "react-icons/bs";
 import {useSelector} from "react-redux";
 import {cartItems} from "@/datasources/checkout/local/CheckoutSlice";
@@ -9,21 +9,17 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import ValavidIcon from "@/public/icons/VALAVID_blogPage.png";
 import {useEffect, useState} from "react";
-import {getCookie} from "cookies-next";
+import {getCookie, removeCookies} from "cookies-next";
 import ProfileIcon from "@/public/icons/profile.svg";
 import Link from "next/link";
-import {FiDownload, FiUserCheck, FiMenu} from "react-icons/fi";
+import {FiDownload, FiMenu} from "react-icons/fi";
 import {FaRegHeart} from "react-icons/fa";
 import {RiFolderAddLine} from "react-icons/ri";
 import {Menu, Transition} from "@headlessui/react";
 import {useLogoutUserMutation} from "@/datasources/auth/remote/AuthSliceApi";
 import {useRouter} from "next/router";
-import {removeCookies} from "cookies-next";
 import {useGetProfileDetailsQuery} from "@/datasources/user/remote/UserSliceApi";
-import {IoSearchOutline} from "react-icons/io5";
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
-import {IoClose} from "react-icons/io5";
-import ValavidWhiteLogo from "@/public/icons/ValavidLogoWhite.svg";
 
 const Header = ({data, styleMode}) => {
     const [isLogedin, setIsLogedIn] = useState(false);
