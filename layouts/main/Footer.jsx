@@ -1,57 +1,8 @@
-import {IoMailOutline} from "react-icons/io5";
-import {
-    FaCopyright,
-    FaInstagram,
-    FaTelegramPlane,
-    FaYoutube,
-} from "react-icons/fa";
+import {FaCopyright, FaInstagram, FaTelegramPlane, FaYoutube,} from "react-icons/fa";
 import Link from "next/link";
-import {useForm} from "react-hook-form";
-import * as Yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {useSubmitNewsletterMutation} from "@/datasources/pages/remote/PageSliceApi";
-import toast from "@/utils/notification/toast";
-import {handleApiError} from "@/datasources/errorHandler";
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 
 const Footer = ({styleMode}) => {
-    const [submitNewsletter] = useSubmitNewsletterMutation();
-    const formSchema = Yup.object().shape({
-        email: Yup.string()
-        .required("ایمیل را وارد کنید")
-        .email("ایمیل معتبر نمی باشد."),
-    });
-    const {
-        register,
-        handleSubmit,
-        trigger,
-        reset,
-        formState: {errors},
-    } = useForm({
-        mode: "onBlur",
-        defaultValues: {
-            email: "",
-        },
-        resolver: yupResolver(formSchema),
-    });
-
-    const onSubmit = async (data) => {
-        let isValid = await trigger(["email"]);
-        if (!isValid) {
-            toast.error(errors.email.message);
-            return;
-        }
-        submitNewsletter(data)
-        .unwrap()
-        .then((data) => {
-            toast.success("با موفقیت ثبت نام شدید!");
-            reset();
-        })
-        .catch((e) => {
-            handleApiError(e);
-        });
-    };
-
     if (styleMode === "main") {
         return (
         <footer className="bg-secondary">
@@ -144,21 +95,6 @@ const Footer = ({styleMode}) => {
                             فروشندگان والاوید هم بهره مند بشید؛ همین الان ویدیوهاتون با چند
                             کلیک ساده آپلود کنید و والاویدی شوید.
                         </p>
-                        {/*<span className="block w-full text-2xl">اشتراک خبرنامه</span>*/}
-                        {/*<div className="w-full form-control">*/}
-                        {/*    <label className="mb-7 block label">*/}
-                        {/*        <span className="text-[#90999F] text-lg">عضو خبرنامه ما شوید و از تازه ترین خبرها به روز رسانی‌ها و تخفیف های ویژه سایت با خبر شوید</span>*/}
-                        {/*    </label>*/}
-                        {/*    <div className="rounded-xl border p-1 border-accent">*/}
-                        {/*        <div className="relative">*/}
-                        {/*            <div className="absolute top-0 right-0 bottom-0 flex items-center justify-center px-3">*/}
-                        {/*                <IoMailOutline className="text-2xl text-[#90999F]" />*/}
-                        {/*            </div>*/}
-                        {/*            <input {...register('email')} type="text" placeholder="ایمیل شما" className="w-full py-3 pr-16 input" />*/}
-                        {/*            <button onClick={handleSubmit(onSubmit)} className="absolute top-0 left-0 h-full rounded-xl px-10 btn btn-primary">عضویت</button>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
                 <div
