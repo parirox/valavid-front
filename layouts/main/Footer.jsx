@@ -55,8 +55,8 @@ const Footer = ({ styleMode }) => {
   if (styleMode === "main") {
     return (
       <footer className="bg-secondary">
-        <div className="container">
-          <div className="max-md:text-center whitespace-nowrap grid grid-cols-1 sm:grid-cols-9 lg:grid-cols-9 gap-10 pt-20 pb-12 border-b border-accent">
+        <div className="sm:container max-sm:px-6">
+        <div className="max-md:text-center whitespace-nowrap grid grid-cols-1 sm:grid-cols-9 lg:grid-cols-9 gap-10 pt-20 pb-12 border-b border-accent">
             <div className="col-span-9 lg:col-span-2 flex flex-col gap-3 sm:block">
               <span className="text-3xl font-bold md:block hidden">والاویــد</span>
               <div className="text-3xl font-bold md:hidden">
