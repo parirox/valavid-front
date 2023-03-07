@@ -1,18 +1,14 @@
 import {useGetPublisherProductQuery} from "@/datasources/user/remote/UserSliceApi";
 import MainProductCard from "@/components/MainProductCard";
 import NoContent from "@/components/NoContent";
-import InfiniteList from "@/components/InfiniteList";
-import classNames from "classnames";
-import product_api from "@/datasources/product/remote/ProductSliceApi";
 import Pagination from "@/components/Pagination";
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import VideoCardLoader from "@/components/skelton/VideoCardLoader";
 
 
 const Products = (query) => {
     const router = useRouter()
-    const firstPage = useMemo(() => (query?.page ?? 1), [])
     const [page, setPage] = useState(parseInt(query.page ?? 1))
     const {
         data, isFetching, isSuccess, isLoading, isError, error,
