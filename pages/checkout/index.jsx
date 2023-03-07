@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Divider from "@/components/Divider";
-import {cartItems,} from "@/datasources/checkout/local/CheckoutSlice";
+import { cartItems } from "@/datasources/checkout/local/CheckoutSlice";
 import {
   useCheckOfferCodeMutation,
   useGetCartDetailsByIdsMutation,
@@ -38,10 +38,9 @@ export default function Cart() {
   const [offerCode, setOfferCode] = useState("");
 
   //->> cart endpoints
-  const [getCartDetailsByIds, { data }] =
-  useGetCartDetailsByIdsMutation();
+  const [getCartDetailsByIds, { data }] = useGetCartDetailsByIdsMutation();
 
-  const {data: cartData} = useGetCartQuery();
+  const { data: cartData } = useGetCartQuery();
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
@@ -70,7 +69,7 @@ export default function Cart() {
   useEffect(() => {
     // if (!isEmpty(_cartItems))
     getCartDetailsByIds({ products: _cartItems.map((v) => v.id) });
-  }, []);
+  }, [_cartItems]);
 
   // const total_price = useMemo(() => (
   //   _cartItems.map(product => (data.find(v => v.id === product.id).price.main)).reduce((a, b) => a + b, 0).toLocaleString()
@@ -166,7 +165,7 @@ export default function Cart() {
                           className="flex flex-col md:flex-row md:justify-between items-center py-5 px-4"
                         >
                           <div className="w-full md:basis-2/4">
-                            <div className="flex gap-5 w-full md:w-auto">
+                            <div className="flex flex-col md:flex-row gap-5 w-full md:w-auto">
                               <div className="basis-1/4 relative h-28">
                                 {product.type === "video" ? (
                                   <video
@@ -262,8 +261,8 @@ export default function Cart() {
                   </div>
                   <div className="bg-secondary-600 flex flex-col md:flex-row justify-end items-center gap-5 px-10 py-8 rounded-b-3xl">
                     <div className="w-full md:basis-8/12 order-2 md:order-1">
-                      <div className="flex">
-                        <div className="basis-1/2">
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <div className="w-full sm:basis-1/2">
                           <div className="form-control w-full">
                             <div className="p-1 border border-accent rounded-xl">
                               <div className="relative">
@@ -305,6 +304,7 @@ export default function Cart() {
                       )}
                       {cartData.paybox.pay_amount !== 0 && (
                         <div className="mt-8">
+                          <span className="mb-4 block">درگاه</span>
                           <GatewaysList
                             state={paymentGateway}
                             setter={setPaymentGateway}
