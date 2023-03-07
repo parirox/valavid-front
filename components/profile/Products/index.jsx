@@ -152,24 +152,41 @@ const Products = () => {
   };
 
   const handleAddProduct = (publish_type) => {
-    const formData = new FormData();
-    formData.append("title", productInfo.translations["fa"].title);
-    formData.append("description", productInfo.translations["fa"].description);
-    formData.append(
-      "translations",
+    let formData = {}
+    // const formData = new FormData();
+    // formData.append("title", productInfo.translations["fa"].title);
+    // formData.append("description", productInfo.translations["fa"].description);
+    // formData.append(
+    //   "translations",
+    //   getApiTranslationsFormat(productInfo.translations)
+    // );
+    // productInfo.country &&
+    //   formData.append("country", productInfo.country.value);
+    // productInfo.state && formData.append("state", productInfo.state.value);
+    // productInfo.city && formData.append("city", productInfo.city.value);
+    // formData.append("tags_level_1", JSON.stringify(productInfo.tags_level_1));
+    // formData.append("tags_level_2", JSON.stringify(productInfo.tags_level_2));
+    // formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3));
+    // productInfo.device && formData.append("device", JSON.stringify(productInfo.device));
+    // productInfo.lens && formData.append("lens", JSON.stringify(productInfo.lens));
+    // formData.append("publish_type", publish_type);
+    // formData.append("file", productInfo.file.path);
+
+    formData.title = productInfo.translations["fa"].title
+    formData.description = productInfo.translations["fa"].description
+    formData.translations = 
       getApiTranslationsFormat(productInfo.translations)
-    );
-    productInfo.country &&
-      formData.append("country", productInfo.country.value);
-    productInfo.state && formData.append("state", productInfo.state.value);
-    productInfo.city && formData.append("city", productInfo.city.value);
-    formData.append("tags_level_1", JSON.stringify(productInfo.tags_level_1));
-    formData.append("tags_level_2", JSON.stringify(productInfo.tags_level_2));
-    formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3));
-    productInfo.device && formData.append("device", JSON.stringify(productInfo.device));
-    productInfo.lens && formData.append("lens", JSON.stringify(productInfo.lens));
-    formData.append("publish_type", publish_type);
-    formData.append("file", productInfo.file.path);
+
+      formData.country = productInfo.country.value
+    formData.state = productInfo.state.value
+    formData.city = productInfo.city.value
+    formData.tags_level_1 = productInfo.tags_level_1
+    formData.tags_level_2 = productInfo.tags_level_2
+    formData.tags_level_3 = productInfo.tags_level_3
+    formData.device = productInfo.device
+    formData.lens = productInfo.lens
+    formData.publish_type = publish_type
+    formData.file = productInfo.file.path
 
     addProduct(formData)
       .unwrap()
