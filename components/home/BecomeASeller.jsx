@@ -6,7 +6,7 @@ import {isEmpty} from "@/utils/general";
 const BecomeASeller = ({isLoggedIn}) => {
   return (
     <div className='mt-40 bg-accent/30 sm:h-80'>
-      <div className="md:container max-md:px-6 h-full">
+      <div className="container h-full">
         <div className="flex h-full justify-between relative">
           <div className="flex-auto md:basis-3/4 py-8 md:px-8">
             <div className="grid grid-row-5 h-full max-sm:justify-center max-sm:text-center max-sm:gap-5">

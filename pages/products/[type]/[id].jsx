@@ -72,8 +72,10 @@ function FootageDetails({query}) {
     if (isError) return <ErrorPage info={error}/>
 
     function copyToClipboard() {
-        navigator.clipboard.writeText(window.location.href);
-        toast.success("لینک صفحه کپی شد!")
+        navigator.clipboard?.writeText(window.location.href).then(r => {
+                toast.success("لینک صفحه کپی شد!")
+            }
+        );
     }
 
     if (isSuccess) {
@@ -81,7 +83,7 @@ function FootageDetails({query}) {
             <Head>
                 <title>والاوید | {data.title}</title>
             </Head>
-            <div className="mt-10 px-4 sm:container xl:mt-20">
+            <div className="mt-10 container xl:mt-20">
                 <ManageCollectionDialog/>
                 <div className="mb-32 flex flex-col gap-6 md:items-stretch lg:flex-row lg:gap-16 2xl:gap-24">
                     <div className="basis-full md:basis-6/12">
@@ -232,8 +234,8 @@ function FootageDetails({query}) {
                                         </Popover>
                                         <Popover>
                                             <Popover.Button
-                                            className="h-full rounded-2xl border-2 px-5 btn text-gray btn-secondary-300 border-accent">
-                                                <IoWarningOutline className="text-3xl"/>
+                                            className="h-full rounded-2xl border-2 sm:px-5 btn text-gray btn-secondary-300 border-accent">
+                                                <IoWarningOutline className="sm:text-3xl text-2xl"/>
                                                 <span className="ml-2 hidden sm:inline-block">گزارش</span>
                                             </Popover.Button>
                                             <Popover.Panel
@@ -258,10 +260,10 @@ function FootageDetails({query}) {
                                     <div className={"flex gap-3 xl:mr-7 lg:mr-0 sm:mr-7"}>
                                         <button onClick={copyToClipboard}
                                                 className="aspect-square h-full rounded-2xl btn text-gray btn-accent">
-                                            <IoShareSocialOutline className="text-3xl"/>
+                                            <IoShareSocialOutline className="sm:text-3xl text-2xl"/>
                                         </button>
                                         <button title={"لایک کردن"}
-                                                className="aspect-square h-full rounded-2xl text-3xl btn text-gray btn-accent"
+                                                className="aspect-square h-full rounded-2xl sm:text-3xl text-2xl btn text-gray btn-accent"
                                                 onClick={() => {
                                                     if (!addFavoriteIsLoading && !removeFavoriteIsLoading) {
                                                         myFavoritesIds.includes(data.id) ? removeFromFavorites({id: data.id}).unwrap().then((res) => {
@@ -279,7 +281,7 @@ function FootageDetails({query}) {
                                                 onClick={() => dispatch(setModalCollectionTo({
                                                     active: true, footage_details: data
                                                 }))}>
-                                            <CgFolderAdd className="text-3xl"/>
+                                            <CgFolderAdd className="sm:text-3xl text-2xl"/>
                                         </button>
                                     </div>
                                 </div>

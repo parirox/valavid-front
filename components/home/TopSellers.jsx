@@ -6,7 +6,7 @@ import Avatar from "@/components/Avatar";
 
 const TopSellers = ({data = []}) => {
     return (
-    <div className="mb-40 px-5 md:container">
+    <div className="mb-40 container">
         <SectionTitleDivider title="برترین فروشندگان"></SectionTitleDivider>
         <div className="flex items-center gap-x-2 overflow-y-auto h-[27rem] hide-scrollbar touch-auto">
             {

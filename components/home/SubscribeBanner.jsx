@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image"
 
 const SubscribeBanner = () => {
-    return (<div className="pb-44 md:container sm:px-10 px-5 ">
+    return (<div className="pb-44 container">
         <div
         className='px-6 py-4 flex items-center flex-col md:flex-row bg-gradient-to-br from-[#AEAAFF] to-primary rounded-[2rem] lg:h-[32rem] w-full'>
             <div

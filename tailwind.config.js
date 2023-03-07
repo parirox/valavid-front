@@ -2,6 +2,9 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
+    corePlugins: {
+        container: false
+    },
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
@@ -20,7 +23,7 @@ module.exports = {
             center: true,
             padding: {
                 DEFAULT: '1.25rem',
-                sm: '0.75rem'
+                sm: '2.5rem'
             }
         },
         fontFamily: {
@@ -50,7 +53,7 @@ module.exports = {
                 fadeOut: {
                     '0%': {opacity: '1'},
                     '90%': {opacity: '0'},
-                    '100%': {height:0},
+                    '100%': {height: 0},
                 }
             },
             boxShadow: {
@@ -116,6 +119,29 @@ module.exports = {
         require("tailwindcss-animate"),
         require('tailwind-scrollbar'),
         require("@tailwindcss/forms"),
+        function ({addComponents}) {
+            addComponents({
+                '.container': {
+                    width: '100%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    paddingLeft: "1.5rem",
+                    paddingRight: "1.5rem",
+                    '@screen sm': {
+                        maxWidth: '640px',
+                    },
+                    '@screen md': {
+                        maxWidth: '768px',
+                    },
+                    '@screen lg': {
+                        maxWidth: '1024px',
+                    },
+                    '@screen xl': {
+                        maxWidth: '1280px',
+                    },
+                }
+            })
+        },
         plugin(function ({addBase, theme}) {
             addBase({
                 html: {fontSize: "12px", backgroundColor: theme('colors.color2')},

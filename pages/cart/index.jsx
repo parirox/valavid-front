@@ -95,11 +95,11 @@ export default function Cart() {
                         return (
                           <div
                             key={key}
-                            className="flex flex-col md:flex-row justify-between py-5 px-4"
+                            className="flex flex-col md:flex-row justify-between items-center py-5 px-4"
                           >
-                            <div className="w-full md:basis-2/4">
-                              <div className="flex gap-5 w-full md:w-auto">
-                                <div className="basis-1/4 relative h-28">
+                            <div className="w-full lg:basis-2/4">
+                              <div className="flex max-sm:flex-col gap-5 w-full md:w-auto">
+                                <div className="sm:basis-1/4 relative sm:h-28">
                                   {product.type === "video" ? (
                                     <video
                                       autoPlay={false}
@@ -121,7 +121,7 @@ export default function Cart() {
                                     />
                                   )}
                                 </div>
-                                <div className="basis-1/2 text-color3">
+                                <div className="sm:basis-1/2 text-color3">
                                   <div className="flex flex-col justify-center h-full gap-3">
                                     <Link href={`/products/${product.type}/${product.id}`} className="text-lg">{product.title}</Link>
                                     {product.extra_information?.length > 0 && (

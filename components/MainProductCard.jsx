@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {BsFillDiamondFill} from 'react-icons/bs';
 import {IoFolderOpenOutline, IoHeart, IoHeartOutline, IoVideocamOutline} from 'react-icons/io5';
 import Badge from '@/components/Badge';
@@ -8,16 +8,13 @@ import Link from 'next/link';
 import {addOrRemoveToCart, cartItems, checkInCart} from "@/datasources/checkout/local/CheckoutSlice";
 import {MdRemoveShoppingCart} from "react-icons/md";
 import {useDispatch, useSelector} from "react-redux";
-import {addToFavorite, checkInFavorite, favoriteItems} from "@/datasources/user/local/UserSlice";
 import {setModalCollectionTo} from '@/datasources/config/local/ConfigSlice';
 import Avatar from "react-avatar";
 import {
-  useAddToCartMutation,
-  useAddToFavoritesMutation, useGetCartQuery, useGetFavoritesQuery, useRemoveFromCartMutation,
+  useAddToFavoritesMutation,
+  useGetFavoritesQuery,
   useRemoveFromFavoritesMutation
 } from "@/datasources/user/remote/UserSliceApi";
-import toast from "@/utils/notification/toast";
-import {handleApiError} from "@/datasources/errorHandler";
 import {isEmpty} from "@/utils/general";
 import classNames from "classnames";
 

@@ -6,7 +6,7 @@ const MostPopular = ({ data }) => {
   return (
     <div className="my-40">
       <SectionTitleDivider title="محبوب ها‍"></SectionTitleDivider>
-      <div className="md:container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 px-6 md:px-0">
+      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {/* {data.map((item, key) => ( */}
         <MainProductCard
           data={data[0]}
