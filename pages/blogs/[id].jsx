@@ -118,7 +118,7 @@ function SingleBlog() {
                   <h4 className="text-black px-4 pt-4 pb-11 text-xl lg:text-2xl leading-10">
                     {item.title}
                   </h4>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
