@@ -19,7 +19,7 @@ const FirstSection = ({video, tags}) => {
       controls={false}
       className={"bg-primary/50 bg-blend-overlay mix-blend-overlay object-cover full"}
       >
-        <source src={"/videos/valavid-intro.mp4#t=0.4,16"} />
+        <source src={"/videos/valavid-intro.mp4"} />
       </video>
         <div className="bg-color2/60 absolute inset-0"></div>
       <div className="absolute inset-0 flex items-center justify-center">

@@ -22,6 +22,7 @@ import {useGetProfileDetailsQuery} from "@/datasources/user/remote/UserSliceApi"
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 import {useDispatch} from "react-redux";
 import {setShowSearch, showSearch} from "@/datasources/blog/local/BlogSlice";
+import classNames from "classnames";
 
 const Header = ({data, styleMode}) => {
     const [isLogedin, setIsLogedIn] = useState(false);
@@ -81,7 +82,7 @@ const Header = ({data, styleMode}) => {
                             <div className="relative h-full w-full">
                                 <div className="w-[200px] bg-[#1D2830] border border-accent rounded-[14px]">
                                     <div
-                                    className="w-[1.3rem] h-[1.3rem] bg-white rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent"/>
+                                    className="w-[1.3rem] h-[1.3rem] rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent"/>
                                     {/* <Menu.Item>
                       <span className="m-4 block text-start text-color8">
                         <Link href="/profile">سجاد قهرمانی</Link>
@@ -200,9 +201,13 @@ const Header = ({data, styleMode}) => {
         </header>);
     } else {
         return (<header
-        className={`${styleMode === "main" ? "absolute top-[45px] inset-x-0 z-[1]" : "py-7 bg-secondary-600"} ${styleMode == "404" ? "hidden" : ""}`}
+        className={classNames("overflow-hidden", {
+            "absolute top-[45px] inset-x-0 z-[1]": styleMode === "main",
+            "py-7 bg-secondary-600": styleMode !== "main",
+            "hidden": styleMode === "404"
+        })}
         >
-            {showSelect ? (<div className="flex items-center gap-4 px-6 animate-in slide-in-from-left-72">
+            {showSelect ? (<div className="flex items-center gap-4 px-6 py-1 animate-in slide-in-from-right-72 fade-in zoom-in">
                 <IoClose
                 className="cursor-pointer text-3xl"
                 onClick={() => setShowSelect(false)}
