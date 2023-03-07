@@ -16,6 +16,7 @@ import LocationMap from "@/public/images/locationValavidMap.png";
 import Image from "next/image";
 import ContactUsBox from "@/components/ContactUsBox";
 import Link from "next/link";
+import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 
 export const InfoItemData = [
   {
@@ -80,7 +81,7 @@ export default function index() {
       >
         با ما بیشتر آشنا شوید
       </CoverPage>
-      <div className="relative h-[10rem] w-full">
+      {/*<div className="relative h-[10rem] w-full">*/}
         {/*<div className="absolute -top-[4.25rem] right-0 left-0 flex gap-14 max-w-[940px] items-center w-full m-auto">*/}
         {/*  {*/}
         {/*    InfoItemData.map((item,i) => (*/}
@@ -88,11 +89,14 @@ export default function index() {
         {/*    ))*/}
         {/*  }*/}
         {/*</div>*/}
-      </div>
-      <div className="relative">
+      {/*</div>*/}
+      <div className="relative mt-14">
         <div className="flex container">
           <div className="">
-            <Image alt={"valavid logo"} src={ValavidIcon} width={140}></Image>
+            <Link href={"/"} className={"mb-10 block lg:hidden text-3xl"}>
+              <ValavidLogo/>
+            </Link>
+            <Image className={"hidden lg:block"} alt={"valavid logo"} src={ValavidIcon} width={140}></Image>
             <p className="max-w-[62rem] text-lg text-justify leading-[3.5rem]">
               والاوید پلتفرم اشتراک گذاری فوتیج یا تکه ویدئو های مورد نیاز
               فیلمسازه. اینجا تعدادی زیادی از فیلمبردارها و فیلمسازانی که

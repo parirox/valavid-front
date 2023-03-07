@@ -210,7 +210,7 @@ const Header = ({data, styleMode}) => {
                 <Select/>
             </div>) : (<div
             className="relative flex w-full items-center justify-between gap-4 px-4 h-[45px] sm:px-6 lg:px-8 lg:px-24">
-                <div className="mx-auto hidden w-fit text-white lg:ml-10 lg:flex lg:basis-1/12">
+                <div className="mx-auto justify-center hidden w-fit text-white lg:ml-10 lg:flex lg:basis-1/12">
                     <Link href={"/"} className={"[&>svg>g>path]:fill-white"}>
                         <ValavidLogo/>
                     </Link>
@@ -237,7 +237,7 @@ const Header = ({data, styleMode}) => {
                     />
                 </div>
                 <div className="h-full lg:basis-6/12">
-                    <div className="flex h-full flex-row gap-3">
+                    <div className="flex h-full flex-row justify-end gap-3">
                         <div className="hidden basis-9/12 lg:flex">
                             {router.asPath !== "/" && <Select/>}
                         </div>
