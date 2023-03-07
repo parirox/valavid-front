@@ -1,22 +1,12 @@
-import CoverPage from "@/components/CoverPage";
 import Head from "next/head";
-import AzadiTower from "@/public/images/azadi_tower_large-aboutUs.png";
-import ReverseEffectInfoItem from "@/components/ReverseEffectInfoItem";
 import PicturIcon from '@/public/icons/FillPictureActive.svg';
 import VideoIcon from '@/public/icons/FillVideoActive.svg';
 import MusicIcon from '@/public/icons/FillMusicDisable.svg';
 import ThemeIcon from '@/public/icons/FillThemeDisable.svg';
-import ValavidIcon from "@/public/images/VALAVID.png";
-import Pictures from "@/public/images/pictures_in_aboutUs.png";
 import {BsTelephoneFill} from "react-icons/bs";
 import {FaTelegramPlane} from "react-icons/fa";
 import {AiFillMail} from "react-icons/ai";
 import {HiLocationMarker} from "react-icons/hi";
-import PhonePic from "@/public/images/phonInContactus.png";
-import LocationMap from "@/public/images/locationValavidMap.png"
-import Image from "next/image";
-import ContactUsBox from "@/components/ContactUsBox";
-import Link from "next/link";
 
 export const InfoItemData = [
   {
