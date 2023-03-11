@@ -9,6 +9,7 @@ import {emptyCart} from "@/datasources/checkout/local/CheckoutSlice";
 import SuccessErrorLoading from "@/components/SuccessErrorLoading";
 import classNames from "classnames";
 import {useDispatch} from "react-redux";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function CheckTransactionPage({query}) {
   const router = useRouter();
@@ -62,8 +63,7 @@ function CheckTransactionPage({query}) {
   return (
     <>
       <Head>
-        <title>والاوید | بررسی خرید</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{makeTitleWith("بررسی خرید")}</title>
       </Head>
       <div className="flex justify-center items-center min-h-screen">
         <div className="container relative h-1/2 w-2/3 rounded-t-3xl bg-secondary overflow-hidden p-10">

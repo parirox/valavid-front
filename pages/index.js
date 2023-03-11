@@ -13,6 +13,7 @@ import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import ErrorPage from "./ErrorPage";
 import React from "react";
 import {getCookie} from "cookies-next";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function Home({isLoggedIn}) {
   const { data, isSuccess, isError, error } = useGetHomeDataQuery();
@@ -23,8 +24,8 @@ function Home({isLoggedIn}) {
     return (
       <>
         <Head>
-          <title>والاوید | صفحه ی اصلی</title>
-          <meta name="description" content="بانک فوتیج ایران" />
+            <title>{makeTitleWith("صفحه ی اصلی")}</title>
+            <meta name="description" content="بانک فوتیج ایران" />
         </Head>
         <FirstSection video={data?.video} tags={data.tags} />
         {/* modal */}

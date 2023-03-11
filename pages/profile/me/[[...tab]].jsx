@@ -35,6 +35,7 @@ import ProfileCardLoader from "@/components/skelton/ProfileCardLoader";
 import { CiStar } from "react-icons/ci";
 import Avatar from "@/components/Avatar";
 import LocationIcon from "@/public/icons/Location.svg";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 let tabs = [
   {
@@ -158,8 +159,7 @@ function SellerProfile() {
   return (
     <>
       <Head>
-        <title>والاوید | پروفایل من</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{makeTitleWith("پروفایل من")}</title>
       </Head>
       <div className="w-full h-72 relative">
         <Image

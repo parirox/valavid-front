@@ -7,7 +7,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Error404 from "../404";
 import {wrapper} from "@/datasources/store";
-import {Fragment, useState} from "react";
+import React, {Fragment, useState} from "react";
 import _toast from "@/utils/notification/toast";
 import toast from "@/utils/notification/toast";
 import {handleApiError} from "@/datasources/errorHandler";
@@ -18,6 +18,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useSubmitNewsletterMutation} from "@/datasources/pages/remote/PageSliceApi";
 import {showSearch} from "@/datasources/blog/local/BlogSlice";
 import {useSelector} from "react-redux";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function BlogList({query}) {
     const {data: blogCategories} = useGetBlogCategoriesQuery();
@@ -60,8 +61,7 @@ function BlogList({query}) {
 
     if (isSuccess) return (<>
         <Head>
-            <title>Valavid | Blog list</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{makeTitleWith("وبلاگ")}</title>
         </Head>
         <div className="container flex flex-col lg:flex-row gap-16 pt-16 pb-80">
             <div className={`basis-1/3 ${_showSearch ? "block" : "hidden lg:block"}`}>

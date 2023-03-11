@@ -28,6 +28,7 @@ import ButtonIcon from "@/components/ButtonIcon";
 import {getCurrentBreakpoint} from "@/utils/tailwind/breakpoint";
 import Button from "@/components/Button";
 import { parse } from 'next-useragent'
+import {makeTitleWith} from "@/utils/seo/meta";
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
 
@@ -128,8 +129,7 @@ function Products({query,agent}) {
 
     return (<>
         <Head>
-            <title>والاوید | لیست محصولات</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{makeTitleWith("لیست محصولات")}</title>
         </Head>
         <CoverPage className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]"
                    backgroundImage={PicMountain} icon={<IoVideocam className={"text-primary text-4xl"}/>}>

@@ -7,6 +7,7 @@ import {BsTelephoneFill} from "react-icons/bs";
 import {FaTelegramPlane} from "react-icons/fa";
 import {AiFillMail} from "react-icons/ai";
 import {HiLocationMarker} from "react-icons/hi";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 export const InfoItemData = [
   {
@@ -57,8 +58,7 @@ export default function index() {
   return (
     <>
       <Head>
-        <title>والاوید | درباره ی ما</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{makeTitleWith("شرایط و قوانین")}</title>
       </Head>
       <div className="relative">
         <div className="flex container">

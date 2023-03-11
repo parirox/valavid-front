@@ -201,7 +201,7 @@ const Header = ({data, styleMode}) => {
         </header>);
     } else {
         return (<header
-        className={classNames("overflow-hidden", {
+        className={classNames("", {
             "absolute top-[45px] inset-x-0 z-[1]": styleMode === "main",
             "py-7 bg-secondary-600": styleMode !== "main",
             "hidden": styleMode === "404"

@@ -11,7 +11,7 @@ import _toast from "@/utils/notification/toast";
 import toast from "@/utils/notification/toast";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   IoArrowBackOutline,
@@ -29,6 +29,7 @@ import { handleApiError } from "@/datasources/errorHandler";
 import Router from "next/router";
 import GatewaysList from "@/components/GatewaysList";
 import Link from "next/link";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 export default function Cart() {
   const _cartItems = useSelector(cartItems);
@@ -117,7 +118,7 @@ export default function Cart() {
   return (
     <>
       <Head>
-        <title>والاوید | سبد خرید</title>
+        <title>{makeTitleWith("پیش نمایش سفارش")}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">

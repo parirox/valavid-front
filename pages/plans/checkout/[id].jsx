@@ -18,6 +18,7 @@ import {isEmpty} from "@/utils/general";
 import GatewaysList from "@/components/GatewaysList";
 import payment_api, {GetGatewaysList} from "@/datasources/payment/remote/PaymentSliceApi";
 import {getCookie} from "cookies-next";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function PlanCheckout({query}) {
   const router = useRouter();
@@ -61,8 +62,7 @@ function PlanCheckout({query}) {
   return (
     <>
       <Head>
-        <title>والاوید | خرید اشتراک {data?.name}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <title>{makeTitleWith( `خرید اشتراک  ${data.name}`)}</title>
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">
         {isSuccess && (

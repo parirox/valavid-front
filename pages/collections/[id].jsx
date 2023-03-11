@@ -11,9 +11,10 @@ import {IoImage} from "react-icons/io5";
 import MainProductCard from "@/components/MainProductCard";
 import moment from "jalali-moment";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Pagination from "@/components/Pagination";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function Collections({query}) {
     const router = useRouter()
@@ -36,8 +37,7 @@ function Collections({query}) {
     if (isSuccess) return (
     <>
         <Head>
-            <title>والاوید | تصاویر</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{makeTitleWith("تصاویر")}</title>
         </Head>
         <CoverPage className="bg-opacity-30 bg-primary text-center" backgroundImage={data.background}
                    icon={<IoImage className={"text-primary text-3xl"}/>}>

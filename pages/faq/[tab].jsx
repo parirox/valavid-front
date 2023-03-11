@@ -2,7 +2,7 @@ import {Disclosure, Tab} from "@headlessui/react";
 import Head from "next/head";
 import Image from "next/image";
 import {useRouter} from "next/router";
-import {useDeferredValue, useEffect, useState} from "react";
+import React, {useDeferredValue, useEffect, useState} from "react";
 import {FiSearch} from "react-icons/fi";
 import {IoIosArrowDown} from "react-icons/io";
 import {isEmpty} from "@/utils/general";
@@ -10,6 +10,7 @@ import page_api, {GetFaq, useGetFaqQuery} from "@/datasources/pages/remote/PageS
 import {wrapper} from "@/datasources/store";
 import {ApiAddress, ApiEndpoint} from "@/utils/api/api";
 import product_api, {GetCollectionDetails} from "@/datasources/product/remote/ProductSliceApi";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function Faq({query}) {
     const {data, isSuccess, isError, isLoading} = useGetFaqQuery()
@@ -51,8 +52,7 @@ function Faq({query}) {
     return (
     <>
         <Head>
-            <title>Valavid | Manufacturers</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{makeTitleWith("سوالات متداول")}</title>
         </Head>
         <div className="container items-center relative pb-[25rem]">
             <div className="flex flex-col items-center justify-center">

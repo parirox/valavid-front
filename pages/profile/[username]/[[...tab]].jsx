@@ -22,6 +22,7 @@ import {dateFormat} from "@/utils/date/date";
 import Avatar from "@/components/Avatar";
 import * as React from 'react'
 import {useEffect, useRef} from "react";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 const tabs = [
   {
@@ -69,8 +70,7 @@ function Profile({query, targetTab}) {
   return (
     <>
       <Head>
-        <title>والاوید | پروفایل {data.name}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{makeTitleWith( `پروفایل ${data.name}`)}</title>
       </Head>
       <div className="w-full h-72 relative">
         <Image
