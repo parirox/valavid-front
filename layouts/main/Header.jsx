@@ -77,11 +77,11 @@ const Header = ({data, styleMode}) => {
                 </Menu.Button>
                 <Transition>
                     <Menu.Items>
-                        <div className="absolute z-30 top-[65px] left-[-9px]">
+                        <div className="absolute z-50 top-[65px] left-[-9px]">
                             <div className="relative h-full w-full">
                                 <div className="w-[200px] bg-[#1D2830] border border-accent rounded-[14px]">
                                     <div
-                                    className="w-[1.3rem] h-[1.3rem] bg-white rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent"/>
+                                    className="w-[1.3rem] h-[1.3rem] rotate-45 top-[-8px] left-[24px] absolute bg-[#1D2830] border-l border-t border-accent"/>
                                     {/* <Menu.Item>
                       <span className="m-4 block text-start text-color8">
                         <Link href="/profile">سجاد قهرمانی</Link>

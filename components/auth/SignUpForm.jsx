@@ -83,9 +83,9 @@ const SignUpForm = ({ signupData, setSignupData, setSelectedTab }) => {
   };
   return (
     <div className="flex flex-col mt-[2rem]">
-      <div className="flex flex-wrap">
+      <div className="flex flex-col sm:flex-row flex-wrap">
         {inputs.map((input, index) => (
-          <div className="w-[50%]" key={index}>
+          <div className="sm:w-[50%]" key={index}>
             <TextInput
               onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
               name={input.name}

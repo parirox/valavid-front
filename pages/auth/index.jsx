@@ -62,8 +62,8 @@ const Index = () => {
         onClick={async () => await router.push("/")}
         className="w-8 h-8 absolute top-8 left-8 cursor-pointer"
       />
-      <div className="flex relative">
-        <div className="min-w-[300px] max-h-[525px] bg-[#F2F2F3] w-100 mx-4 sm:mx-0 sm:w-[40.188rem] rounded-[23px] lg:rounded-tl-[0] lg:rounded-bl-[0] p-3">
+      <div className="flex relative w-full sm:w-auto">
+        <div className="w-full sm:min-w-[300px] sm:max-h-[525px] mb-16 sm:mb-0 mt-24 sm:mt-0 bg-[#F2F2F3] w-100 mx-4 sm:mx-0 sm:w-[40.188rem] rounded-[23px] lg:rounded-tl-[0] lg:rounded-bl-[0] p-3">
           {(selectedTab === "login" || selectedTab === "signup") && (
             <>
               <div>

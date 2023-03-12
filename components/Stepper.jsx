@@ -28,7 +28,7 @@ const Stepper = ({ steps, activeStep, setActiveStep }) => {
 
   return (
     <div className="w-[100%] flex flex-col items-center">
-      <div className={`flex items-center h-fit  absolute w-[150%] md:relative md:w-10/12 ${activeStep>2 ? "left-[30%] md:right-[22px] md:left-0" : "right-[22px] md:right-0"}`}>
+      <div className={`flex items-center h-fit  absolute w-[150%] md:relative md:w-10/12 ${activeStep>2 ? "left-[30%] md:right-[45px] md:left-0" : "right-[45px] md:right-0"}`}>
         {steps.map((step, index) => (
           <>
             <div className="relative flex items-center justify-center cursor-pointer">

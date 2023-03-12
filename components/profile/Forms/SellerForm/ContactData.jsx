@@ -75,7 +75,7 @@ function ContactData({defaultValues}) {
         <Input name='seller.bank_owner_phone' control={control} disabled={isFormDisable}/>
       </RowInput>
       <RowInput label='شبکه های اجتماعی'>
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           <Controller
             control={control}
             name="info.socials"

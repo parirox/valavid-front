@@ -9,6 +9,7 @@ import {
   useGetProfileDetailsQuery,
   useUpdateUserInformationMutation,
 } from "@/datasources/user/remote/UserSliceApi";
+import { IoClose } from "react-icons/io5";
 
 const Withdrawal = ({ isOpen, setIsOpen }) => {
   const [amount, setAmount] = useState(0);
@@ -17,11 +18,8 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
     bank_shaba: null,
     bank_account: null,
   });
-  const [withdrawal] =
-    useWithdrawalMutation();
-  const {
-    data: profileData,
-  } = useGetProfileDetailsQuery();
+  const [withdrawal] = useWithdrawalMutation();
+  const { data: profileData } = useGetProfileDetailsQuery();
   const [updateUserData] = useUpdateUserInformationMutation();
   const handleWithdrawal = () => {
     withdrawal({
@@ -64,6 +62,10 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
       background="bg-[#F8F8F8]"
       customHeight="w-full lg:basis-3/4"
     >
+      <IoClose
+        onClick={() => setIsOpen(false)}
+        className="absolute w-8 h-8 text-black left-5 top-5 cursor-pointer"
+      />
       <div className="p-4">
         <h4 className="text-secondary-300 text-start">برداشت وجه</h4>
         <div className="flex-col md:flex-row flex items-center gap-4">
@@ -169,7 +171,7 @@ const Withdrawal = ({ isOpen, setIsOpen }) => {
         </div>
         <Button
           onClick={() => handleWithdrawal()}
-          className="w-[20rem] h-[4rem] btn-primary mt-4 block "
+          className="w-full sm:w-[20rem] h-[4rem] btn-primary mt-4 block "
         >
           ثبت درخواست برداشت
         </Button>

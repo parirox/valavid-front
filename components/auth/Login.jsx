@@ -55,7 +55,7 @@ const Login = ({ setSelectedTab }) => {
   };
   return (
     <div className="flex flex-col mt-[2rem]">
-      <div className="mx-auto mb-[1rem] flex items-center justify-center bg-black rounded-full pt-[1rem] pl-[2px] w-[6rem] h-[6rem] bg-[#D6DADC]">
+      <div className="mx-auto mb-[1rem] flex items-center justify-center rounded-full pt-[1rem] pl-[2px] w-[6rem] h-[6rem] bg-[#D6DADC]">
       <Avatar />
       </div>
       <TextInput

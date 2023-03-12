@@ -10,6 +10,7 @@ import Router from "next/router";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
 import GatewaysList from "@/components/GatewaysList";
+import { IoClose } from "react-icons/io5";
 
 const Deposit = ({ isOpen, setIsOpen }) => {
   const [paymentGateway, setPaymentGateway] = useState(null);
@@ -61,6 +62,10 @@ const Deposit = ({ isOpen, setIsOpen }) => {
       background="bg-[#F8F8F8]"
       customHeight="w-full md:basis-3/4"
     >
+      <IoClose
+        onClick={() => setIsOpen(false)}
+        className="absolute w-8 h-8 text-black left-5 top-5 cursor-pointer"
+      />
       <div className="p-4">
         <h4 className="text-secondary-300 text-start">واریز وجه</h4>
         <h5 className="text-secondary text-start mt-[3rem] mb-[2rem]">
@@ -131,7 +136,7 @@ const Deposit = ({ isOpen, setIsOpen }) => {
         </p>
         <Button
           onClick={() => handleDeposit()}
-          className="w-[20rem] h-[4rem] btn-primary mt-4 block "
+          className="w-full sm:w-[20rem] h-[4rem] btn-primary mt-4 block "
         >
           واریز وجه
         </Button>

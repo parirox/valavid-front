@@ -49,7 +49,7 @@ function Modal({
             >
               <Dialog.Panel
                 className={
-                  classNames(`transform overflow-hidden p-1 md:p-6 text-left align-middle shadow-xl transition-all ${modalClass} ${rounded ? rounded : "rounded-2xl"} ${background ? background : "bg-white"} ${customHeight ? customHeight : (small ? "2xl:w-6/12 md:w-7/12 w-11/12" : big ? "w-full" : "2xl:w-8/12 md:w-9/12 w-11/12")}`)
+                  classNames(`transform overflow-hidden p-1 md:p-6 text-left align-middle shadow-xl transition-all ${modalClass} ${rounded ? rounded : "md:rounded-2xl"} ${background ? background : "bg-white"} ${customHeight ? customHeight : (small ? "2xl:w-6/12 md:w-7/12 w-11/12" : big ? "w-full" : "2xl:w-8/12 md:w-9/12 w-11/12")}`)
               }>
                 {title && (
                   <Dialog.Title

@@ -229,7 +229,7 @@ export default function Cart() {
                                   </span>
                                 </div>
                               </div>
-                              <div className="flex h-full">
+                              {/* <div className="flex h-full">
                                 <div
                                   className="text-gray p-1 cursor-pointer"
                                   onClick={() => {
@@ -252,7 +252,7 @@ export default function Cart() {
                                 >
                                   <IoTrashOutline className="text-3xl" />
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
