@@ -11,6 +11,7 @@ import styles from "@/styles/blog.module.css";
 import Link from "next/link";
 import ErrorPage from "../ErrorPage";
 import {Fragment} from "react";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function SingleBlog() {
   const router = useRouter();
@@ -27,8 +28,7 @@ function SingleBlog() {
     return (
       <div>
         <Head>
-          <title>Valavid | {blog?.title} </title>
-          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <title>{makeTitleWith(blog?.title)}</title>
         </Head>
         <div className="container pb-96 pt-16">
           <div className="max-w-[820px] mx-auto text-start">

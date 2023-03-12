@@ -1,12 +1,14 @@
 import Button from "@/components/Button";
 import Head from "next/head";
 import Image from "next/image";
+import {makeTitleWith} from "@/utils/seo/meta";
+import React from "react";
 
 function NotFound() {
   return (
     <>
       <Head>
-        <title>404 Error</title>
+          <title>{makeTitleWith(404)}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="container relative min-h-[100vh] flex justify-center items-center">

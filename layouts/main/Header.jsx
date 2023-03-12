@@ -22,6 +22,7 @@ import {useGetProfileDetailsQuery} from "@/datasources/user/remote/UserSliceApi"
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
 import {useDispatch} from "react-redux";
 import {setShowSearch, showSearch} from "@/datasources/blog/local/BlogSlice";
+import classNames from "classnames";
 
 const Header = ({data, styleMode}) => {
     const [isLogedin, setIsLogedIn] = useState(false);
@@ -200,9 +201,13 @@ const Header = ({data, styleMode}) => {
         </header>);
     } else {
         return (<header
-        className={`${styleMode === "main" ? "absolute top-[45px] inset-x-0 z-[1]" : "py-7 bg-secondary-600"} ${styleMode == "404" ? "hidden" : ""}`}
+        className={classNames("", {
+            "absolute top-[45px] inset-x-0 z-[1]": styleMode === "main",
+            "py-7 bg-secondary-600": styleMode !== "main",
+            "hidden": styleMode === "404"
+        })}
         >
-            {showSelect ? (<div className="flex items-center gap-4 px-6 animate-in slide-in-from-left-72">
+            {showSelect ? (<div className="flex items-center gap-4 px-6 py-1 animate-in slide-in-from-right-72 fade-in zoom-in">
                 <IoClose
                 className="cursor-pointer text-3xl"
                 onClick={() => setShowSelect(false)}

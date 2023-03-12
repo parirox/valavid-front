@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
+import {getCookie} from "cookies-next";
+import toast from "@/utils/notification/toast";
 
 const initialState = {
-    collection:{
-        modal:false,
-        selected_footage:{}
+    collection: {
+        modal: false,
+        selected_footage: {}
     }
 }
 
@@ -11,10 +13,13 @@ export const configSlice = createSlice({
     name: 'config',
     initialState,
     reducers: {
-        setModalCollectionTo:(state,action)=>{
-            state.collection.selected_footage = action.payload.footage_details
-            state.collection.modal = action.payload.active
-        }
+        setModalCollectionTo: (state, action) => {
+            if (getCookie("valavid_token")) {
+                state.collection.selected_footage = action.payload.footage_details
+                state.collection.modal = action.payload.active
+            }
+            toast.error("لطفا ابتدا در سایت ثبت نام و یا وارد حساب کاریری خود شوید.");
+        },
     },
 });
 // shortcut stats

@@ -25,10 +25,10 @@ export default function SelectSlider({value = ""}) {
 
   return (
     <div className="rounded-full h-full w-full bg-white text-gray-800">
-      <div className="flex flex-row gap-3 h-full">
+      <div className="flex flex-row gap-3 h-full items-center">
         <div className="basis-2/12 py-3 h-full">
           <Listbox value={selected} disabled={options.filter(option=>!option.unavailable).length <= 1} onChange={setSelected}>
-            <div className="border-l-[1px] border-[#D6DADC] relative px-2 h-full">
+            <div className="border-l-[1px] border-[#D6DADC] relative pr-2 pl-4 h-full">
               <Listbox.Button
                 as={Link}
                 href={`/products/${selected.route}`}

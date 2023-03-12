@@ -12,6 +12,7 @@ import {useRouter} from "next/router";
 import {getCookie} from "cookies-next";
 import toast from "@/utils/notification/toast";
 import Link from "next/link";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 
 export default function Cart() {
@@ -43,8 +44,7 @@ export default function Cart() {
   return (
     <>
       <Head>
-        <title>والاوید | سبد خرید</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{makeTitleWith("سبد خرید")}</title>
       </Head>
       <div className="container relative min-h-screen flex justify-center items-center">
         {

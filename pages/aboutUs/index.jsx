@@ -17,6 +17,8 @@ import Image from "next/image";
 import ContactUsBox from "@/components/ContactUsBox";
 import Link from "next/link";
 import ValavidLogo from "@/public/icons/ValavidLogo.svg";
+import {makeTitleWith} from "@/utils/seo/meta";
+import React from "react";
 
 export const InfoItemData = [
   {
@@ -71,8 +73,7 @@ export default function index() {
   return (
     <>
       <Head>
-        <title>Valavid | About us</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{makeTitleWith("درباره ی ما")}</title>
       </Head>
       <CoverPage
         className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]"

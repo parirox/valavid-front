@@ -11,6 +11,7 @@ import { wrapper } from "@/datasources/store";
 import NoContent from "@/components/NoContent";
 import Avatar from "react-avatar";
 import Pagination from "@/components/Pagination";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 function Publishers({ query }) {
   const { data, isSuccess, isError, isLoading } = useGetPublishersQuery({
@@ -21,8 +22,7 @@ function Publishers({ query }) {
   return (
     <>
       <Head>
-        <title>والاوید | تولید کنندگان</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>{makeTitleWith("تولید کنندگان")}</title>
       </Head>
       <div className="container pt-20 pb-96">
         <PageTitle>تولید کنندگان</PageTitle>

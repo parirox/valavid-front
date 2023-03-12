@@ -8,8 +8,6 @@ import {Provider} from "react-redux";
 import {persistStore} from "redux-persist";
 import {SessionProvider} from "next-auth/react";
 import NextNProgress from 'nextjs-progressbar';
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from 'tailwind.config'
 
 function App({Component, router, ...rest}) {
 
@@ -23,7 +21,6 @@ function App({Component, router, ...rest}) {
     const persistor = persistStore(store, {}, function () {
         persistor.persist();
     });
-    const fullConfig = resolveConfig(tailwindConfig)
 
     return (
     <Provider store={store}>

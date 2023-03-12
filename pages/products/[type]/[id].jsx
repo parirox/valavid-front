@@ -37,6 +37,7 @@ import {
 import ErrorPage from "../../ErrorPage";
 import Link from "next/link";
 import ReportModal from "@/components/products/report/ReportModal";
+import {getTitleTag, makeTitleWith} from "@/utils/seo/meta";
 
 const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: false})
 
@@ -81,7 +82,7 @@ function FootageDetails({query}) {
     if (isSuccess) {
         return (<>
             <Head>
-                <title>والاوید | {data.title}</title>
+                <title>{makeTitleWith(data.title)}</title>
             </Head>
             <div className="mt-10 container xl:mt-20">
                 <ManageCollectionDialog/>

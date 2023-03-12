@@ -1,117 +1,105 @@
 import BlogBox from "@/components/BlogBox";
 import MenuBlogs from "@/components/MenuBlogs";
 import blog_api, {
-  GetBlogCategories,
-  GetBlogData,
-  useGetBlogCategoriesQuery,
-  useGetBlogDataQuery,
+    GetBlogCategories, GetBlogData, useGetBlogCategoriesQuery, useGetBlogDataQuery,
 } from "@/datasources/blog/remote/BlogSliceApi";
 import Head from "next/head";
 import Link from "next/link";
 import Error404 from "../404";
-import { wrapper } from "@/datasources/store";
-import { Fragment, useState } from "react";
+import {wrapper} from "@/datasources/store";
+import React, {Fragment, useState} from "react";
 import _toast from "@/utils/notification/toast";
 import toast from "@/utils/notification/toast";
-import { handleApiError } from "@/datasources/errorHandler";
-import { IoMailOutline } from "react-icons/io5";
-import { useForm } from "react-hook-form";
+import {handleApiError} from "@/datasources/errorHandler";
+import {IoMailOutline} from "react-icons/io5";
+import {useForm} from "react-hook-form";
 import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useSubmitNewsletterMutation } from "@/datasources/pages/remote/PageSliceApi";
-import { showSearch } from "@/datasources/blog/local/BlogSlice";
-import { useSelector } from "react-redux";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useSubmitNewsletterMutation} from "@/datasources/pages/remote/PageSliceApi";
+import {showSearch} from "@/datasources/blog/local/BlogSlice";
+import {useSelector} from "react-redux";
+import {makeTitleWith} from "@/utils/seo/meta";
 
-function BlogList({ query }) {
-  const { data: blogCategories } = useGetBlogCategoriesQuery();
-  const { data: blogsData, isSuccess, isError } = useGetBlogDataQuery(query);
+function BlogList({query}) {
+    const {data: blogCategories} = useGetBlogCategoriesQuery();
+    const {data: blogsData, isSuccess, isError} = useGetBlogDataQuery(query);
 
-  const [submitNewsletter] = useSubmitNewsletterMutation();
-  const formSchema = Yup.object().shape({
-    email: Yup.string()
-      .required("ایمیل را وارد کنید")
-      .email("ایمیل معتبر نمی باشد."),
-  });
-  const {
-    register,
-    handleSubmit,
-    trigger,
-    reset,
-    formState: { errors },
-  } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      email: "",
-    },
-    resolver: yupResolver(formSchema),
-  });
+    const [submitNewsletter] = useSubmitNewsletterMutation();
+    const formSchema = Yup.object().shape({
+        email: Yup.string()
+        .required("ایمیل را وارد کنید")
+        .email("ایمیل معتبر نمی باشد."),
+    });
+    const {
+        register, handleSubmit, trigger, reset, formState: {errors},
+    } = useForm({
+        mode: "onBlur", defaultValues: {
+            email: "",
+        }, resolver: yupResolver(formSchema),
+    });
 
-  const _showSearch = useSelector(showSearch)
+    const _showSearch = useSelector(showSearch)
 
-  const onSubmit = async (data) => {
-    let isValid = await trigger(["email"]);
-    if (!isValid) {
-      _toast.error(errors.email.message);
-      return;
-    }
-    submitNewsletter(data)
-      .unwrap()
-      .then((data) => {
-        toast.success("با موفقیت ثبت نام شدید!");
-        reset();
-      })
-      .catch((e) => {
-        handleApiError(e);
-      });
-  };
+    const onSubmit = async (data) => {
+        let isValid = await trigger(["email"]);
+        if (!isValid) {
+            _toast.error(errors.email.message);
+            return;
+        }
+        submitNewsletter(data)
+        .unwrap()
+        .then((data) => {
+            toast.success("با موفقیت ثبت نام شدید!");
+            reset();
+        })
+        .catch((e) => {
+            handleApiError(e);
+        });
+    };
 
-  if (isError) return <Error404 />;
+    if (isError) return <Error404/>;
 
-  if (isSuccess)
-    return (
-      <>
+    if (isSuccess) return (<>
         <Head>
-          <title>Valavid | Blog list</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>{makeTitleWith("وبلاگ")}</title>
         </Head>
         <div className="container flex flex-col lg:flex-row gap-16 pt-16 pb-80">
-          {console.log('showww',_showSearch)}
-          <div className={`basis-1/3 ${_showSearch ? "block" : "hidden lg:block"}`}>
-            <div className="col-span-3 flex flex-col gap-3 items-end text-right">
+            <div className={`basis-1/3 ${_showSearch ? "block" : "hidden lg:block"}`}>
+                <div className="col-span-3 flex flex-col gap-3 items-end text-right">
               <span className="text-2xl text-secondary block w-full">
                 اشتراک خبرنامه
               </span>
-              <div className="form-control w-full">
-                <label className="block label mb-7">
+                    <div className="form-control w-full">
+                        <label className="block label mb-7">
                   <span className="text-[#90999F] text-lg">
                     عضو خبرنامه ما شوید و از تازه ترین خبرها به روز رسانی‌ها و
                     تخفیف های ویژه سایت با خبر شوید
                   </span>
-                </label>
-                <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
-                  <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center px-3">
-                    <IoMailOutline className="text-2xl text-[#90999F]" />
-                  </div>
-                  <input
-                    {...register("email")}
-                    type="text"
-                    placeholder="ایمیل شما"
-                    className="input w-full pr-10 py-3 text-secondary flex justify-center items-center h-full"
-                  />
-                  <button
-                    onClick={handleSubmit(onSubmit)}
-                    className="bg-secondary-300 absolute left-1 top-0 h-[3.7rem] rounded-[1.6rem] w-[4.2rem] m-auto bottom-0 px-2 text-center"
-                  >
-                    عضویت
-                  </button>
+                        </label>
+                        <div className="relative mb-8 rounded-[1.6rem] h-[4.3rem] border border-secondary-100">
+                            <div className="absolute right-0 top-0 bottom-0 flex justify-center items-center px-3">
+                                <IoMailOutline className="text-2xl text-[#90999F]"/>
+                            </div>
+                            <input
+                            {...register("email")}
+                            type="text"
+                            placeholder="ایمیل شما"
+                            className="input w-full pr-10 py-3 text-secondary flex justify-center items-center h-full"
+                            />
+                            <button
+                            onClick={handleSubmit(onSubmit)}
+                            className="bg-secondary-300 absolute left-1 top-0 h-[3.7rem] rounded-[1.6rem] w-[4.2rem] m-auto bottom-0 px-2 text-center"
+                            >
+                                عضویت
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                {blogCategories && <MenuBlogs menuBlogsData={blogCategories}/>}
             </div>
-            {blogCategories && <MenuBlogs menuBlogsData={blogCategories} />}
-          </div>
-          <div className="lg:basis-2/3">
-            <Link href={`/blogs/${blogsData.results[0].id}`}>
-              <BlogBox
+            <div className="lg:basis-2/3">
+                <BlogBox
+                id={blogsData.results[0].id}
                 className="mb-5"
                 row
                 title={blogsData.results[0].title}
@@ -119,66 +107,54 @@ function BlogList({ query }) {
                 tags={blogsData.results[0].tags || []}
                 image={blogsData.results[0].media}
                 date={blogsData.results[0].date}
-              ></BlogBox>
-            </Link>
-            <div className="flex flex-col sm:flex-row gap-5 w-100">
-              <div className="w-full sm:basis-1/2">
-                {blogsData.results.map((blog, index) => (
-                  <Fragment key={blog.id}>
-                    {index % 2 !== 0 && index !== 0 && (
-                      <BlogBox
-                        id={blog.id}
-                        className={"mb-5"}
-                        row={false}
-                        title={blog.title}
-                        description={blog.description}
-                        tags={blog.tags || []}
-                        image={blog.media}
-                        date={blog.date}
-                      />
-                    )}
-                  </Fragment>
-                ))}
-              </div>
-              <div className="w-full sm:basis-1/2">
-                {blogsData.results.map((blog, index) => (
-                  <Fragment key={blog.id}>
-                    {index % 2 === 0 && index !== 0 && (
-                      <BlogBox
-                        className={"mb-5"}
-                        row={false}
-                        title={blog.title}
-                        description={blog.description}
-                        tags={blog.tags || []}
-                        image={blog.media}
-                        date={blog.date}
-                      ></BlogBox>
-                    )}
-                  </Fragment>
-                ))}
-              </div>
+                ></BlogBox>
+                <div className="flex flex-col sm:flex-row gap-5 w-100">
+                    <div className="w-full sm:basis-1/2">
+                        {blogsData.results.map((blog, index) => (<Fragment key={blog.id}>
+                            {index % 2 !== 0 && index !== 0 && (<BlogBox
+                            id={blog.id}
+                            className={"mb-5"}
+                            row={false}
+                            title={blog.title}
+                            description={blog.description}
+                            tags={blog.tags || []}
+                            image={blog.media}
+                            date={blog.date}
+                            />)}
+                        </Fragment>))}
+                    </div>
+                    <div className="w-full sm:basis-1/2">
+                        {blogsData.results.map((blog, index) => (<Fragment key={blog.id}>
+                            {index % 2 === 0 && index !== 0 && (<BlogBox
+                            id={blog.id}
+                            className={"mb-5"}
+                            row={false}
+                            title={blog.title}
+                            description={blog.description}
+                            tags={blog.tags || []}
+                            image={blog.media}
+                            date={blog.date}
+                            ></BlogBox>)}
+                        </Fragment>))}
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </>
-    );
+    </>);
 }
 
 BlogList.styleMode = "blog";
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    const query = { ...context.query };
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+    const query = {...context.query};
     store.dispatch(GetBlogData.initiate(query));
     store.dispatch(GetBlogCategories.initiate());
     await Promise.all(store.dispatch(blog_api.util.getRunningQueriesThunk()));
     return {
-      props: {
-        query,
-        protected: true,
-      },
+        props: {
+            query, protected: true,
+        },
     };
-  }
-);
+});
 
 export default BlogList;
