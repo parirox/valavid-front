@@ -76,14 +76,7 @@ export default function ManageCollectionDialog({...rest}) {
     }
     //->> initialize the default form value
     useEffect(() => {
-        console.log({show})
-        if (show) {
-            setInitials(true)
-        }
-        return ()=>{
-            console.log("call reset")
-            // dispatch(resetCollectionData())
-        }
+        if (show) setInitials(true)
     }, [show])
 
     //->> check results and do
@@ -115,12 +108,13 @@ export default function ManageCollectionDialog({...rest}) {
                     <li key={k} className="flex w-full items-center justify-between py-4">
                         <div>
                             <div className="flex items-center gap-5">
-                                <span className="h-16 w-16 rounded-2xl text-center bg-color8 leading-[4rem]">{collection.total_count}</span>
+                                <span
+                                className="h-16 w-16 rounded-2xl text-center bg-color8 leading-[4rem]">{collection.total_count}</span>
                                 <span>{collection.title}</span>
                             </div>
                         </div>
                         <div>
-                            {collection.media.some(v => v.src === footage_details.media.src) ?
+                            {collection.media.some(v => v.src === footage_details.media.cover) ?
                             <Button loading={removeProductIsLoading} onClick={() => {
                                 if (!removeProductIsLoading) fetchRemoveProduct({
                                     collection_id: collection.id,

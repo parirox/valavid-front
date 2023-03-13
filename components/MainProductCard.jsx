@@ -108,16 +108,16 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>
             {data.author && <div
-              className="absolute bottom-[5.5rem] left-7 z-30 transition-400-linear hidden group-hover/popularCard:block">
+              className="absolute bottom-[5.5rem] left-7 z-50 transition-400-linear hidden group-hover/popularCard:block">
               <div className="basis-auto text-black">
                 <div className="relative z-50 flex gap-3 justify-end items-center mb-3">
-                  <div className="flex items-center basis rounded-3xl bg-white py-2 px-3">
+                  <Link href={`/profile/${data.author?.username}`} className="flex items-center basis rounded-3xl bg-white py-2 px-3">
                     <span className='ml-2 text-sm opacity-80'>{data.author.name}</span>
                     {data.author.profile_image ?
                       <Image src={data.author.profile_image} alt={data.author.name} width={16} height={16}
                              className='w-8 rounded-full'/> :
                       <Avatar round={true} name={data.author.name} size="20"/>}
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>}

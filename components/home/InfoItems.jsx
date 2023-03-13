@@ -9,7 +9,7 @@ const InfoItems = ({ stats }) => {
       <ReverseEffectInfoItem
         title="تصویر"
         value={stats.images}
-        icon={<IoImage className="text-xl lg:text-3x" />}
+        icon={<IoImage className="text-xl lg:text-3xl" />}
         disable={!stats.images}
         className="basis-5/12 sm:basis-1/4"
       ></ReverseEffectInfoItem>
@@ -17,9 +17,10 @@ const InfoItems = ({ stats }) => {
       <OctagonalDivider></OctagonalDivider>
       </div>
       <ReverseEffectInfoItem
+        link={"/products/video"}
         title="ویدئو"
         value={stats.videos}
-        icon={<IoVideocam className="text-xl lg:text-3x" />}
+        icon={<IoVideocam className="text-xl lg:text-3xl" />}
         disable={!stats.videos}
         className="basis-5/12 sm:basis-1/4"
       ></ReverseEffectInfoItem>
@@ -29,7 +30,7 @@ const InfoItems = ({ stats }) => {
       <ReverseEffectInfoItem
         title="صوت"
         value={stats.audios}
-        icon={<IoMusicalNote className="text-xl lg:text-3x" />}
+        icon={<IoMusicalNote className="text-xl lg:text-3xl" />}
         disable={!stats.audios}
         className="basis-5/12 sm:basis-1/4"
       ></ReverseEffectInfoItem>
@@ -39,7 +40,7 @@ const InfoItems = ({ stats }) => {
       <ReverseEffectInfoItem
         title="تمپلیت"
         value={stats.templates}
-        icon={<FaPalette className="text-xl lg:text-3x" />}
+        icon={<FaPalette className="text-xl lg:text-3xl" />}
         disable={!stats.templates}
         className="basis-5/12 sm:basis-1/4"
       ></ReverseEffectInfoItem>

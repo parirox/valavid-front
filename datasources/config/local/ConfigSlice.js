@@ -18,7 +18,9 @@ export const configSlice = createSlice({
                 state.collection.selected_footage = action.payload.footage_details
                 state.collection.modal = action.payload.active
             }
-            toast.error("لطفا ابتدا در سایت ثبت نام و یا وارد حساب کاریری خود شوید.");
+            else {
+                toast.error("لطفا ابتدا در سایت ثبت نام و یا وارد حساب کاریری خود شوید.");
+            }
         },
     },
 });

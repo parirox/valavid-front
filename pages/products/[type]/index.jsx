@@ -132,8 +132,9 @@ function Products({query,agent}) {
             <title>{makeTitleWith("لیست محصولات")}</title>
         </Head>
         <CoverPage className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]"
+                   description={"با خرید فیلم های با کیفیت بالا توسط هنرمندانی از سراسر ایران، در زمان و هزینه خود صرفه جویی کنید."}
                    backgroundImage={PicMountain} icon={<IoVideocam className={"text-primary text-4xl"}/>}>
-            {query.type === 'video' ? 'مجموعه فیلم ویدئویی با کیفیت باورنکردنی' : 'مجموعه عکس با کیفیت باورنکردنی'}
+            فوتیج هایی به وسعت ایران
         </CoverPage>
         <ManageCollectionDialog/>
         <div className="relative flex w-full items-start">

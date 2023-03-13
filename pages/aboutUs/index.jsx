@@ -12,7 +12,7 @@ import {FaTelegramPlane} from "react-icons/fa";
 import {AiFillMail} from "react-icons/ai";
 import {HiLocationMarker} from "react-icons/hi";
 import PcPic from "@/public/images/pcIncontactus.png";
-import LocationMap from "@/public/images/locationValavidMap.png";
+import LocationMap from "@/public/images/location.png";
 import Image from "next/image";
 import ContactUsBox from "@/components/ContactUsBox";
 import Link from "next/link";
@@ -77,20 +77,11 @@ export default function index() {
       </Head>
       <CoverPage
         className="bg-gradient-to-l from-[#13222db3] via-[#14232f59] to-[#13222db3]"
-        description="هدف ما الهام بخشیدن و انتشار میهن عزیزمان است"
+        description="هر قابی که از ایران بخوای..."
         backgroundImage={AzadiTower}
       >
         با ما بیشتر آشنا شوید
       </CoverPage>
-      {/*<div className="relative h-[10rem] w-full">*/}
-        {/*<div className="absolute -top-[4.25rem] right-0 left-0 flex gap-14 max-w-[940px] items-center w-full m-auto">*/}
-        {/*  {*/}
-        {/*    InfoItemData.map((item,i) => (*/}
-        {/*      <ReverseEffectInfoItem title={item.title} value={item.value} icon={item.icon} disable={item.value == null} className="basis-1/4" key={i}></ReverseEffectInfoItem>*/}
-        {/*    ))*/}
-        {/*  }*/}
-        {/*</div>*/}
-      {/*</div>*/}
       <div className="relative mt-14">
         <div className="flex container">
           <div className="">
@@ -98,7 +89,7 @@ export default function index() {
               <ValavidLogo/>
             </Link>
             <Image className={"hidden lg:block"} alt={"valavid logo"} src={ValavidIcon} width={140}></Image>
-            <p className="max-w-[62rem] text-lg text-justify leading-[3.5rem]">
+            <p className="max-w-[62rem] sm:text-lg text-justify sm:leading-[3.5rem]">
               والاوید پلتفرم اشتراک گذاری فوتیج یا تکه ویدئو های مورد نیاز
               فیلمسازه. اینجا تعدادی زیادی از فیلمبردارها و فیلمسازانی که
               چشم‌شان به ایران دوخته شده، گرد هم جمع شده‌اند تا با اشتراک گذاشتن
@@ -137,7 +128,7 @@ export default function index() {
             </p>
           </div>
           <div className="absolute z-[-1] top-0 left-5 hidden lg:block">
-            <Image src={Pictures} className="" width={850} height={250}></Image>
+            <Image alt={"درباره ی ما"} src={Pictures} className="object-cover w-auto h-auto" width={850} height={250}></Image>
             <div className="bg-gradient-to-r from-secondary-500 via-[#00101c5a] to-secondary-500 w-full h-full absolute top-0 left-0 z-1 opacity-75"></div>
             <div className="bg-gradient-to-b from-secondary-500 via-[#00101c5a] to-secondary-500 w-full h-full absolute top-0 left-0 z-1 opacity-75"></div>
           </div>
@@ -146,7 +137,7 @@ export default function index() {
           <div className="flex flex-col lg:flex-row gap-20 items-end mb-16">
            <div className="flex flex-col sm:flex-row gap-10 w-full lg:w-auto items-center">
            <Link className="flex-1" href={"/faq"}>
-              <Image src={PcPic} className="h-[22rem] w-[25rem]"></Image>
+              <Image alt={"با والاوید در تماس باشید"} src={PcPic} className="h-[22rem] w-[25rem]"></Image>
             </Link>
           <p className="text-xl opacity-40 font-thin mb-6 lg:hidden flex-1 flex items-center justify-center">با ما در تماس باشید</p>
 
@@ -170,11 +161,17 @@ export default function index() {
              </div>
             </div>
           </div>
-          <div className="pt-10 pb-44">
-            <Image
+          <div className="mt-10 mb-44 h-96 relative overflow-hidden">
+            <Link target={"_blank"} href={"https://goo.gl/maps/ecWydKiBi7tTVBAaA"}>
+              <Image
               src={LocationMap}
-              className="h-[220px] w-full object-cover rounded-[2rem]"
-            ></Image>
+              alt={"آدرس والاوید روی نقشه"}
+              className="object-cover rounded-[2rem] hue-rotate-180"
+              fill
+              sizes={"100vw"}
+              quality={100}
+              ></Image>
+            </Link>
           </div>
         </div>
       </div>

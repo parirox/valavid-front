@@ -23,7 +23,7 @@ export default function CollapseElement({ headTitle, headIcon, children }) {
                         leave="transition duration-250 ease-in-out"
                         leaveFrom="transform scale-100 opacity-100"
                         leaveTo="transform scale-95 opacity-0">
-                        <Disclosure.Panel className="border-b border-secondary-300 pr-2">
+                        <Disclosure.Panel className="border-b border-secondary-400 pr-2">
                             <div className="w-full relative pt-0 py-10 px-3">
                                 {children}
                             </div>
