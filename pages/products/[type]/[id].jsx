@@ -43,7 +43,7 @@ const RatePieChart = dynamic(import("@/components/charts/RatePieChart"), {ssr: f
 
 function FootageDetails({query}) {
     const dispatch = useDispatch();
-    const {data, isSuccess, isError, error} = useProductDetailsQuery(query);
+    const {data, isSuccess,isFetching, isError, error} = useProductDetailsQuery(query);
 
     const _cartItems = useSelector(cartItems);
     const is_in_cart = useMemo(() => {
@@ -54,7 +54,7 @@ function FootageDetails({query}) {
 
     useEffect(() => {
         if (isSuccess && (likeCount !== data?.like_count)) setLikeCount(data.like_count)
-    }, [isSuccess])
+    }, [isSuccess,isFetching])
     //->> favorite endpoints
     const {
         data: favoritesData,
@@ -96,11 +96,10 @@ function FootageDetails({query}) {
                                 <source src={data.media.src} type="video/mp4"/>
                             </video> : <Image src={data.media.src} alt={data.media.alt} fill
                                               className="object-cover full rounded-[2.6rem]"/>}
-                            {!likeCount && <ButtonIcon icon={<IoHeart className={"sm:text-2xl"}/>}
+                            <ButtonIcon icon={<IoHeart className={"sm:text-2xl"}/>}
                                                        className={"btn-accent opacity-80 absolute sm:top-14 top-5 py-1 px-3 sm:right-8 right-5 flex-row-reverse justify-center text-lg gap-1 z-40"}>
                                 {likeCount}
                             </ButtonIcon>
-                            }
                         </div>
                         <div className="mt-6 hidden flex-wrap justify-start gap-3 lg:flex">
                             {data.tags.map((v, i) => (<Chip href={`/products/${data.type}/?tags=${v.label}`} key={i}
