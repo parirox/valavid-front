@@ -13,15 +13,13 @@ import product_api, {GetCollectionDetails} from "@/datasources/product/remote/Pr
 import {makeTitleWith} from "@/utils/seo/meta";
 
 function Faq({query}) {
-    const {data, isSuccess, isError, isLoading} = useGetFaqQuery()
+    const {data, isSuccess} = useGetFaqQuery()
 
     const router = useRouter();
     const [searchValue, setSearchValue] = useState("");
     const searchValueDeferred = useDeferredValue(searchValue);
 
     const [selectedIndex, setSelectedIndex] = useState(null);
-
-    const [targetTab, setTargetTab] = useState(null);
 
     useEffect(() => {
         let Q;
@@ -30,13 +28,9 @@ function Faq({query}) {
         }else{
             Q = router.query
         }
-        console.log({Q})
-        let tabIndex;
-        !isEmpty(Q.tab)
-        ? tabIndex = data.findIndex((tab) => tab.title === Q.tab)
-        : tabIndex = data[0]?.title
-        setTargetTab(tabIndex)
-        setSelectedIndex(tabIndex)
+        let targetTab;
+        if(!isEmpty(Q.tab)) targetTab = data.findIndex((tab) => tab.title == Q.tab)
+        setSelectedIndex(targetTab)
     }, [router]);
 
     const changeTabHandler = async (i) => {
@@ -68,7 +62,6 @@ function Faq({query}) {
                 </div>
             </div>
             <div className="basis-3/4 overflow-hidden relative">
-                {selectedIndex >= 0 && (
                 <Tab.Group
                 selectedIndex={selectedIndex}
                 onChange={changeTabHandler}
@@ -77,7 +70,7 @@ function Faq({query}) {
                         <div className="absolute left-0 right-0 bottom-0 h-1 -z-10 bg-accent w-full"></div>
                         {data.map((tab, k) => (
                         <Tab
-                        key={tab.title}
+                        key={k}
                         className="w-44 flex items-center gap-4 outline-0  ui-selected:border-b-[0.25rem] ui-not-selected:border-accent ui-not-selected:text-secondary-300 ui-selected:border-primary justify-center"
                         >
                             {tab?.icon}
@@ -126,9 +119,7 @@ function Faq({query}) {
                         ))}
                     </Tab.Panels>
                 </Tab.Group>
-                )}
             </div>
-
         </div>
     </>
     )
@@ -139,10 +130,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(GetFaq.initiate())
     await Promise.all(store.dispatch(page_api.util.getRunningQueriesThunk()))
 
-    console.log(context.query)
     return {
         props: {
-            query: context.query,
+            query: {
+                tab: context.query?.tab?.[0] ?? null
+            },
         },
     };
 }
