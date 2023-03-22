@@ -23,7 +23,7 @@ function InfiniteList({className, query,page, items, isFetching, loadingContent,
     hasNextPage,
     onLoadMore: loadMore,
     disabled: isError,
-    rootMargin: '400px 0px 400px 0px',
+    rootMargin: '0px 0px 400px 0px',
   });
 
   return (
@@ -34,9 +34,9 @@ function InfiniteList({className, query,page, items, isFetching, loadingContent,
         ))}
       </div>
       {isError && <div className={"w-full"}><button className={"btn btn-ghost m-auto"} onClick={refetch}>تلاش مجدد</button></div>}
-      {(!isError && (isFetching || hasNextPage) ) && (
+      {(!isError && hasNextPage) && (
         <div ref={sentryRef} className={"flex w-full gap-10"}>
-          {loadingContent}
+          {isFetching && loadingContent}
         </div>
       )}
     </>

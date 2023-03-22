@@ -15,7 +15,7 @@ const SelectBox = ({label, selected, dark, setSelected, options}) => {
             "bg-accent text-white": dark,
         })}>
             {options && options.map((item, index) => (<Listbox.Option
-            className={classNames("py-3 text-start px-4",{
+            className={classNames("py-3 text-start px-4 cursor-pointer",{
                 "hover:bg-color9":!dark,
                 "hover:bg-color7":dark,
             })}
