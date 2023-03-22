@@ -46,7 +46,6 @@ function Products({ query, agent }) {
   const {
     data: filterOptions,
     isSuccess: filterIsSuccess,
-    isLoading: filterIsLoading,
   } = useGetProductListFilterQuery({ query: { type: query.type } });
 
   const [filterChanged, setFilterChanged] = useState(false);
@@ -64,9 +63,9 @@ function Products({ query, agent }) {
     camera_angle: [],
     orientation: [],
     aspect_ratio: [],
-    country: {},
-    province: {},
-    city: {},
+    country: "",
+    state: "",
+    city: "",
     shutter_speed: [],
   });
   const deferredQuery = useDeferredValue(formData);
@@ -206,18 +205,16 @@ function Products({ query, agent }) {
                 }
               )}
             >
-              {filterIsSuccess &&
-                !filterIsLoading &&
-                query.type === "video" && (
+              {(filterIsSuccess &&
+                query.type === "video") && (
                   <VideoFilter
                     filterOptions={filterOptions}
                     setFormDataHandler={setFormDataHandler}
                     formData={formData}
                   />
                 )}
-              {filterIsSuccess &&
-                !filterIsLoading &&
-                query.type === "image" && (
+              {(filterIsSuccess &&
+                query.type === "image") && (
                   <ImageFilter
                     filterOptions={filterOptions}
                     setFormDataHandler={setFormDataHandler}
@@ -246,7 +243,7 @@ function Products({ query, agent }) {
               )}
             ></SortTabs>
           </div>
-          {isSuccess && (
+            {(isSuccess || data?.results?.length > 0) && (
             <>
               {data?.count === 0 && <NoContent />}
               {firstPage === 1 ? (

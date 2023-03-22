@@ -8,7 +8,7 @@ const CitySelect = ({
                         formData, setFormDataHandler, setCountry, setProvince, setCity, dark
                     }) => {
     const [countryOptions, setCountryOptions] = useState([]);
-    const [proviceOptions, setProviceOptions] = useState([]);
+    const [provinceOptions, setProvinceOptions] = useState([]);
     const [cityOptions, setCityOptions] = useState([]);
     const [selectValues, setSelectValues] = useState({
         country: null, province: null, city: null,
@@ -49,7 +49,7 @@ const CitySelect = ({
     }, []);
 
     useEffect(() => {
-        setProviceOptions(getProvincesOptions());
+        setProvinceOptions(getProvincesOptions());
     }, [selectValues.country]);
 
     useEffect(() => {
@@ -72,7 +72,7 @@ const CitySelect = ({
         dark
         />
         <SelectBox
-        options={proviceOptions}
+        options={provinceOptions}
         selected={selectValues.province}
         setSelected={(item) => {
             setSelectValues((prev) => {

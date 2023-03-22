@@ -152,7 +152,7 @@ const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
             <CitySelect
             formData={formData}
             setCountry={setFormDataHandler("country")}
-            setProvince={setFormDataHandler("province")}
+            setProvince={setFormDataHandler("state")}
             setCity={setFormDataHandler("city")}
             dark
             />
