@@ -1,11 +1,15 @@
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import {useRouter} from "next/router";
+import {useMemo} from "react";
 
 
-function InfiniteList({className, query,page, items, isFetching, isLoading, loadingContent, isError, children}) {
+function InfiniteList({className, query,page, items, isFetching, loadingContent,refetch, isError, children}) {
   const router = useRouter()
+  const hasNextPage = useMemo(()=>{
+        return items.results.length < items.count
+  },[items.results.length , items.count])
   const loadMore = () => {
-    if (!isFetching) {
+    if (hasNextPage && !isFetching) {
       router.replace({
           query: {...query, page: parseInt(page) + 1}
         },
@@ -15,11 +19,11 @@ function InfiniteList({className, query,page, items, isFetching, isLoading, load
   }
 
   const [sentryRef] = useInfiniteScroll({
-    loading: isLoading,
-    hasNextPage: !!items.next,
+    loading: isFetching,
+    hasNextPage,
     onLoadMore: loadMore,
     disabled: isError,
-    rootMargin: '800px 0px 0px 0px',
+    rootMargin: '400px 0px 400px 0px',
   });
 
   return (
@@ -29,7 +33,8 @@ function InfiniteList({className, query,page, items, isFetching, isLoading, load
           children(video, key)
         ))}
       </div>
-      {(isLoading || !!items.next) && (
+      {isError && <div className={"w-full"}><button className={"btn btn-ghost m-auto"} onClick={refetch}>تلاش مجدد</button></div>}
+      {(!isError && (isFetching || hasNextPage) ) && (
         <div ref={sentryRef} className={"flex w-full gap-10"}>
           {loadingContent}
         </div>

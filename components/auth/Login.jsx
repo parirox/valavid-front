@@ -13,7 +13,7 @@ import { setCookie } from "cookies-next";
 import { isEmpty } from "@/utils/general";
 import Avatar from "@/public/images/Avatar.svg";
 
-const Login = ({ setSelectedTab }) => {
+const Login = ({ setSelectedTab,hasBackUrl}) => {
   const { data: session } = useSession();
   const [loginInfo, setLoginInfo] = useState({
     username: "",
@@ -45,7 +45,9 @@ const Login = ({ setSelectedTab }) => {
         setCookie("valavid_token", response.token);
         if (!isEmpty(router.query?.callback)) {
           router.push(router.query.callback);
-        } else {
+        } if(hasBackUrl) {
+              router.back()
+          } else {
           router.push("/profile/me");
         }
       })

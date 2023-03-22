@@ -122,7 +122,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
               </div>
             </div>}
             <div
-              className={classNames("absolute bottom-12 left-7 z-30 transition-400-linear hidden group-hover/popularCard:block",{"right-10":small})}>
+              className={"absolute bottom-12 left-7 right-10 z-30 transition-400-linear hidden group-hover/popularCard:block"}>
               <div className="basis-auto text-black w-full overflow-hidden">
                 <div className="flex gap-3 justify-end">
                   <div className="flex-none rounded-3xl bg-white py-2 min-w-[auto] max-w-full">
