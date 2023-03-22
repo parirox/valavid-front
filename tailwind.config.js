@@ -117,7 +117,7 @@ module.exports = {
         require('@headlessui/tailwindcss')({prefix: 'ui'}),
         require("@tailwindcss/typography"),
         require("tailwindcss-animate"),
-        require('tailwind-scrollbar'),
+        require('tailwind-scrollbar')({ nocompatible: true }),
         require("@tailwindcss/forms"),
         function ({addComponents}) {
             addComponents({

@@ -1,115 +1,105 @@
-import { provinces_with_cities } from "@/components/profile/Products/AddProduct/Location";
+import {provinces_with_cities} from "@/components/profile/Products/AddProduct/Location";
 import SelectBox from "@/components/SelectBox";
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 
 const countries = ["ایران"];
 
 const CitySelect = ({
-  formData,
-  setFormDataHandler,
-  setCountry,
-  setProvince,
-  setCity,
-}) => {
-  const [countryOptions, setCountryOptions] = useState([]);
-  const [proviceOptions, setProviceOptions] = useState([]);
-  const [cityOptions, setCityOptions] = useState([]);
-  const [selectValues, setSelectValues] = useState({
-    country: null,
-    province: null,
-    city: null,
-  });
-  const getCountryOptions = () => {
-    let options = [];
-    options = countries.map((country) => {
-      return { label: country, value: country };
+                        formData, setFormDataHandler, setCountry, setProvince, setCity, dark
+                    }) => {
+    const [countryOptions, setCountryOptions] = useState([]);
+    const [proviceOptions, setProviceOptions] = useState([]);
+    const [cityOptions, setCityOptions] = useState([]);
+    const [selectValues, setSelectValues] = useState({
+        country: null, province: null, city: null,
     });
-    return options;
-  };
+    const getCountryOptions = () => {
+        let options = [];
+        options = countries.map((country) => {
+            return {label: country, value: country};
+        });
+        return options;
+    };
 
-  const getProvincesOptions = () => {
-    let options = [];
-    Object.keys(provinces_with_cities).map((key) => {
-      options.push({
-        label: key,
-        value: key,
-      });
-    });
+    const getProvincesOptions = () => {
+        let options = [];
+        Object.keys(provinces_with_cities).map((key) => {
+            options.push({
+                label: key, value: key,
+            });
+        });
 
-    return options;
-  };
+        return options;
+    };
 
-  const getCitiesOptions = () => {
-    let options = [];
-    if (selectValues.province) {
-      options = provinces_with_cities[selectValues.province.value].map((city) => {
-        return {
-          value: city,
-          label: city,
-        };
-      });
-    }
-    return options;
-  };
+    const getCitiesOptions = () => {
+        let options = [];
+        if (selectValues.province) {
+            options = provinces_with_cities[selectValues.province.value].map((city) => {
+                return {
+                    value: city, label: city,
+                };
+            });
+        }
+        return options;
+    };
 
-  useEffect(() => {
-    setCountryOptions(getCountryOptions());
-  }, []);
+    useEffect(() => {
+        setCountryOptions(getCountryOptions());
+    }, []);
 
-  useEffect(() => {
-    setProviceOptions(getProvincesOptions());
-  }, [selectValues.country]);
+    useEffect(() => {
+        setProviceOptions(getProvincesOptions());
+    }, [selectValues.country]);
 
-  useEffect(() => {
-    setCityOptions(getCitiesOptions());
-  }, [selectValues.province]);
+    useEffect(() => {
+        setCityOptions(getCitiesOptions());
+    }, [selectValues.province]);
 
-  return (
-    <div className="flex flex-col gap-4">
-      <SelectBox
+    return (<div className="flex flex-col gap-4 relative">
+        <SelectBox
         options={countryOptions}
         selected={selectValues.country}
         setSelected={(item) => {
-          setSelectValues((prev) => {
-            return {
-              ...prev,
-              country: item,
-            };
-          });
-          setCountry(item.value);
+            setSelectValues((prev) => {
+                return {
+                    ...prev, country: item,
+                };
+            });
+            setCountry(item.value);
         }}
         label="کشور"
-      />
-      <SelectBox
+        dark
+        />
+        <SelectBox
         options={proviceOptions}
         selected={selectValues.province}
         setSelected={(item) => {
             setSelectValues((prev) => {
                 return {
-                  ...prev,
-                  province: item,
+                    ...prev, province: item,
                 };
-              });
-          setProvince(item.value);
+            });
+            setProvince(item.value);
         }}
         label="استان"
-      />
-      <SelectBox
+        dark
+        />
+        <SelectBox
         options={cityOptions}
         selected={selectValues.city}
         setSelected={(item) => {
             setSelectValues((prev) => {
                 return {
-                  ...prev,
-                  city: item,
+                    ...prev, city: item,
                 };
-              });
-          setCity(item.value);
+            });
+            setCity(item.value);
         }}
         label="شهر"
-      />
-    </div>
-  );
+        dark
+        />
+    </div>);
 };
 
 export default CitySelect;

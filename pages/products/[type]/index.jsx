@@ -2,20 +2,20 @@ import CoverPage from "@/components/CoverPage";
 import SortTabs from "@/components/SortTabs";
 import PicMountain from "@/public/images/astara_mountain.jpg";
 import Head from "next/head";
-import React, { useDeferredValue, useEffect, useMemo, useState } from "react";
+import React, {useDeferredValue, useEffect, useMemo, useState} from "react";
 import product_api, {
-  GetProductListFilter,
-  GetProductListScroll,
-  useGetProductListFilterQuery,
-  useGetProductListScrollQuery,
+    GetProductListFilter,
+    GetProductListScroll,
+    useGetProductListFilterQuery,
+    useGetProductListScrollQuery,
 } from "@/datasources/product/remote/ProductSliceApi";
-import { wrapper } from "@/datasources/store";
-import { useRouter } from "next/router";
-import { IoClose, IoVideocam } from "react-icons/io5";
-import { TiFilter } from "react-icons/ti";
+import {wrapper} from "@/datasources/store";
+import {useRouter} from "next/router";
+import {IoClose, IoVideocam} from "react-icons/io5";
+import {TiFilter} from "react-icons/ti";
 import Pagination from "@/components/Pagination";
 import InfiniteList from "@/components/InfiniteList";
-import { isEmpty } from "@/utils/general";
+import {isEmpty} from "@/utils/general";
 import dynamic from "next/dynamic";
 import ManageCollectionDialog from "@/components/ManageCollectionDialog";
 import VideoFilter from "@/components/products/filter/VideoFilter";
@@ -25,10 +25,10 @@ import ErrorPage from "../../ErrorPage";
 import NoContent from "@/components/NoContent";
 import classNames from "classnames";
 import ButtonIcon from "@/components/ButtonIcon";
-import { getCurrentBreakpoint } from "@/utils/tailwind/breakpoint";
+import {getCurrentBreakpoint} from "@/utils/tailwind/breakpoint";
 import Button from "@/components/Button";
-import { parse } from "next-useragent";
-import { makeTitleWith } from "@/utils/seo/meta";
+import {parse} from "next-useragent";
+import {makeTitleWith} from "@/utils/seo/meta";
 
 const VideoCardLoader = dynamic(
   import("@/components/skelton/VideoCardLoader"),
@@ -40,15 +40,13 @@ function Products({ query, agent }) {
   const firstPage = useMemo(() => query.page, []);
   const [page, setPage] = useState(parseInt(query.page));
 
-  const { data, isFetching, isSuccess, isLoading, isError, error } =
+  const { data, isFetching, isSuccess, isLoading,refetch, isError, error } =
     useGetProductListScrollQuery({ query: { ...query, page: page } });
 
   const {
     data: filterOptions,
     isSuccess: filterIsSuccess,
     isLoading: filterIsLoading,
-    isError: filterIsError,
-    error: filterError,
   } = useGetProductListFilterQuery({ query: { type: query.type } });
 
   const [filterChanged, setFilterChanged] = useState(false);
@@ -119,10 +117,6 @@ function Products({ query, agent }) {
     }
   }, [filter_watcher, filterChanged, isFetching]);
 
-  useEffect(()=>{
-    console.log('change',formData)
-  },[formData])
-
   useEffect(() => {
     if (["xs", "sm", "md"].includes(getCurrentBreakpoint())) {
       setFilterState(false);
@@ -184,7 +178,7 @@ function Products({ query, agent }) {
             }
           )}
         >
-          <div className="h-full overflow-auto scrollbar-thin scrollbar-thumb-primary ">
+          <div className="h-full overflow-auto scrollbar-thin scrollbar-w-1 scrollbar-thumb-accent">
             <div
               className={
                 "flex justify-between items-center gap-5 block lg:hidden px-10 pb-5 bg-white sticky top-0 z-50"
@@ -262,12 +256,8 @@ function Products({ query, agent }) {
                     "md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4":
                       !filterState,
                   })}
-                  query={query}
-                  page={page}
+                  {...{query,page,isError,refetch,isFetching}}
                   rtkSlice={product_api}
-                  isError={isError}
-                  isLoading={isLoading}
-                  isFetching={isFetching}
                   loadingContent={<VideoCardLoader count={loaderCount()} />}
                   items={data}
                 >

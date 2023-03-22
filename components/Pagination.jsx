@@ -21,7 +21,7 @@ function Pagination({totalCount, currentPage = 1, itemsPerPage}) {
         forcePage={currentPage - 1}
         pageClassName={"text-xl text-white text-center flex-1"}
         hrefBuilder={(pageIndex, pageCount1, selectedPage) => {
-          return router.asPath.replace(`page=${currentPage}`, `page=${pageIndex}`)
+          return router.asPath.replace(`page=${currentPage}`, `page=${pageIndex}`).replaceAll("+","%20")
         }}
         hrefAllControls
         pageLinkClassName={"px-4 py-2 bg-accent rounded-3xl border border-secondary-400"}
