@@ -27,7 +27,7 @@ import classNames from "classnames";
 import ButtonIcon from "@/components/ButtonIcon";
 import {getCurrentBreakpoint} from "@/utils/tailwind/breakpoint";
 import Button from "@/components/Button";
-import { parse } from 'next-useragent'
+import {parse} from 'next-useragent'
 import {makeTitleWith} from "@/utils/seo/meta";
 
 const VideoCardLoader = dynamic(import("@/components/skelton/VideoCardLoader"), {ssr: false})
@@ -38,15 +38,13 @@ function Products({query,agent}) {
     const [page, setPage] = useState(parseInt(query.page))
 
     const {
-        data, isFetching, isSuccess, isLoading, isError, error,
+        data, isFetching, isSuccess, isLoading,refetch , isError, error,
     } = useGetProductListScrollQuery({query: {...query, page: page}});
 
     const {
         data: filterOptions,
         isSuccess: filterIsSuccess,
         isLoading: filterIsLoading,
-        isError: filterIsError,
-        error: filterError,
     } = useGetProductListFilterQuery({query: {type: query.type}});
 
     const [filterChanged, setFilterChanged] = useState(false)
@@ -181,19 +179,15 @@ function Products({query,agent}) {
                     <SortTabs count={data?.count}
                               className={classNames("border-b border-solid border-secondary-400 transition-400-linear",{"":filterState,"sm:pr-52":!filterState})}></SortTabs>
                 </div>
-                {isSuccess && <>
+                {(isSuccess || data.results.length > 0) && <>
                     {data?.count === 0 && <NoContent/>}
                     {firstPage === 1 ? <InfiniteList
                     className={classNames("grid gap-x-6 gap-y-8 py-16", {
                         'grid-cols-1 md:grid-cols-2 xl:grid-cols-3': filterState,
                         'md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4': !filterState
                     })}
-                    query={query}
-                    page={page}
                     rtkSlice={product_api}
-                    isError={isError}
-                    isLoading={isLoading}
-                    isFetching={isFetching}
+                    {...{query,page,isError,refetch,isFetching}}
                     loadingContent={<VideoCardLoader count={loaderCount()}/>}
                     items={data}>
                         {(item, k) => {
@@ -212,7 +206,7 @@ function Products({query,agent}) {
                     </div>}
                     <div className="flex cursor-pointer justify-center gap-3 py-20 aligns-center">
                         {isSuccess && (data.count > 0) &&
-                        <Pagination totalCount={data.count} currentPage={page} itemsPerPage={30}/>}
+                        <Pagination totalCount={data.count} currentPage={page} itemsPerPage={25}/>}
                     </div>
                 </>}
                 {isLoading && <div className={classNames("grid gap-x-6 gap-y-8 gap-10 py-16", {
