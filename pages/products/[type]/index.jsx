@@ -90,7 +90,6 @@ function Products({query, agent}) {
 
     useEffect(() => {
         if (filterChanged && !isFetching) {
-            console.log({deferredQuery, filter_watcher})
             const {order, type} = query;
             let newQuery = {...deferredQuery, type, page: 1};
             if (!isEmpty(order)) {
