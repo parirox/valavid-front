@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { isEmpty } from "@/utils/general";
+import moment from "jalali-moment";
 
 export default function TicketBox({ data, id }) {
   const [
@@ -90,13 +91,13 @@ export default function TicketBox({ data, id }) {
             <spna className="sm:hidden text-secondary-300 ml-6 w-[50px]">
                محصول
             </spna>
-            <span>{"data.productName"}</span>
+            <span>{data.product}</span>
           </div>
           <div className="px-4 py-4 sm:py-8 basis-1/3 flex items-center">
             <spna className="sm:hidden text-secondary-300 ml-6 w-[50px]">
               تاریخ 
             </spna>
-            <span>{"data.date"}</span>
+            <span>{data.date && moment(data.date, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')}</span>
           </div>
         </div>
         <div className="py-4 md:py-8 flex justify-center md:pl-7 md:basis-1/4 px-4">
