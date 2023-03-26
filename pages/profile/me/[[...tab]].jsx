@@ -198,18 +198,22 @@ function SellerProfile() {
                       : data.email}
                   </div>
                   <div className="flex gap-6">
-                    <div className="flex gap-3">
-                      <LocationIcon />
+                    {!isEmpty(data.info?.location?.country) ||
+                    !isEmpty(data.info?.location?.state) ||
+                    (!isEmpty(data.info?.location?.city) && (
+                    <div className="flex items-end gap-2 text-color8">
+                      <IoLocationOutline className="text-3xl" />{" "}
                       <span>
-                        {(data.info.location.country
-                          ? data.info.location.country + ","
-                          : "ایران") +
-                          (data.info.location.state &&
-                            data.info.location.state + ",") +
-                          (data.info.location.city &&
-                            data.info.location.city + ",")}
+                        {[
+                          data.info?.location?.country,
+                          data.info?.location?.state,
+                          data.info?.location?.city,
+                        ]
+                        .filter((v) => !isEmpty(v))
+                        .join("، ")}
                       </span>
                     </div>
+                    ))}
                     <div className="text-gray px-10 text-center text-xl hidden sm:block">
                       عضویت: {dateFormat(data.date_joined)}
                     </div>
@@ -420,7 +424,7 @@ function SellerProfile() {
                 selectedIndex={selectedIndex}
                 onChange={changeTabHandler}
               >
-                <div className="overflow-auto scrollbar-thin scrollbar-thumb-none inset-0">
+                <div className="scrollbar scrollbar-thumb-none inset-0">
                   <Tab.List className="w-full h-20 flex relative min-w-[1000px]">
                     <div className="absolute left-0 right-0 bottom-0 h-2 -z-10 bg-accent w-full"></div>
                     {tabs.map((tab, k) => (
@@ -466,4 +470,5 @@ function SellerProfile() {
   );
 }
 
+SellerProfile.auth = true
 export default SellerProfile;

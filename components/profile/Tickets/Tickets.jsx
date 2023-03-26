@@ -149,10 +149,10 @@ const Tickets = () => {
           </p>
           <div className="pb-8">
             <div className="flex flex-col sm:flex-row gap-y-14 sm:gap-y-0 pt-16 gap-x-3 justify-between">
-              <div className="relative basis-5/12">
+              <div className="relative basis-5/12 text-right">
                 <label
                   htmlFor="subjectInput"
-                  className="text-accent absolute -top-9"
+                  className="text-accent mb-3 block"
                 >
                   موضوع
                 </label>
@@ -163,19 +163,17 @@ const Tickets = () => {
                   {...register("subject")}
                 />
               </div>
-              <div className="relative basis-7/12">
-                <label
-                  htmlFor="productInput"
-                  className="text-accent absolute -top-9"
-                >
-                  محصول
-                </label>
-                <input
-                  type="text"
-                  id="productInput"
-                  className="bg-color8 text-secondary px-4 h-14 w-full rounded-[1.2rem] border-none active:border-none focus:border-none"
-                  {...register("product")}
-                />
+              <div className="relative basis-7/12 text-right">
+                <label htmlFor="productInput" className="text-accent mb-3 block">محصول</label>
+                <Controller
+                control={control}
+                name={"product"}
+                render={({
+                           field: {onChange, name, value},
+                           fieldState: {error}
+                         }) => (
+                <ProductAutoComplete defaultValue={value} onChange={(item)=>onChange(item.id)} />
+                )}/>
               </div>
             </div>
             <div className="pt-20 pb-10 w-full">

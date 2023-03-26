@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Input from "@/components/profile/Forms/Input";
 import toast from "@/utils/notification/toast";
-import {useChangePasswordMutation, useUpdateUserInformationMutation} from "@/datasources/user/remote/UserSliceApi";
+import {useUpdateUserInformationMutation} from "@/datasources/user/remote/UserSliceApi";
 import FileInput from "@/components/Form/FileInput";
 import {dirtyValues, jsonToFormData} from "@/utils/form/useform";
 import {handleApiError} from "@/datasources/errorHandler";
@@ -21,7 +21,6 @@ import {
 
 function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValues}) {
   const [fetchUpdateUserData] = useUpdateUserInformationMutation();
-  const [fetchChangePassword] = useChangePasswordMutation();
 
   const [alertMessage, setAlertMessage] = useState("")
   const [isFormDisable, setFormDisable] = useState(true)
@@ -57,9 +56,6 @@ function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValu
     mode: "onSubmit",
     defaultValues: {
       username: '',
-      old_password: '',
-      password: '',
-      password_confirmation: '',
       ...defaultAccountValues
     },
     resolver: yupResolver(formSchemaAccount)
@@ -96,20 +92,6 @@ function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValu
     } else resolve()
   })
 
-  const handleAccount = () => new Promise((resolve, reject) => {
-    // get only dirty values from form
-    let data = dirtyValues(dirtyFieldsAccount, getValuesAccount())
-    if (!isEmpty(data)) {
-      fetchChangePassword(data).unwrap().then(_ => {
-        toast.success(form_fields.password.concat(form_change_fields_success_message))
-        resolve()
-      }).catch(e => {
-        setAlertMessage(e.data.message)
-        reject()
-      })
-    } else resolve()
-  })
-
   const handleSlogan = () => new Promise((resolve, reject) => {
     // get only dirty values from form
     let data = dirtyValues(dirtyFieldsSlogan, getValuesSlogan())
@@ -133,7 +115,7 @@ function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValu
       return;
     }
 
-    Promise.all([handleAccount(), handleSlogan(), handleMedia()]).then((res) => {
+    Promise.all([handleSlogan(), handleMedia()]).then((res) => {
       resetForm()
     })
   };
@@ -142,7 +124,6 @@ function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValu
     setFormDisable(true)
     setAlertMessage("")
     resetMedia(defaultMediaValues)
-    resetAccount(defaultAccountValues)
     resetAccount(defaultSloganValues)
   }
 
@@ -162,15 +143,6 @@ function AccountData({defaultMediaValues, defaultAccountValues,defaultSloganValu
       </RowInput>
       <RowInput label='تصویر بک گراند' required>
         <FileInput name="background_image" disabled={isFormDisable} hookFormControl={controlMedia}/>
-      </RowInput>
-      <RowInput label='پسوورد فعلی' required>
-        <Input name='old_password' type="password" control={controlAccount} disabled={isFormDisable}/>
-      </RowInput>
-      <RowInput label='رمز عبور' required>
-        <Input name='password' type="password" control={controlAccount} disabled={isFormDisable}/>
-      </RowInput>
-      <RowInput label='تکرار رمز' required>
-        <Input name='password_confirmation' type="password" control={controlAccount} disabled={isFormDisable}/>
       </RowInput>
     </FormSection>
   );

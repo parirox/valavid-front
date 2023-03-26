@@ -1,6 +1,7 @@
 import toast from "@/utils/notification/toast";
 import {isRejectedWithValue} from "@reduxjs/toolkit";
-import {hasCookie, removeCookies} from "cookies-next";
+import {getCookie, hasCookie, removeCookies} from "cookies-next";
+import Router from "next/router";
 
 // import Router from "next/router";
 
@@ -9,11 +10,13 @@ import {hasCookie, removeCookies} from "cookies-next";
  */
 export const rtkQueryErrorLogger = (api) => (next) => (action) => {
   // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
+
   if (isRejectedWithValue(action)) {
-    // if (action.payload?.status === 404) {
-    // await Router.push('/404')
-    // }
-    // toast.error(action.error.data.message)
+    if (action.payload?.status === 401) {
+      if(!!getCookie("valavid_token")){
+        removeCookies("valavid_token");
+      }
+    }
   }
   return next(action);
 };

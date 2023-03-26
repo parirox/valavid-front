@@ -2,7 +2,7 @@ import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
 import GeneralData from "@/components/profile/Forms/UserForm/GeneralData";
 import AccountData from "@/components/profile/Forms/UserForm/AccountData";
 import {useGetProfileDetailsQuery} from "@/datasources/user/remote/UserSliceApi";
-import {useEffect} from "react";
+import PasswordData from "@/components/profile/Forms/UserForm/PasswordData";
 
 
 const UserForm = () => {
@@ -29,9 +29,11 @@ const UserForm = () => {
 
         }}
           defaultSloganValues={{
-            info: {user_slogan: data.info.user_slogan}
+            info: {user_slogan: data.info?.user_slogan}
           }}
         />
+        <div className="mb-16"></div>
+        <PasswordData />
       </div>
     </div>
   );

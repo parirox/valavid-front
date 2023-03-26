@@ -90,7 +90,7 @@ function FootageDetails({query}) {
                     <div className="basis-full md:basis-6/12">
                         <div className="relative w-full h-50">
                             {data.type === "video" ? <video key={data.id} disablePictureInPicture
-                                                            controlsList="nofullscreen nodownload noremoteplayback noplaybackrate no"
+                                                            controlsList="nofullscreen noremoteplayback noplaybackrate no"
                                                             autoPlay={false} preload='metadata' controls loop
                                                             className="object-cover full rounded-[2.6rem]">
                                 <source src={data.media.src} type="video/mp4"/>

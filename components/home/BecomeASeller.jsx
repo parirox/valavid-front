@@ -17,7 +17,7 @@ const BecomeASeller = ({isLoggedIn}) => {
               <div className="row-span-3 items-center flex">
                 <Button
                   className="rounded-3xl text-slate-50 bg-gradient-to-r from-[#9D99F8] to-[#534CDA] text-2xl whitespace-nowrap w-full sm:w-1/2 lg:w-1/4 h-20"
-                  link={isLoggedIn ? "/becomeASeller" : "/profile/me/SellerForm"}>فروشنده
+                  link={!isLoggedIn ? "/becomeASeller" : "/profile/me/SellerForm"}>فروشنده
                   شوید</Button>
               </div>
             </div>

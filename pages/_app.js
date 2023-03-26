@@ -8,9 +8,12 @@ import {Provider} from "react-redux";
 import {persistStore} from "redux-persist";
 import {SessionProvider} from "next-auth/react";
 import NextNProgress from 'nextjs-progressbar';
+import {useEffect} from "react";
+import {cookies} from "next/headers";
+import {getCookie} from "cookies-next";
+import Router from "next/router";
 
 function App({Component, router, ...rest}) {
-
     const {
         store,
         props: {
@@ -21,6 +24,13 @@ function App({Component, router, ...rest}) {
     const persistor = persistStore(store, {}, function () {
         persistor.persist();
     });
+
+    useEffect(()=>{
+        const accessToken = getCookie("valavid_token");
+        if (Component.auth && !accessToken) {
+            Router.push("/auth");
+        }
+    },[])
 
     return (
     <Provider store={store}>

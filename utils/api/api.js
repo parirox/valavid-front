@@ -134,4 +134,7 @@ export const baseQuery = fetchBaseQuery({
     // headers.set("Content-Type", "multipart/form-data");
     return headers;
   },
+  responseHandler:(response,{getState})=>{
+    console.log({response,getState})
+  }
 });

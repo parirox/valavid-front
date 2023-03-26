@@ -66,16 +66,16 @@ function CheckTransactionPage({query}) {
         <title>{makeTitleWith("بررسی خرید")}</title>
       </Head>
       <div className="flex justify-center items-center min-h-screen">
-        <div className="container relative h-1/2 w-2/3 rounded-t-3xl bg-secondary overflow-hidden p-10">
-          <div className="flex justify-center items-center flex-col full p-10">
+        <div className="container relative h-1/2 overflow-hidden">
+          <div className="flex justify-center items-center flex-col full p-10 bg-secondary rounded-3xl">
             <h3
-              className={classNames("h-10 mb-10", {"animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black": isLoading})}>
+              className={classNames("md:h-10 mb-10 text-center", {"animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black": isLoading})}>
               {isLoading && (query?.free ? "بررسی اطلاعات" : "بررسی پرداخت")}
               {!isLoading && "خرید شما با موفقیت انجام شد."}
             </h3>
             <SuccessErrorLoading {...loadingState}/>
             <div className="full flex flex-col gap-5 justify-center items-center mt-4">
-              {isSuccess && (
+              {(isSuccess) && (
                 <>
                   <div className="text-xl my-3">
                     {query?.free ? "عملیات خرید با موفقیت انجام شد!" : "پرداخت شما با موفقیت انجام شد!"}
