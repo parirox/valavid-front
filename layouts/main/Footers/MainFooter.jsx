@@ -44,12 +44,6 @@ const MainFooter = () => {
                         >
                             ویدئو ها
                         </Link>
-                        <Link
-                        href={"/products/image"}
-                        className="text-[#90999F] text-lg"
-                        >
-                            تصاویر
-                        </Link>
                     </div>
                     <div className="flex flex-initial flex-col gap-3 sm:items-start sm:justify-start">
                         <span className="text-2xl">مطالب</span>

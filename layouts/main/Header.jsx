@@ -47,10 +47,10 @@ const Header = ({data, styleMode}) => {
     const handleLogoutUser = () => {
         logoutUser()
         .unwrap()
-        .then((response) => {
+        .then(async (response) => {
             if (response.result) {
-                router.push("/auth");
                 removeCookies("valavid_token");
+                await router.push("/auth");
             }
         });
     };

@@ -20,6 +20,7 @@ export default function Select() {
     const [selected, setSelected] = useState(options[0]);
 
     async function searchHandler() {
+        console.log({searchValue})
         if (isEmpty(searchValue)) {
             console.log({searchValue})
             toast.info("چند کاراکتری وارد نمایید!")

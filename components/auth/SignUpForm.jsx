@@ -9,6 +9,7 @@ import {
 } from "@/utils/helpers/form";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
+import Link from "next/link";
 
 const SignUpForm = ({ signupData, setSignupData, setSelectedTab }) => {
   const [acceptRules, setAcceptRules] = useState(false);
@@ -107,7 +108,7 @@ const SignUpForm = ({ signupData, setSignupData, setSelectedTab }) => {
           >
             <p className="text-[#90999F]">
               قوانین را مطالعه کرده و قبول دارم.{" "}
-              <a className="text-[#534CDA]">مشاهده قوانین</a>
+              <Link href={"/terms"} className="text-[#534CDA]">مشاهده قوانین</Link>
             </p>
           </Checkbox>
         </div>

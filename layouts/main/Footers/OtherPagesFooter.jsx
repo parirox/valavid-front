@@ -22,9 +22,6 @@ const OtherPagesFooter = () => {
                         <Link href={"/products/video"} className="text-[#90999F] text-lg">
                             ویدئوها
                         </Link>
-                        <Link href={"/products/image"} className="text-[#90999F] text-lg">
-                            تصاویر
-                        </Link>
                         {/*<Link href={'#'} className="text-[#90999F] text-lg">مجموعه ها</Link>*/}
                         <Link href={"/aboutUs"} className="text-[#90999F] text-lg">
                             درباره ما

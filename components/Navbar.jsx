@@ -15,16 +15,16 @@ const links = [
         href: "/products/video",
     },
     {
-        title: "تصویر",
-        href: "/products/image",
-    },
-    {
         title: "وبلاگ",
         href: "/blogs",
     },
     {
         title: "درباره ی ما",
         href: "/aboutUs",
+    },
+    {
+        title: "خرید اشتراک",
+        href: "/plans",
     },
     {
         title: "سوالات متداول",
