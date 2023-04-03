@@ -1,6 +1,6 @@
-import {isEmpty} from "../general";
-import {fetchBaseQuery} from "@reduxjs/toolkit/query";
-import {getCookie} from "cookies-next";
+import { isEmpty } from "../general";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { getCookie } from "cookies-next";
 
 export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL + "/aapi";
 export const ApiEndpoint = {
@@ -20,13 +20,13 @@ export const ApiEndpoint = {
   product: {
     account: {
       add: "/account/products/",
-      upload:'/upload-tmp-media/',
+      upload: "/upload-tmp-media/",
       get: "/account/products/",
       delete: "/account/products/:id/",
       productTags: "/tags/",
-      edit:"/account/products/:id/",
+      edit: "/account/products/:id/",
     },
-    devices:"/devices/",
+    devices: "/devices/",
     details: "/products/:id/",
     report: "/report/",
     get: "/products/:query",
@@ -46,9 +46,9 @@ export const ApiEndpoint = {
     newsletter: "/newsletter/",
     faq: "/faq/",
   },
-  payment:{
+  payment: {
     bank_gateways: "/bank-gateways/",
-    check_transaction:"/check-payment/:id/"
+    check_transaction: "/check-payment/:id/",
   },
   plans: {
     get: "/subscription-plans/",
@@ -64,8 +64,8 @@ export const ApiEndpoint = {
   user: {
     profile: {
       forms: {
-        main:
-          "/account/profile/",
+        uploadMedia: "/upload-tmp-media/",
+        main: "/account/profile/",
         change_password: "/account/auth/change-password/",
       },
       details: "/account/profile/",
@@ -95,7 +95,7 @@ export const ApiEndpoint = {
     get: "/blogs/:query",
     categories: "/blogs/categories/",
     singleBlog: "/blogs/:id/",
-    addMember: "/newsletter/"
+    addMember: "/newsletter/",
   },
 };
 
@@ -114,7 +114,7 @@ export function ApiAddress(address, params = {}) {
   if (!isEmpty(params.query)) {
     params = { ...params, query: makeGetQuery(params.query) };
   }
-  Object.entries(params).forEach(([index,value]) => {
+  Object.entries(params).forEach(([index, value]) => {
     const pattern = `:${index}`;
     if (address.includes(pattern)) address = address.replace(pattern, value);
   });
@@ -134,7 +134,7 @@ export const baseQuery = fetchBaseQuery({
     // headers.set("Content-Type", "multipart/form-data");
     return headers;
   },
-  responseHandler:(response,{getState})=>{
-    console.log({response,getState})
-  }
+  responseHandler: (response, { getState }) => {
+    console.log({ response, getState });
+  },
 });

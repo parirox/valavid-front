@@ -242,6 +242,16 @@ const user_api = createApi({
                 {type: userSliceApiTag, id: 'ProfileDetails'}
             ]
         }),
+        UploadMedia:build.mutation({
+            query: (query) => ({
+                url: ApiAddress(ApiEndpoint.user.profile.forms.uploadMedia,query),
+                method: 'POST',
+                body:query,
+            }),
+            invalidatesTags: [
+                {type: userSliceApiTag, id: 'Upload Media'}
+            ]
+        }),
         ChangePassword:build.mutation({
             query: (query) => ({
                 url: ApiAddress(ApiEndpoint.user.profile.forms.change_password,query),
@@ -283,6 +293,7 @@ export const {
     useGetPublisherProductQuery,
     useGetPublisherAchievementsQuery,
     //->> user forms
+    useUploadMediaMutation,
     useUpdateUserInformationMutation,
     useChangePasswordMutation,
 } = user_api;

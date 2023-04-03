@@ -125,7 +125,7 @@ const Products = () => {
         uploadProduct(formData)
           .unwrap()
           .then((res) => {
-        console.log('address',res.data)
+            console.log("address", res.data);
 
             dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
           })
@@ -152,7 +152,7 @@ const Products = () => {
   };
 
   const handleAddProduct = (publish_type) => {
-    let formData = {}
+    let formData = {};
     // const formData = new FormData();
     // formData.append("title", productInfo.translations["fa"].title);
     // formData.append("description", productInfo.translations["fa"].description);
@@ -172,21 +172,20 @@ const Products = () => {
     // formData.append("publish_type", publish_type);
     // formData.append("file", productInfo.file.path);
 
-    formData.title = productInfo.translations["fa"].title
-    formData.description = productInfo.translations["fa"].description
-    formData.translations = 
-      getApiTranslationsFormat(productInfo.translations)
+    formData.title = productInfo.translations["fa"].title;
+    formData.description = productInfo.translations["fa"].description;
+    formData.translations = getApiTranslationsFormat(productInfo.translations);
 
-      formData.country = productInfo.country.value
-    formData.state = productInfo.state.value
-    formData.city = productInfo.city.value
-    formData.tags_level_1 = productInfo.tags_level_1
-    formData.tags_level_2 = productInfo.tags_level_2
-    formData.tags_level_3 = productInfo.tags_level_3
-    formData.device = productInfo.device
-    formData.lens = productInfo.lens
-    formData.publish_type = publish_type
-    formData.file = productInfo.file.path
+    formData.country = productInfo.country.value;
+    formData.state = productInfo.state.value;
+    formData.city = productInfo.city.value;
+    formData.tags_level_1 = productInfo.tags_level_1;
+    formData.tags_level_2 = productInfo.tags_level_2;
+    formData.tags_level_3 = productInfo.tags_level_3;
+    formData.device = productInfo.device;
+    formData.lens = productInfo.lens;
+    formData.publish_type = publish_type;
+    formData.file = productInfo.file.path;
 
     addProduct(formData)
       .unwrap()
@@ -338,8 +337,7 @@ const Products = () => {
         background="bg-[#F8F8F8]"
         containerClass="p-0"
         modalClass="min-h-[100vh]"
-        rounded="rounded-0"
-      >
+        rounded="rounded-0">
         <div className="relative w-full flex justify-center">
           <IoClose
             onClick={() => setIsOpen(false)}
