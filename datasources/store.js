@@ -27,6 +27,8 @@ import blogSliceApi, {blogSliceApiTag} from "./blog/remote/BlogSliceApi";
 import planSliceApi, {planSliceApiTag} from '@/datasources/plans/remote/PlansSliceApi';
 //-->> payment slices
 import paymentSliceApi, {paymentSliceApiTag} from '@/datasources/payment/remote/PaymentSliceApi';
+//-->> upload slices
+import uploadSliceApi, {uploadSliceApiTag} from "./upload/remote/UploadSliceApi";
 //-->> other page slices
 import pageSliceApi, {pageSliceApiTag} from '@/datasources/pages/remote/PageSliceApi';
 //-->> ticket slices
@@ -43,6 +45,8 @@ let reducers = combineReducers({
   [pageSliceApiTag]: pageSliceApi.reducer,
   //->> payment
   [paymentSliceApiTag]: paymentSliceApi.reducer,
+  //->> upload
+  [uploadSliceApiTag]: uploadSliceApi.reducer,
   //->> plan
   [planSliceApiTag]: planSliceApi.reducer,
   //->> auth
@@ -91,6 +95,7 @@ export const store = (context) =>
         pageSliceApi.middleware,
         planSliceApi.middleware,
         paymentSliceApi.middleware,
+        uploadSliceApi.middleware,
         checkoutSliceApi.middleware,
         authSliceApi.middleware,
         productSliceApi.middleware,

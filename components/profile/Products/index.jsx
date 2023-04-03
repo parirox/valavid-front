@@ -14,7 +14,6 @@ import Button from "@/components/Button";
 import {
   useAddProductMutation,
   useGetAccountProductListMutation,
-  useUploadProductMutation,
 } from "@/datasources/product/remote/ProductSliceApi";
 import { handleApiError } from "@/datasources/errorHandler";
 import _toast from "@/utils/notification/toast";
@@ -30,6 +29,7 @@ import {
 import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import Device from "./AddProduct/Device";
+import {useProductUploadMutation} from "@/datasources/upload/remote/UploadSliceApi";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +61,7 @@ const Products = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [uploadProduct, { data, isSuccess }] = useUploadProductMutation();
+  const [uploadProduct, { data, isSuccess }] = useProductUploadMutation();
   const [addProduct, { data: addProductData, isSuccess: addProductIsSuccess }] =
     useAddProductMutation();
 
