@@ -99,7 +99,7 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
                   <div className="basis-auto">
                     <div className="flex gap-3 justify-center items-center">
                       <Badge className='bg-primary rounded-2xl'><span
-                        dir="ltr">{data.price.free ? "رایگان" : (data?.price.pay_price / 10).toLocaleString()}</span></Badge>
+                        dir="ltr">{data.price.free ? "رایگان" : (data?.price.pay_price).toLocaleString()}</span></Badge>
                       <Badge className='bg-primary rounded-2xl  text-2xl'><IoVideocamOutline/></Badge>
                     </div>
                   </div>
