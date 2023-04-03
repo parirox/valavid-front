@@ -15,7 +15,7 @@ const upload_api = createApi({
     reducerPath: uploadSliceApiTag,
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_API_URL,
-        timeout: 100000,
+        timeout: 5000000,
         prepareHeaders: (headers, {getState}) => {
             const token = getCookie("valavid_token");
 
