@@ -70,6 +70,45 @@ export const userSlice = createSlice({
       state.product = adaptedProduct;
       toast.success(`محصول با موفقیت ثبت شد!`);
     },
+    setAccountProductLoading: (state, action) => {
+      const { loading, id } = action.payload;
+
+      const adaptedProduct = state.product.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            loading,
+          };
+        } else {
+          return item;
+        }
+      });
+
+      state.product = adaptedProduct;
+    },
+    setAccountProductUploadStatus: (state, action) => {
+      const { status, id } = action.payload;
+
+      const adaptedProduct = state.product.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            status: {
+              success: status.success,
+              retryCount: status.success
+                ? 0
+                : item.retryCount
+                ? item.retryCount + 1
+                : 1,
+            },
+          };
+        } else {
+          return item;
+        }
+      });
+
+      state.product = adaptedProduct;
+    },
     addOrRemoveFootageInCollection: (state, action) => {
       const { localId, footage_details, type } = action.payload;
       let collection_target = state.collection.find(
@@ -114,7 +153,9 @@ export const {
   addOrRemoveFootageInCollection,
   addAccountProduct,
   setAccountProductUploadUrl,
-  removeAccountProduct
+  setAccountProductLoading,
+  setAccountProductUploadStatus,
+  removeAccountProduct,
 } = userSlice.actions;
 
 export default userSlice.reducer;

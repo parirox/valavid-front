@@ -25,11 +25,13 @@ import {
   addAccountProduct,
   removeAccountProduct,
   setAccountProductUploadUrl,
+  setAccountProductLoading,
+  setAccountProductUploadStatus,
 } from "@/datasources/user/local/UserSlice";
 import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import Device from "./AddProduct/Device";
-import {useProductUploadMutation} from "@/datasources/upload/remote/UploadSliceApi";
+import { useProductUploadMutation } from "@/datasources/upload/remote/UploadSliceApi";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,6 +119,9 @@ const Products = () => {
               id,
               localSrc: URL.createObjectURL(files[i]),
               fileType,
+              loading: true,
+              name: files[i].name,
+              type: files[i].type,
             },
           })
         );
@@ -125,11 +130,17 @@ const Products = () => {
         uploadProduct(formData)
           .unwrap()
           .then((res) => {
-            console.log("address", res.data);
-
+            dispatch(setAccountProductLoading({ id, loading: false }));
+            dispatch(
+              setAccountProductUploadStatus({ id, status: { success: true } })
+            );
             dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
           })
           .catch((err) => {
+            dispatch(setAccountProductLoading({ id, loading: false }));
+            dispatch(
+              setAccountProductUploadStatus({ id, status: { success: false } })
+            );
             handleApiError(err);
           });
       }
@@ -329,6 +340,7 @@ const Products = () => {
         handleCompleteInfo={() => setIsOpen(true)}
         getAccountProductList={getAccountProductList}
         setProduct={setProduct}
+        handleSelectFile={handleSelectFile}
       />
       <Modal
         big={true}

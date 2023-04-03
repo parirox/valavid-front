@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import _toast from "@/utils/notification/toast";
 import { useDispatch } from "react-redux";
 import { removeAccountProduct } from "@/datasources/user/local/UserSlice";
+import Spinner from "../Spinner";
 
 export const actions = [
   {
@@ -59,56 +60,57 @@ export default function UnCompletedUploadCard({
       <Modal
         className="p-4"
         isOpen={deleteModal ? true : false}
-        setIsOpen={setDeleteModal}
-      >
+        setIsOpen={setDeleteModal}>
         <p className="text-center text-secondary font-bold font text-lg my-4">
           آیا مطمئن هستید که میخواهید محصول را حذف کنید؟
         </p>
         <div className="flex items-center justify-center">
           <Button
             onClick={() => handleDeleteProduct()}
-            className="bg-success-100 min-w-[5rem] m-2"
-          >
+            className="bg-success-100 min-w-[5rem] m-2">
             بله
           </Button>
           <Button
             onClick={() => setDeleteModal(false)}
-            className="bg-warning min-w-[5rem] m-2"
-          >
+            className="bg-warning min-w-[5rem] m-2">
             خیر
           </Button>
         </div>
       </Modal>
       <div
-        className={`relative flex flex-col gap-6 py-5 px-6 rounded-[2rem] bg-secondary border border-solid border-accent hover:bg-[#142531] ${className}`}
-      >
+        className={`relative flex flex-col gap-6 py-5 px-6 rounded-[2rem] bg-secondary border border-solid border-accent hover:bg-[#142531] ${className}`}>
         <div className="flex justify-between gap-8 flex-col lg:flex-row">
           <div className="flex gap-6">
-            {fileType === "video" && (
-              <video
-                loop
-                controls
-                controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
-                className="rounded-lg w-[12rem] h-28"
-              >
-                <source src={cover} />
-              </video>
-            )}
-            {fileType === "image" && (
-              <Image
-                src={cover}
-                alt=""
-                className="rounded-lg w-[12rem] h-28 object-contain"
-                width={140}
-                height={70}
-              ></Image>
+            {file.loading ? (
+              <div className="w-[12rem] h-28 flex items-center justify-center">
+                <Spinner />
+              </div>
+            ) : (
+              <>
+                {fileType === "video" && (
+                  <video
+                    loop
+                    controls
+                    controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
+                    className="rounded-lg w-[12rem] h-28">
+                    <source src={cover} />
+                  </video>
+                )}
+                {fileType === "image" && (
+                  <Image
+                    src={cover}
+                    alt=""
+                    className="rounded-lg w-[12rem] h-28 object-contain"
+                    width={140}
+                    height={70}></Image>
+                )}
+              </>
             )}
             <div className="flex justify-between py-2 flex-col gap-3">
               <h5
                 className={`${
                   title == null || title == "" ? "text-[#4F5B62]" : "text-white"
-                }`}
-              >
+                }`}>
                 {title || "بدون عنوان"}
               </h5>
               <p className="text-white">{address}</p>
@@ -120,8 +122,7 @@ export default function UnCompletedUploadCard({
                 onClick={() => setProduct("file", file)}
                 className={"btn-primary text-lg px-6 py-3 w-full sm:w-auto"}
                 link={""}
-                disabled={!file.path}
-              >
+                disabled={!file.path}>
                 تکمیل اطلاعات
               </Button>
               <p className="text-xs opacity-60 pt-2 hidden lg:block">
@@ -131,8 +132,7 @@ export default function UnCompletedUploadCard({
 
             <dir
               onClick={() => setDeleteModal(id)}
-              className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer"
-            >
+              className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer">
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>
             <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">

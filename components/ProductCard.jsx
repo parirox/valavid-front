@@ -6,7 +6,7 @@ const ProductCard = ({ product, description }) => {
     <div className="flex p-4 rounded-[23px] bg-[#FFFFFF] shadow-3xl w-[100%]">
       {product.fileType === "image" && (
         <Image
-          src={product}
+          src={product.path}
           alt=""
           width={147}
           height={88}
@@ -18,9 +18,8 @@ const ProductCard = ({ product, description }) => {
           loop
           controls
           controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
-          className="rounded-[5px] w-[147px] h-[88px]"
-        >
-          <source src={URL.createObjectURL(product)} />
+          className="rounded-[5px] w-[147px] h-[88px]">
+          <source src={product.path} />
         </video>
       )}
 
