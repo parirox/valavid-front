@@ -135,7 +135,7 @@ export default function UnCompletedUploadCard({
                       onClick={() => {
                         handleReloadFile(file);
                       }}
-                      className={"btn-primary bg-warning hover:bg-warning text-lg px-6 py-3 w-40"}
+                      className={"btn-primary bg-warning hover:bg-warning text-lg px-6 py-3 w-40 min-h-[3rem]"}
                       link={""}>
                       {file.loading ? (
                       <div className="flex justify-around animate-ping gap-3 items-center animate-text bg-gradient-to-r from-teal-500 via-white to-orange-500 bg-clip-text text-transparent font-black">
@@ -150,7 +150,7 @@ export default function UnCompletedUploadCard({
                         setProduct("file", file);
                         console.log(file);
                       }}
-                      className={"btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40"}
+                      className={"btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40 min-h-[3rem]"}
                       link={""}>
                       بارگزاری ناموفق
                     </Button>

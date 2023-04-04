@@ -32,7 +32,7 @@ import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import Device from "./AddProduct/Device";
 import { useProductUploadMutation } from "@/datasources/upload/remote/UploadSliceApi";
-import {ApiAddress, ApiEndpoint, BASE_API_URL} from "@/utils/api/api";
+import { ApiAddress, ApiEndpoint, BASE_API_URL } from "@/utils/api/api";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,7 +87,7 @@ const Products = () => {
     },
   ] = useGetAccountProductListMutation({
     ordering: router.query["order"] || "newest",
-    page:page
+    page: page,
   });
 
   const {
@@ -110,34 +110,99 @@ const Products = () => {
   };
 
   const handleReloadFile = (file) => {
+    let id = file.id
     console.log("filee", file);
-    dispatch(setAccountProductLoading({ id: file.id, loading: true }));
+    dispatch(setAccountProductLoading({ id, loading: true }));
     const formData = new FormData();
     formData.append("files", file.file);
-    uploadProduct(formData)
-      .unwrap()
-      .then((res) => {
-        dispatch(setAccountProductLoading({ id: file.id, loading: false }));
-        dispatch(
-          setAccountProductUploadStatus({
-            id: file.id,
-            status: { success: true },
-          })
-        );
-        dispatch(
-          setAccountProductUploadUrl({ id: file.id, product: res.data[0] })
-        );
-      })
-      .catch((err) => {
-        dispatch(setAccountProductLoading({ id: file.id, loading: false }));
-        dispatch(
-          setAccountProductUploadStatus({
-            id: file.id,
-            status: { success: false },
-          })
-        );
-        handleApiError(err);
-      });
+    // uploadProduct(formData)
+    //   .unwrap()
+    //   .then((res) => {
+    //     dispatch(setAccountProductLoading({ id: file.id, loading: false }));
+    //     dispatch(
+    //       setAccountProductUploadStatus({
+    //         id: file.id,
+    //         status: { success: true },
+    //       })
+    //     );
+    //     dispatch(
+    //       setAccountProductUploadUrl({ id: file.id, product: res.data[0] })
+    //     );
+    //   })
+    //   .catch((err) => {
+    //     dispatch(setAccountProductLoading({ id: file.id, loading: false }));
+    //     dispatch(
+    //       setAccountProductUploadStatus({
+    //         id: file.id,
+    //         status: { success: false },
+    //       })
+    //     );
+    //     handleApiError(err);
+    //   });
+    let xhr = new XMLHttpRequest();
+    xhr.upload.addEventListener("progress", progressHandler, false);
+    xhr.addEventListener("abort", abortHandler, false);
+    xhr.open(
+      "POST",
+      BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload),
+      true
+    );
+    xhr.addEventListener("error", (event) => {
+      dispatch(setAccountProductLoading({ id, loading: false }));
+      dispatch(
+        setAccountProductUploadStatus({
+          id,
+          status: { success: false },
+        })
+      );
+    });
+    xhr.addEventListener("abort", (event) => {
+      dispatch(setAccountProductLoading({ id, loading: false }));
+      dispatch(
+        setAccountProductUploadStatus({
+          id,
+          status: { success: false },
+        })
+      );
+    });
+    xhr.onreadystatechange = () => {
+      // In local files, status is 0 upon success in Mozilla Firefox
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        const status = xhr.status;
+        const res = xhr.response && JSON.parse(xhr.response);
+        if (status && (status === 0 || (status >= 200 && status < 400))) {
+          dispatch(setAccountProductLoading({ id, loading: false }));
+          dispatch(
+            setAccountProductUploadStatus({ id, status: { success: true } })
+          );
+          dispatch(
+            setAccountProductUploadUrl({ id, product: res.data[0] })
+          );
+        } else {
+          // todo: check out error handling (plz remove console log after checking)
+          console.log("error", { res });
+          dispatch(setAccountProductLoading({ id, loading: false }));
+          dispatch(
+            setAccountProductUploadStatus({
+              id,
+              status: { success: false },
+            })
+          );
+          handleApiError(res);
+        }
+      }
+    };
+    xhr.send(formData);
+
+    function progressHandler(event) {
+      let percent = Math.ceil((event.loaded / event.total) * 1000) / 10;
+      dispatch(setAccountProductLoading({ id, loading: true, percent }));
+    }
+
+    function abortHandler(event) {
+      console.log("upload aborted");
+    }
+
   };
 
   const handleSelectFile = (files) => {
@@ -148,7 +213,7 @@ const Products = () => {
         ? "video"
         : null;
       let id = Math.random();
-      if (fileType === "video" && !profileData.is_seller) {
+      if (profileData && (fileType === "video" && !profileData.is_seller)) {
         _toast.error(
           "برای انتشار فیلم اطلاعات بخش فروشنده شوید را تکمیل کنید."
         );
@@ -172,21 +237,52 @@ const Products = () => {
         let xhr = new XMLHttpRequest();
         xhr.upload.addEventListener("progress", progressHandler, false);
         xhr.addEventListener("abort", abortHandler, false);
-        xhr.open("POST", BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload), true);
+        xhr.open(
+          "POST",
+          BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload),
+          true
+        );
+        xhr.addEventListener("error", (event) => {
+          dispatch(setAccountProductLoading({ id, loading: false }));
+          dispatch(
+            setAccountProductUploadStatus({
+              id,
+              status: { success: false },
+            })
+          );
+        });
+        xhr.addEventListener("abort", (event) => {
+          dispatch(setAccountProductLoading({ id, loading: false }));
+          dispatch(
+            setAccountProductUploadStatus({
+              id,
+              status: { success: false },
+            })
+          );
+        });
         xhr.onreadystatechange = () => {
           // In local files, status is 0 upon success in Mozilla Firefox
           if (xhr.readyState === XMLHttpRequest.DONE) {
             const status = xhr.status;
-            const res = JSON.parse(xhr.response)
-            if (status === 0 || (status >= 200 && status < 400)) {
-              dispatch(setAccountProductLoading({id, loading: false}));
-              dispatch(setAccountProductUploadStatus({id, status: {success: true}}));
-              dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
+            const res = xhr.response && JSON.parse(xhr.response);
+            if (status && (status === 0 || (status >= 200 && status < 400))) {
+              dispatch(setAccountProductLoading({ id, loading: false }));
+              dispatch(
+                setAccountProductUploadStatus({ id, status: { success: true } })
+              );
+              dispatch(
+                setAccountProductUploadUrl({ id, product: res.data[0] })
+              );
             } else {
               // todo: check out error handling (plz remove console log after checking)
-              console.log("error",{res})
-              dispatch(setAccountProductLoading({id, loading: false}));
-              dispatch(setAccountProductUploadStatus({id, status: {success: false}}));
+              console.log("error", { res });
+              dispatch(setAccountProductLoading({ id, loading: false }));
+              dispatch(
+                setAccountProductUploadStatus({
+                  id,
+                  status: { success: false },
+                })
+              );
               handleApiError(res);
             }
           }
@@ -195,15 +291,14 @@ const Products = () => {
 
         function progressHandler(event) {
           let percent = Math.ceil((event.loaded / event.total) * 1000) / 10;
-          dispatch(setAccountProductLoading({id, loading: true, percent}));
+          dispatch(setAccountProductLoading({ id, loading: true, percent }));
         }
 
         function abortHandler(event) {
-          console.log("upload aborted")
+          console.log("upload aborted");
         }
 
         // ----------------------------------------------------------------
-
 
         // uploadProduct(formData)
         //   .unwrap()
