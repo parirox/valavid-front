@@ -81,31 +81,25 @@ export default function UnCompletedUploadCard({
         className={`relative flex flex-col gap-6 py-5 px-6 rounded-[2rem] bg-secondary border border-solid border-accent hover:bg-[#142531] ${className}`}>
         <div className="flex justify-between gap-8 flex-col lg:flex-row">
           <div className="flex gap-6">
-            {file.loading ? (
-              <div className="w-[12rem] h-28 flex items-center justify-center">
-                <Spinner />
-              </div>
-            ) : (
-              <>
-                {fileType === "video" && (
-                  <video
-                    loop
-                    controls
-                    controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
-                    className="rounded-lg w-[12rem] h-28">
-                    <source src={cover} />
-                  </video>
-                )}
-                {fileType === "image" && (
-                  <Image
-                    src={cover}
-                    alt=""
-                    className="rounded-lg w-[12rem] h-28 object-contain"
-                    width={140}
-                    height={70}></Image>
-                )}
-              </>
-            )}
+            <>
+              {fileType === "video" && (
+                <video
+                  loop
+                  controls
+                  controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
+                  className="rounded-lg w-[12rem] h-28">
+                  <source src={cover} />
+                </video>
+              )}
+              {fileType === "image" && (
+                <Image
+                  src={cover}
+                  alt=""
+                  className="rounded-lg w-[12rem] h-28 object-contain"
+                  width={140}
+                  height={70}></Image>
+              )}
+            </>
             <div className="flex justify-between py-2 flex-col gap-3">
               <h5
                 className={`${
@@ -120,10 +114,10 @@ export default function UnCompletedUploadCard({
             <div className="text-center lg:mt-6 flex-1 sm:flex-none">
               <Button
                 onClick={() => setProduct("file", file)}
-                className={"btn-primary text-lg px-6 py-3 w-full sm:w-auto"}
+                className={"btn-primary text-lg px-6 py-3 sm:w-auto w-40"}
                 link={""}
                 disabled={!file.path}>
-                تکمیل اطلاعات
+                {file.loading ? "در حال اپلود" : "تکمیل اطلاعات"}
               </Button>
               <p className="text-xs opacity-60 pt-2 hidden lg:block">
                 اطلاعات محصول را تکمیل کنید

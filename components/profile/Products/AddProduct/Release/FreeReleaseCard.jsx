@@ -1,8 +1,9 @@
 import React from "react";
 import FreeIcon from "@/public/icons/FreeIcon.svg";
 import Button from "@/components/Button";
+import Spinner from "@/components/Spinner";
 
-const FreeReleaseCard = ({ handleSubmit }) => {
+const FreeReleaseCard = ({ handleSubmit, loading }) => {
   return (
     <div className="h-[300px] w-full sm:w-[400px] shadow-4xl bg-color9 rounded-[23px] mb-4 sm:m-4 px-[2rem] py-[1rem] flex items-center justify-center">
       <div className="flex items-center flex-col justify-center">
@@ -14,9 +15,8 @@ const FreeReleaseCard = ({ handleSubmit }) => {
         </p>
         <Button
           onClick={() => handleSubmit("free")}
-          className="w-[100%] h-[4rem] rounded-[20px] bg-[#42C950] mt-4 block"
-        >
-          انتشار رایگان
+          className="w-[100%] h-[4rem] rounded-[20px] bg-[#42C950] mt-4 flex items-center justify-center">
+          {loading ? <Spinner border="border-[#ffffff]" /> : "انتشار رایگان"}
         </Button>
         <span className="text-secondary-300 mt-4">بازدید بیشتر محصول شما</span>
       </div>

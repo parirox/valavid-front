@@ -60,7 +60,7 @@ export default function ManageCollectionDialog({...rest}) {
         isSuccess: addIsSuccess,
         error: addError,
         isError: addIsError,
-        isLoading: addIsLoading
+        isLoading: addIsLoading,
     }] = useAddCollectionMutation()
 
     const {register, control, reset, handleSubmit, formState: {errors}} = useForm()

@@ -1,8 +1,9 @@
 import React from "react";
 import PricingIcon from "@/public/icons/PricingIcon.svg";
 import Button from "@/components/Button";
+import Spinner from "@/components/Spinner";
 
-const PricingCard = ({ handleSubmit }) => {
+const PricingCard = ({ handleSubmit, loading }) => {
   return (
     <div className="h-[300px] w-full sm:w-[400px] shadow-4xl bg-color9 rounded-[23px] mb-4 sm:m-4 px-[2rem] py-[1rem] flex items-center justify-center">
       <div className="flex items-center flex-col justify-center">
@@ -13,9 +14,12 @@ const PricingCard = ({ handleSubmit }) => {
         </p>
         <Button
           onClick={() => handleSubmit("nonfree")}
-          className="w-[100%] h-[4rem] rounded-[20px] btn-primary mt-4 block"
-        >
-          قیمت گذاری و انتشار
+          className="w-[100%] h-[4rem] rounded-[20px] btn-primary mt-4 flex items-center justify-center">
+          {loading ? (
+            <Spinner border="border-[#ffffff]" />
+          ) : (
+            "قیمت گذاری و انتشار"
+          )}
         </Button>
         <span className="text-secondary-300 mt-4">کسب درامد</span>
       </div>

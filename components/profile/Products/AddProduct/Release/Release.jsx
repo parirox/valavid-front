@@ -4,7 +4,7 @@ import PricingCard from "./PricingCard";
 import React from "react";
 import Button from "@/components/Button";
 
-const Release = ({ productInfo, handleAddProduct, setActiveStep }) => {
+const Release = ({ productInfo, handleAddProduct, setActiveStep, loading }) => {
   return (
     <div>
       <ProductCard
@@ -15,14 +15,23 @@ const Release = ({ productInfo, handleAddProduct, setActiveStep }) => {
         نحوه انتشار محصول خود را انتخاب کنید.
       </p>
       <div className="flex justify-center flex-col sm:flex-row">
-        <FreeReleaseCard handleSubmit={handleAddProduct} />
-        <PricingCard handleSubmit={handleAddProduct} />
+        <FreeReleaseCard
+          loading={
+            loading && productInfo.publish_type === "free" ? true : false
+          }
+          handleSubmit={handleAddProduct}
+        />
+        <PricingCard
+          loading={
+            loading && productInfo.publish_type === "nonfree" ? true : false
+          }
+          handleSubmit={handleAddProduct}
+        />
       </div>
       <div className="flex items-center justify-end mt-4">
         <Button
           onClick={() => setActiveStep((prev) => prev - 1)}
-          className="w-[20rem] h-[4rem] btn-accent block mr-4"
-        >
+          className="w-[20rem] h-[4rem] btn-accent block mr-4">
           مرحله قبل
         </Button>
       </div>

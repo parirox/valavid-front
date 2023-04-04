@@ -64,8 +64,14 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const [uploadProduct, { data, isSuccess }] = useProductUploadMutation();
-  const [addProduct, { data: addProductData, isSuccess: addProductIsSuccess }] =
-    useAddProductMutation();
+  const [
+    addProduct,
+    {
+      data: addProductData,
+      isSuccess: addProductIsSuccess,
+      isLoading: addProductLoading,
+    },
+  ] = useAddProductMutation();
 
   const [
     getAccountProductList,
@@ -163,26 +169,13 @@ const Products = () => {
   };
 
   const handleAddProduct = (publish_type) => {
+    setProductInfo((prev) => {
+      return {
+        ...prev,
+        publish_type,
+      };
+    });
     let formData = {};
-    // const formData = new FormData();
-    // formData.append("title", productInfo.translations["fa"].title);
-    // formData.append("description", productInfo.translations["fa"].description);
-    // formData.append(
-    //   "translations",
-    //   getApiTranslationsFormat(productInfo.translations)
-    // );
-    // productInfo.country &&
-    //   formData.append("country", productInfo.country.value);
-    // productInfo.state && formData.append("state", productInfo.state.value);
-    // productInfo.city && formData.append("city", productInfo.city.value);
-    // formData.append("tags_level_1", JSON.stringify(productInfo.tags_level_1));
-    // formData.append("tags_level_2", JSON.stringify(productInfo.tags_level_2));
-    // formData.append("tags_level_3", JSON.stringify(productInfo.tags_level_3));
-    // productInfo.device && formData.append("device", JSON.stringify(productInfo.device));
-    // productInfo.lens && formData.append("lens", JSON.stringify(productInfo.lens));
-    // formData.append("publish_type", publish_type);
-    // formData.append("file", productInfo.file.path);
-
     formData.title = productInfo.translations["fa"].title;
     formData.description = productInfo.translations["fa"].description;
     formData.translations = getApiTranslationsFormat(productInfo.translations);
@@ -198,38 +191,40 @@ const Products = () => {
     formData.publish_type = publish_type;
     formData.file = productInfo.file.path;
 
-    addProduct(formData)
-      .unwrap()
-      .then(() => {
-        _toast.success("محصول با موفقیت اضافه شد.");
-        dispatch(removeAccountProduct({ id: productInfo.file.id }));
-        getAccountProductList();
-        setContent("success");
-        setProductInfo({
-          title: "",
-          description: "",
-          translations: {
-            fa: {},
-            en: {},
-            ar: {},
-            fr: {},
-            tr: {},
-          },
-          country: "",
-          state: "",
-          city: "",
-          tags_level_1: [],
-          tags_level_2: [],
-          tags_level_3: [],
-          device: null,
-          lens: null,
-          file: null,
-          publish_type: null,
+    if (!addProductLoading) {
+      addProduct(formData)
+        .unwrap()
+        .then(() => {
+          _toast.success("محصول با موفقیت اضافه شد.");
+          dispatch(removeAccountProduct({ id: productInfo.file.id }));
+          getAccountProductList();
+          setContent("success");
+          setProductInfo({
+            title: "",
+            description: "",
+            translations: {
+              fa: {},
+              en: {},
+              ar: {},
+              fr: {},
+              tr: {},
+            },
+            country: "",
+            state: "",
+            city: "",
+            tags_level_1: [],
+            tags_level_2: [],
+            tags_level_3: [],
+            device: null,
+            lens: null,
+            file: null,
+            publish_type: null,
+          });
+        })
+        .catch((err) => {
+          handleApiError(err);
         });
-      })
-      .catch((err) => {
-        handleApiError(err);
-      });
+    }
   };
 
   const steps = [
@@ -289,6 +284,7 @@ const Products = () => {
           setProduct={setProduct}
           setActiveStep={setActiveStep}
           handleCompleteStep={() => setActiveStep(activeStep + 1)}
+          loading={addProductLoading}
         />
       ),
     },
