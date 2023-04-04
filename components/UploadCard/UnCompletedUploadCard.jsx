@@ -114,7 +114,7 @@ export default function UnCompletedUploadCard({
             <div className="text-center lg:mt-6 flex-1 sm:flex-none">
               <Button
                 onClick={() => setProduct("file", file)}
-                className={"btn-primary text-lg px-6 py-3 sm:w-auto w-40"}
+                className={"btn-primary text-lg px-6 py-3 w-40"}
                 link={""}
                 disabled={!file.path}>
                 {file.loading ? "در حال اپلود" : "تکمیل اطلاعات"}
