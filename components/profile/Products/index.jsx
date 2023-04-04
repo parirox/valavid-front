@@ -38,6 +38,7 @@ const Products = () => {
   const [content, setContent] = useState("steps");
   const [activeStep, setActiveStep] = useState(1);
   const [filter, setFilter] = useState("newest");
+  const [page, setPage] = useState(1);
   const [productInfo, setProductInfo] = useState({
     title: "",
     description: "",
@@ -85,6 +86,7 @@ const Products = () => {
     },
   ] = useGetAccountProductListMutation({
     ordering: router.query["order"] || "newest",
+    page:page
   });
 
   const {
@@ -104,6 +106,37 @@ const Products = () => {
         [name]: value,
       };
     });
+  };
+
+  const handleReloadFile = (file) => {
+    console.log("filee", file);
+    dispatch(setAccountProductLoading({ id: file.id, loading: true }));
+    const formData = new FormData();
+    formData.append("files", file.file);
+    uploadProduct(formData)
+      .unwrap()
+      .then((res) => {
+        dispatch(setAccountProductLoading({ id: file.id, loading: false }));
+        dispatch(
+          setAccountProductUploadStatus({
+            id: file.id,
+            status: { success: true },
+          })
+        );
+        dispatch(
+          setAccountProductUploadUrl({ id: file.id, product: res.data[0] })
+        );
+      })
+      .catch((err) => {
+        dispatch(setAccountProductLoading({ id: file.id, loading: false }));
+        dispatch(
+          setAccountProductUploadStatus({
+            id: file.id,
+            status: { success: false },
+          })
+        );
+        handleApiError(err);
+      });
   };
 
   const handleSelectFile = (files) => {
@@ -128,6 +161,7 @@ const Products = () => {
               loading: true,
               name: files[i].name,
               type: files[i].type,
+              file: files[i],
             },
           })
         );
@@ -337,6 +371,9 @@ const Products = () => {
         getAccountProductList={getAccountProductList}
         setProduct={setProduct}
         handleSelectFile={handleSelectFile}
+        handleReloadFile={handleReloadFile}
+        page={page}
+        setPage={setPage}
       />
       <Modal
         big={true}

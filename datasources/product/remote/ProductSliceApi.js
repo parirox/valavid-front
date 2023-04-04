@@ -146,6 +146,7 @@ const product_api = createApi({
       query: (query) => ({
         url: ApiAddress(ApiEndpoint.product.account.get, query),
         method: "GET",
+        params: query,
       }),
       providesTags: (result, error, id) => [
         { type: productSliceApiTag, id: "getAccountProducts" },

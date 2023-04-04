@@ -37,9 +37,9 @@ export default function UnCompletedUploadCard({
   cover,
   title,
   address,
-  handleCompleteInfo,
+  handleSelectFile,
   id,
-  getAccountProductList,
+  handleReloadFile,
   setProduct,
   fileType,
   file,
@@ -112,13 +112,41 @@ export default function UnCompletedUploadCard({
           </div>
           <div className="flex gap-6 items-center">
             <div className="text-center lg:mt-6 flex-1 sm:flex-none">
-              <Button
-                onClick={() => setProduct("file", file)}
-                className={"btn-primary text-lg px-6 py-3 w-40"}
-                link={""}
-                disabled={!file.path}>
-                {file.loading ? "در حال اپلود" : "تکمیل اطلاعات"}
-              </Button>
+              {!file.status || file.status.success === true ? (
+                <Button
+                  onClick={() => {
+                    setProduct("file", file);
+                    console.log(file);
+                  }}
+                  className={"btn-primary text-lg px-6 py-3 w-40"}
+                  disabled={!file.path}
+                  link={""}>
+                  {file.loading ? "در حال اپلود" : "تکمیل اطلاعات"}
+                </Button>
+              ) : (
+                <>
+                  {file.file && file.file.name ? (
+                    <Button
+                      onClick={() => {
+                        handleReloadFile(file);
+                      }}
+                      className={"btn-primary bg-warning hover:bg-warning text-lg px-6 py-3 w-40"}
+                      link={""}>
+                      {file.loading ? "در حال اپلود" : "اپلود مجدد"}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        setProduct("file", file);
+                        console.log(file);
+                      }}
+                      className={"btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40"}
+                      link={""}>
+                      بارگزاری ناموفق
+                    </Button>
+                  )}
+                </>
+              )}
               <p className="text-xs opacity-60 pt-2 hidden lg:block">
                 اطلاعات محصول را تکمیل کنید
               </p>
