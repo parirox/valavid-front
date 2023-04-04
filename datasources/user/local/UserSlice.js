@@ -71,13 +71,14 @@ export const userSlice = createSlice({
       toast.success(`محصول با موفقیت ثبت شد!`);
     },
     setAccountProductLoading: (state, action) => {
-      const { loading, id } = action.payload;
+      const { loading,percent, id } = action.payload;
 
       const adaptedProduct = state.product.map((item) => {
         if (item.id === id) {
           return {
             ...item,
             loading,
+            percent
           };
         } else {
           return item;

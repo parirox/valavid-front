@@ -221,7 +221,7 @@ export default function UploadCard({
               <span className="text-3xl px-3">{price}</span>
             </div>
           )}
-          <div className="flex gap-6 items-center mt-6">
+          <div className="flex gap-6 items-center">
             {(status == "pending" || status === "review") && (
               <div className="text-center flex-1 sm:flex-none">
                 <div

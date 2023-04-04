@@ -79,7 +79,7 @@ export default function UnCompletedUploadCard({
       </Modal>
       <div
         className={`relative flex flex-col gap-6 py-5 px-6 rounded-[2rem] bg-secondary border border-solid border-accent hover:bg-[#142531] ${className}`}>
-        <div className="flex justify-between gap-8 flex-col lg:flex-row">
+        <div className="flex justify-between items-center gap-8 flex-col lg:flex-row">
           <div className="flex gap-6">
             <>
               {fileType === "video" && (
@@ -110,8 +110,8 @@ export default function UnCompletedUploadCard({
               <p className="text-white">{address}</p>
             </div>
           </div>
-          <div className="flex gap-6 items-center">
-            <div className="text-center lg:mt-6 flex-1 sm:flex-none">
+          <div className="flex gap-6 items-start">
+            <div className="text-center flex-1 sm:flex-none">
               {!file.status || file.status.success === true ? (
                 <Button
                   onClick={() => {
@@ -121,7 +121,12 @@ export default function UnCompletedUploadCard({
                   className={"btn-primary text-lg px-6 py-3 w-40"}
                   disabled={!file.path}
                   link={""}>
-                  {file.loading ? "در حال اپلود" : "تکمیل اطلاعات"}
+                  {file.loading ? (
+                  <div className="flex justify-around animate-ping gap-3 items-center animate-text bg-gradient-to-r from-teal-500 via-white to-orange-500 bg-clip-text text-transparent font-black">
+                    <span>{file.percent && `%${file.percent}`}</span>
+                  </div>
+                  )
+                  : "تکمیل اطلاعات"}
                 </Button>
               ) : (
                 <>
@@ -132,7 +137,12 @@ export default function UnCompletedUploadCard({
                       }}
                       className={"btn-primary bg-warning hover:bg-warning text-lg px-6 py-3 w-40"}
                       link={""}>
-                      {file.loading ? "در حال اپلود" : "اپلود مجدد"}
+                      {file.loading ? (
+                      <div className="flex justify-around animate-ping gap-3 items-center animate-text bg-gradient-to-r from-teal-500 via-white to-orange-500 bg-clip-text text-transparent font-black">
+                        <span>{file.percent && `%${file.percent}`}</span>
+                      </div>
+                      )
+                      : "اپلود مجدد"}
                     </Button>
                   ) : (
                     <Button
@@ -147,14 +157,15 @@ export default function UnCompletedUploadCard({
                   )}
                 </>
               )}
-              <p className="text-xs opacity-60 pt-2 hidden lg:block">
+              {!file.loading && <p className="text-xs opacity-60 pt-2 hidden lg:block">
                 اطلاعات محصول را تکمیل کنید
               </p>
+              }
             </div>
 
             <dir
               onClick={() => setDeleteModal(id)}
-              className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer">
+              className="bg-secondary-600 w-12 h-12 relative m-0 rounded-[1.1rem] cursor-pointer">
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>
             <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">

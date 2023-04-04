@@ -32,6 +32,7 @@ import { isFileImage, isFileVideo } from "@/utils/helpers/files";
 import { useGetProfileDetailsQuery } from "@/datasources/user/remote/UserSliceApi";
 import Device from "./AddProduct/Device";
 import { useProductUploadMutation } from "@/datasources/upload/remote/UploadSliceApi";
+import {ApiAddress, ApiEndpoint, BASE_API_URL} from "@/utils/api/api";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -167,22 +168,59 @@ const Products = () => {
         );
         const formData = new FormData();
         formData.append("files", files[i]);
-        uploadProduct(formData)
-          .unwrap()
-          .then((res) => {
-            dispatch(setAccountProductLoading({ id, loading: false }));
-            dispatch(
-              setAccountProductUploadStatus({ id, status: { success: true } })
-            );
-            dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
-          })
-          .catch((err) => {
-            dispatch(setAccountProductLoading({ id, loading: false }));
-            dispatch(
-              setAccountProductUploadStatus({ id, status: { success: false } })
-            );
-            handleApiError(err);
-          });
+        // ----------------------------------------------------------------
+        let xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", progressHandler, false);
+        xhr.addEventListener("abort", abortHandler, false);
+        xhr.open("POST", BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload), true);
+        xhr.onreadystatechange = () => {
+          // In local files, status is 0 upon success in Mozilla Firefox
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            const status = xhr.status;
+            const res = JSON.parse(xhr.response)
+            if (status === 0 || (status >= 200 && status < 400)) {
+              dispatch(setAccountProductLoading({id, loading: false}));
+              dispatch(setAccountProductUploadStatus({id, status: {success: true}}));
+              dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
+            } else {
+              // todo: check out error handling (plz remove console log after checking)
+              console.log("error",{res})
+              dispatch(setAccountProductLoading({id, loading: false}));
+              dispatch(setAccountProductUploadStatus({id, status: {success: false}}));
+              handleApiError(res);
+            }
+          }
+        };
+        xhr.send(formData);
+
+        function progressHandler(event) {
+          let percent = Math.ceil((event.loaded / event.total) * 1000) / 10;
+          dispatch(setAccountProductLoading({id, loading: true, percent}));
+        }
+
+        function abortHandler(event) {
+          console.log("upload aborted")
+        }
+
+        // ----------------------------------------------------------------
+
+
+        // uploadProduct(formData)
+        //   .unwrap()
+        //   .then((res) => {
+        //     dispatch(setAccountProductLoading({ id, loading: false }));
+        //     dispatch(
+        //       setAccountProductUploadStatus({ id, status: { success: true } })
+        //     );
+        //     dispatch(setAccountProductUploadUrl({ id, product: res.data[0] }));
+        //   })
+        //   .catch((err) => {
+        //     dispatch(setAccountProductLoading({ id, loading: false }));
+        //     dispatch(
+        //       setAccountProductUploadStatus({ id, status: { success: false } })
+        //     );
+        //     handleApiError(err);
+        //   });
       }
     }
   };
