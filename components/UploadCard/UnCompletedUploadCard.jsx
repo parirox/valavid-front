@@ -114,22 +114,34 @@ export default function UnCompletedUploadCard({
           <div className="flex gap-6 items-start">
             <div className="text-center flex-1 sm:flex-none">
               {!file.status || file.status.success === true ? (
-                <Button
-                  onClick={() => {
-                    setProduct("file", file);
-                    console.log(file);
-                  }}
-                  className={classNames("btn-primary text-lg px-6 py-3 w-40",{
-                    "animate-text bg-gradient-to-r from-primary via-color10/50 to-primary":file.loading
-                  })}
-                  disabled={!file.path}>
-                  {file.loading ? (
-                  <div className="flex justify-around gap-3 items-center">
-                    <span>{file.percent && `%${file.percent}`}</span>
-                  </div>
-                  )
-                  : "تکمیل اطلاعات"}
-                </Button>
+                <>
+                  <Button
+                    onClick={() => {
+                      setProduct("file", file);
+                      console.log(file);
+                    }}
+                    className={classNames(
+                      "btn-primary text-lg px-6 py-3 w-40",
+                      {
+                        "animate-text bg-gradient-to-r from-primary via-color10/50 to-primary":
+                          file.loading,
+                      }
+                    )}
+                    disabled={!file.path}>
+                    {file.loading ? (
+                      <div className="flex justify-around gap-3 items-center">
+                        <span>{file.percent && `%${file.percent}`}</span>
+                      </div>
+                    ) : (
+                      "تکمیل اطلاعات"
+                    )}
+                  </Button>
+                  {(file.status && !file.loading) && (
+                    <p className="text-xs opacity-60 pt-2 hidden lg:block">
+                      اطلاعات محصول را تکمیل کنید
+                    </p>
+                  )}
+                </>
               ) : (
                 <>
                   {file.file && file.file.name ? (
@@ -137,33 +149,32 @@ export default function UnCompletedUploadCard({
                       onClick={() => {
                         handleReloadFile(file);
                       }}
-                      className={classNames("btn-primary hover:bg-warning text-lg px-6 py-3 w-40 min-h-[3rem]",{
-                        "animate-text bg-gradient-to-r from-primary via-color10/50 to-primary":file.loading,
-                        "bg-warning":!file.loading
-                      })}>
+                      className={classNames(
+                        "btn-primary hover:bg-warning text-lg px-6 py-3 w-40 min-h-[3rem]",
+                        {
+                          "animate-text bg-gradient-to-r from-primary via-color10/50 to-primary":
+                            file.loading,
+                          "bg-warning": !file.loading,
+                        }
+                      )}>
                       {file.loading ? (
-                      <div className="flex justify-around gap-3 items-center">
-                        <span>{file.percent && `%${file.percent}`}</span>
-                      </div>
-                      )
-                      : "اپلود مجدد"}
+                        <div className="flex justify-around gap-3 items-center">
+                          <span>{file.percent && `%${file.percent}`}</span>
+                        </div>
+                      ) : (
+                        "اپلود مجدد"
+                      )}
                     </Button>
                   ) : (
                     <Button
-                      onClick={() => {
-                        setProduct("file", file);
-                        console.log(file);
-                      }}
-                      className={"btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40 min-h-[3rem]"}>
+                      className={
+                        "btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40 min-h-[3rem]"
+                      }>
                       بارگزاری ناموفق
                     </Button>
                   )}
                 </>
               )}
-              {file.status && <p className="text-xs opacity-60 pt-2 hidden lg:block">
-                اطلاعات محصول را تکمیل کنید
-              </p>
-              }
             </div>
 
             <dir
@@ -171,9 +182,11 @@ export default function UnCompletedUploadCard({
               className="bg-secondary-600 w-12 h-12 relative m-0 rounded-[1.1rem] cursor-pointer">
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>
-            {file.status && <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
-              اطلاعات محصول را تکمیل کنید
-            </p>}
+            {file.status && (
+              <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
+                اطلاعات محصول را تکمیل کنید
+              </p>
+            )}
           </div>
         </div>
         {/* {!file.path && (
