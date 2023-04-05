@@ -10,6 +10,7 @@ import _toast from "@/utils/notification/toast";
 import { useDispatch } from "react-redux";
 import { removeAccountProduct } from "@/datasources/user/local/UserSlice";
 import Spinner from "../Spinner";
+import classNames from "classnames";
 
 export const actions = [
   {
@@ -118,11 +119,12 @@ export default function UnCompletedUploadCard({
                     setProduct("file", file);
                     console.log(file);
                   }}
-                  className={"btn-primary text-lg px-6 py-3 w-40"}
-                  disabled={!file.path}
-                  link={""}>
+                  className={classNames("btn-primary text-lg px-6 py-3 w-40",{
+                    "animate-text bg-gradient-to-r from-primary via-color10/50 to-primary":file.loading
+                  })}
+                  disabled={!file.path}>
                   {file.loading ? (
-                  <div className="flex justify-around animate-ping gap-3 items-center animate-text bg-gradient-to-r from-teal-500 via-white to-orange-500 bg-clip-text text-transparent font-black">
+                  <div className="flex justify-around gap-3 items-center">
                     <span>{file.percent && `%${file.percent}`}</span>
                   </div>
                   )
@@ -135,10 +137,12 @@ export default function UnCompletedUploadCard({
                       onClick={() => {
                         handleReloadFile(file);
                       }}
-                      className={"btn-primary bg-warning hover:bg-warning text-lg px-6 py-3 w-40 min-h-[3rem]"}
-                      link={""}>
+                      className={classNames("btn-primary hover:bg-warning text-lg px-6 py-3 w-40 min-h-[3rem]",{
+                        "animate-text bg-gradient-to-r from-primary via-color10/50 to-primary":file.loading,
+                        "bg-warning":!file.loading
+                      })}>
                       {file.loading ? (
-                      <div className="flex justify-around animate-ping gap-3 items-center animate-text bg-gradient-to-r from-teal-500 via-white to-orange-500 bg-clip-text text-transparent font-black">
+                      <div className="flex justify-around gap-3 items-center">
                         <span>{file.percent && `%${file.percent}`}</span>
                       </div>
                       )
@@ -150,14 +154,13 @@ export default function UnCompletedUploadCard({
                         setProduct("file", file);
                         console.log(file);
                       }}
-                      className={"btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40 min-h-[3rem]"}
-                      link={""}>
+                      className={"btn-primary bg-error hover:bg-error text-lg px-6 py-3 w-40 min-h-[3rem]"}>
                       بارگزاری ناموفق
                     </Button>
                   )}
                 </>
               )}
-              {!file.loading && <p className="text-xs opacity-60 pt-2 hidden lg:block">
+              {file.status && <p className="text-xs opacity-60 pt-2 hidden lg:block">
                 اطلاعات محصول را تکمیل کنید
               </p>
               }
@@ -168,9 +171,9 @@ export default function UnCompletedUploadCard({
               className="bg-secondary-600 w-12 h-12 relative m-0 rounded-[1.1rem] cursor-pointer">
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>
-            <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
+            {file.status && <p className="text-md opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
               اطلاعات محصول را تکمیل کنید
-            </p>
+            </p>}
           </div>
         </div>
         {/* {!file.path && (
