@@ -95,6 +95,7 @@ function Profile({query, targetTab}) {
                       }
               />
               <div className="text-4xl">{data.name}</div>
+              <div className="text-2xl">{data.username}</div>
               {(data.country?.name || data.state || data.city) && <div className="flex items-end gap-2 text-color8">
                 <IoLocationOutline className="text-3xl"/>
                 <span> {[data.country?.name, data.state, data.city].filter(v => (!isEmpty(v))).join("، ")}</span>

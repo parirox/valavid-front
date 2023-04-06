@@ -20,13 +20,12 @@ export default function Select() {
     const [selected, setSelected] = useState(options[0]);
 
     async function searchHandler() {
-        console.log({searchValue})
         if (isEmpty(searchValue)) {
             console.log({searchValue})
             toast.info("چند کاراکتری وارد نمایید!")
             return;
         }
-        await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
+        await Router.push(`/products/${selected.route}/?search=${searchValue}`)
     }
 
     useEffect(() => {

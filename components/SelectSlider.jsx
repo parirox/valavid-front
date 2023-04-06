@@ -20,7 +20,7 @@ export default function SelectSlider({value = ""}) {
       toast.info("چند کاراکتری وارد نمایید!")
       return;
     }
-    await Router.push(`/products/${selected.route}/?tags=${searchValue}`)
+    await Router.push(`/products/${selected.route}/?search=${searchValue}`)
   }
 
   return (

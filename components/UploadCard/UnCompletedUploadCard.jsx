@@ -60,7 +60,7 @@ export default function UnCompletedUploadCard({
     <>
       <Modal
         className="p-4"
-        isOpen={deleteModal ? true : false}
+        isOpen={deleteModal}
         setIsOpen={setDeleteModal}>
         <p className="text-center text-secondary font-bold font text-lg my-4">
           آیا مطمئن هستید که میخواهید محصول را حذف کنید؟
