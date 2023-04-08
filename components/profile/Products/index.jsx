@@ -142,7 +142,6 @@ const Products = () => {
     let xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", progressHandler, false);
     xhr.addEventListener("error", (event) => {
-      alert('tttt')
       dispatch(setAccountProductLoading({ id, loading: false }));
       dispatch(
         setAccountProductUploadStatus({
@@ -152,7 +151,6 @@ const Products = () => {
       );
     });
     xhr.addEventListener("abort", (event) => {
-      alert('yy')
       dispatch(setAccountProductLoading({ id, loading: false }));
       dispatch(
         setAccountProductUploadStatus({
