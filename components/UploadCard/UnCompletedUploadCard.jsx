@@ -178,7 +178,7 @@ export default function UnCompletedUploadCard({
             </div>
 
             <dir
-              onClick={() => setDeleteModal(id)}
+              onClick={() => setDeleteModal(true)}
               className="bg-secondary-600 w-12 h-12 relative m-0 rounded-[1.1rem] cursor-pointer">
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
             </dir>

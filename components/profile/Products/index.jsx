@@ -141,13 +141,8 @@ const Products = () => {
     //   });
     let xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", progressHandler, false);
-    xhr.addEventListener("abort", abortHandler, false);
-    xhr.open(
-      "POST",
-      BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload),
-      true
-    );
     xhr.addEventListener("error", (event) => {
+      alert('tttt')
       dispatch(setAccountProductLoading({ id, loading: false }));
       dispatch(
         setAccountProductUploadStatus({
@@ -157,14 +152,20 @@ const Products = () => {
       );
     });
     xhr.addEventListener("abort", (event) => {
+      alert('yy')
       dispatch(setAccountProductLoading({ id, loading: false }));
       dispatch(
         setAccountProductUploadStatus({
           id,
           status: { success: false },
         })
+        );
+      });
+      xhr.open(
+        "POST",
+        BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload),
+        true
       );
-    });
     xhr.onreadystatechange = () => {
       // In local files, status is 0 upon success in Mozilla Firefox
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -236,12 +237,6 @@ const Products = () => {
         // ----------------------------------------------------------------
         let xhr = new XMLHttpRequest();
         xhr.upload.addEventListener("progress", progressHandler, false);
-        xhr.addEventListener("abort", abortHandler, false);
-        xhr.open(
-          "POST",
-          BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload),
-          true
-        );
         xhr.addEventListener("error", (event) => {
           dispatch(setAccountProductLoading({ id, loading: false }));
           dispatch(
@@ -258,8 +253,13 @@ const Products = () => {
               id,
               status: { success: false },
             })
+            );
+          });
+          xhr.open(
+            "POST",
+            BASE_API_URL + ApiAddress(ApiEndpoint.product.account.upload),
+            true
           );
-        });
         xhr.onreadystatechange = () => {
           // In local files, status is 0 upon success in Mozilla Firefox
           if (xhr.readyState === XMLHttpRequest.DONE) {

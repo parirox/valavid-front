@@ -19,12 +19,14 @@ const Release = ({ productInfo, handleAddProduct, setActiveStep, loading }) => {
           loading={
             loading && productInfo.publish_type === "free" ? true : false
           }
+          disabled={productInfo.publish_type ? true : false}
           handleSubmit={handleAddProduct}
         />
         <PricingCard
           loading={
             loading && productInfo.publish_type === "nonfree" ? true : false
           }
+          disabled={productInfo.publish_type ? true : false}
           handleSubmit={handleAddProduct}
         />
       </div>
