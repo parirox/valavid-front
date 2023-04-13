@@ -3,10 +3,10 @@ import React from "react";
 const Spinner = ({ border }) => {
   return (
     <>
-      <div class="flex">
-        <div class="relative w-[30px] h-[30px]">
+      <div className="flex">
+        <div className="relative w-[30px] h-[30px]">
           <div
-            class={`w-10 h-10 rounded-full animate-spin absolute
+            className={`w-10 h-10 rounded-full animate-spin absolute
             border-4 border-solid ${
               border ? border : "border-primary"
             } border-t-transparent`}></div>

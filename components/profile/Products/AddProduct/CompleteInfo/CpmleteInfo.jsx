@@ -59,9 +59,6 @@ const CompleteInfo = ({
 
   return (
     <div>
-      {
-        console.log('prooo',productInfo)
-      }
       {productInfo.file && (
         <ProductCard
           product={productInfo.file}

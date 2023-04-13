@@ -1,6 +1,6 @@
 import { useGetProductTagsMutation } from "@/datasources/product/remote/ProductSliceApi";
 import { useOutsideAlerter } from "hooks/ClickOutside";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, forwardRef} from "react";
 import { isEmpty } from "@/utils/general";
 import { IoClose, IoTrash } from "react-icons/io5";
 
@@ -12,7 +12,7 @@ const MultiValueTextInput = ({
   activeInput,
   setActiveInput,
   id,
-}) => {
+},ref) => {
   const [inputValue, setInputValue] = useState("");
   const [offers, setOffers] = useState([]);
 
@@ -29,7 +29,7 @@ const MultiValueTextInput = ({
   };
 
   const wrapperRef = React.useRef(null);
-  useOutsideAlerter(wrapperRef, () => {
+  useOutsideAlerter(ref, () => {
     setActiveInput(null);
   });
 
@@ -86,7 +86,7 @@ const MultiValueTextInput = ({
           />
           {activeInput === id && offers.length > 0 && (
             <div
-              ref={wrapperRef}
+              ref={ref}
               className="scrollbar-thin scrollbar-thumb-primary overflow-y-scroll absolute top-[3.5rem] overflow-auto h-[15rem] bg-white shadow-2xl p-4 z-50 flex flex-wrap p-4 rounded-[20px] items-start w-full"
             >
               {offers &&
@@ -109,4 +109,4 @@ const MultiValueTextInput = ({
   );
 };
 
-export default MultiValueTextInput;
+export default forwardRef(MultiValueTextInput);

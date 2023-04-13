@@ -16,8 +16,9 @@ const ProductCard = ({ product, description }) => {
       {product.fileType === "video" && (
         <video
           loop
+          preload={"metadata"}
           controls
-          controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
+          controlsList="nodownload noremoteplayback noplaybackrate"
           className="rounded-[5px] w-[147px] h-[88px]">
           <source src={product.path} />
         </video>

@@ -17,16 +17,16 @@ const Release = ({ productInfo, handleAddProduct, setActiveStep, loading }) => {
       <div className="flex justify-center flex-col sm:flex-row">
         <FreeReleaseCard
           loading={
-            loading && productInfo.publish_type === "free" ? true : false
+            loading && productInfo.publish_type === "free"
           }
-          disabled={productInfo.publish_type ? true : false}
+          disabled={loading}
           handleSubmit={handleAddProduct}
         />
         <PricingCard
           loading={
-            loading && productInfo.publish_type === "nonfree" ? true : false
+            loading && productInfo.publish_type === "nonfree"
           }
-          disabled={productInfo.publish_type ? true : false}
+          disabled={loading}
           handleSubmit={handleAddProduct}
         />
       </div>

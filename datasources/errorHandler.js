@@ -15,6 +15,7 @@ export const rtkQueryErrorLogger = (api) => (next) => (action) => {
     if (action.payload?.status === 401) {
       if(!!getCookie("valavid_token")){
         removeCookies("valavid_token");
+        Router.push("/auth")
       }
     }
   }

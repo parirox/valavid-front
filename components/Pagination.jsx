@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ReactPaginate from 'react-paginate';
 import Link from "next/link";
 import {useRouter} from "next/router";
 
-function Pagination({totalCount, currentPage = 1, itemsPerPage}) {
+function Pagination({totalCount, currentPage = 1, itemsPerPage, scroll = true}) {
   const router = useRouter()
   const pageCount = Math.ceil(totalCount / itemsPerPage);
   const handlePageClick = async (event) => {
-    await router.push({query: {...router.query, page: event.selected + 1}})
+    await router.push({query: {...router.query, page: event.selected + 1}}, undefined, {scroll:scroll})
   };
 
   return (

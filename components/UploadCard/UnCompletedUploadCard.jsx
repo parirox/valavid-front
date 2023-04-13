@@ -85,9 +85,10 @@ export default function UnCompletedUploadCard({
             <>
               {fileType === "video" && (
                 <video
+                  preload={"metadata"}
                   loop
                   controls
-                  controlsList="nofullscreen nodownload noremoteplayback noplaybackrate"
+                  controlsList="nodownload noremoteplayback noplaybackrate"
                   className="rounded-lg w-[12rem] h-28">
                   <source src={cover} />
                 </video>
@@ -118,7 +119,6 @@ export default function UnCompletedUploadCard({
                   <Button
                     onClick={() => {
                       setProduct("file", file);
-                      console.log(file);
                     }}
                     className={classNames(
                       "btn-primary text-lg px-6 py-3 w-40",

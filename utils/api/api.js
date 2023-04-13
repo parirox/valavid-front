@@ -21,7 +21,7 @@ export const ApiEndpoint = {
     account: {
       add: "/account/products/",
       upload: "/upload-tmp-media/",
-      get: "/account/products/",
+      get: "/account/products/:query",
       delete: "/account/products/:id/",
       productTags: "/tags/",
       edit: "/account/products/:id/",
@@ -123,7 +123,7 @@ export function ApiAddress(address, params = {}) {
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_API_URL,
-  timeout: 10000,
+  timeout: 20000,
   prepareHeaders: (headers, { getState }) => {
     const token = getCookie("valavid_token");
 

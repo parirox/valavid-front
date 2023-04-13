@@ -5,7 +5,7 @@ import {HYDRATE} from "next-redux-wrapper";
 export const productSliceApiTag = "product_api";
 
 const product_api = createApi({
-  extractRehydrationInfo(action, { reducerPath }) {
+  extractRehydrationInfo(action, {reducerPath}) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];
     }
@@ -20,25 +20,25 @@ const product_api = createApi({
         url: ApiAddress(ApiEndpoint.product.get, query),
         method: "GET",
       }),
-      serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        const _queryArgs = { ...queryArgs.query };
+      serializeQueryArgs: ({endpointName, queryArgs}) => {
+        const _queryArgs = {...queryArgs.query};
         delete _queryArgs["page"];
         return (
-          endpointName +
-          ApiAddress(ApiEndpoint.product.get, {
-            query: _queryArgs,
-          })
+        endpointName +
+        ApiAddress(ApiEndpoint.product.get, {
+          query: _queryArgs,
+        })
         );
       },
       // Always merge incoming data to the cache entry
       merge: (currentCache, newItems) => {
         currentCache.results.push(...newItems.results);
       },
-      forceRefetch({ currentArg, previousArg }) {
+      forceRefetch({currentArg, previousArg}) {
         return JSON.stringify(currentArg) !== JSON.stringify(previousArg);
       },
-      providesTags: (result, error, { query }) => [
-        { type: productSliceApiTag, id: "ProductListScroll" },
+      providesTags: (result, error, {query}) => [
+        {type: productSliceApiTag, id: "ProductListScroll"},
       ],
       // invalidatesTags:[{type:productSliceApiTag,id:'ProductListFilter'}]
     }),
@@ -47,7 +47,7 @@ const product_api = createApi({
         url: ApiAddress(ApiEndpoint.product.filter, query),
         method: "GET",
       }),
-      providesTags: (result, error, { query }) => {
+      providesTags: (result, error, {query}) => {
         return [
           {
             type: productSliceApiTag,
@@ -58,14 +58,14 @@ const product_api = createApi({
     }),
     SearchProduct: build.mutation({
       query: (query) => ({
-        url: ApiAddress(ApiEndpoint.product.get, {query:query}),
+        url: ApiAddress(ApiEndpoint.product.get, {query: query}),
         method: "GET",
       }),
-      providesTags: (result, error, { query }) => {
+      providesTags: (result, error, {query}) => {
         return [
           {
             type: productSliceApiTag,
-            id: "ProductSearch-"+query,
+            id: "ProductSearch-" + query,
           },
         ];
       },
@@ -77,7 +77,7 @@ const product_api = createApi({
         method: "GET",
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "CollectionDetails" },
+        {type: productSliceApiTag, id: "CollectionDetails"},
       ],
     }),
     GetDevices: build.query({
@@ -86,7 +86,7 @@ const product_api = createApi({
         method: "GET",
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "devices" },
+        {type: productSliceApiTag, id: "devices"},
       ],
     }),
     Report: build.mutation({
@@ -96,7 +96,7 @@ const product_api = createApi({
         body
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "ProductReport" },
+        {type: productSliceApiTag, id: "ProductReport"},
       ],
     }),
     SearchTags: build.mutation({
@@ -119,7 +119,7 @@ const product_api = createApi({
         method: "GET",
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "ProductDetails" },
+        {type: productSliceApiTag, id: "ProductDetails"},
       ],
     }),
     uploadProduct: build.mutation({
@@ -129,7 +129,7 @@ const product_api = createApi({
         method: "POST",
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "Upload" },
+        {type: productSliceApiTag, id: "Upload"},
       ],
     }),
     addProduct: build.mutation({
@@ -139,18 +139,19 @@ const product_api = createApi({
         method: "POST",
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "Add" },
+        {type: productSliceApiTag, id: "Add"},
       ],
     }),
     getAccountProductList: build.mutation({
       query: (query) => ({
-        url: ApiAddress(ApiEndpoint.product.account.get, query),
+        url: ApiAddress(ApiEndpoint.product.account.get, {query: {ordering: "newest", ...query}}),
         method: "GET",
-        params: query,
       }),
-      providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "getAccountProducts" },
-      ],
+      providesTags: (result, error, {query}) => {
+        return [
+          {type: productSliceApiTag, id: "getAccountProducts"},
+        ]
+      },
     }),
     getProductTags: build.mutation({
       query: (query) => ({
@@ -159,7 +160,7 @@ const product_api = createApi({
         params: query,
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "tags" },
+        {type: productSliceApiTag, id: "tags"},
       ],
     }),
     deleteAccountProduct: build.mutation({
@@ -168,7 +169,7 @@ const product_api = createApi({
         method: "DELETE",
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "Delete" },
+        {type: productSliceApiTag, id: "Delete"},
       ],
     }),
     editAccountProduct: build.mutation({
@@ -178,7 +179,7 @@ const product_api = createApi({
         body: query[1],
       }),
       providesTags: (result, error, id) => [
-        { type: productSliceApiTag, id: "Edit" },
+        {type: productSliceApiTag, id: "Edit"},
       ],
     }),
   }),

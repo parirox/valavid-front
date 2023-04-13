@@ -4,15 +4,19 @@ import UploadCard from "../UploadCard/UploadCard";
 import { useSelector } from "react-redux";
 import UnCompletedUploadCard from "../UploadCard/UnCompletedUploadCard";
 import Pagination from "../Pagination";
+import Divider from "@/components/Divider";
+import {useRouter} from "next/router";
+import Spinner from "@/components/Spinner";
+import classNames from "classnames";
 
 const Uploads = ({
   getAccountProductList,
   products,
+  isLoading,
   setProduct,
-  page,
-  setPage,
   handleReloadFile,
 }) => {
+  const router = useRouter()
   const uncompletedProducts = useSelector(uncompletedProductItems);
 
   return (
@@ -21,10 +25,11 @@ const Uploads = ({
         count={(products && uncompletedProducts) && products.count + uncompletedProducts.length}
         className={"pt-7"}></SortTabs>
       <div className="flex flex-col gap-6 pt-8">
+        {uncompletedProducts.length > 0 && <Divider start="تکمیل نشده" className={"mt-5"}/>}
         {uncompletedProducts &&
           uncompletedProducts.map((upload, index) => (
             <UnCompletedUploadCard
-              key={index}
+              key={upload.id}
               id={upload.id}
               cover={upload.path ? `${upload.path}` : upload.localSrc}
               fileType={upload.fileType || null}
@@ -33,10 +38,12 @@ const Uploads = ({
               setProduct={setProduct}
               handleReloadFile={handleReloadFile}></UnCompletedUploadCard>
           ))}
+        {uncompletedProducts.length > 0 && <Divider start="تایید شده" className={"mt-5"} id={"product-submitted-list"}/>}
         {products &&
           products.results.map((upload, index) => (
             <UploadCard
-              key={index}
+              className={classNames(`animate-in slide-in-from-bottom-1/2`)}
+              key={upload.id}
               id={upload.id}
               cover={upload.media.src}
               status={upload.status}
@@ -49,16 +56,22 @@ const Uploads = ({
               views={upload.view_count}
               getAccountProductList={getAccountProductList}></UploadCard>
           ))}
+        {isLoading && (
+        <div className="py-40 full flex justify-center items-center">
+          <Spinner/>
+        </div>
+        )}
       </div>
-      {/* <div className="mt-8">
+      <div className="flex cursor-pointer justify-center gap-3 py-20 aligns-center">
         {products && (
           <Pagination
             totalCount={products.count}
-            currentPage={page}
-            itemsPerPage={20}
+            currentPage={router?.query?.page ?? 1}
+            itemsPerPage={24}
+            scroll={false}
           />
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

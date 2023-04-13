@@ -10,7 +10,8 @@ const Divider = ({
                      spacing = 0,
                      className,
                      color = 'bg-secondary-100',
-                     dividerLine
+                     dividerLine,
+                    ...props
                  }) => {
     const _dividerLine = dividerLine ??
     <div className={classNames(`flex-auto ${orientation === 'vertical' ? 'w-[1px]' : 'h-[1px]'} ${color}`)}></div>
@@ -20,7 +21,7 @@ const Divider = ({
         'horizontal': `px-${spacing} flex-row`
     }
     return (
-    <div className={classNames(`flex gap-${spacing > 0 ? spacing : 4} items-center justify-between ${styles[orientation]}`,{[className]:className})}>
+    <div {...props} className={classNames(`flex gap-${spacing > 0 ? spacing : 4} items-center justify-between ${styles[orientation]}`,{[className]:className})}>
         {through && _dividerLine}
         {start && <div className="flex-initial">
             {start}
