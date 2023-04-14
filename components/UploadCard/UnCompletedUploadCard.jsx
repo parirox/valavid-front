@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { removeAccountProduct } from "@/datasources/user/local/UserSlice";
 import Spinner from "../Spinner";
 import classNames from "classnames";
+import {isEmpty} from "@/utils/general";
 
 export const actions = [
   {
@@ -130,7 +131,7 @@ export default function UnCompletedUploadCard({
                     disabled={!file.path}>
                     {file.loading ? (
                       <div className="flex justify-around gap-3 items-center">
-                        <span>{file.percent && `%${file.percent}`}</span>
+                        <span>{isEmpty(file.percent) ? "%0" : `%${file.percent}`}</span>
                       </div>
                     ) : (
                       "تکمیل اطلاعات"
