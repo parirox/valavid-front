@@ -69,10 +69,10 @@ function ContactData({defaultValues}) {
                  handleSubmit={handleSubmit(onSubmit)}
                  alertMessage={alertMessage}>
       <RowInput label='ایمیل' required>
-        <Input name='seller.email' control={control} disabled={isFormDisable}/>
+        <Input name='seller.email' control={control} disabled={isFormDisable || !!defaultValues.seller.email}/>
       </RowInput>
       <RowInput label='شماره موبایل' required helperText={'(باید به نام صاحب حساب باشد)'}>
-        <Input name='seller.bank_owner_phone' control={control} disabled={isFormDisable}/>
+        <Input name='seller.bank_owner_phone' control={control} disabled={isFormDisable || !!defaultValues.seller.bank_owner_phone}/>
       </RowInput>
       <RowInput label='شبکه های اجتماعی'>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">

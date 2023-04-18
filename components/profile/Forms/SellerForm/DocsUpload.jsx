@@ -108,7 +108,7 @@ function DocsUpload({ defaultValues }) {
       <RowInput label="تصویر کارت ملی /پاسپورت" required>
         <FileInput
           name="seller.national_card"
-          disabled={isFormDisable}
+          disabled={isFormDisable || !!defaultValues.seller.national_card}
           hookFormControl={control}
           textButton={uploadMedaiLoading ? <Spinner /> : null}
           handleChange={(file) => {
@@ -124,7 +124,7 @@ function DocsUpload({ defaultValues }) {
           name="seller.bank_shaba"
           className={"w-1/3"}
           control={control}
-          disabled={isFormDisable}
+          disabled={isFormDisable || !!defaultValues.seller.bank_shaba}
         />
       </RowInput>
       <RowInput
@@ -135,7 +135,7 @@ function DocsUpload({ defaultValues }) {
           name="seller.bank_account"
           className={"w-1/3"}
           control={control}
-          disabled={isFormDisable}
+          disabled={isFormDisable || !!defaultValues.seller.bank_account}
         />
       </RowInput>
     </FormSection>
