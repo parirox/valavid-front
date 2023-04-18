@@ -82,10 +82,7 @@ export default function UploadCard({
         <FaRegHeart className="text-xl"></FaRegHeart>
         {purchases}
       </div>
-      <div
-      className={"text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl flex-1 sm:flex-none"}
-      link={""}
-      >
+      <div className={"text-lg px-6 py-3 flex items-center gap-4 bg-accent rounded-3xl flex-1 sm:flex-none"}>
         <BiCart className="text-2xl"></BiCart>
         {likes}
       </div>
@@ -185,6 +182,7 @@ export default function UploadCard({
             className={"text-lg px-6 py-3 bg-secondary-600 rounded-xl w-full"}
             >
               منتشر شده
+              {" "}
               {dateFormat(date)}
             </div>
           </div>)}

@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
-import React, {useEffect, useState} from "react";
-import {isEmpty} from "@/utils/general";
+import {IoMdEye, IoMdEyeOff} from "react-icons/io";
+import {MdEdit} from "react-icons/md";
+import React from "react";
 
 const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHandler, total_count, id }) => {
   return (
@@ -47,7 +46,7 @@ const CollectionGalleryCard = ({ items, label, icon, is_published = null, editHa
                   </video>
                   :
                   <Image
-                    src={items[index].src}
+                    src={items[index].src || "/images/treePic404.png"}
                     className="object-cover"
                     fill
                     sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"

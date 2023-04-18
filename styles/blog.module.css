@@ -3,11 +3,13 @@
   padding-bottom: 2rem;
   color: #54626c;
 }
+.blog *{
+  font-family: IRANSans, vazir, sans-serif !important;
+}
 
 .blog img {
-  height: 16rem;
+  object-fit: contain;
   border-radius: 2.75rem;
-  width: 16rem;
 }
 
 .blog strong {

@@ -1,32 +1,31 @@
 import {Listbox, Transition} from "@headlessui/react";
-import {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useCallback, useEffect, useState} from "react";
 import {IoCaretDown, IoCheckmark, IoSearchOutline} from "react-icons/io5";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import {options} from "@/components/Select"
 import Link from "next/link";
 import {isEmpty} from "@/utils/general";
 import toast from "@/utils/notification/toast";
+import TagAutoComplete from "@/components/Form/elements/auto_complete/TagAutoComplete";
 
-export default function SelectSlider({value = ""}) {
+export default function SelectSlider() {
+  const router = useRouter()
   const [searchValue, setSearchValue] = useState("");
   const [selected, setSelected] = useState(options[0]);
 
-  useEffect(() => {
-    setSearchValue(value)
-  }, [value])
-
-  async function searchHandler() {
-    if(isEmpty(searchValue)){
-      toast.info("چند کاراکتری وارد نمایید!")
-      return;
+  const searchHandler = useCallback((value) => {
+    const _searchValue = value ?? searchValue
+    console.log({_searchValue})
+    if (!isEmpty(_searchValue) && router.query?.search !== _searchValue) {
+      setSearchValue(value)
+      router.push(`/products/${selected.route}/?search=${_searchValue}`)
     }
-    await Router.push(`/products/${selected.route}/?search=${searchValue}`)
-  }
+  }, [router, searchValue, selected.route])
 
   return (
     <div className="rounded-full h-full w-full bg-white text-gray-800">
-      <div className="flex flex-row gap-3 h-full items-center">
-        <div className="basis-2/12 py-3 h-full">
+      <div className="flex flex-row gap-3 h-full items-stretch">
+        <div className="basis-2/12 py-3">
           <Listbox value={selected} disabled={options.filter(option=>!option.unavailable).length <= 1} onChange={setSelected}>
             <div className="border-l-[1px] border-[#D6DADC] relative pr-2 pl-4 h-full">
               <Listbox.Button
@@ -85,16 +84,7 @@ export default function SelectSlider({value = ""}) {
           </Listbox>
         </div>
         <div className="basis-9/12">
-          <input
-            className="border-none focus:ring-transparent text-black bg-transparent w-full h-full"
-            placeholder="جستجوی عبارت ..."
-            type="text"
-            name="search"
-            value={searchValue}
-            onKeyDown={e=>e.key==="Enter" ? searchHandler() : ""}
-            onChange={event => setSearchValue(event.target.value)}
-            id="search-header"
-          />
+          <TagAutoComplete className={"input border-none focus:ring-transparent text-black bg-transparent w-full h-full"} optionalSelectable={true} value={searchValue} onChange={setSearchValue} searchHandler={searchHandler}/>
         </div>
         <div className="basis-1/12 px-4 py-3">
           <button className="rounded-3xl btn-primary-gradient" onClick={searchHandler}>
