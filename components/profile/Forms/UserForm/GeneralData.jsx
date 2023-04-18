@@ -34,10 +34,28 @@ function GeneralData({defaultValues}) {
 
     const formSchema = Yup.object().shape({
         info: Yup.object().shape({
-            gender: Yup.string()
-            .required(getFormError({field: 'gender', type: 'choose'})), national_code: Yup.string()
-            .required(getFormError({field: 'national_code', type: 'required'}))
-            .matches(/^(?!(\d)\1{9})\d{10}$/, getFormError({field: 'national_code', type: 'matches'})),
+            gender: Yup.string().typeError('یک گزینه را انتخاب نمایید').required(getFormError({field: 'gender', type: 'choose'})),
+            national_code:  Yup
+                .mixed()
+                .test(
+                    "or-required",
+                    "شماره پاسپورت یا کد ملی را وارد کنید",
+                    (value, context) => {
+                        const fields = context.from[1].value;
+                        return fields.info.passport_number || fields.info.national_code
+                    }
+                )
+                .test('isNationalCode', getFormError({field: 'national_code', type: 'matches'}), value => /^(?!(\d)\1{9})\d{10}$/.test(value)),
+            passport_number: Yup
+                .mixed()
+                .test(
+                    "conditionally-required",
+                    "شماره پاسپورت یا کد ملی را وارد کنید",
+                    (value, context) => {
+                        const fields = context.from[1].value;
+                        return fields.info.passport_number || fields.info.national_code
+                    }
+                ),
         })
     });
 
@@ -95,14 +113,14 @@ function GeneralData({defaultValues}) {
             defaultValue="male"
             />
         </RowInput>
-        <RowInput label="کد ملی" required>
+        <RowInput label="کد ملی">
             <Input
             name="info.national_code"
             control={control}
             disabled={isFormDisable}
             />
         </RowInput>
-        <RowInput label="شماره پاسپورت" required>
+        <RowInput label="شماره پاسپورت">
             <Input
             name="info.passport_number"
             control={control}
