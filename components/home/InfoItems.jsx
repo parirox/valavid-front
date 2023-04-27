@@ -24,26 +24,6 @@ const InfoItems = ({ stats }) => {
         disable={!stats.videos}
         className="basis-5/12 sm:basis-1/4"
       ></ReverseEffectInfoItem>
-      <div className="hidden sm:block">
-        <OctagonalDivider></OctagonalDivider>
-      </div>
-      <ReverseEffectInfoItem
-        title="صوت"
-        value={stats.audios}
-        icon={<IoMusicalNote className="text-xl lg:text-3xl" />}
-        disable={!stats.audios}
-        className="basis-5/12 sm:basis-1/4"
-      ></ReverseEffectInfoItem>
-      <div>
-      <OctagonalDivider></OctagonalDivider>
-      </div>
-      <ReverseEffectInfoItem
-        title="تمپلیت"
-        value={stats.templates}
-        icon={<FaPalette className="text-xl lg:text-3xl" />}
-        disable={!stats.templates}
-        className="basis-5/12 sm:basis-1/4"
-      ></ReverseEffectInfoItem>
     </div>
   );
 };
