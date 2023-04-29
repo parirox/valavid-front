@@ -20,7 +20,7 @@ export default function BlogCard({className, data}) {
           </div>
         </div>
         <Image fill sizes="50vw" src={data.media.src} alt={data.media.alt}
-               className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem]"/>
+               className="z-[-1] group-hover:scale-[1.2] transition-all ease-out duration-700 rounded-[3.875rem] object-cover"/>
       </div>
   )
 }

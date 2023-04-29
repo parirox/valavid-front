@@ -15,6 +15,10 @@ const links = [
         href: "/products/video",
     },
     {
+        title: "تولید کنندگان",
+        href: "/publishers",
+    },
+    {
         title: "وبلاگ",
         href: "/blogs",
     },

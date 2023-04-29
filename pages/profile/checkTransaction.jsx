@@ -10,6 +10,7 @@ import SuccessErrorLoading from "@/components/SuccessErrorLoading";
 import classNames from "classnames";
 import {useDispatch} from "react-redux";
 import {makeTitleWith} from "@/utils/seo/meta";
+import {form_fields} from "@/utils/form/messages";
 
 function CheckTransactionPage({query}) {
   const router = useRouter();
@@ -20,7 +21,7 @@ function CheckTransactionPage({query}) {
     text: "",
   });
   const {data, isSuccess, isError, error, isFetching, isLoading} =
-    useCheckTransactionQuery(query.tc, {skip: (query?.free ?? true)});
+    useCheckTransactionQuery(query.tc, {skip: !!query?.free});
 
   const [loadingState, setLoadingState] = useState({
     isSuccess, isError, isLoading
@@ -35,7 +36,7 @@ function CheckTransactionPage({query}) {
         console.log(query, data, error);
       }
     }
-  }, [router, isFetching]);
+  }, [router, isFetching,isLoading,isSuccess]);
 
   const subscriptionHandler = () => {
     if (isSuccess) {
@@ -71,7 +72,6 @@ function CheckTransactionPage({query}) {
             <h3
               className={classNames("md:h-10 mb-10 text-center", {"animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black": isLoading})}>
               {isLoading && (query?.free ? "بررسی اطلاعات" : "بررسی پرداخت")}
-              {!isLoading && "خرید شما با موفقیت انجام شد."}
             </h3>
             <SuccessErrorLoading {...loadingState}/>
             <div className="full flex flex-col gap-5 justify-center items-center mt-4">
