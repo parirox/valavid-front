@@ -211,11 +211,13 @@ export default function UploadCard({
               نام محصول مناسب نیست-کیفیت نامناسب
             </p>
           </div>)}
-          {status === "approved" ? (<dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
-            <Link download={true} href={downloadUrl}>
-              <FiDownload className="text-3xl absolute m-auto top-0 bottom-0 left-0 right-0"></FiDownload>
-            </Link>
-          </dir>) : ("")}
+          {status === "approved" ? (
+              <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
+                <Link download={true} href={downloadUrl ?? "#"}>
+                  <FiDownload className="text-3xl absolute m-auto top-0 bottom-0 left-0 right-0"></FiDownload>
+                </Link>
+              </dir>
+          ) : ("")}
 
           {status === "approved" ? (<Listbox
           value={selected}
