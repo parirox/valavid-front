@@ -14,6 +14,7 @@ import RangeInput from "@/components/Form/elements/RangeSlider";
 import CitySelect from "./CitySelect";
 
 const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
+
     return (<>
         <CollapseElement
         headTitle="قیمت"
@@ -97,6 +98,7 @@ const VideoFilter = ({filterOptions, formData, setFormDataHandler}) => {
         >
             <CheckBoxColorButton
             removeButton={true}
+            multiple
             data={filterOptions.colors}
             options={formData.colors}
             setOptions={setFormDataHandler("colors")}

@@ -39,13 +39,13 @@ const MainProductCard = ({data, small, className, link = '#'}) => {
   }, [favoritesData])
 
   function onMouseEnterHandler() {
-    if (data.type === 'video' && ref.current.readyState >= 3) {
+    if (data.type === 'video') {
         ref.current.play()
     }
   }
 
   function onMouseLeaveHandler() {
-    if (data.type === 'video' && ref.current.readyState >= 3) {
+    if (data.type === 'video') {
       ref.current.currentTime = 0
       ref.current.load()
     }

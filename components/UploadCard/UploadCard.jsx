@@ -201,22 +201,22 @@ export default function UploadCard({
               </p>
             </div>
 
-            <dir
+            <div
             onClick={() => setDeleteModal(id)}
             className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer m-0"
             >
               <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
-            </dir>
+            </div>
             <p className="text-md text-error opacity-60 pt-2 mr-auto hidden sm:block  lg:hidden">
               نام محصول مناسب نیست-کیفیت نامناسب
             </p>
           </div>)}
           {status === "approved" ? (
-              <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
+              <div className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
                 <Link download={true} href={downloadUrl ?? "#"}>
                   <FiDownload className="text-3xl absolute m-auto top-0 bottom-0 left-0 right-0"></FiDownload>
                 </Link>
-              </dir>
+              </div>
           ) : ("")}
 
           {status === "approved" ? (<Listbox
@@ -237,9 +237,9 @@ export default function UploadCard({
             <div className="relative px-2 h-full">
               <Listbox.Button
               className="flex gap-3 items-center content-between h-full relative w-full cursor-pointer rounded-lg py-2 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                <dir className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
+                <div className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] m-0">
                   <IoMdMore className="text-4xl absolute m-auto top-0 bottom-0  left-0 right-0"></IoMdMore>
-                </dir>
+                </div>
               </Listbox.Button>
               <Transition
               as={Fragment}
@@ -272,12 +272,12 @@ export default function UploadCard({
                 </Listbox.Options>
               </Transition>
             </div>
-          </Listbox>) : status !== "rejected" ? (<dir
+          </Listbox>) : status !== "rejected" ? (<div
           onClick={() => setDeleteModal(id)}
           className="bg-secondary-600 w-12 h-12 relative rounded-[1.1rem] cursor-pointer m-0"
           >
             <RiDeleteBin5Line className="text-2xl absolute m-auto top-0 bottom-0  left-0 right-0"></RiDeleteBin5Line>
-          </dir>) : ("")}
+          </div>) : ("")}
           {status === "approved" && (
           <div className="text-2xl hidden sm:flex lg:hidden items-center mr-auto whitespace-nowrap">
             قیمت <span>(تومان) :</span>
