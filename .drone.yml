@@ -27,7 +27,7 @@ steps:
           echo "Nginx configuration is OK."
         else
           echo "Nginx configuration test failed. Stopping pipeline."
-          rm /docker/nginx/data/conf.d/romanexplore_app.conf
+          rm /docker/nginx/data/conf.d/valavid-app.conf
           exit 1  # Exit if the configuration check fails
         fi
 
