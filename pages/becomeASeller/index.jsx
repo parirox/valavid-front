@@ -12,7 +12,7 @@ export default function index() {
           <title>{makeTitleWith(" فروشنده شوید")}</title>
       </Head>
       <div className="relative min-h-[100vh] pt-24 bg-gradient-to-b from-[#08182355] to-transparent">
-        <Image src={"/images/becomeASellerBackground.png"} className="z-[-2]" fill sizes="" alt="background"></Image>
+        <Image src={"/images/becomeASellerBackground.jpg"} className="z-[-2]" fill sizes="" alt="background"></Image>
         <div className="container justify-center">
           <div className="text-4xl text-center drop-shadow-xl">
             به فروشندگان والاوید بپیوندید
