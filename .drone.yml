@@ -1,0 +1,89 @@
+kind: pipeline
+type: exec
+name: dockercompose
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  branch:
+    - deploy
+
+steps:
+  - name: "run docker compose"
+    commands:
+      - DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose up -d --build
+
+  - name: "copy nginx conf"
+    commands:
+      - cp -r nginx/* /docker/nginx/data/conf.d/
+
+  - name: "check nginx server config"
+    commands:
+      # Check the Nginx configuration inside the container
+      - |
+        if docker exec nginx nginx -t; then
+          echo "Nginx configuration is OK."
+        else
+          echo "Nginx configuration test failed. Stopping pipeline."
+          rm /docker/nginx/data/conf.d/romanexplore_app.conf
+          exit 1  # Exit if the configuration check fails
+        fi
+
+  - name: "reload nginx config"
+    commands:
+      - docker exec nginx nginx -s reload
+
+---
+
+kind: pipeline
+name: notify
+type: docker
+
+depends_on:
+  # Must run after the first pipeline
+  - dockercompose
+
+trigger:
+  branch:
+    - deploy
+  status:
+    # Only runs if the first pipeline was fully successful
+    - success
+    - failure
+
+clone:
+  disable: true
+
+steps:
+  # Notify Telegram that tests are passed
+  - name: telgram_notify
+    image: appleboy/drone-telegram
+    when:
+      status:
+        - success
+        - failure
+    settings:
+      # The secrets below can be entered from the Drone UI for this repo
+      token:
+        from_secret: telegram_token
+      to:
+        from_secret: telegram_chat_id
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        {{else}}
+        ❌ Build #{{build.number}} of `{{repo.name}}` failed.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 `{{ build.link }}`
+        ⌛ duration: `{{duration build.started build.finished}}`
+        {{/success}}

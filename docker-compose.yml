@@ -1,11 +1,14 @@
-version: "3.7"
+version: '3.8'
 services:
-  web:
-    container_name: valavid_front
-    ports:
-      - 9011:3000
-#      - 9012:9012
+  valavid_webapp:
+    container_name: valavid_webapp
+    env_file:
+      - .env.production
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
+    ports:
+      - '4769:3000'
+    volumes:
+      - /docker/projects/valavid/app/storage:/app/public/storage/
