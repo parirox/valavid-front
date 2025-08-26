@@ -3,7 +3,7 @@ services:
   valavid_webapp:
     container_name: valavid_webapp
     env_file:
-      - .env.production
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
