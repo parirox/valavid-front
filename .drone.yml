@@ -6,10 +6,6 @@ platform:
   os: linux
   arch: amd64
 
-trigger:
-  branch:
-    - deploy
-
 steps:
   - name: "run docker compose"
     commands:
@@ -46,8 +42,6 @@ depends_on:
   - dockercompose
 
 trigger:
-  branch:
-    - deploy
   status:
     # Only runs if the first pipeline was fully successful
     - success
