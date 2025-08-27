@@ -1,18 +1,19 @@
-import {isEmpty} from "@/utils/general";
+import { isEmpty } from "@/utils/general";
 import Head from "next/head";
-import {useRouter} from "next/router";
-import React, {useEffect, useState} from "react";
-import {wrapper} from "@/datasources/store";
-import {useCheckTransactionQuery,} from "@/datasources/payment/remote/PaymentSliceApi";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { wrapper } from "@/datasources/store";
+import { useCheckTransactionQuery, } from "@/datasources/payment/remote/PaymentSliceApi";
 import Button from "@/components/Button";
-import {emptyCart} from "@/datasources/checkout/local/CheckoutSlice";
-import SuccessErrorLoading from "@/components/SuccessErrorLoading";
+import { emptyCart } from "@/datasources/checkout/local/CheckoutSlice";
+import dynamic from "next/dynamic";
+const SuccessErrorLoading = dynamic(() => import("@/components/SuccessErrorLoading"), { ssr: false });
 import classNames from "classnames";
-import {useDispatch} from "react-redux";
-import {makeTitleWith} from "@/utils/seo/meta";
-import {form_fields} from "@/utils/form/messages";
+import { useDispatch } from "react-redux";
+import { makeTitleWith } from "@/utils/seo/meta";
+import { form_fields } from "@/utils/form/messages";
 
-function CheckTransactionPage({query}) {
+function CheckTransactionPage({ query }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -20,8 +21,8 @@ function CheckTransactionPage({query}) {
     link: "",
     text: "",
   });
-  const {data, isSuccess, isError, error, isFetching, isLoading} =
-    useCheckTransactionQuery(query.tc, {skip: !!query?.free});
+  const { data, isSuccess, isError, error, isFetching, isLoading } =
+    useCheckTransactionQuery(query.tc, { skip: !!query?.free });
 
   const [loadingState, setLoadingState] = useState({
     isSuccess, isError, isLoading
@@ -40,29 +41,29 @@ function CheckTransactionPage({query}) {
 
   const subscriptionHandler = () => {
     if (isSuccess) {
-      setCallToAction({link: "/profile/me", text: "پروفایل من"});
+      setCallToAction({ link: "/profile/me", text: "پروفایل من" });
     } else if (isError) {
-      setCallToAction({link: "/plans", text: "خرید مجدد اشتراک"});
+      setCallToAction({ link: "/plans", text: "خرید مجدد اشتراک" });
     }
   };
 
   const productHandler = () => {
     if (isSuccess || query?.free) {
       if (query?.free) {
-        setLoadingState(prevState => ({...prevState, isSuccess: true, isLoading: false}));
+        setLoadingState(prevState => ({ ...prevState, isSuccess: true, isLoading: false }));
       }
-      setCallToAction({link: "/profile/me/Downloads", text: "دانلود های من"});
+      setCallToAction({ link: "/profile/me/Downloads", text: "دانلود های من" });
       dispatch(emptyCart());
     } else if (isError) {
-      setCallToAction({link: "/checkout", text: "برو به سبد خرید"});
+      setCallToAction({ link: "/checkout", text: "برو به سبد خرید" });
     }
   };
 
   const walletHandler = () => {
     if (isSuccess) {
-      setCallToAction({link: "/profile/me/Accounting", text: "حساب من"});
+      setCallToAction({ link: "/profile/me/Accounting", text: "حساب من" });
     } else if (isError) {
-      setCallToAction({link: "/profile/me/Accounting", text: "حساب من"});
+      setCallToAction({ link: "/profile/me/Accounting", text: "حساب من" });
     }
   };
 
@@ -76,10 +77,10 @@ function CheckTransactionPage({query}) {
         <div className="container relative h-1/2 overflow-hidden">
           <div className="flex justify-center items-center flex-col full p-10 bg-secondary rounded-3xl">
             <h3
-              className={classNames("md:h-10 mb-10 text-center", {"animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black": isLoading})}>
+              className={classNames("md:h-10 mb-10 text-center", { "animate-text mx-5 bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent font-black": isLoading })}>
               {isLoading && (query?.free ? "بررسی اطلاعات" : "بررسی پرداخت")}
             </h3>
-            <SuccessErrorLoading {...loadingState}/>
+            <SuccessErrorLoading {...loadingState} />
             <div className="full flex flex-col gap-5 justify-center items-center mt-4">
               {(isSuccess) && (
                 <>
