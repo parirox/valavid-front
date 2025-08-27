@@ -10,7 +10,6 @@ export default function SuccessErrorLoading({isSuccess, isLoading, isError}) {
   const element = useRef(null)
   const lottieInstance = useRef()
 
-  console.log({isSuccess, isLoading, isError})
   useEffect(() => {
     if (element.current) {
       lottieInstance.current?.destroy()

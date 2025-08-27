@@ -29,33 +29,39 @@ function CheckTransactionPage({query}) {
 
   useEffect(() => {
     if (!isFetching) {
-      if (query.type === "subscription") subscriptionHandler();
-      else if (query.type === "purchase") productHandler();
-      else if (query.type === "wallet") walletHandler();
+      if (query?.type === "subscription") subscriptionHandler();
+      else if (query?.type === "purchase") productHandler();
+      else if (query?.type === "wallet") walletHandler();
       else {
         console.log(query, data, error);
       }
     }
-  }, [router, isFetching,isLoading,isSuccess]);
+  }, [query, data, error, isFetching, isSuccess]); // Added missing dependencies
 
   const subscriptionHandler = () => {
     if (isSuccess) {
       setCallToAction({link: "/profile/me", text: "پروفایل من"});
-    } else {
+    } else if (isError) {
       setCallToAction({link: "/plans", text: "خرید مجدد اشتراک"});
     }
   };
+
   const productHandler = () => {
-    if (isSuccess || !!query?.free) {
-      if (!!query?.free) setLoadingState((prevState) => ({...prevState, isSuccess: true, isLoading: false}))
+    if (isSuccess || query?.free) {
+      if (query?.free) {
+        setLoadingState(prevState => ({...prevState, isSuccess: true, isLoading: false}));
+      }
       setCallToAction({link: "/profile/me/Downloads", text: "دانلود های من"});
       dispatch(emptyCart());
-    } else {
+    } else if (isError) {
       setCallToAction({link: "/checkout", text: "برو به سبد خرید"});
     }
   };
+
   const walletHandler = () => {
     if (isSuccess) {
+      setCallToAction({link: "/profile/me/Accounting", text: "حساب من"});
+    } else if (isError) {
       setCallToAction({link: "/profile/me/Accounting", text: "حساب من"});
     }
   };
