@@ -11,6 +11,7 @@ const nextConfig = {
       //->> for develop
       "placeimg.com",
       //->> main host domains
+      "api-valavid.itima.ir",
       "valavid.itima.ir",
       "valavid-files.itima.ir",
       "s3.ir-thr-at1.arvanstorage.com",
