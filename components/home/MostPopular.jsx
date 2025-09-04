@@ -7,46 +7,13 @@ const MostPopular = ({ data }) => {
     <div className="my-40">
       <SectionTitleDivider title="محبوب ها‍"></SectionTitleDivider>
       <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {/* {data.map((item, key) => ( */}
-        <MainProductCard
-          data={data[0]}
-          link={`/products/${data[0].type}/${data[0].id}`}
-        />
-        <MainProductCard
-          className="sm:row-span-2 lg:row-span-1"
-          data={data[1]}
-          link={`/products/${data[1].type}/${data[1].id}`}
-        />
-        <MainProductCard
-          data={data[2]}
-          link={`/products/${data[2].type}/${data[2].id}`}
-        />
-        <MainProductCard
-          data={data[3]}
-          link={`/products/${data[3].type}/${data[3].id}`}
-        />
-        <MainProductCard
-          className="sm:row-span-2 lg:row-span-1"
-          data={data[4]}
-          link={`/products/${data[4].type}/${data[4].id}`}
-        />
-        <MainProductCard
-          data={data[5]}
-          link={`/products/${data[5].type}/${data[5].id}`}
-        />
-        <MainProductCard
-          data={data[6]}
-          link={`/products/${data[6].type}/${data[6].id}`}
-        />
-        <MainProductCard
-          data={data[7]}
-          link={`/products/${data[7].type}/${data[7].id}`}
-        />
-        <MainProductCard
-          data={data[8]}
-          link={`/products/${data[8].type}/${data[8].id}`}
-        />
-        {/* ))} */}
+        {data.slice(0, 9).map((item, key) => (
+          <MainProductCard
+            key={key}
+            data={item}
+            link={`/products/${item.type}/${item.id}`}
+          />
+        ))}
       </div>
       <Button
         className={
